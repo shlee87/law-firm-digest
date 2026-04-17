@@ -918,31 +918,36 @@ function normalizeDateString(raw: string): string | null {
 
 Claims tagged `[ASSUMED]` that materially affect execution: A1 (backup firm choice), A5 (iconv-lite security), A7 (selector freshness at plan-execution time), A9 (onclick pattern stability). The planner should bake verification steps for A1 + A7 + A9 into the plans (small live-fetch smoke tests in Wave 0 / per-firm plan).
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Approve Option A+B (9 live firms, 3 disabled placeholders) as the final list for `config/firms.yaml`?**
    - What we know: 9 firms are fully audited and HTML/RSS-scrapable today.
    - What's unclear: Whether user considers the 9-firm delivery acceptable for Phase 2's 12-firm goal, or wants the backup pool expanded further.
    - Recommendation: Accept Option A+B. Revisit Phase 4 entry gate in ~1 month when real cron-run data shows which of the 9 live firms actually produce items consistently. JS-render-only firms can come in Phase 4 or further backup-pool substitution.
+   - **RESOLVED: D-P2-14 — 9 live + 3 disabled firms (Option A+B audit accepted).** See `02-CONTEXT.md` § Post-Research Decisions.
 
 2. **Approve the zod schema extension for `link_onclick_regex` + `link_template`?**
    - What we know: Cost = ~10 lines zod + ~15 lines scrapeHtml + ~20 lines test.
    - What's unclear: Whether user wants additional complexity vs dropping 김앤장/BKL.
    - Recommendation: Accept. Both firms are Top-5 KR market; alternatives (further backup expansion) are more expensive than this extension. The `link_template` validation guard (Pitfall 5) mitigates misuse.
+   - **RESOLVED: D-P2-15 — `link_onclick_regex` + `link_template` schema fields added.** See `02-CONTEXT.md` § Post-Research Decisions.
 
 3. **Extend `TRACKING_PARAMS` to include `page`, `s_type`, `s_keyword` for 로고스 URL canonicalization?**
    - What we know: These are ambient ASP query params, not item identity (Pitfall 2).
    - What's unclear: Risk of false merges for firms that might use `page=` to identify different items (no audited firm does today).
    - Recommendation: Accept the extension. All 13 audited firms treat `page` as pagination. If a future firm uses it as identity, that firm's plan handles it explicitly.
+   - **RESOLVED: D-P2-16 — `TRACKING_PARAMS` extended with `stat_type`, `reqCode`, `u` (and ambient pagination keys).** See `02-CONTEXT.md` § Post-Research Decisions.
 
 4. **Should Phase 2 ship any `include_keywords` defaults, or start with no filters across all firms?**
    - What we know: D-P2-07 allows per-firm filters; Freshfields mixes press releases + news (where filters would help) but Shin & Kim / Yulchon / etc. publish only legal newsletters (no filter needed).
    - What's unclear: User's quota sensitivity — with 9 firms × ~2 items/day = ~18 items/day, Gemini Flash's 250 RPD has ~12x headroom. Filters are optional.
    - Recommendation: Start with no filters (empty arrays). If Freshfields or another firm pollutes the digest with irrelevant press releases, add them per-firm later.
+   - **RESOLVED: D-P2-17 — empty keyword defaults in YAML (start with no filters).** See `02-CONTEXT.md` § Post-Research Decisions.
 
 5. **Should Phase 2 or Phase 4 handle the `robots-parser` swap?**
    - What we know: All audited firms use simple robots.txt; hand-rolled Phase 1 parser covers them.
    - Recommendation: Defer to Phase 4 or v1.x. No current value added.
+   - **DEFERRED: `robots-parser` swap deferred to Phase 4 / v1.x.** No Phase 2 implementation.
 
 ## Environment Availability
 
