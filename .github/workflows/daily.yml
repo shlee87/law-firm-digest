@@ -36,6 +36,7 @@ concurrency: # OPS-02 — serialize overlapping runs (Pitfall #5)
 
 permissions:
   contents: write # required by stefanzweifel/git-auto-commit-action
+  issues: write # required for failure-notification step (gh issue create)
 
 jobs:
   digest:
@@ -50,13 +51,50 @@ jobs:
           node-version: lts/*
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
-      - run: pnpm tsx src/main.ts
+      - name: Run daily digest pipeline
+        id: run_pipeline
+        run: pnpm tsx src/main.ts
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          # RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}          # optional override (D-05)
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }} # optional override (D-05)
           # GMAIL_FROM_ADDRESS: ${{ secrets.GMAIL_FROM_ADDRESS }}    # optional
       - uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: 'chore(state): update seen items [skip ci]'
           file_pattern: 'state/seen.json'
+      - name: Open issue on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "Daily digest failed — run ${{ github.run_id }}" \
+            --body "$(cat <<'EOF'
+          **Workflow run:** https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          **Commit:** ${{ github.sha }}
+          **Triggered by:** ${{ github.event_name }}
+          **Started:** ${{ github.event.repository.updated_at }}
+
+          ## Likely causes (check in order)
+
+          | Symptom in logs | Fix |
+          |-----------------|-----|
+          | `ZodError ... recipient` | \`RECIPIENT_EMAIL\` 형식 오류 — Settings → Secrets 에서 수정 |
+          | \`535 5.7.8\` or \`GMAIL_AUTH_FAILURE\` | App Password 만료/폐기 — https://myaccount.google.com/apppasswords 에서 재발급 후 \`GMAIL_APP_PASSWORD\` secret 업데이트 |
+          | \`401\` or \`API_KEY_INVALID\` from Gemini | \`GEMINI_API_KEY\` 만료 — https://aistudio.google.com/app/apikey 에서 재발급 |
+          | \`429\` flood from Gemini | free-tier quota 소진, 내일 다시 시도 (p-retry 가 이미 flash-lite 로 fallback 시도함) |
+          | \`ZodError ... firms\` | \`config/firms.yaml\` 형식 오류 |
+          | \`ENOTFOUND\` or \`getaddrinfo\` | 해당 로펌 사이트 DNS 실패 — 일시적 네트워크 문제일 가능성 |
+
+          ## Next steps
+
+          1. 위 run 링크에서 전체 로그 확인
+          2. 원인 파악 후 수정
+          3. Actions 탭 → "Daily Digest" → **Run workflow** 로 수동 재실행
+          4. 재실행 성공 확인 후 이 issue close
+
+          ---
+          _Auto-created by .github/workflows/daily.yml failure step._
+          EOF
+          )"
