@@ -26,12 +26,12 @@ Derived from `.planning/research/FEATURES.md` categorization (T1–T17 table sta
 
 ### Summarization (SUMM)
 
-- [ ] **SUMM-01**: 각 신규 항목에 대해 Gemini API로 한국어 요약(3~5줄)을 생성한다
-- [ ] **SUMM-02**: 기본 모델은 `gemini-2.5-flash`, 429 쿼터 초과 시 `gemini-2.5-flash-lite`로 자동 폴백한다
-- [ ] **SUMM-03**: Gemini 호출은 `responseMimeType: 'application/json'` + `responseSchema`로 구조화된 응답을 강제한다 (`{summary_ko, confidence}`)
-- [ ] **SUMM-04**: 요약 정보가 부족하거나 본문을 못 읽으면 `confidence: 'low'` + `summary_ko: null`로 분기한다 (환각 방지)
-- [ ] **SUMM-05**: 요약 생성 시 `temperature: 0.2`로 결정성을 높인다 (재시도 시 아카이브와 발송본 불일치 방지)
-- [ ] **SUMM-06**: 원어 제목은 Gemini에 들어가지 않고 원문 그대로 보존된다 (번역 왜곡 방지)
+- [x] **SUMM-01**: 각 신규 항목에 대해 Gemini API로 한국어 요약(3~5줄)을 생성한다
+- [x] **SUMM-02**: 기본 모델은 `gemini-2.5-flash`, 429 쿼터 초과 시 `gemini-2.5-flash-lite`로 자동 폴백한다
+- [x] **SUMM-03**: Gemini 호출은 `responseMimeType: 'application/json'` + `responseSchema`로 구조화된 응답을 강제한다 (`{summary_ko, confidence}`)
+- [x] **SUMM-04**: 요약 정보가 부족하거나 본문을 못 읽으면 `confidence: 'low'` + `summary_ko: null`로 분기한다 (환각 방지)
+- [x] **SUMM-05**: 요약 생성 시 `temperature: 0.2`로 결정성을 높인다 (재시도 시 아카이브와 발송본 불일치 방지)
+- [x] **SUMM-06**: 원어 제목은 Gemini에 들어가지 않고 원문 그대로 보존된다 (번역 왜곡 방지)
 
 ### Email Composition & Delivery (EMAIL)
 
@@ -123,12 +123,12 @@ Every v1 requirement maps to exactly one phase. Phase 4 (JS-rendered tier) is co
 | DEDUP-05 | Phase 2 | Pending |
 | DEDUP-06 | Phase 1 | Pending |
 | DEDUP-07 | Phase 1 | Complete |
-| SUMM-01 | Phase 1 | Pending |
-| SUMM-02 | Phase 1 | Pending |
-| SUMM-03 | Phase 1 | Pending |
-| SUMM-04 | Phase 1 | Pending |
-| SUMM-05 | Phase 1 | Pending |
-| SUMM-06 | Phase 1 | Pending |
+| SUMM-01 | Phase 1 | Complete |
+| SUMM-02 | Phase 1 | Complete |
+| SUMM-03 | Phase 1 | Complete |
+| SUMM-04 | Phase 1 | Complete |
+| SUMM-05 | Phase 1 | Complete |
+| SUMM-06 | Phase 1 | Complete |
 | EMAIL-01 | Phase 1 | Pending |
 | EMAIL-02 | Phase 1 | Pending |
 | EMAIL-03 | Phase 1 | Pending |

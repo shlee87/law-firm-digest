@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-04 canonicalizeUrl + parseDate (18 tests, 2 files)
-last_updated: "2026-04-17T14:22:16.215Z"
+stopped_at: Completed 01-06 Gemini summarization module (prompt.ts + gemini.ts, 157 LoC, 6 SUMM requirements)
+last_updated: "2026-04-17T14:30:09.690Z"
 last_activity: 2026-04-17
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 12
-  completed_plans: 4
-  percent: 33
+  completed_plans: 5
+  percent: 42
 ---
 
 # Project State
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-16)
 ## Current Position
 
 Phase: 01 (foundation-vertical-slice) — EXECUTING
-Plan: 5 of 12
+Plan: 6 of 12
 Status: Ready to execute
 Last activity: 2026-04-17
 
@@ -56,6 +56,7 @@ Progress: [██░░░░░░░░] 17%
 | Phase 01-foundation-vertical-slice P02 | 10 min | 3 tasks | 2 files |
 | Phase 01-foundation-vertical-slice P03 | 2 min | 3 tasks tasks | 5 files files |
 | Phase 01-foundation-vertical-slice P04 | 3 min | 2 tasks tasks | 2 files files |
+| Phase 01-foundation-vertical-slice P06 | ~4 min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -77,6 +78,9 @@ Recent decisions affecting current work:
 - [Phase 01-foundation-vertical-slice]: 01-03: scrubSecrets uses split+join (not regex.replace) with length gate val.length>8 — avoids regex-metachar escape bugs AND prevents false-positive replacement when env var is empty or a short test placeholder
 - [Phase 01-foundation-vertical-slice]: 01-04: canonicalizeUrl preserves scheme (lowercases only) — RESEARCH.md L547-552 vector 3 (http input, https expected) treated as documented divergence; http/https stay distinct post-canonicalization. Any future collapse requires v1.x schema change + retro-canonicalize pass over SeenState.
 - [Phase 01-foundation-vertical-slice]: 01-04: TRACKING_PARAMS (15 entries: 12 marketing + 3 session) exported as readonly const from src/scrapers/util.ts so plan 05 rss.ts and any future documentation import the authoritative list rather than redeclaring.
+- [Phase 01-foundation-vertical-slice]: 01-06: p-retry v8 onFailedAttempt callback receives RetryContext { error, attemptNumber, ... } — destructured { error } in gemini.ts; drifts from v6 pattern in PATTERNS.md L602 (err: any). Without this fix, SUMM-02 429 fallback + ZodError AbortError escalation would silently fail at runtime.
+- [Phase 01-foundation-vertical-slice]: 01-06: Context7 confirmed @google/genai 1.50.1 API shape unchanged from PATTERNS.md expectations — constructor new GoogleGenAI({ apiKey }), ai.models.generateContent({ model, contents, config }), config.responseMimeType/responseSchema/temperature at top level (not generationConfig.*), response.text as getter. Zero SDK drift.
+- [Phase 01-foundation-vertical-slice]: 01-06: SUMM-06 enforced as two-layer defense — prompt.ts grep gate (machine-verifiable: no 'item.title' substring anywhere in file) + gemini.ts JSDoc caller contract (four marker strings: 'SUMM-06 caller contract', 'body MUST be a real article body', 'Do NOT substitute', 'summaryModel: skipped'). Plan 11 main.ts owns the runtime bypass branch (!item.description → skip summarize() entirely).
 
 ### Pending Todos
 
@@ -98,6 +102,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-17T14:22:16.212Z
-Stopped at: Completed 01-04 canonicalizeUrl + parseDate (18 tests, 2 files)
+Last session: 2026-04-17T14:30:09.687Z
+Stopped at: Completed 01-06 Gemini summarization module (prompt.ts + gemini.ts, 157 LoC, 6 SUMM requirements)
 Resume file: None

@@ -39,7 +39,7 @@ Plans:
 - [x] 01-03-PLAN.md — Types + zod schemas + YAML loader + DRY_RUN helper + scrubSecrets (CONF-02/03, DEDUP-07, COMP-01/05, OPS-10)
 - [x] 01-04-PLAN.md — canonicalizeUrl + parseDate pure functions + TDD tests (DEDUP-02)
 - [ ] 01-05-PLAN.md — robots.txt + RSS scraper + fetch orchestrator (FETCH-03/04, COMP-03)
-- [ ] 01-06-PLAN.md — Gemini summarizer + prompt/schema with model fallback (SUMM-01..06)
+- [x] 01-06-PLAN.md — Gemini summarizer + prompt/schema with model fallback (SUMM-01..06)
 - [ ] 01-07-PLAN.md — dedup pure function + D-09 bootstrap + TDD tests (DEDUP-01/03)
 - [ ] 01-08-PLAN.md — digest composer + minimal HTML template + XSS escape + snapshot test (EMAIL-01/02/04)
 - [ ] 01-09-PLAN.md — Gmail SMTP mailer with DRY_RUN gate + fail-loud + 535 detection (EMAIL-03/06, OPS-06)
