@@ -17,7 +17,7 @@ Derived from `.planning/research/FEATURES.md` categorization (T1–T17 table sta
 ### Dedup & State (DEDUP)
 
 - [ ] **DEDUP-01**: 이전 실행에서 본 URL은 다시 발송하지 않는다 (cross-run dedup)
-- [ ] **DEDUP-02**: URL 비교 전에 canonicalize 한다 (scheme/host 소문자, `www.` 제거, fragment·tracking params 제거, trailing slash 정규화, query param 정렬)
+- [x] **DEDUP-02**: URL 비교 전에 canonicalize 한다 (scheme/host 소문자, `www.` 제거, fragment·tracking params 제거, trailing slash 정규화, query param 정렬)
 - [ ] **DEDUP-03**: 신규가 하나라도 있는 날에만 이메일을 발송한다 ("오늘은 없음" 메일 금지)
 - [ ] **DEDUP-04**: 로펌별 seen URL 목록은 500개로 상한 (newest-first), 넘으면 오래된 것부터 버린다
 - [ ] **DEDUP-05**: 새로 추가한 로펌의 첫 실행은 back-catalog 전체를 발송하지 않는다 — 최초 실행 시 seen 상태로 bootstrap
@@ -117,7 +117,7 @@ Every v1 requirement maps to exactly one phase. Phase 4 (JS-rendered tier) is co
 | FETCH-03 | Phase 1 | Pending |
 | FETCH-04 | Phase 1 | Pending |
 | DEDUP-01 | Phase 1 | Pending |
-| DEDUP-02 | Phase 1 | Pending |
+| DEDUP-02 | Phase 1 | Complete |
 | DEDUP-03 | Phase 1 | Pending |
 | DEDUP-04 | Phase 1 | Pending |
 | DEDUP-05 | Phase 2 | Pending |

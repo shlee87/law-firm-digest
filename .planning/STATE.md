@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-03 core type + config loader foundation (5 files, 204 LoC)
-last_updated: "2026-04-17T14:16:39.773Z"
+stopped_at: Completed 01-04 canonicalizeUrl + parseDate (18 tests, 2 files)
+last_updated: "2026-04-17T14:22:16.215Z"
 last_activity: 2026-04-17
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 12
-  completed_plans: 3
-  percent: 25
+  completed_plans: 4
+  percent: 33
 ---
 
 # Project State
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-16)
 ## Current Position
 
 Phase: 01 (foundation-vertical-slice) — EXECUTING
-Plan: 4 of 12
+Plan: 5 of 12
 Status: Ready to execute
 Last activity: 2026-04-17
 
@@ -55,6 +55,7 @@ Progress: [██░░░░░░░░] 17%
 | Phase 01-foundation-vertical-slice P01 | 15 min | 3 tasks | 11 files |
 | Phase 01-foundation-vertical-slice P02 | 10 min | 3 tasks | 2 files |
 | Phase 01-foundation-vertical-slice P03 | 2 min | 3 tasks tasks | 5 files files |
+| Phase 01-foundation-vertical-slice P04 | 3 min | 2 tasks tasks | 2 files files |
 
 ## Accumulated Context
 
@@ -74,6 +75,8 @@ Recent decisions affecting current work:
 - [Phase 01-foundation-vertical-slice]: 01-03: Removed src/placeholder.ts in Task 1 commit per plan directive — now that real src modules exist (types/env/logging/schema/loader) the tsc-include shim from 01-01 is no longer needed
 - [Phase 01-foundation-vertical-slice]: 01-03: FirmSchema.type = z.enum(['rss','html']) — js-render deliberately excluded so Phase 4 extension requires explicit schema change, not just a config-file change
 - [Phase 01-foundation-vertical-slice]: 01-03: scrubSecrets uses split+join (not regex.replace) with length gate val.length>8 — avoids regex-metachar escape bugs AND prevents false-positive replacement when env var is empty or a short test placeholder
+- [Phase 01-foundation-vertical-slice]: 01-04: canonicalizeUrl preserves scheme (lowercases only) — RESEARCH.md L547-552 vector 3 (http input, https expected) treated as documented divergence; http/https stay distinct post-canonicalization. Any future collapse requires v1.x schema change + retro-canonicalize pass over SeenState.
+- [Phase 01-foundation-vertical-slice]: 01-04: TRACKING_PARAMS (15 entries: 12 marketing + 3 session) exported as readonly const from src/scrapers/util.ts so plan 05 rss.ts and any future documentation import the authoritative list rather than redeclaring.
 
 ### Pending Todos
 
@@ -95,6 +98,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-17T14:16:39.770Z
-Stopped at: Completed 01-03 core type + config loader foundation (5 files, 204 LoC)
+Last session: 2026-04-17T14:22:16.212Z
+Stopped at: Completed 01-04 canonicalizeUrl + parseDate (18 tests, 2 files)
 Resume file: None

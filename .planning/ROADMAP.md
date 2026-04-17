@@ -37,7 +37,7 @@ Plans:
 - [x] 01-01-PLAN.md — Repo scaffold + tooling + recipient.yaml + README (CONF-03, OPS-10, COMP-01/02/04/05)
 - [x] 01-02-PLAN.md — Cooley RSS endpoint probe + firms.yaml with non-dev comment header (CONF-01/02/05/07) [BLOCKING FIRST]
 - [x] 01-03-PLAN.md — Types + zod schemas + YAML loader + DRY_RUN helper + scrubSecrets (CONF-02/03, DEDUP-07, COMP-01/05, OPS-10)
-- [ ] 01-04-PLAN.md — canonicalizeUrl + parseDate pure functions + TDD tests (DEDUP-02)
+- [x] 01-04-PLAN.md — canonicalizeUrl + parseDate pure functions + TDD tests (DEDUP-02)
 - [ ] 01-05-PLAN.md — robots.txt + RSS scraper + fetch orchestrator (FETCH-03/04, COMP-03)
 - [ ] 01-06-PLAN.md — Gemini summarizer + prompt/schema with model fallback (SUMM-01..06)
 - [ ] 01-07-PLAN.md — dedup pure function + D-09 bootstrap + TDD tests (DEDUP-01/03)
