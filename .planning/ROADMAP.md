@@ -32,7 +32,20 @@ LegalNewsletter ships as a vertical slice first (one firm end-to-end through fet
   3. Two URL variants of the same article (`/insights/foo?utm_source=x`, `https://www.firm.com/insights/foo/`, `/insights/foo`) dedup to one entry in `state/seen.json`.
   4. Invalid YAML or missing required field in `config/firms.yaml` fails startup with a precise path/reason; running with `DRY_RUN=1` prints a full digest preview, skips email send, and does not mutate state.
   5. Gmail SMTP error fails the workflow red (never caught-and-logged); `.env` stays out of git, all secrets flow through GHA Secrets, honest `LegalNewsletterBot/1.0` User-Agent + robots.txt check precede every fetch.
-**Plans**: TBD
+**Plans**: 12 plans
+Plans:
+- [x] 01-01-PLAN.md — Repo scaffold + tooling + recipient.yaml + README (CONF-03, OPS-10, COMP-01/02/04/05)
+- [ ] 01-02-PLAN.md — Cooley RSS endpoint probe + firms.yaml with non-dev comment header (CONF-01/02/05/07) [BLOCKING FIRST]
+- [ ] 01-03-PLAN.md — Types + zod schemas + YAML loader + DRY_RUN helper + scrubSecrets (CONF-02/03, DEDUP-07, COMP-01/05, OPS-10)
+- [ ] 01-04-PLAN.md — canonicalizeUrl + parseDate pure functions + TDD tests (DEDUP-02)
+- [ ] 01-05-PLAN.md — robots.txt + RSS scraper + fetch orchestrator (FETCH-03/04, COMP-03)
+- [ ] 01-06-PLAN.md — Gemini summarizer + prompt/schema with model fallback (SUMM-01..06)
+- [ ] 01-07-PLAN.md — dedup pure function + D-09 bootstrap + TDD tests (DEDUP-01/03)
+- [ ] 01-08-PLAN.md — digest composer + minimal HTML template + XSS escape + snapshot test (EMAIL-01/02/04)
+- [ ] 01-09-PLAN.md — Gmail SMTP mailer with DRY_RUN gate + fail-loud + 535 detection (EMAIL-03/06, OPS-06)
+- [ ] 01-10-PLAN.md — State reader/writer with version guard + 500-cap + atomic write (DEDUP-04/06/07, OPS-06)
+- [ ] 01-11-PLAN.md — Composition root main.ts with OPS-03 run-transaction ordering (OPS-03, FETCH-03, DEDUP-03)
+- [ ] 01-12-PLAN.md — GHA workflow daily.yml + user-secret registration checkpoint (OPS-01/02, DEDUP-06, COMP-01/03/04/05)
 
 ### Phase 2: Multi-Firm HTML Tier + Failure Isolation
 **Goal**: All 12 target firms (7 KR, 3 US, 2 UK) run daily via the appropriate tier (RSS or HTML+cheerio), with per-firm failure isolation so one firm's scraper breaking never blocks the others.
@@ -87,7 +100,7 @@ Phases execute in numeric order. Phase 4 is conditional — skipped if Phase 2 a
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation + Vertical Slice | 0/TBD | Not started | - |
+| 1. Foundation + Vertical Slice | 0/12 | Not started | - |
 | 2. Multi-Firm HTML Tier + Failure Isolation | 0/TBD | Not started | - |
 | 3. Observability + Dev Loop | 0/TBD | Not started | - |
 | 4. JS-Rendered Tier (conditional) | 0/TBD | Not started | - |

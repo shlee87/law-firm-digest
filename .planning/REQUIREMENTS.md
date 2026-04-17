@@ -47,7 +47,7 @@ Derived from `.planning/research/FEATURES.md` categorization (T1–T17 table sta
 
 - [ ] **CONF-01**: 추적 대상 로펌은 단일 YAML 파일(`config/firms.yaml`)에 선언적으로 정의한다 — 비개발자가 코드 변경 없이 추가/제거 가능
 - [ ] **CONF-02**: YAML 스키마는 시작 시 zod로 검증, 잘못된 key/value는 정확한 경로와 함께 에러로 fail-fast
-- [ ] **CONF-03**: 수신 이메일 주소는 config 또는 GHA secret으로 변경 가능 (코드 수정 불필요)
+- [x] **CONF-03**: 수신 이메일 주소는 config 또는 GHA secret으로 변경 가능 (코드 수정 불필요)
 - [ ] **CONF-04**: 각 로펌은 `enabled: true/false` 플래그로 일시 비활성화할 수 있다 (파일 삭제 불필요)
 - [ ] **CONF-05**: 각 로펌은 `timezone` 필드(IANA 포맷: `Asia/Seoul` 등)를 가진다
 - [ ] **CONF-06**: 각 로펌은 선택적 `include_keywords` / `exclude_keywords` 필터를 지원한다
@@ -64,15 +64,15 @@ Derived from `.planning/research/FEATURES.md` categorization (T1–T17 table sta
 - [ ] **OPS-07**: `pnpm check:firm <id>` CLI로 단일 로펌 end-to-end 검증 가능 (raw → parsed → would-summarize → would-render)
 - [ ] **OPS-08**: 매 실행마다 로펌별 fetched/new/summarized/errors/duration 표를 `$GITHUB_STEP_SUMMARY`에 출력
 - [ ] **OPS-09**: 매일 `archive/YYYY/MM-DD.html`에 발송 다이제스트 사본을 repo에 커밋 (검색 가능한 히스토리)
-- [ ] **OPS-10**: 구조화된 로그는 로펌별 섹션으로 분리되고 민감정보(시크릿, 인증 토큰)는 마스킹된다
+- [x] **OPS-10**: 구조화된 로그는 로펌별 섹션으로 분리되고 민감정보(시크릿, 인증 토큰)는 마스킹된다
 
 ### Compliance & Security (COMP)
 
-- [ ] **COMP-01**: 모든 비밀정보(`GEMINI_API_KEY`, `GMAIL_APP_PASSWORD`, 수신자 이메일 등)는 GHA Secrets로 주입 — 저장소에 평문 금지
-- [ ] **COMP-02**: `.env` 로컬 개발용 파일은 `.gitignore` 처리, `.env.example`만 커밋
+- [x] **COMP-01**: 모든 비밀정보(`GEMINI_API_KEY`, `GMAIL_APP_PASSWORD`, 수신자 이메일 등)는 GHA Secrets로 주입 — 저장소에 평문 금지
+- [x] **COMP-02**: `.env` 로컬 개발용 파일은 `.gitignore` 처리, `.env.example`만 커밋
 - [ ] **COMP-03**: 로펌 스크래핑 전 `robots.txt`를 확인하고 disallow된 경로는 fetch 하지 않는다
-- [ ] **COMP-04**: 저장소는 기본 private (GHA 무료 티어 2,000 min/월 내에서 충분)
-- [ ] **COMP-05**: 저작권 이슈 최소화 — 뉴스레터 전문을 저장·재배포하지 않으며, 요약과 원문 링크만 전달
+- [x] **COMP-04**: 저장소는 기본 private (GHA 무료 티어 2,000 min/월 내에서 충분)
+- [x] **COMP-05**: 저작권 이슈 최소화 — 뉴스레터 전문을 저장·재배포하지 않으며, 요약과 원문 링크만 전달
 
 ## v2 Requirements
 
@@ -138,7 +138,7 @@ Every v1 requirement maps to exactly one phase. Phase 4 (JS-rendered tier) is co
 | EMAIL-07 | Phase 2 | Pending |
 | CONF-01 | Phase 1 | Pending |
 | CONF-02 | Phase 1 | Pending |
-| CONF-03 | Phase 1 | Pending |
+| CONF-03 | Phase 1 | Complete |
 | CONF-04 | Phase 2 | Pending |
 | CONF-05 | Phase 1 | Pending |
 | CONF-06 | Phase 2 | Pending |
@@ -152,12 +152,12 @@ Every v1 requirement maps to exactly one phase. Phase 4 (JS-rendered tier) is co
 | OPS-07 | Phase 3 | Pending |
 | OPS-08 | Phase 3 | Pending |
 | OPS-09 | Phase 3 | Pending |
-| OPS-10 | Phase 1 | Pending |
-| COMP-01 | Phase 1 | Pending |
-| COMP-02 | Phase 1 | Pending |
+| OPS-10 | Phase 1 | Complete |
+| COMP-01 | Phase 1 | Complete |
+| COMP-02 | Phase 1 | Complete |
 | COMP-03 | Phase 1 | Pending |
-| COMP-04 | Phase 1 | Pending |
-| COMP-05 | Phase 1 | Pending |
+| COMP-04 | Phase 1 | Complete |
+| COMP-05 | Phase 1 | Complete |
 
 **Coverage:**
 - v1 requirements: 46 total (FETCH 4 + DEDUP 7 + SUMM 6 + EMAIL 7 + CONF 7 + OPS 10 + COMP 5)
