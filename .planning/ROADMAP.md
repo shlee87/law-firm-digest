@@ -14,7 +14,7 @@ LegalNewsletter ships as a vertical slice first (one firm end-to-end through fet
 - Integer phases (1, 2, 3, 4, 5): Planned milestone work
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
-- [ ] **Phase 1: Foundation + Vertical Slice** - One firm end-to-end through Gemini + Gmail + committed state, with every "cheap now" pitfall baked in
+- [x] **Phase 1: Foundation + Vertical Slice** - One firm end-to-end through Gemini + Gmail + committed state, with every "cheap now" pitfall baked in
 - [ ] **Phase 2: Multi-Firm HTML Tier + Failure Isolation** - All 12 firms live via tiered fetch (RSS + cheerio HTML), one firm's breakage never zeros the digest
 - [ ] **Phase 3: Observability + Dev Loop** - Silent rot becomes visible (staleness alerts, step summary, archive, check:firm CLI, operational README)
 - [ ] **Phase 4: JS-Rendered Tier (conditional)** - Playwright tier only if Phase 2 audit proves some firm actually requires JS rendering; otherwise skip
@@ -45,7 +45,7 @@ Plans:
 - [x] 01-09-PLAN.md — Gmail SMTP mailer with DRY_RUN gate + fail-loud + 535 detection (EMAIL-03/06, OPS-06)
 - [x] 01-10-PLAN.md — State reader/writer with version guard + 500-cap + atomic write (DEDUP-04/06/07, OPS-06)
 - [x] 01-11-PLAN.md — Composition root main.ts with OPS-03 run-transaction ordering (OPS-03, FETCH-03, DEDUP-03)
-- [ ] 01-12-PLAN.md — GHA workflow daily.yml + user-secret registration checkpoint (OPS-01/02, DEDUP-06, COMP-01/03/04/05)
+- [x] 01-12-PLAN.md — GHA workflow daily.yml + user-secret registration checkpoint (OPS-01/02, DEDUP-06, COMP-01/03/04/05)
 
 ### Phase 2: Multi-Firm HTML Tier + Failure Isolation
 **Goal**: All 12 target firms (7 KR, 3 US, 2 UK) run daily via the appropriate tier (RSS or HTML+cheerio), with per-firm failure isolation so one firm's scraper breaking never blocks the others.
@@ -100,7 +100,7 @@ Phases execute in numeric order. Phase 4 is conditional — skipped if Phase 2 a
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation + Vertical Slice | 0/12 | Not started | - |
+| 1. Foundation + Vertical Slice | 12/12 | Complete | 2026-04-17 |
 | 2. Multi-Firm HTML Tier + Failure Isolation | 0/TBD | Not started | - |
 | 3. Observability + Dev Loop | 0/TBD | Not started | - |
 | 4. JS-Rendered Tier (conditional) | 0/TBD | Not started | - |

@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 01-11-PLAN.md
-last_updated: "2026-04-17T15:59:46.760Z"
+status: verifying
+stopped_at: Completed 01-12-PLAN.md — Phase 1 shipped; 3 live GHA runs delivered real Korean summary email end-to-end
+last_updated: "2026-04-17T18:27:09.954Z"
 last_activity: 2026-04-17
 progress:
   total_phases: 5
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 12
-  completed_plans: 11
-  percent: 92
+  completed_plans: 12
+  percent: 100
 ---
 
 # Project State
@@ -25,12 +25,12 @@ See: .planning/PROJECT.md (updated 2026-04-16)
 
 ## Current Position
 
-Phase: 01 (foundation-vertical-slice) — EXECUTING
+Phase: 01 (foundation-vertical-slice) — COMPLETE (12/12, shipped to production 2026-04-17)
 Plan: 12 of 12
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-04-17
 
-Progress: [██░░░░░░░░] 17%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -63,6 +63,7 @@ Progress: [██░░░░░░░░] 17%
 | Phase 01-foundation-vertical-slice P10 | ~3 min | 4 tasks | 4 files |
 | Phase 01-foundation-vertical-slice P05 | ~5 min | 4 tasks tasks | 5 files files |
 | Phase 01-foundation-vertical-slice P11 | ~7 min | 1 tasks tasks | 1 files files |
+| Phase 01-foundation-vertical-slice P12 | ~2h | 2 tasks tasks | 1 file files |
 
 ## Accumulated Context
 
@@ -104,6 +105,9 @@ Recent decisions affecting current work:
 - [Phase 01-foundation-vertical-slice]: 01-11: main.ts composition root follows RESEARCH.md §Pattern 1 run-transaction ordering verbatim; ONE shared pLimit(3) across all firms (not per-firm) for FETCH-03 global concurrency; B3 truthy guard 'if (!item.description)' short-circuits before summarize() to enforce SUMM-06 at orchestrator level (title NEVER reaches Gemini); writeState lives OUTSIDE the DEDUP-03 branch so bootstrap seeding and lastUpdated both advance on zero-new days
 - [Phase 01-foundation-vertical-slice]: 01-11: DRY_RUN header comment was reworded from literal 'isDryRun' token to 'env dry-run helper' so grep -c isDryRun src/main.ts stays at 0 (Pattern 2 acceptance gate) — same self-invalidating-grep mitigation pattern as plan 09 mailer.ts single-catch gate
 - [Phase 01-foundation-vertical-slice]: 01-11: DRY_RUN=1 smoke test proved first-run bootstrap wiring end-to-end — 15 Cooley URLs fetched → dedupAll D-09 bootstrap returned new:[] → summarize skipped (zero Gemini calls) → DEDUP-03 skipped email → writer DRY_RUN branch logged 'would write 15 URLs across 1 firms' (B1 seeding from r.raw). Disk untouched; exit 0
+- [Phase 01-foundation-vertical-slice]: 01-12: Live-verification surfaced 3 bugs unit tests could not catch (pnpm/action-setup v5 rejects combined version+packageManager, Gemini short-excerpt collapse, failure observability gap) — Phase 2+ should treat first live-dispatch run as true acceptance for GHA changes, not just grep gates
+- [Phase 01-foundation-vertical-slice]: 01-12: pnpm/action-setup pinned to @v5 (plan suggested @v4) with NO version input — package.json#packageManager (pnpm@9.15.0) is single source of truth per W3. Specifying both causes ERR_PNPM_BAD_PM_VERSION on v5
+- [Phase 01-foundation-vertical-slice]: 01-12: Added if: failure() step that auto-opens bilingual (EN/KR) GitHub Issue with symptom-to-fix remediation table (ZodError, 535/GMAIL_AUTH_FAILURE, 401/API_KEY_INVALID, 429, ENOTFOUND) — operator MTTR drops from 'grep 500-line logs' to 'read issue, apply fix, click Re-run'. Required permissions: issues: write (still minimum scope)
 
 ### Pending Todos
 
@@ -125,6 +129,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-17T15:59:46.756Z
-Stopped at: Completed 01-11-PLAN.md
+Last session: 2026-04-17T18:27:09.950Z
+Stopped at: Completed 01-12-PLAN.md — Phase 1 shipped; 3 live GHA runs delivered real Korean summary email end-to-end
 Resume file: None
