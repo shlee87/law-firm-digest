@@ -57,7 +57,7 @@ Derived from `.planning/research/FEATURES.md` categorization (T1–T17 table sta
 
 - [ ] **OPS-01**: GitHub Actions cron으로 하루 1회 자동 실행 (09:00 UTC = 18:00 KST, midnight 혼잡 회피)
 - [ ] **OPS-02**: workflow는 `concurrency: {group: digest-pipeline, cancel-in-progress: false}` 로 동시 실행 충돌 방지
-- [ ] **OPS-03**: 실행 순서는 fetch → dedup → summarize → email → state write (state는 이메일 발송 성공 후에만 커밋)
+- [x] **OPS-03**: 실행 순서는 fetch → dedup → summarize → email → state write (state는 이메일 발송 성공 후에만 커밋)
 - [ ] **OPS-04**: 로펌별 `lastNewAt`이 30일 이상 지난 경우 다이제스트 상단에 staleness 경고 표시
 - [ ] **OPS-05**: 이전 실행 종료가 30시간 이상 오래된 경우 다이제스트 header에 last-run staleness 알림
 - [x] **OPS-06**: `DRY_RUN=1` 환경 변수로 전체 파이프라인 리허설 가능 (Gemini 호출하되 이메일 발송 & state 저장 skip)
@@ -145,7 +145,7 @@ Every v1 requirement maps to exactly one phase. Phase 4 (JS-rendered tier) is co
 | CONF-07 | Phase 1 | Complete |
 | OPS-01 | Phase 1 | Pending |
 | OPS-02 | Phase 1 | Pending |
-| OPS-03 | Phase 1 | Pending |
+| OPS-03 | Phase 1 | Complete |
 | OPS-04 | Phase 3 | Pending |
 | OPS-05 | Phase 3 | Pending |
 | OPS-06 | Phase 1 | Complete |

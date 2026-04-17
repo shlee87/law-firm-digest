@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-05-PLAN.md
-last_updated: "2026-04-17T15:52:46.787Z"
+stopped_at: Completed 01-11-PLAN.md
+last_updated: "2026-04-17T15:59:46.760Z"
 last_activity: 2026-04-17
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 12
-  completed_plans: 10
-  percent: 83
+  completed_plans: 11
+  percent: 92
 ---
 
 # Project State
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-16)
 ## Current Position
 
 Phase: 01 (foundation-vertical-slice) — EXECUTING
-Plan: 11 of 12
+Plan: 12 of 12
 Status: Ready to execute
 Last activity: 2026-04-17
 
@@ -62,6 +62,7 @@ Progress: [██░░░░░░░░] 17%
 | Phase 01-foundation-vertical-slice P09 | ~2 min | 1 tasks | 1 files |
 | Phase 01-foundation-vertical-slice P10 | ~3 min | 4 tasks | 4 files |
 | Phase 01-foundation-vertical-slice P05 | ~5 min | 4 tasks tasks | 5 files files |
+| Phase 01-foundation-vertical-slice P11 | ~7 min | 1 tasks tasks | 1 files files |
 
 ## Accumulated Context
 
@@ -100,6 +101,9 @@ Recent decisions affecting current work:
 - [Phase 01-foundation-vertical-slice]: 01-05: Fabricated RSS fixture over live-recorded Cooley feed — deterministic GMT pubDates in the fixture enable exact-string B2 round-trip assertion that a shifting live feed could not support; live feed fetched separately for SUMMARY evidence (HTTP 200, 15 items, same URL as plan 01-02)
 - [Phase 01-foundation-vertical-slice]: 01-05: PATTERNS.md feedparser this-typing [CONFIRM AT PLAN] resolved without cast — feedparser v2.3.1 ships its own index.d.ts with 'on(event: readable, listener: (this: FeedParser) => void)', so this.read() inside the listener types as FeedParser.read() without executor-side assertion; @types/feedparser is deprecated stub and irrelevant
 - [Phase 01-foundation-vertical-slice]: 01-05: Hand-rolled robots.txt parser kept for Phase 1 per RESEARCH.md L613 — User-agent:* section + Disallow prefix match only; no wildcard, no Allow override, no per-bot agent. Phase 2 will reconsider swap to robots-parser pkg when firm count grows past one
+- [Phase 01-foundation-vertical-slice]: 01-11: main.ts composition root follows RESEARCH.md §Pattern 1 run-transaction ordering verbatim; ONE shared pLimit(3) across all firms (not per-firm) for FETCH-03 global concurrency; B3 truthy guard 'if (!item.description)' short-circuits before summarize() to enforce SUMM-06 at orchestrator level (title NEVER reaches Gemini); writeState lives OUTSIDE the DEDUP-03 branch so bootstrap seeding and lastUpdated both advance on zero-new days
+- [Phase 01-foundation-vertical-slice]: 01-11: DRY_RUN header comment was reworded from literal 'isDryRun' token to 'env dry-run helper' so grep -c isDryRun src/main.ts stays at 0 (Pattern 2 acceptance gate) — same self-invalidating-grep mitigation pattern as plan 09 mailer.ts single-catch gate
+- [Phase 01-foundation-vertical-slice]: 01-11: DRY_RUN=1 smoke test proved first-run bootstrap wiring end-to-end — 15 Cooley URLs fetched → dedupAll D-09 bootstrap returned new:[] → summarize skipped (zero Gemini calls) → DEDUP-03 skipped email → writer DRY_RUN branch logged 'would write 15 URLs across 1 firms' (B1 seeding from r.raw). Disk untouched; exit 0
 
 ### Pending Todos
 
@@ -121,6 +125,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-17T15:52:28.620Z
-Stopped at: Completed 01-05-PLAN.md
+Last session: 2026-04-17T15:59:46.756Z
+Stopped at: Completed 01-11-PLAN.md
 Resume file: None
