@@ -1,0 +1,62 @@
+# .github/workflows/daily.yml
+#
+# LegalNewsletter — scheduled daily digest pipeline.
+#
+# Runs src/main.ts once per day at 09:00 UTC (18:00 KST, OPS-01). Executes the
+# full Phase 1 fetch → dedup → summarize → mail → state pipeline, then commits
+# the updated state/seen.json back to the repository via git-auto-commit-action.
+#
+# Pitfall guards baked in (see .planning/phases/01-foundation-vertical-slice/
+# 01-RESEARCH.md §Pitfalls and 01-12-PLAN.md <threat_model>):
+#   - [skip ci] in commit message prevents an infinite workflow loop
+#     (Pitfall "What NOT to Use" — state commit triggering another run).
+#   - concurrency group with cancel-in-progress: false serializes overlapping
+#     runs so a manual workflow_dispatch can't race the scheduled run and
+#     corrupt state/seen.json (Pitfall #5, OPS-02).
+#   - permissions: contents: write is the minimum GITHUB_TOKEN scope needed
+#     for git-auto-commit-action to push state back (COMP-04 private-repo OK).
+#   - No sub-module recursion on checkout — .gsd-patches is local-dev
+#     tooling and must NOT be initialized in CI (default behavior).
+#   - setup-node@v6 cache: 'pnpm' relies on the packageManager field in
+#     package.json (pinned to pnpm@9.15.0 in plan 01, verified by W3
+#     pre-flight in plan 12 Task 1).
+#   - workflow_dispatch trigger enables manual smoke tests and gap closure
+#     from the GitHub UI without waiting for the next scheduled run.
+
+name: Daily Digest
+
+on:
+  schedule:
+    - cron: '0 9 * * *' # 09:00 UTC = 18:00 KST (OPS-01)
+  workflow_dispatch: {} # manual trigger for smoke tests / gap closure
+
+concurrency: # OPS-02 — serialize overlapping runs (Pitfall #5)
+  group: digest-pipeline
+  cancel-in-progress: false
+
+permissions:
+  contents: write # required by stefanzweifel/git-auto-commit-action
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v5
+        with:
+          version: 9
+      - uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm tsx src/main.ts
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          # RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}          # optional override (D-05)
+          # GMAIL_FROM_ADDRESS: ${{ secrets.GMAIL_FROM_ADDRESS }}    # optional
+      - uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: 'chore(state): update seen items [skip ci]'
+          file_pattern: 'state/seen.json'
