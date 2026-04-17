@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Cooley Insights</title>
+    <link>https://cooley.com/insights</link>
+    <description>Fabricated RSS 2.0 fixture for plan 01-05 offline tests. Item URLs and dates are deterministic so the B2 no-double-zone regression guard can assert exact UTC pubDate round-trip.</description>
+    <item>
+      <title>AI Regulation Update April 2026</title>
+      <link>https://www.cooley.com/news/insight/2026/2026-04-15-ai-reg?utm_source=rss</link>
+      <pubDate>Tue, 15 Apr 2026 12:00:00 GMT</pubDate>
+      <description>Summary of the AI regulation landscape.</description>
+    </item>
+    <item>
+      <title>Second Article</title>
+      <link>https://cooley.com/news/insight/2026/2026-04-10-ma-memo</link>
+      <pubDate>Thu, 10 Apr 2026 09:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Third Article</title>
+      <link>https://cooley.com/news/insight/2026/2026-04-05-privacy/</link>
+      <pubDate>Sat, 05 Apr 2026 15:30:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>
