@@ -57,7 +57,16 @@ Plans:
   3. Adding a brand-new firm to `config/firms.yaml` and running once bootstraps its seen-URL set (no back-catalog flood in the next digest); flipping `enabled: false` hides a firm from the run without file deletion.
   4. Per-firm `include_keywords` / `exclude_keywords` filters match against item titles + summaries before Gemini summarization (saves quota on filtered-out items).
   5. SMTP transient 5xx retries with backoff; SMTP 535 authentication failure fails the workflow immediately with a `GMAIL_AUTH_FAILURE` marker and App Password regeneration link in the log.
-**Plans**: TBD
+**Plans**: 8 plans
+Plans:
+- [ ] 02-01-PLAN.md — Schema + types + firms.yaml with 9 live + 3 disabled placeholders (D-P2-14/15/16/17; CONF-04, CONF-06)
+- [ ] 02-02-PLAN.md — util.ts charset-aware fetch + body extractor + TRACKING_PARAMS extension (D-P2-06/11/16)
+- [ ] 02-03-PLAN.md — scrapers/html.ts with plain-href + onclick-extract branches (FETCH-01)
+- [ ] 02-04-PLAN.md — pipeline/enrichBody.ts + pipeline/filter.ts (D-P2-02/07/10; FETCH-01, CONF-06)
+- [ ] 02-05-PLAN.md — Failed-firm email footer + classifyError (EMAIL-05)
+- [ ] 02-06-PLAN.md — SMTP selective retry via p-retry v8 + AbortError (EMAIL-07)
+- [ ] 02-07-PLAN.md — Dedup + writer D-P2-08 empty-state bootstrap guard (DEDUP-05)
+- [ ] 02-08-PLAN.md — fetch.ts Promise.allSettled + tier dispatch + main.ts wiring + D-P2-13 prompt routing (FETCH-01, FETCH-02, CONF-04)
 
 ### Phase 3: Observability + Dev Loop
 **Goal**: Silent rot (one firm quietly returning zero items for weeks) becomes observable — in the digest itself, in GHA step summary, and via a single-firm CLI probe. The builder can diagnose and fix a firm without pushing to main and waiting for cron.
@@ -101,7 +110,7 @@ Phases execute in numeric order. Phase 4 is conditional — skipped if Phase 2 a
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation + Vertical Slice | 12/12 | Complete | 2026-04-17 |
-| 2. Multi-Firm HTML Tier + Failure Isolation | 0/TBD | Not started | - |
+| 2. Multi-Firm HTML Tier + Failure Isolation | 0/8 | Not started | - |
 | 3. Observability + Dev Loop | 0/TBD | Not started | - |
 | 4. JS-Rendered Tier (conditional) | 0/TBD | Not started | - |
 | 5. Triggered Polish (v1.x backlog) | 0/TBD | Not started | - |
