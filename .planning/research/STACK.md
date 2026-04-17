@@ -160,7 +160,7 @@ Confidence: HIGH on SDK choice and auth; MEDIUM on exact RPD (250 is the commonl
 ```typescript
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
-  auth: { user: 'sarakim1705@gmail.com', pass: process.env.GMAIL_APP_PASSWORD }
+  auth: { user: 'your.email@example.com', pass: process.env.GMAIL_APP_PASSWORD }
 });
 ```
 

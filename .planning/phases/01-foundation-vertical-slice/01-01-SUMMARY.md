@@ -11,7 +11,7 @@ provides:
   - Node 22 LTS + TS 5.9 + vitest 4 + eslint 9 flat config + prettier 3
   - Phase 1 runtime deps installed and locked (@google/genai 1.50.1, nodemailer 8.0.5, feedparser 2.3.1, yaml 2.8.3, zod 4.3.6, p-limit 7.3.0, p-retry 8.0.0, date-fns-tz 3.2.0)
   - `.env.example` template and `.gitignore` hardening (secrets + state backups)
-  - `config/recipient.yaml` locked to sarakim1705@gmail.com with RECIPIENT_EMAIL env override hook
+  - `config/recipient.yaml` locked to your.email@example.com with RECIPIENT_EMAIL env override hook
   - `README.md` with Setup, DRY_RUN semantics, GMAIL_AUTH_FAILURE recovery, copyright + compliance, Secrets
   - `packageManager: pnpm@9.15.0` pin for deterministic GHA setup-node@v6 cache
 affects: [01-02, 01-03, 01-04, 01-05, 01-06, 01-07, 01-08, 01-09, 01-10, 01-11, 01-12]
@@ -83,7 +83,7 @@ completed: 2026-04-17
 
 # Phase 01 Plan 01: foundation-vertical-slice scaffold Summary
 
-**Node 22 ESM TypeScript project skeleton with pnpm 9.15.0 pin, pinned runtime deps for RSS + Gemini + Gmail, recipient config locked to sarakim1705@gmail.com, and README documenting DRY_RUN and GMAIL_AUTH_FAILURE recovery.**
+**Node 22 ESM TypeScript project skeleton with pnpm 9.15.0 pin, pinned runtime deps for RSS + Gemini + Gmail, recipient config locked to your.email@example.com, and README documenting DRY_RUN and GMAIL_AUTH_FAILURE recovery.**
 
 ## Performance
 
@@ -118,7 +118,7 @@ completed: 2026-04-17
 - `.prettierrc` — singleQuote, semi, trailingComma=all, printWidth=100.
 - `.env.example` — GEMINI_API_KEY, GMAIL_APP_PASSWORD required; RECIPIENT_EMAIL / GMAIL_FROM_ADDRESS / DRY_RUN optional.
 - `.gitignore` — newly tracked; keeps `.env`, `node_modules/`, IDE noise, `.claude/`, `.opencode/`, `.agents/` ignored; adds `state/seen.json.{tmp,backup}`.
-- `config/recipient.yaml` — `recipient: sarakim1705@gmail.com` with Korean comment explaining D-05 env override.
+- `config/recipient.yaml` — `recipient: your.email@example.com` with Korean comment explaining D-05 env override.
 - `README.md` — setup, DRY_RUN, adding a firm, GMAIL_AUTH_FAILURE recovery, copyright + compliance, secrets.
 - `src/placeholder.ts` — transient stub so tsc include glob matches at least one file; removed in plan 01-02.
 

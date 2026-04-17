@@ -399,7 +399,7 @@ Gmail marks the daily digest as spam or moves it to Promotions. The builder miss
 - The HTML is mostly links with little text (looks like phishing).
 - Subject line starts with excessive `🔥🔥🔥` or `[IMPORTANT]` patterns.
 - External images reference tracking pixels (firm favicons, if loaded).
-- The message comes from `sarakim1705@gmail.com` via SMTP app-password at times Google's ML flags as anomalous.
+- The message comes from `your.email@example.com` via SMTP app-password at times Google's ML flags as anomalous.
 - Message-Id format is non-standard.
 
 **Why it happens:**
@@ -412,7 +412,7 @@ Gmail marks the daily digest as spam or moves it to Promotions. The builder miss
 - **Meaningful plaintext body** alongside HTML (multipart/alternative). Avoids "mostly links, no text" heuristic.
 - **Do not embed external images.** If visual polish is desired (deferred per feature list), inline them as base64 or skip entirely. External images also trigger Gmail's "images are blocked by default" UX friction.
 - **Standard Message-Id** in nodemailer (it generates a valid one by default — don't override unless for the retry-dedup use case in Pitfall 4, and then keep the format compliant).
-- **First-run manual receipt + "Not Spam" marking.** After first successful send, the builder should check spam, mark as "Not Spam," and ideally create a Gmail filter: `from:sarakim1705@gmail.com subject:[법률 다이제스트] → Never send to Spam, apply label 법률다이제스트, skip Inbox if desired`. One-time setup; persistent effect.
+- **First-run manual receipt + "Not Spam" marking.** After first successful send, the builder should check spam, mark as "Not Spam," and ideally create a Gmail filter: `from:your.email@example.com subject:[법률 다이제스트] → Never send to Spam, apply label 법률다이제스트, skip Inbox if desired`. One-time setup; persistent effect.
 - **Check spam folder monthly.** Not a prevention, but the only detection that doesn't require IMAP automation.
 
 **Warning signs:**

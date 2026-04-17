@@ -80,7 +80,7 @@ completed: 2026-04-17
 
 - Five foundation files land with a combined 204 LoC: `src/types.ts` (92), `src/env.ts` (1), `src/util/logging.ts` (26), `src/config/schema.ts` (49), `src/config/loader.ts` (36).
 - `pnpm typecheck` and `pnpm test` both exit 0 after every task (vitest has no test files yet — `passWithNoTests: true` from plan 01-01 keeps it green).
-- Smoke-verified end-to-end config loading against the real `config/firms.yaml` from plan 01-02: `loadFirms()` returns 1 enabled firm (`cooley`); `loadRecipient()` returns `sarakim1705@gmail.com` from YAML when `RECIPIENT_EMAIL` is unset, and returns `alt@example.com` when `RECIPIENT_EMAIL=alt@example.com` is set — confirming D-05 env-wins semantics.
+- Smoke-verified end-to-end config loading against the real `config/firms.yaml` from plan 01-02: `loadFirms()` returns 1 enabled firm (`cooley`); `loadRecipient()` returns `your.email@example.com` from YAML when `RECIPIENT_EMAIL` is unset, and returns `alt@example.com` when `RECIPIENT_EMAIL=alt@example.com` is set — confirming D-05 env-wins semantics.
 - `src/placeholder.ts` removed in the Task 1 commit as instructed by the plan note ("delete src/placeholder.ts in the same or final commit so the codebase has no stub files").
 - Plan verification invariants both hold:
   - `grep -r "DRY_RUN" src/ | wc -l` = **1** (only in `src/env.ts:1`) — Pattern 2 enforced
@@ -182,7 +182,7 @@ RECIPIENT_EMAIL=alt@example.com pnpm tsx -e "import('./src/config/loader.js').th
 
 # YAML fallback when env unset
 pnpm tsx -e "import('./src/config/loader.js').then(m => m.loadRecipient().then(console.log))"
-# → sarakim1705@gmail.com
+# → your.email@example.com
 
 # loadFirms parses real config/firms.yaml from plan 01-02
 pnpm tsx -e "import('./src/config/loader.js').then(m => m.loadFirms().then(r => console.log('loaded', r.length, 'enabled firm(s):', r.map(f=>f.id).join(','))))"

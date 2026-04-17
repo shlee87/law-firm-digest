@@ -126,7 +126,7 @@ Exit code: `0`.
 Interpretation (traces the full run-transaction path):
 
 1. **loadFirms** succeeded — read `config/firms.yaml`, parsed 1 enabled firm (Cooley).
-2. **loadRecipient** succeeded — read `config/recipient.yaml` → `sarakim1705@gmail.com`. `GMAIL_FROM_ADDRESS` env var not set → `fromAddr = recipient`.
+2. **loadRecipient** succeeded — read `config/recipient.yaml` → `your.email@example.com`. `GMAIL_FROM_ADDRESS` env var not set → `fromAddr = recipient`.
 3. **readState** succeeded — `state/seen.json` parsed cleanly; `firms: {}` (empty — this is the **first run / bootstrap** state).
 4. **fetchAll** succeeded — robots gate cleared for cooleygo.com, feedparser extracted 15 RawItems from `https://cooleygo.com/feed/`.
 5. **dedupAll** — Cooley absent from prior `seen.firms`, so D-09 first-run bootstrap branch fires → returned `{ ...r, new: [] }` with `r.raw` preserved for the writer's B1 seed path (plan 10 contract).

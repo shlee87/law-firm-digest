@@ -22,7 +22,7 @@ Phase 1 실행 경로는 "typescript types → config loader → single RSS scra
 - **D-02**: Cooley의 정확한 RSS 엔드포인트는 Phase 1 초반 구현 시 `pnpm check:firm cooley` 스타일 probe (혹은 browser DevTools)로 검증. 예상 경로: `/alerts`, `/insights`, `/feed`, `/rss` 중 하나.
 
 **Recipient Email Location**
-- **D-03**: 수신자 이메일 주소는 **`config/recipient.yaml`** 별도 파일에 둔다 (firms.yaml 과 분리). YAML 구조는 단순 key-value (`recipient: sarakim1705@gmail.com` 수준). 이유: 저장소는 COMP-04에 따라 private 기본값이며, 사용자가 수신자를 바꿀 때 GitHub 웹에서 파일 하나 편집으로 해결 가능.
+- **D-03**: 수신자 이메일 주소는 **`config/recipient.yaml`** 별도 파일에 둔다 (firms.yaml 과 분리). YAML 구조는 단순 key-value (`recipient: your.email@example.com` 수준). 이유: 저장소는 COMP-04에 따라 private 기본값이며, 사용자가 수신자를 바꿀 때 GitHub 웹에서 파일 하나 편집으로 해결 가능.
 - **D-04**: `config/recipient.yaml`은 zod 스키마 검증을 받는다 (잘못된 이메일 포맷 → fail-fast). CONF-02 요건과 일관.
 - **D-05**: `.env.example`에도 `RECIPIENT_EMAIL` 항목을 포함해, repo를 public으로 전환하거나 GHA secret 방식으로 바꾸고 싶은 미래 사용자가 override할 수 있는 hook을 남긴다 (env var가 있으면 config를 override하는 fallback 순서).
 
@@ -330,7 +330,7 @@ legalnewsletter/
 ├── .gitignore                          # .env, node_modules, etc.
 ├── config/
 │   ├── firms.yaml                      # 1 entry (Cooley) + 주석 가이드
-│   └── recipient.yaml                  # recipient: sarakim1705@gmail.com
+│   └── recipient.yaml                  # recipient: your.email@example.com
 ├── state/
 │   └── seen.json                       # { version: 1, lastUpdated, firms: {} }
 ├── src/
@@ -745,7 +745,7 @@ Pulled from `.planning/research/PITFALLS.md`, filtered to Phase 1의 `[CHEAP NOW
 - No external images (no firm favicons in Phase 1).
 - Standard Message-Id (nodemailer default is fine).
 - Meaningful plaintext... wait — D-08 defers plaintext multipart. Acceptable for self→self; revisit only if classification issue observed.
-- **Operational (post-first-send):** mark first digest "Not Spam", create filter `from:sarakim1705@gmail.com subject:[법률 다이제스트] → Never spam`. Document in README.
+- **Operational (post-first-send):** mark first digest "Not Spam", create filter `from:your.email@example.com subject:[법률 다이제스트] → Never spam`. Document in README.
 
 ## Code Examples
 
