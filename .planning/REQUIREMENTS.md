@@ -22,7 +22,7 @@ Derived from `.planning/research/FEATURES.md` categorization (T1–T17 table sta
 - [ ] **DEDUP-04**: 로펌별 seen URL 목록은 500개로 상한 (newest-first), 넘으면 오래된 것부터 버린다
 - [ ] **DEDUP-05**: 새로 추가한 로펌의 첫 실행은 back-catalog 전체를 발송하지 않는다 — 최초 실행 시 seen 상태로 bootstrap
 - [ ] **DEDUP-06**: 상태(`state/seen.json`)는 실행 후 repo에 자동 commit 된다 (`[skip ci]` 포함, 무한 루프 방지)
-- [ ] **DEDUP-07**: state schema는 version 필드를 포함한다 (향후 마이그레이션 대비)
+- [x] **DEDUP-07**: state schema는 version 필드를 포함한다 (향후 마이그레이션 대비)
 
 ### Summarization (SUMM)
 
@@ -122,7 +122,7 @@ Every v1 requirement maps to exactly one phase. Phase 4 (JS-rendered tier) is co
 | DEDUP-04 | Phase 1 | Pending |
 | DEDUP-05 | Phase 2 | Pending |
 | DEDUP-06 | Phase 1 | Pending |
-| DEDUP-07 | Phase 1 | Pending |
+| DEDUP-07 | Phase 1 | Complete |
 | SUMM-01 | Phase 1 | Pending |
 | SUMM-02 | Phase 1 | Pending |
 | SUMM-03 | Phase 1 | Pending |
