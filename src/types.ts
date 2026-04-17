@@ -81,12 +81,14 @@ export interface SeenState {
 }
 
 export interface RecipientConfig {
-  recipient: string;
+  recipient: string | string[];
 }
 
 export interface EmailPayload {
   subject: string;
   html: string;
-  to: string;
+  // nodemailer accepts string OR string[]; the mailer passes it through
+  // unchanged. from stays a single address (the authenticated Gmail account).
+  to: string | string[];
   from: string;
 }

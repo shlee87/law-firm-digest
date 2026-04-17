@@ -25,7 +25,7 @@ import type { FirmResult, EmailPayload } from '../types.js';
 
 export function composeDigest(
   results: FirmResult[],
-  recipient: string,
+  recipient: string | string[],
   fromAddr: string,
   now: Date = new Date(),
 ): EmailPayload {

@@ -126,4 +126,11 @@ describe('composeDigest', () => {
     const payload = composeDigest(input, 'u@e.com', 'u@e.com', fixedDate);
     expect(payload.subject).toContain('(1 firms,'); // not 2
   });
+
+  it('passes a list of recipients through to payload.to unchanged', () => {
+    const recipients = ['primary@example.com', 'cc@example.com'];
+    const payload = composeDigest(fixture(), recipients, recipients[0], fixedDate);
+    expect(payload.to).toEqual(recipients);
+    expect(payload.from).toBe('primary@example.com');
+  });
 });

@@ -52,9 +52,14 @@ async function main(): Promise<number> {
   try {
     const firms = await loadFirms();
     const recipient = await loadRecipient();
-    // D-05 override chain: env wins over YAML. fromAddr defaults to recipient
-    // so the single-user self-send path works with zero extra configuration.
-    const fromAddr = process.env.GMAIL_FROM_ADDRESS ?? recipient;
+    // D-05 override chain: env wins over YAML. fromAddr defaults to the
+    // first recipient (when a list is configured) so the single-user
+    // self-send path still works with zero extra configuration; multi-
+    // recipient setups should put the Gmail-authenticated address first
+    // or set GMAIL_FROM_ADDRESS explicitly.
+    const fromAddr =
+      process.env.GMAIL_FROM_ADDRESS ??
+      (Array.isArray(recipient) ? recipient[0] : recipient);
     const seen = await readState();
 
     const fetched = await fetchAll(firms);

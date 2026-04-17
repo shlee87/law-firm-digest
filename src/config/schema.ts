@@ -42,8 +42,17 @@ export const FirmsConfigSchema = z
   })
   .strict();
 
+// recipient accepts either a single email or a non-empty list of emails —
+// enables single-user self-send AND multi-user fan-out without a schema fork.
+// The loader normalizes the RECIPIENT_EMAIL env var (comma-separated) into
+// the same union before parsing.
+const emailOrList = z.union([
+  z.string().email(),
+  z.array(z.string().email()).min(1),
+]);
+
 export const RecipientSchema = z
   .object({
-    recipient: z.string().email(),
+    recipient: emailOrList,
   })
   .strict();

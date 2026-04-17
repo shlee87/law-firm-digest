@@ -2,6 +2,9 @@
 //
 // loadRecipient: reads config/recipient.yaml, validates via RecipientSchema,
 // returns RECIPIENT_EMAIL env var if set (D-05 env-wins), else the YAML value.
+// Both sources support single string OR list-of-strings; env input uses
+// comma-separated form (e.g. "a@x.com,b@y.com") which is split+trimmed and
+// re-validated through the same schema so a typo fails fast at startup.
 // ZodError propagates on invalid input — main.ts top-level catch scrubs+logs.
 //
 // loadFirms: reads config/firms.yaml, validates via FirmsConfigSchema using
@@ -16,11 +19,25 @@ import { readFile } from 'node:fs/promises';
 import { FirmsConfigSchema, RecipientSchema } from './schema.js';
 import type { FirmConfig } from '../types.js';
 
-export async function loadRecipient(): Promise<string> {
+export async function loadRecipient(): Promise<string | string[]> {
   const text = await readFile('config/recipient.yaml', 'utf8');
   const yaml = parse(text);
   const parsed = RecipientSchema.parse(yaml);
-  return process.env.RECIPIENT_EMAIL ?? parsed.recipient;
+
+  const envVal = process.env.RECIPIENT_EMAIL;
+  if (envVal) {
+    const candidate: string | string[] = envVal.includes(',')
+      ? envVal
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean)
+      : envVal;
+    // Re-validate env input through the same schema — catches "a@x.com,"
+    // trailing-comma artifacts, malformed emails, or single-element lists.
+    const envParsed = RecipientSchema.parse({ recipient: candidate });
+    return envParsed.recipient;
+  }
+  return parsed.recipient;
 }
 
 export async function loadFirms(): Promise<FirmConfig[]> {
