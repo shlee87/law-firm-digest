@@ -108,17 +108,69 @@ Deferred — 각각은 trigger 조건이 관찰되면 승격.
 
 ## Traceability
 
-Populated during roadmap creation.
+Every v1 requirement maps to exactly one phase. Phase 4 (JS-rendered tier) is conditional — if Phase 2 audit shows no qualifying firms, Phase 4 is skipped and FETCH-01 is considered fully satisfied by the RSS + HTML tiers delivered in Phase 1 / Phase 2.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (empty — 모든 v1 requirement는 ROADMAP.md 생성 시 phase 매핑) | | |
+| FETCH-01 | Phase 2 | Pending |
+| FETCH-02 | Phase 2 | Pending |
+| FETCH-03 | Phase 1 | Pending |
+| FETCH-04 | Phase 1 | Pending |
+| DEDUP-01 | Phase 1 | Pending |
+| DEDUP-02 | Phase 1 | Pending |
+| DEDUP-03 | Phase 1 | Pending |
+| DEDUP-04 | Phase 1 | Pending |
+| DEDUP-05 | Phase 2 | Pending |
+| DEDUP-06 | Phase 1 | Pending |
+| DEDUP-07 | Phase 1 | Pending |
+| SUMM-01 | Phase 1 | Pending |
+| SUMM-02 | Phase 1 | Pending |
+| SUMM-03 | Phase 1 | Pending |
+| SUMM-04 | Phase 1 | Pending |
+| SUMM-05 | Phase 1 | Pending |
+| SUMM-06 | Phase 1 | Pending |
+| EMAIL-01 | Phase 1 | Pending |
+| EMAIL-02 | Phase 1 | Pending |
+| EMAIL-03 | Phase 1 | Pending |
+| EMAIL-04 | Phase 1 | Pending |
+| EMAIL-05 | Phase 2 | Pending |
+| EMAIL-06 | Phase 1 | Pending |
+| EMAIL-07 | Phase 2 | Pending |
+| CONF-01 | Phase 1 | Pending |
+| CONF-02 | Phase 1 | Pending |
+| CONF-03 | Phase 1 | Pending |
+| CONF-04 | Phase 2 | Pending |
+| CONF-05 | Phase 1 | Pending |
+| CONF-06 | Phase 2 | Pending |
+| CONF-07 | Phase 1 | Pending |
+| OPS-01 | Phase 1 | Pending |
+| OPS-02 | Phase 1 | Pending |
+| OPS-03 | Phase 1 | Pending |
+| OPS-04 | Phase 3 | Pending |
+| OPS-05 | Phase 3 | Pending |
+| OPS-06 | Phase 1 | Pending |
+| OPS-07 | Phase 3 | Pending |
+| OPS-08 | Phase 3 | Pending |
+| OPS-09 | Phase 3 | Pending |
+| OPS-10 | Phase 1 | Pending |
+| COMP-01 | Phase 1 | Pending |
+| COMP-02 | Phase 1 | Pending |
+| COMP-03 | Phase 1 | Pending |
+| COMP-04 | Phase 1 | Pending |
+| COMP-05 | Phase 1 | Pending |
 
 **Coverage:**
 - v1 requirements: 46 total (FETCH 4 + DEDUP 7 + SUMM 6 + EMAIL 7 + CONF 7 + OPS 10 + COMP 5)
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: TBD
+- Mapped to phases: 46 ✓
+- Unmapped: 0
+
+**Per-phase totals:**
+- Phase 1 (Foundation + Vertical Slice): 34 requirements
+- Phase 2 (Multi-Firm HTML Tier + Failure Isolation): 7 requirements
+- Phase 3 (Observability + Dev Loop): 5 requirements
+- Phase 4 (JS-Rendered Tier, conditional): 0 net-new requirements (completes FETCH-01's JS-render branch only if audit qualifies)
+- Phase 5 (Triggered Polish, v1.x backlog): 0 v1 requirements (v2 items only, activated on trigger)
 
 ---
 *Requirements defined: 2026-04-16*
-*Last updated: 2026-04-16 after initial definition*
+*Last updated: 2026-04-17 after roadmap traceability population*
