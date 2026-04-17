@@ -45,13 +45,13 @@ Derived from `.planning/research/FEATURES.md` categorization (T1–T17 table sta
 
 ### Config & Extensibility (CONF)
 
-- [ ] **CONF-01**: 추적 대상 로펌은 단일 YAML 파일(`config/firms.yaml`)에 선언적으로 정의한다 — 비개발자가 코드 변경 없이 추가/제거 가능
-- [ ] **CONF-02**: YAML 스키마는 시작 시 zod로 검증, 잘못된 key/value는 정확한 경로와 함께 에러로 fail-fast
+- [x] **CONF-01**: 추적 대상 로펌은 단일 YAML 파일(`config/firms.yaml`)에 선언적으로 정의한다 — 비개발자가 코드 변경 없이 추가/제거 가능
+- [x] **CONF-02**: YAML 스키마는 시작 시 zod로 검증, 잘못된 key/value는 정확한 경로와 함께 에러로 fail-fast
 - [x] **CONF-03**: 수신 이메일 주소는 config 또는 GHA secret으로 변경 가능 (코드 수정 불필요)
 - [ ] **CONF-04**: 각 로펌은 `enabled: true/false` 플래그로 일시 비활성화할 수 있다 (파일 삭제 불필요)
-- [ ] **CONF-05**: 각 로펌은 `timezone` 필드(IANA 포맷: `Asia/Seoul` 등)를 가진다
+- [x] **CONF-05**: 각 로펌은 `timezone` 필드(IANA 포맷: `Asia/Seoul` 등)를 가진다
 - [ ] **CONF-06**: 각 로펌은 선택적 `include_keywords` / `exclude_keywords` 필터를 지원한다
-- [ ] **CONF-07**: YAML 파일 상단에 비개발자용 주석 예시 포함 (신규 로펌 추가 단계 안내)
+- [x] **CONF-07**: YAML 파일 상단에 비개발자용 주석 예시 포함 (신규 로펌 추가 단계 안내)
 
 ### Ops & Reliability (OPS)
 
@@ -136,13 +136,13 @@ Every v1 requirement maps to exactly one phase. Phase 4 (JS-rendered tier) is co
 | EMAIL-05 | Phase 2 | Pending |
 | EMAIL-06 | Phase 1 | Pending |
 | EMAIL-07 | Phase 2 | Pending |
-| CONF-01 | Phase 1 | Pending |
-| CONF-02 | Phase 1 | Pending |
+| CONF-01 | Phase 1 | Complete |
+| CONF-02 | Phase 1 | Complete |
 | CONF-03 | Phase 1 | Complete |
 | CONF-04 | Phase 2 | Pending |
-| CONF-05 | Phase 1 | Pending |
+| CONF-05 | Phase 1 | Complete |
 | CONF-06 | Phase 2 | Pending |
-| CONF-07 | Phase 1 | Pending |
+| CONF-07 | Phase 1 | Complete |
 | OPS-01 | Phase 1 | Pending |
 | OPS-02 | Phase 1 | Pending |
 | OPS-03 | Phase 1 | Pending |
