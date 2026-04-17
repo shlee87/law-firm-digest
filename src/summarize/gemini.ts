@@ -88,12 +88,21 @@ export async function summarize(item: NewItem, body: string): Promise<Summarized
       },
     });
   } catch (err) {
+    // Operational visibility: the caller (main.ts) wraps summaries and
+    // does not log each failure, so without this line a Gemini outage
+    // would render the null-summary placeholder in email WITHOUT any
+    // trace in the run logs — impossible to triage. scrubSecrets strips
+    // accidentally-echoed credentials (API key, App Password).
+    const scrubbed = scrubSecrets((err as Error).message);
+    console.error(
+      `[summarize] model=${model} url=${item.url} FAILED: ${scrubbed}`,
+    );
     return {
       ...item,
       summary_ko: null,
       summaryConfidence: 'low',
       summaryModel: 'failed',
-      summaryError: scrubSecrets((err as Error).message),
+      summaryError: scrubbed,
     };
   }
 }
