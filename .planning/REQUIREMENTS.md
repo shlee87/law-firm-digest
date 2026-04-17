@@ -11,8 +11,8 @@ Derived from `.planning/research/FEATURES.md` categorization (T1–T17 table sta
 
 - [ ] **FETCH-01**: 시스템은 RSS → static HTML → JS-rendered 세 계층의 fetch 전략 중 로펌별 설정에 맞는 방식을 선택해 뉴스레터 목록을 가져온다
 - [ ] **FETCH-02**: 한 로펌의 fetch 실패가 다른 로펌 fetch를 중단시키지 않는다 (`Promise.allSettled` 기반 격리)
-- [ ] **FETCH-03**: 각 로펌 사이트당 하루 1회·1요청 원칙을 지킨다 (`p-limit(3)` 동시성 제한 포함)
-- [ ] **FETCH-04**: 모든 로펌 요청은 정직한 User-Agent (`LegalNewsletterBot/1.0 (+<repo-url>)`)를 사용한다 — 브라우저 위장 금지
+- [x] **FETCH-03**: 각 로펌 사이트당 하루 1회·1요청 원칙을 지킨다 (`p-limit(3)` 동시성 제한 포함)
+- [x] **FETCH-04**: 모든 로펌 요청은 정직한 User-Agent (`LegalNewsletterBot/1.0 (+<repo-url>)`)를 사용한다 — 브라우저 위장 금지
 
 ### Dedup & State (DEDUP)
 
@@ -70,7 +70,7 @@ Derived from `.planning/research/FEATURES.md` categorization (T1–T17 table sta
 
 - [x] **COMP-01**: 모든 비밀정보(`GEMINI_API_KEY`, `GMAIL_APP_PASSWORD`, 수신자 이메일 등)는 GHA Secrets로 주입 — 저장소에 평문 금지
 - [x] **COMP-02**: `.env` 로컬 개발용 파일은 `.gitignore` 처리, `.env.example`만 커밋
-- [ ] **COMP-03**: 로펌 스크래핑 전 `robots.txt`를 확인하고 disallow된 경로는 fetch 하지 않는다
+- [x] **COMP-03**: 로펌 스크래핑 전 `robots.txt`를 확인하고 disallow된 경로는 fetch 하지 않는다
 - [x] **COMP-04**: 저장소는 기본 private (GHA 무료 티어 2,000 min/월 내에서 충분)
 - [x] **COMP-05**: 저작권 이슈 최소화 — 뉴스레터 전문을 저장·재배포하지 않으며, 요약과 원문 링크만 전달
 
@@ -114,8 +114,8 @@ Every v1 requirement maps to exactly one phase. Phase 4 (JS-rendered tier) is co
 |-------------|-------|--------|
 | FETCH-01 | Phase 2 | Pending |
 | FETCH-02 | Phase 2 | Pending |
-| FETCH-03 | Phase 1 | Pending |
-| FETCH-04 | Phase 1 | Pending |
+| FETCH-03 | Phase 1 | Complete |
+| FETCH-04 | Phase 1 | Complete |
 | DEDUP-01 | Phase 1 | Complete |
 | DEDUP-02 | Phase 1 | Complete |
 | DEDUP-03 | Phase 1 | Complete |
@@ -155,7 +155,7 @@ Every v1 requirement maps to exactly one phase. Phase 4 (JS-rendered tier) is co
 | OPS-10 | Phase 1 | Complete |
 | COMP-01 | Phase 1 | Complete |
 | COMP-02 | Phase 1 | Complete |
-| COMP-03 | Phase 1 | Pending |
+| COMP-03 | Phase 1 | Complete |
 | COMP-04 | Phase 1 | Complete |
 | COMP-05 | Phase 1 | Complete |
 
