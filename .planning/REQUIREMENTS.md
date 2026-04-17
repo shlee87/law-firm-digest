@@ -35,10 +35,10 @@ Derived from `.planning/research/FEATURES.md` categorization (T1–T17 table sta
 
 ### Email Composition & Delivery (EMAIL)
 
-- [ ] **EMAIL-01**: 하루치 신규 항목을 로펌별로 섹션 나눈 하나의 통합 다이제스트 이메일로 발송한다
-- [ ] **EMAIL-02**: 각 아이템은 원어 제목 + 한국어 요약 + 원문 링크를 포함한다
+- [x] **EMAIL-01**: 하루치 신규 항목을 로펌별로 섹션 나눈 하나의 통합 다이제스트 이메일로 발송한다
+- [x] **EMAIL-02**: 각 아이템은 원어 제목 + 한국어 요약 + 원문 링크를 포함한다
 - [ ] **EMAIL-03**: Gmail SMTP + App Password로 발송한다 (`nodemailer`)
-- [ ] **EMAIL-04**: 제목 패턴은 `[법률 다이제스트] YYYY-MM-DD (N firms, M items)` 형식으로 고정 (스팸 필터 안정성)
+- [x] **EMAIL-04**: 제목 패턴은 `[법률 다이제스트] YYYY-MM-DD (N firms, M items)` 형식으로 고정 (스팸 필터 안정성)
 - [ ] **EMAIL-05**: 이메일 footer에 실패한 로펌 목록과 실패 사유 요약을 표시한다
 - [ ] **EMAIL-06**: SMTP 발송 에러는 워크플로우를 빨간색으로 실패시킨다 — 절대 조용히 삼키지 않는다
 - [ ] **EMAIL-07**: SMTP 일시적 5xx 에러는 재시도하고, 535 인증 실패는 명시적 `GMAIL_AUTH_FAILURE` 마커와 함께 즉시 fail
@@ -129,10 +129,10 @@ Every v1 requirement maps to exactly one phase. Phase 4 (JS-rendered tier) is co
 | SUMM-04 | Phase 1 | Complete |
 | SUMM-05 | Phase 1 | Complete |
 | SUMM-06 | Phase 1 | Complete |
-| EMAIL-01 | Phase 1 | Pending |
-| EMAIL-02 | Phase 1 | Pending |
+| EMAIL-01 | Phase 1 | Complete |
+| EMAIL-02 | Phase 1 | Complete |
 | EMAIL-03 | Phase 1 | Pending |
-| EMAIL-04 | Phase 1 | Pending |
+| EMAIL-04 | Phase 1 | Complete |
 | EMAIL-05 | Phase 2 | Pending |
 | EMAIL-06 | Phase 1 | Pending |
 | EMAIL-07 | Phase 2 | Pending |

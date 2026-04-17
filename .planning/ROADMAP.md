@@ -41,7 +41,7 @@ Plans:
 - [ ] 01-05-PLAN.md — robots.txt + RSS scraper + fetch orchestrator (FETCH-03/04, COMP-03)
 - [x] 01-06-PLAN.md — Gemini summarizer + prompt/schema with model fallback (SUMM-01..06)
 - [x] 01-07-PLAN.md — dedup pure function + D-09 bootstrap + TDD tests (DEDUP-01/03)
-- [ ] 01-08-PLAN.md — digest composer + minimal HTML template + XSS escape + snapshot test (EMAIL-01/02/04)
+- [x] 01-08-PLAN.md — digest composer + minimal HTML template + XSS escape + snapshot test (EMAIL-01/02/04)
 - [ ] 01-09-PLAN.md — Gmail SMTP mailer with DRY_RUN gate + fail-loud + 535 detection (EMAIL-03/06, OPS-06)
 - [ ] 01-10-PLAN.md — State reader/writer with version guard + 500-cap + atomic write (DEDUP-04/06/07, OPS-06)
 - [ ] 01-11-PLAN.md — Composition root main.ts with OPS-03 run-transaction ordering (OPS-03, FETCH-03, DEDUP-03)

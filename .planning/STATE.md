@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-07 dedup pure function (dedupAll with D-09 bootstrap + B1 raw preservation, 2 tasks, 24 tests green, 2 requirements DEDUP-01/03)
-last_updated: "2026-04-17T14:35:31.818Z"
+stopped_at: Completed 01-08 email digest composition (composeDigest + renderHtml with XSS escape + B3 null-summary placeholder '요약 없음 — 본문 부족'; 3 tasks, 29 tests green, 3 requirements EMAIL-01/02/04)
+last_updated: "2026-04-17T15:31:36.852Z"
 last_activity: 2026-04-17
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 12
-  completed_plans: 6
-  percent: 50
+  completed_plans: 7
+  percent: 58
 ---
 
 # Project State
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-16)
 ## Current Position
 
 Phase: 01 (foundation-vertical-slice) — EXECUTING
-Plan: 7 of 12
+Plan: 8 of 12
 Status: Ready to execute
 Last activity: 2026-04-17
 
@@ -58,6 +58,7 @@ Progress: [██░░░░░░░░] 17%
 | Phase 01-foundation-vertical-slice P04 | 3 min | 2 tasks tasks | 2 files files |
 | Phase 01-foundation-vertical-slice P06 | ~4 min | 2 tasks | 2 files |
 | Phase 01-foundation-vertical-slice P07 | ~2 min | 2 tasks | 2 files |
+| Phase 01-foundation-vertical-slice P08 | ~2 min | 3 tasks tasks | 4 files files |
 
 ## Accumulated Context
 
@@ -84,6 +85,9 @@ Recent decisions affecting current work:
 - [Phase 01-foundation-vertical-slice]: 01-06: SUMM-06 enforced as two-layer defense — prompt.ts grep gate (machine-verifiable: no 'item.title' substring anywhere in file) + gemini.ts JSDoc caller contract (four marker strings: 'SUMM-06 caller contract', 'body MUST be a real article body', 'Do NOT substitute', 'summaryModel: skipped'). Plan 11 main.ts owns the runtime bypass branch (!item.description → skip summarize() entirely).
 - [Phase 01-foundation-vertical-slice]: 01-07: dedupAll bootstrap branch preserves r.raw via spread — upholds B1 cross-plan contract with plan 10 writer, which seeds seen.firms[id].urls from r.raw on first run. Returning without raw would break the D-09 silently (first run seeds empty state, second run emits the whole back-catalog).
 - [Phase 01-foundation-vertical-slice]: 01-07: Error pass-through in dedup is reference-equal (toBe(errorResult)), not shallow-cloned — plan 11's failed-firm aggregation can depend on reference equality. Test locks this so any future refactor that accidentally clones the error branch fails immediately.
+- [Phase 01-foundation-vertical-slice]: 01-08: escapeHtml/escapeAttr kept LOCAL (not exported) in templates.ts — compose is the only user-controlled-to-HTML boundary; exporting would fragment the XSS surface. Single file owns the escape vocabulary.
+- [Phase 01-foundation-vertical-slice]: 01-08: B3 null-summary branch keyed on summary_ko === null, NOT on summaryModel — templates don't distinguish Gemini 'failed' from main.ts 'skipped'. Both produce null → both render '요약 없음 — 본문 부족'. Zero branching overhead; new null-origins in future phases won't require template changes.
+- [Phase 01-foundation-vertical-slice]: 01-08: Snapshot stored in external .snap file (not toMatchInlineSnapshot) — keeps PR diffs readable on whitespace-heavy HTML and survives inline-snapshot formatter quirks.
 
 ### Pending Todos
 
@@ -105,6 +109,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-17T14:35:31.815Z
-Stopped at: Completed 01-07 dedup pure function (dedupAll with D-09 bootstrap + B1 raw preservation, 2 tasks, 24 tests green, 2 requirements DEDUP-01/03)
+Last session: 2026-04-17T14:41:24.824Z
+Stopped at: Completed 01-08 email digest composition (composeDigest + renderHtml with XSS escape + B3 null-summary placeholder '요약 없음 — 본문 부족'; 3 tasks, 29 tests green, 3 requirements EMAIL-01/02/04)
 Resume file: None
