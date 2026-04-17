@@ -37,10 +37,10 @@ Derived from `.planning/research/FEATURES.md` categorization (T1–T17 table sta
 
 - [x] **EMAIL-01**: 하루치 신규 항목을 로펌별로 섹션 나눈 하나의 통합 다이제스트 이메일로 발송한다
 - [x] **EMAIL-02**: 각 아이템은 원어 제목 + 한국어 요약 + 원문 링크를 포함한다
-- [ ] **EMAIL-03**: Gmail SMTP + App Password로 발송한다 (`nodemailer`)
+- [x] **EMAIL-03**: Gmail SMTP + App Password로 발송한다 (`nodemailer`)
 - [x] **EMAIL-04**: 제목 패턴은 `[법률 다이제스트] YYYY-MM-DD (N firms, M items)` 형식으로 고정 (스팸 필터 안정성)
 - [ ] **EMAIL-05**: 이메일 footer에 실패한 로펌 목록과 실패 사유 요약을 표시한다
-- [ ] **EMAIL-06**: SMTP 발송 에러는 워크플로우를 빨간색으로 실패시킨다 — 절대 조용히 삼키지 않는다
+- [x] **EMAIL-06**: SMTP 발송 에러는 워크플로우를 빨간색으로 실패시킨다 — 절대 조용히 삼키지 않는다
 - [ ] **EMAIL-07**: SMTP 일시적 5xx 에러는 재시도하고, 535 인증 실패는 명시적 `GMAIL_AUTH_FAILURE` 마커와 함께 즉시 fail
 
 ### Config & Extensibility (CONF)
@@ -60,7 +60,7 @@ Derived from `.planning/research/FEATURES.md` categorization (T1–T17 table sta
 - [ ] **OPS-03**: 실행 순서는 fetch → dedup → summarize → email → state write (state는 이메일 발송 성공 후에만 커밋)
 - [ ] **OPS-04**: 로펌별 `lastNewAt`이 30일 이상 지난 경우 다이제스트 상단에 staleness 경고 표시
 - [ ] **OPS-05**: 이전 실행 종료가 30시간 이상 오래된 경우 다이제스트 header에 last-run staleness 알림
-- [ ] **OPS-06**: `DRY_RUN=1` 환경 변수로 전체 파이프라인 리허설 가능 (Gemini 호출하되 이메일 발송 & state 저장 skip)
+- [x] **OPS-06**: `DRY_RUN=1` 환경 변수로 전체 파이프라인 리허설 가능 (Gemini 호출하되 이메일 발송 & state 저장 skip)
 - [ ] **OPS-07**: `pnpm check:firm <id>` CLI로 단일 로펌 end-to-end 검증 가능 (raw → parsed → would-summarize → would-render)
 - [ ] **OPS-08**: 매 실행마다 로펌별 fetched/new/summarized/errors/duration 표를 `$GITHUB_STEP_SUMMARY`에 출력
 - [ ] **OPS-09**: 매일 `archive/YYYY/MM-DD.html`에 발송 다이제스트 사본을 repo에 커밋 (검색 가능한 히스토리)
@@ -131,10 +131,10 @@ Every v1 requirement maps to exactly one phase. Phase 4 (JS-rendered tier) is co
 | SUMM-06 | Phase 1 | Complete |
 | EMAIL-01 | Phase 1 | Complete |
 | EMAIL-02 | Phase 1 | Complete |
-| EMAIL-03 | Phase 1 | Pending |
+| EMAIL-03 | Phase 1 | Complete |
 | EMAIL-04 | Phase 1 | Complete |
 | EMAIL-05 | Phase 2 | Pending |
-| EMAIL-06 | Phase 1 | Pending |
+| EMAIL-06 | Phase 1 | Complete |
 | EMAIL-07 | Phase 2 | Pending |
 | CONF-01 | Phase 1 | Complete |
 | CONF-02 | Phase 1 | Complete |
@@ -148,7 +148,7 @@ Every v1 requirement maps to exactly one phase. Phase 4 (JS-rendered tier) is co
 | OPS-03 | Phase 1 | Pending |
 | OPS-04 | Phase 3 | Pending |
 | OPS-05 | Phase 3 | Pending |
-| OPS-06 | Phase 1 | Pending |
+| OPS-06 | Phase 1 | Complete |
 | OPS-07 | Phase 3 | Pending |
 | OPS-08 | Phase 3 | Pending |
 | OPS-09 | Phase 3 | Pending |
