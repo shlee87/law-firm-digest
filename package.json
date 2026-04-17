@@ -1,0 +1,35 @@
+{
+  "name": "legalnewsletter",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "dev": "tsx src/main.ts",
+    "dry-run": "DRY_RUN=1 tsx src/main.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@google/genai": "^1.50.1",
+    "date-fns-tz": "^3.2.0",
+    "feedparser": "^2.3.1",
+    "nodemailer": "^8.0.5",
+    "p-limit": "^7.3.0",
+    "p-retry": "^8.0.0",
+    "yaml": "^2.8.3",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9",
+    "@types/feedparser": "^2",
+    "@types/node": "^22",
+    "@types/nodemailer": "^7",
+    "dotenv": "^16",
+    "eslint": "^9",
+    "prettier": "^3",
+    "tsx": "^4.21.0",
+    "typescript": "^5.7",
+    "typescript-eslint": "^8",
+    "vitest": "^4.1.4"
+  }
+}
