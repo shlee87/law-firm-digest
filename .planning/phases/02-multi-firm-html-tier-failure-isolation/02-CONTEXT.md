@@ -189,6 +189,38 @@ Daily run; items rarely re-summarized. Adding a body cache would require a new s
 5. What's the typical publishing cadence per firm? (Informs expectation management — silent weeks are normal for some.)
 6. Is there any firm that truly needs JS rendering today? (If zero, Phase 4 becomes skip.)
 
+## Post-Research Decisions (Locked by User 2026-04-17)
+
+Research completed 2026-04-17. Empirical audit of 12 candidates + 2 backups revealed 5 firms are JS-rendered SPAs (광장, 화우, 바른, Latham, Kirkland) — not shippable in Phase 2 without Playwright (Phase 4). User locked the following:
+
+### D-P2-14 — Final firm list: Option A+B (9 live + 3 disabled placeholders)
+
+**Live firms (9) shipped in Phase 2:**
+- KR (5): `kim-chang` (김앤장), `shin-kim` (세종), `yulchon` (율촌), `bkl` (태평양), plus `logos` (로고스) as backup swap
+- US (2): `cooley` (existing Phase 1), `skadden`
+- UK (2): `clifford-chance`, `freshfields`
+
+**Disabled placeholders (3, `enabled: false` in `config/firms.yaml` with "defer to Phase 4" comment):**
+- `leeko` (광장), `yoonyang` (화우), `barun` (바른) — all JS-rendered
+
+**Rationale:** 12-firm ROADMAP target cannot be met in Phase 2 without Playwright. Disabled entries keep config-shaped promise of 12 visible; Phase 4 (or further backup swaps) can re-enable. Latham and Kirkland are also JS-rendered but not included as placeholders because the backup pool already filled the US slot via Skadden.
+
+### D-P2-15 — Zod schema extension for onclick-link firms (approved)
+
+Extend `selectors` in `src/config/schema.ts` with two optional fields:
+- `link_onclick_regex: string` — regex applied to `onclick` attribute
+- `link_template: string` — URL template with `$1`, `$2` capture placeholders
+
+Add refinement: each firm must have EITHER `selectors.link` OR (`selectors.link_onclick_regex` + `selectors.link_template`). This is what allows 김앤장 and 태평양 (both use `onclick="goDetail('id','sub')"` patterns) to ship live without JS rendering.
+
+### D-P2-16 — URL canonicalization: extend TRACKING_PARAMS
+
+Add `page`, `s_type`, `s_keyword` to `TRACKING_PARAMS` in `src/pipeline/canonicalize.ts`. Reason: 로고스 (ASP-based) uses these as pagination/search params, never as item identity. Keeping them in the URL would bloat state and risk false-new-item events if pagination values shift. Safe universally — these names are always ambient, never identifiers.
+
+### D-P2-17 — Keyword filter defaults: empty across all firms
+
+All 9 live firms ship with `include_keywords: []` and `exclude_keywords: []` (i.e., no filters). Reason: Gemini free tier has 250 RPD; 9 firms × ~2 new items/day = 18 calls/day = ~12× headroom. No need to pre-filter. Add filters reactively if a specific firm's feed proves noisy during first weeks of operation (e.g., Freshfields press-release noise — deferred to post-Phase-2 observation).
+
 ## Success Criteria (from ROADMAP.md — Phase 2)
 
 1. Intentionally breaking one firm's selector still produces a digest for the remaining firms, with the failed firm listed in the email footer.
