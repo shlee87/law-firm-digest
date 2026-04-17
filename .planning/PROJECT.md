@@ -47,13 +47,13 @@
 - 사용자가 법률 업계 동향을 개인적으로 추적하려는 목적. B2B 제품이 아님
 - 대상 로펌은 대부분 공개 뉴스레터 페이지를 보유. 일부는 RSS를 제공할 수 있고, 일부는 HTML 스크래핑이 필요할 수 있음 (research 단계에서 확인)
 - 수신처 메일은 Gmail 계열로 추정 (현재 사용자 계정: `sarakim1705@gmail.com`) — 다만 **변경 가능성**을 설계 가정에 반영
-- Gemini API 무료 티어는 일일 1,500 request 한도로, 현재 12개 로펌 기준 일 신규 항목 수를 감안하면 충분한 여유
+- Gemini API 무료 티어는 2025-12 Google 축소 이후 `gemini-2.5-flash` 기준 **약 250 RPD** (리셋: 미국 태평양시 자정). 12개 로펌 × 평균 5건/일 = 약 60건/일로 충분하지만, 폭주일 대비 `gemini-2.5-flash-lite`(약 1,000 RPD) 폴백 경로 필요
 - 저장소는 현재 GSD 툴링과 `gsd-patches` 서브모듈 외에는 실제 코드가 없는 상태 (greenfield)
 
 ## Constraints
 
 - **Budget**: $0/월 — 기존 $20 Claude Pro + $20 ChatGPT Plus 외 추가 지출 불가. 유료 API·호스팅·DB 금지
-- **AI source**: Gemini API 무료 티어 (1,500 req/day) — 유일한 자동화 가능 LLM 채널
+- **AI source**: Gemini API 무료 티어 — `gemini-2.5-flash` 약 250 RPD + `gemini-2.5-flash-lite` 약 1,000 RPD 폴백. 유일한 자동화 가능 LLM 채널
 - **Execution**: 클라우드 크론 기반 (GitHub Actions 유력) — 사용자 머신 켜짐 상태에 의존 금지
 - **Email delivery**: 무료 경로만 사용 — Gmail SMTP(App Password) 또는 동등한 무료 티어
 - **Scraping politeness**: 각 로펌 사이트 robots.txt 준수, 하루 1회 1요청/사이트 원칙. 부하/차단 리스크 최소화
