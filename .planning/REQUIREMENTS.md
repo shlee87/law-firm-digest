@@ -19,9 +19,9 @@ Derived from `.planning/research/FEATURES.md` categorization (T1–T17 table sta
 - [x] **DEDUP-01**: 이전 실행에서 본 URL은 다시 발송하지 않는다 (cross-run dedup)
 - [x] **DEDUP-02**: URL 비교 전에 canonicalize 한다 (scheme/host 소문자, `www.` 제거, fragment·tracking params 제거, trailing slash 정규화, query param 정렬)
 - [x] **DEDUP-03**: 신규가 하나라도 있는 날에만 이메일을 발송한다 ("오늘은 없음" 메일 금지)
-- [ ] **DEDUP-04**: 로펌별 seen URL 목록은 500개로 상한 (newest-first), 넘으면 오래된 것부터 버린다
+- [x] **DEDUP-04**: 로펌별 seen URL 목록은 500개로 상한 (newest-first), 넘으면 오래된 것부터 버린다
 - [ ] **DEDUP-05**: 새로 추가한 로펌의 첫 실행은 back-catalog 전체를 발송하지 않는다 — 최초 실행 시 seen 상태로 bootstrap
-- [ ] **DEDUP-06**: 상태(`state/seen.json`)는 실행 후 repo에 자동 commit 된다 (`[skip ci]` 포함, 무한 루프 방지)
+- [x] **DEDUP-06**: 상태(`state/seen.json`)는 실행 후 repo에 자동 commit 된다 (`[skip ci]` 포함, 무한 루프 방지)
 - [x] **DEDUP-07**: state schema는 version 필드를 포함한다 (향후 마이그레이션 대비)
 
 ### Summarization (SUMM)
@@ -119,9 +119,9 @@ Every v1 requirement maps to exactly one phase. Phase 4 (JS-rendered tier) is co
 | DEDUP-01 | Phase 1 | Complete |
 | DEDUP-02 | Phase 1 | Complete |
 | DEDUP-03 | Phase 1 | Complete |
-| DEDUP-04 | Phase 1 | Pending |
+| DEDUP-04 | Phase 1 | Complete |
 | DEDUP-05 | Phase 2 | Pending |
-| DEDUP-06 | Phase 1 | Pending |
+| DEDUP-06 | Phase 1 | Complete |
 | DEDUP-07 | Phase 1 | Complete |
 | SUMM-01 | Phase 1 | Complete |
 | SUMM-02 | Phase 1 | Complete |
