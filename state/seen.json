@@ -1,5 +1,26 @@
 {
   "version": 1,
-  "lastUpdated": null,
-  "firms": {}
+  "lastUpdated": "2026-04-17T17:42:17.876Z",
+  "firms": {
+    "cooley": {
+      "urls": [
+        "https://cooleygo.com/basics-of-qualifying-as-a-small-business-for-united-states-federal-government-contracts",
+        "https://cooleygo.com/intercompany-agreements-what-you-need-to-know",
+        "https://cooleygo.com/listen-early-grow-faster-a-startup-playbook-for-stakeholder-engagement",
+        "https://cooleygo.com/us-government-rights-in-technical-data-software-and-subject-inventions-a-primer-for-early-stage-dual-use-companies",
+        "https://cooleygo.com/q3-2025-venture-financing-report-interview-with-razors-edge",
+        "https://cooleygo.com/what-is-a-disclosure-schedule-and-why-do-i-need-to-prepare-one",
+        "https://cooleygo.com/what-is-the-500-stockholder-rule",
+        "https://cooleygo.com/reductions-in-force-in-the-us-considerations-and-best-practices",
+        "https://cooleygo.com/board-committees-what-private-companies-should-know",
+        "https://cooleygo.com/youve-just-receive-a-patent-licensing-or-infringement-demand-what-now",
+        "https://cooleygo.com/nondilutive-us-government-funding-for-small-businesses-through-sbir-awards",
+        "https://cooleygo.com/convertible-notes-in-southeast-asia-and-india-key-risks-and-considerations-for-startups",
+        "https://cooleygo.com/q2-2025-venture-financing-report-interview-with-lily-lyman",
+        "https://cooleygo.com/incentive-stock-option-modifications-key-considerations-and-traps-for-the-unwary",
+        "https://cooleygo.com/delaware-versus-nevada-versus-texas-a-comparison-of-corporate-laws"
+      ],
+      "lastNewAt": "2026-03-20T18:35:28.000Z"
+    }
+  }
 }
