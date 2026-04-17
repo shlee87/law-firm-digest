@@ -10,7 +10,7 @@
 const SECRET_ENV_VARS = ['GEMINI_API_KEY', 'GMAIL_APP_PASSWORD'] as const;
 
 export const USER_AGENT =
-  'LegalNewsletterBot/1.0 (+https://github.com/Phantompal/legalnewsletter)';
+  'LegalNewsletterBot/1.0 (+https://github.com/shlee87/law-firm-digest)';
 
 export function scrubSecrets(input: string): string {
   let out = input;

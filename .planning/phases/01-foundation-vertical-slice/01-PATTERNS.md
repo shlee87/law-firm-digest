@@ -83,7 +83,7 @@
 ### `src/types.ts` (model — contract surface)
 
 **Analog:** none in-repo.
-**Reference:** `/Users/seonghoonyi/Documents/projects/legalnewsletter/.planning/research/ARCHITECTURE.md` §Contracts Between Components, lines 96–163.
+**Reference:** `/Users/<user>/Documents/projects/legalnewsletter/.planning/research/ARCHITECTURE.md` §Contracts Between Components, lines 96–163.
 
 **Copy this interface set verbatim** (ARCHITECTURE.md L99–163):
 
@@ -303,7 +303,7 @@ export async function loadFirms() {
 
 ```typescript
 // src/scrapers/robots.ts
-const UA = 'LegalNewsletterBot/1.0 (+https://github.com/Phantompal/legalnewsletter)';
+const UA = 'LegalNewsletterBot/1.0 (+https://github.com/shlee87/law-firm-digest)';
 const cache = new Map<string, string[]>();  // host → disallow paths
 
 export async function fetchRobots(origin: string): Promise<string[]> {
@@ -403,7 +403,7 @@ import { Readable } from 'node:stream';
 import type { FirmConfig, RawItem } from '../types';
 import { canonicalizeUrl, parseDate } from './util';
 
-const UA = 'LegalNewsletterBot/1.0 (+https://github.com/Phantompal/legalnewsletter)';
+const UA = 'LegalNewsletterBot/1.0 (+https://github.com/shlee87/law-firm-digest)';
 
 export async function scrapeRss(firm: FirmConfig): Promise<RawItem[]> {
   const res = await fetch(firm.url, { headers: { 'User-Agent': UA }, signal: AbortSignal.timeout(firm.timeout_ms ?? 20000) });
@@ -1199,7 +1199,7 @@ Phase 1 has no user-facing auth. External auth credentials used:
 
 **Source pattern:** FETCH-04 + RESEARCH.md §Pitfall 9 (Saramin 판례).
 
-**Constant:** `LegalNewsletterBot/1.0 (+https://github.com/Phantompal/legalnewsletter)`.
+**Constant:** `LegalNewsletterBot/1.0 (+https://github.com/shlee87/law-firm-digest)`.
 
 **Apply to:** every outbound HTTP request.
 - `src/scrapers/robots.ts` — on `fetch('/robots.txt')`

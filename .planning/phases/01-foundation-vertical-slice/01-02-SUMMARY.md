@@ -80,7 +80,7 @@ Presented options to user after Task 1 probe revealed all D-02 candidates had fa
 
 ## Probe Evidence — D-02 Candidate List (ALL FAILED)
 
-Honest UA used: `LegalNewsletterBot/1.0 (+https://github.com/Phantompal/legalnewsletter)`
+Honest UA used: `LegalNewsletterBot/1.0 (+https://github.com/shlee87/law-firm-digest)`
 
 | # | Candidate URL | HTTP | Content-Type | Body | Verdict |
 |---|---------------|------|--------------|------|---------|

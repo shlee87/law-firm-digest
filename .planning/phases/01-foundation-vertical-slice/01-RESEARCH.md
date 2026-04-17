@@ -725,7 +725,7 @@ Pulled from `.planning/research/PITFALLS.md`, filtered to Phase 1의 `[CHEAP NOW
 **What goes wrong:** Korean Supreme Court 2021도1533 (2022 May) held that scraping while concealing UA + ignoring robots.txt = 부정경쟁방지법 위반. Ruling was against a commercial scraper but establishes precedent for respect of signals.
 
 **How to avoid (Phase 1 must bake in BEFORE first scrape runs):**
-- Honest UA: `LegalNewsletterBot/1.0 (+https://github.com/Phantompal/legalnewsletter)`.
+- Honest UA: `LegalNewsletterBot/1.0 (+https://github.com/shlee87/law-firm-digest)`.
 - Parse & respect `robots.txt` per firm before first scrape of the day.
 - No proxies / VPNs / residential IPs.
 - 1 req/firm/day (FETCH-03).

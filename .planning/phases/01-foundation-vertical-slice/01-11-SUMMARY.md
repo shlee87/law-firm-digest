@@ -114,7 +114,7 @@ Command: `DRY_RUN=1 pnpm dev`
 Captured stdout:
 
 ```
-> legalnewsletter@ dev /Users/seonghoonyi/Documents/projects/legalnewsletter
+> legalnewsletter@ dev /Users/<user>/Documents/projects/legalnewsletter
 > tsx src/main.ts
 
 No new items today — skipping email (DEDUP-03).

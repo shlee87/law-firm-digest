@@ -62,7 +62,7 @@ Gmail revokes App Passwords automatically on password change, 2FA reset, and lon
 
 ## Copyright and compliance
 
-This tool stores only URLs, titles, and AI-generated summaries. Full newsletter bodies are never persisted. Each firm's `robots.txt` is respected on every run, and outbound requests identify themselves with an honest User-Agent string `LegalNewsletterBot/1.0 (+https://github.com/Phantompal/legalnewsletter)`. Scraping is rate-limited to one request per firm per day (`p-limit(3)` concurrency across firms).
+This tool stores only URLs, titles, and AI-generated summaries. Full newsletter bodies are never persisted. Each firm's `robots.txt` is respected on every run, and outbound requests identify themselves with an honest User-Agent string `LegalNewsletterBot/1.0 (+https://github.com/shlee87/law-firm-digest)`. Scraping is rate-limited to one request per firm per day (`p-limit(3)` concurrency across firms).
 
 Digests are for the recipient's personal awareness only — they do not redistribute firm content beyond what a human browsing the public newsletter page would already see.
 

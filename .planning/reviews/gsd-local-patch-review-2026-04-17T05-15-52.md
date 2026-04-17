@@ -1,6 +1,6 @@
 # GSD Local Patch Review Report
 
-- Root: `/Users/seonghoonyi/Documents/projects/legalnewsletter`
+- Root: `/Users/<user>/Documents/projects/legalnewsletter`
 - Generated: 2026-04-17T05:15:52.309Z
 
 Automatic reapply stopped because one or more local patch groups partially overlap with current upstream behavior.

@@ -115,7 +115,7 @@ Only exported function. Any additional code in this file invites DRY_RUN check s
 
 Two exports:
 
-- `USER_AGENT` = `'LegalNewsletterBot/1.0 (+https://github.com/Phantompal/legalnewsletter)'` — the single source of truth for FETCH-04 politeness. Plan 01-05 RSS fetcher imports from here.
+- `USER_AGENT` = `'LegalNewsletterBot/1.0 (+https://github.com/shlee87/law-firm-digest)'` — the single source of truth for FETCH-04 politeness. Plan 01-05 RSS fetcher imports from here.
 - `scrubSecrets(input: string): string` — iterates `['GEMINI_API_KEY', 'GMAIL_APP_PASSWORD']`, and for each env var with `length > 8`, replaces all occurrences in `input` with `***REDACTED***` using literal split+join.
 
 Design notes captured in file comments:
