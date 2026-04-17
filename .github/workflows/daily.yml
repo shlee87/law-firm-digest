@@ -44,8 +44,9 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: pnpm/action-setup@v5
-        with:
-          version: 9
+        # No `version:` input — package.json "packageManager" is the single
+        # source of truth (pinned to pnpm@9.15.0 by plan 01 W3). Specifying
+        # both causes pnpm/action-setup@v5 to reject with ERR_PNPM_BAD_PM_VERSION.
       - uses: actions/setup-node@v6
         with:
           node-version: lts/*
