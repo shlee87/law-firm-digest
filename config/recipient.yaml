@@ -1,0 +1,4 @@
+# config/recipient.yaml
+# 다이제스트 수신 이메일 주소.
+# 환경변수 RECIPIENT_EMAIL 이 있으면 이 파일보다 우선 적용됩니다 (D-05).
+recipient: sarakim1705@gmail.com
