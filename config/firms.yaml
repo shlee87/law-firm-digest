@@ -1,0 +1,40 @@
+# =============================================================
+# 추적 대상 로펌 목록 (LegalNewsletter)
+# -------------------------------------------------------------
+# 이 파일은 매일 수집할 로펌 뉴스레터 목록입니다.
+# 로펌을 추가하려면 아래 firms: 리스트에 블록을 하나 더 추가하세요.
+# 코드 수정은 필요 없고, 이 파일 한 곳만 수정하면 됩니다.
+#
+# 각 필드 설명:
+#   id          : 영문 소문자 slug. 상태(state) 저장 key 로 사용되므로
+#                 한 번 정한 값은 변경 금지. (변경 시 중복 이메일 발송 가능)
+#   name        : 이메일에 표시될 사람-읽기용 이름 (원문 그대로 표기)
+#   language    : 원문 언어 코드. 'ko' (한국어) 또는 'en' (영어)
+#   type        : 수집 방식.
+#                 - Phase 1: 'rss' 만 지원
+#                 - Phase 2: 'html' 추가 (HTML 스크래핑)
+#                 - Phase 4: 'js-render' 조건부 추가 (JS 렌더링 필요 시)
+#   url         : RSS 피드의 절대 URL (https:// 포함, type: rss 인 경우)
+#   timezone    : 사이트가 사용하는 IANA 표준 시간대
+#                 예) America/Los_Angeles, Asia/Seoul, Europe/London
+#   enabled     : true 면 매일 실행, false 면 일시 비활성화.
+#                 블록 삭제 없이도 건너뛸 수 있습니다.
+# -------------------------------------------------------------
+# Phase 1 seed firm 주석 (01-02 probe, W4):
+#   Cooley 의 메인 사이트 www.cooley.com 은 2026-04-17 probe 시점에
+#   공개 RSS 피드를 전혀 제공하지 않음 (D-02 후보 6개 URL 모두 404).
+#   Cooley 가 자체 운영하는 WordPress 서브사이트 cooleygo.com
+#   (스타트업/회사법/IP 대상 "Cooley GO" 퍼블리케이션) 는 RSS 를 제공하며,
+#   사용자 결정(Option B)에 따라 Phase 1 seed 로 이 URL 을 채택.
+#   state key 슬러그는 'cooley' 를 유지 (Phase 2 에서 메인 사이트가
+#   HTML 티어로 들어올 때 'cooley-go' / 'cooley' 로 분리할 수 있도록).
+# =============================================================
+
+firms:
+  - id: cooley
+    name: Cooley
+    language: en
+    type: rss
+    url: https://cooleygo.com/feed/
+    timezone: America/Los_Angeles
+    enabled: true
