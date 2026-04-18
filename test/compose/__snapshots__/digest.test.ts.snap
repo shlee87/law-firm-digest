@@ -3,6 +3,7 @@
 exports[`composeDigest > EMAIL-05 — snapshot with failed firm included (footer format locked) > digest-with-failed-firm 1`] = `
 "<!doctype html><html><body style="font-family:sans-serif;max-width:680px;margin:0 auto;padding:16px;">
     <h1 style="font-size:22px;">법률 다이제스트 2026-04-17</h1>
+    
     <section><h2 style="font-size:18px;margin:24px 0 8px 0;">Cooley</h2>
       <div style="margin:0 0 16px 0;">
         <div><a href="https://cooley.com/news/insight/2026/2026-04-15-ai-reg">AI Regulation Update April 2026</a></div>
@@ -27,6 +28,7 @@ exports[`composeDigest > EMAIL-05 — snapshot with failed firm included (footer
 exports[`composeDigest > HTML snapshot is stable 1`] = `
 "<!doctype html><html><body style="font-family:sans-serif;max-width:680px;margin:0 auto;padding:16px;">
     <h1 style="font-size:22px;">법률 다이제스트 2026-04-17</h1>
+    
     <section><h2 style="font-size:18px;margin:24px 0 8px 0;">Cooley</h2>
       <div style="margin:0 0 16px 0;">
         <div><a href="https://cooley.com/news/insight/2026/2026-04-15-ai-reg">AI Regulation Update April 2026</a></div>

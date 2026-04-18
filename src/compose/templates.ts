@@ -38,12 +38,14 @@
 // XSS-escape boundary of the renderer lives here and only here.
 
 import type { FirmResult } from '../types.js';
+import type { StalenessWarnings } from '../observability/staleness.js';
 import { scrubSecrets } from '../util/logging.js';
 
 export function renderHtml(
   firms: FirmResult[],
   dateKst: string,
   failed: FirmResult[] = [],
+  warnings?: StalenessWarnings,
 ): string {
   const sections = firms
     .map((r) => {
@@ -65,9 +67,11 @@ export function renderHtml(
     .join('');
 
   const failedFooter = renderFailedFirmsFooter(failed);
+  const stalenessBanner = renderStalenessBanner(warnings);
 
   return `<!doctype html><html><body style="font-family:sans-serif;max-width:680px;margin:0 auto;padding:16px;">
     <h1 style="font-size:22px;">법률 다이제스트 ${escapeHtml(dateKst)}</h1>
+    ${stalenessBanner}
     ${sections}
     ${failedFooter}
     <footer style="margin-top:32px;color:#888;font-size:12px;">AI 요약 — 원문 확인 필수</footer>
@@ -117,6 +121,38 @@ function renderFailedFirmsFooter(failed: FirmResult[]): string {
   <div>⚠ 이번 실행에서 수집 실패 — 다음 실행에서 재시도됩니다:</div>
   <ul style="margin:4px 0;">${items}</ul>
 </footer>`;
+}
+
+/**
+ * Render the Phase 3 staleness banner (OPS-04 + OPS-05) as a single
+ * consolidated block (D-04) between the <h1> and the firm sections.
+ *
+ * Returns '' when warnings is undefined or contains no active warnings —
+ * mirroring the renderFailedFirmsFooter "clean-run invisible" pattern.
+ *
+ * Korean banner wording (from CONTEXT.md specifics):
+ *   "⚠ 30일 이상 새 글 없음: 김앤장, 태평양"
+ *   "⚠ 이전 실행 누락 — 48시간 전 마지막 성공 실행"
+ *
+ * Firm names flow from FirmConfig.name (developer-controlled via
+ * config/firms.yaml, already zod-validated). escapeHtml is applied
+ * defensively to preserve the Phase 1 renderFailedFirmsFooter posture.
+ */
+function renderStalenessBanner(warnings?: StalenessWarnings): string {
+  if (!warnings) return '';
+  const parts: string[] = [];
+  if (warnings.staleFirms.length > 0) {
+    const names = warnings.staleFirms.map(escapeHtml).join(', ');
+    parts.push(`⚠ 30일 이상 새 글 없음: ${names}`);
+  }
+  if (warnings.lastRunStale) {
+    parts.push(
+      `⚠ 이전 실행 누락 — ${warnings.lastRunStale.hoursAgo}시간 전 마지막 성공 실행`,
+    );
+  }
+  if (parts.length === 0) return '';
+  const innerDivs = parts.map((p) => `<div>${p}</div>`).join('');
+  return `<div style="margin:0 0 16px 0;padding:12px;background:#fff8e1;border-left:4px solid #f57f17;color:#6f5300;font-size:13px;">${innerDivs}</div>`;
 }
 
 function escapeHtml(s: string): string {

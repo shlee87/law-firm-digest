@@ -23,11 +23,13 @@
 import { formatInTimeZone } from 'date-fns-tz';
 import { renderHtml } from './templates.js';
 import type { FirmResult, EmailPayload } from '../types.js';
+import type { StalenessWarnings } from '../observability/staleness.js';
 
 export function composeDigest(
   results: FirmResult[],
   recipient: string | string[],
   fromAddr: string,
+  warnings?: StalenessWarnings,
   now: Date = new Date(),
 ): EmailPayload {
   const firmsWithNew = results.filter((r) => r.summarized.length > 0);
@@ -35,6 +37,6 @@ export function composeDigest(
   const dateKst = formatInTimeZone(now, 'Asia/Seoul', 'yyyy-MM-dd');
   const itemCount = firmsWithNew.reduce((n, r) => n + r.summarized.length, 0);
   const subject = `[법률 다이제스트] ${dateKst} (${firmsWithNew.length} firms, ${itemCount} items)`;
-  const html = renderHtml(firmsWithNew, dateKst, firmsWithErrors);
+  const html = renderHtml(firmsWithNew, dateKst, firmsWithErrors, warnings);
   return { subject, html, to: recipient, from: fromAddr };
 }
