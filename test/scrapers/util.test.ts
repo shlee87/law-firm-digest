@@ -4,8 +4,15 @@
 // Every change to canonicalizeUrl or parseDate MUST keep these vectors green; any
 // change that forces an update here is a breaking change to downstream state.
 
-import { describe, it, expect } from 'vitest';
-import { canonicalizeUrl, parseDate } from '../../src/scrapers/util.js';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { readFile } from 'node:fs/promises';
+import { promises as fs } from 'node:fs';
+import {
+  canonicalizeUrl,
+  parseDate,
+  decodeCharsetAwareFetch,
+  extractBody,
+} from '../../src/scrapers/util.js';
 
 describe('canonicalizeUrl', () => {
   // The canonical form of the Cooley test article (RESEARCH.md L547-552).
@@ -88,6 +95,22 @@ describe('canonicalizeUrl', () => {
     );
   });
 
+  it('strips D-P2-16 legacy ASP params (page, s_type, s_keyword)', () => {
+    expect(
+      canonicalizeUrl(
+        'https://www.lawlogos.com/sub/news/newsletter_view.asp?b_idx=1443&page=1&s_type=&s_keyword=',
+      ),
+    ).toBe('https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=1443');
+  });
+
+  it('strips page/s_type/s_keyword independently (each entry is honored)', () => {
+    expect(
+      canonicalizeUrl(
+        'https://example.com/x?a=1&page=5&s_type=news&s_keyword=foo&b=2',
+      ),
+    ).toBe('https://example.com/x?a=1&b=2');
+  });
+
   it('collapses all four DEDUP-02 canonical vectors that share the same scheme', () => {
     // The three https vectors (1, 2, 4) MUST all collapse to the same canonical form.
     const vectors = [
@@ -130,5 +153,152 @@ describe('parseDate', () => {
   it('returns a valid ISO-8601 string ending with Z', () => {
     const out = parseDate('2026-06-01T00:00:00', 'UTC');
     expect(out).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/);
+  });
+});
+
+describe('decodeCharsetAwareFetch', () => {
+  let originalFetch: typeof fetch;
+  beforeEach(() => {
+    originalFetch = globalThis.fetch;
+  });
+  afterEach(() => {
+    globalThis.fetch = originalFetch;
+  });
+
+  it('returns UTF-8 string for a UTF-8 response (passthrough)', async () => {
+    const html = '<html><body><h1>뉴스레터</h1></body></html>';
+    globalThis.fetch = vi.fn().mockResolvedValue(
+      new Response(Buffer.from(html, 'utf8'), {
+        status: 200,
+        headers: { 'content-type': 'text/html; charset=utf-8' },
+      }),
+    ) as typeof fetch;
+    const r = await decodeCharsetAwareFetch('https://example.com/a');
+    expect(r.html).toContain('뉴스레터');
+    expect(r.status).toBe(200);
+  });
+
+  it('decodes CP949 bytes when charset=euc-kr', async () => {
+    const buf = await readFile(
+      new URL('../fixtures/korean-cp949.html', import.meta.url),
+    );
+    globalThis.fetch = vi.fn().mockResolvedValue(
+      new Response(buf, {
+        status: 200,
+        headers: { 'content-type': 'text/html; charset=euc-kr' },
+      }),
+    ) as typeof fetch;
+    const r = await decodeCharsetAwareFetch('https://example.com/a');
+    expect(r.html).toContain('한국어');
+  });
+
+  it('uses <meta charset> when Content-Type lacks charset', async () => {
+    const buf = await readFile(
+      new URL('../fixtures/korean-cp949.html', import.meta.url),
+    );
+    globalThis.fetch = vi.fn().mockResolvedValue(
+      new Response(buf, {
+        status: 200,
+        headers: { 'content-type': 'text/html' }, // no charset
+      }),
+    ) as typeof fetch;
+    const r = await decodeCharsetAwareFetch('https://example.com/a');
+    expect(r.html).toContain('한국어');
+  });
+
+  it('throws with {url}: HTTP {status} shape on non-OK', async () => {
+    globalThis.fetch = vi
+      .fn()
+      .mockResolvedValue(new Response('', { status: 503 })) as typeof fetch;
+    await expect(
+      decodeCharsetAwareFetch('https://example.com/missing'),
+    ).rejects.toThrow(/HTML fetch https:\/\/example\.com\/missing: HTTP 503/);
+  });
+
+  it('returns status and finalUrl from the response (redirect follow honored)', async () => {
+    const html = '<html><body><p>ok</p></body></html>';
+    globalThis.fetch = vi.fn().mockResolvedValue(
+      Object.defineProperty(
+        new Response(Buffer.from(html, 'utf8'), {
+          status: 200,
+          headers: { 'content-type': 'text/html; charset=utf-8' },
+        }),
+        'url',
+        { value: 'https://example.com/final', configurable: true },
+      ),
+    ) as typeof fetch;
+    const r = await decodeCharsetAwareFetch('https://example.com/start');
+    expect(r.status).toBe(200);
+    expect(r.finalUrl).toBe('https://example.com/final');
+  });
+});
+
+describe('extractBody', () => {
+  it('extracts body text from generic <article> selector (chain first match)', async () => {
+    const html = await fs.readFile(
+      new URL('../fixtures/article-generic.html', import.meta.url),
+      'utf8',
+    );
+    const body = extractBody(html);
+    expect(body.length).toBeGreaterThan(120);
+    expect(body).toContain('main body text');
+    expect(body).not.toContain('<'); // no html tags leaked
+  });
+
+  it('per-firm override beats generic chain', async () => {
+    const html = await fs.readFile(
+      new URL('../fixtures/article-override.html', import.meta.url),
+      'utf8',
+    );
+    const body = extractBody(html, '.custom-body');
+    expect(body).toMatch(/^override body/);
+  });
+
+  it('strips script/style/nav/aside/footer/ad/share/related widgets', () => {
+    const html = `<html><body><article>good signal text is here and it is more than 120 chars long to pass the gate yes very long signal text continues and continues and we need more than one hundred and twenty characters.
+      <script>bad()</script>
+      <nav>bad nav</nav>
+      <footer>bad footer</footer>
+      <aside>bad aside</aside>
+      <div class="ad">bad ad</div>
+      <div class="social-share">bad share</div>
+      <div class="related-posts">bad related</div>
+    </article></body></html>`;
+    const body = extractBody(html);
+    expect(body).toContain('good signal');
+    expect(body).not.toContain('bad()');
+    expect(body).not.toContain('bad nav');
+    expect(body).not.toContain('bad footer');
+    expect(body).not.toContain('bad aside');
+    expect(body).not.toContain('bad ad');
+    expect(body).not.toContain('bad share');
+    expect(body).not.toContain('bad related');
+  });
+
+  it('falls back to largest <p>-cluster parent when no semantic wrapper matches', async () => {
+    const html = await fs.readFile(
+      new URL('../fixtures/article-fallback.html', import.meta.url),
+      'utf8',
+    );
+    const body = extractBody(html);
+    expect(body).toContain('p-cluster target');
+    expect(body).not.toContain('lone paragraph');
+  });
+
+  it('caps body at 10_000 chars', () => {
+    const huge = 'x'.repeat(20_000);
+    const html = `<html><body><article>${huge}</article></body></html>`;
+    const body = extractBody(html);
+    expect(body.length).toBe(10_000);
+  });
+
+  it('normalizes U+00A0 to ASCII space (Pitfall 4)', () => {
+    const html =
+      '<html><body><article>foo\u00a0bar' +
+      'x'.repeat(200) +
+      '</article></body></html>';
+    const body = extractBody(html);
+    expect(body.startsWith('foo bar')).toBe(true);
+    expect(body).not.toMatch(/\u00a0/);
   });
 });

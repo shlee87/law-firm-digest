@@ -13,15 +13,24 @@
 // UTC-ISO string regardless of the process timezone or DST state.
 
 import { fromZonedTime } from 'date-fns-tz';
+import iconv from 'iconv-lite';
+import * as cheerio from 'cheerio';
+import { USER_AGENT } from '../util/logging.js';
 
 /**
  * Query-string keys that are stripped from every URL during canonicalization.
  *
- * The first 12 are marketing / analytics trackers (utm_*, gclid, fbclid,
- * mailchimp mc_*, HubSpot _hs*, Marketo mkt_tok). The last 3 (sessionid,
- * token, sid) are session-bearing params that (a) would cause false-new
- * items if the session rotates between runs and (b) double as a tiny
- * information-disclosure mitigation (T-04-02).
+ * Entries 1-12: marketing / analytics trackers (utm_*, gclid, fbclid,
+ * mailchimp mc_*, HubSpot _hs*, Marketo mkt_tok).
+ * Entries 13-15: session-bearing params — sessionid/token/sid — that would
+ * cause false-new items if the session rotates between runs and double as
+ * a tiny information-disclosure mitigation (T-04-02).
+ * Entries 16-18 (D-P2-16, 2026-04-17): legacy ASP ambient params. 법무법인
+ * 로고스 (lawlogos.com) uses `/sub/news/newsletter_view.asp?b_idx=X&page=1&s_type=&s_keyword=`
+ * where b_idx is item identity and the other three are pagination/search
+ * ambient values that shift between requests. Keeping them in the URL
+ * would bloat state and risk false-new-item events; stripping is safe
+ * because no audited firm treats `page`/`s_type`/`s_keyword` as identity.
  *
  * NOTE: keeping this list exported rather than inlined so downstream plans
  * (e.g. plan 05 rss.ts) can reference it in documentation or, if ever
@@ -44,6 +53,10 @@ export const TRACKING_PARAMS: readonly string[] = [
   'sessionid',
   'token',
   'sid',
+  // D-P2-16 additions (legacy ASP ambient params — see docstring above):
+  'page',
+  's_type',
+  's_keyword',
 ];
 
 /**
@@ -131,4 +144,166 @@ export function canonicalizeUrl(input: string, base?: string): string {
  */
 export function parseDate(raw: string, tz: string): string {
   return fromZonedTime(raw, tz).toISOString();
+}
+
+// --------------------------------------------------------------------------
+// Phase 2 additions — HTML-tier helpers (decodeCharsetAwareFetch, extractBody)
+// --------------------------------------------------------------------------
+
+/**
+ * Charset-aware HTML fetch (D-P2-06).
+ *
+ * Fetches URL, picks correct charset from Content-Type → <meta charset> → utf-8
+ * fallback, and decodes via iconv-lite for non-UTF-8 bodies (so EUC-KR / CP949
+ * Korean sites work). UTF-8 responses short-circuit through the native
+ * `Buffer.toString('utf8')` path — never double-decoded.
+ *
+ * Why iconv-lite and not TextDecoder: Node 22's TextDecoder only supports
+ * WHATWG encodings; `euc-kr` and `cp949` throw RangeError. iconv-lite covers
+ * them (and many more). [RESEARCH L359]
+ *
+ * Error message shape `HTML fetch {url}: HTTP {status}` couples to the footer
+ * classifier in compose/templates.ts (plan 05). Do NOT change the format.
+ *
+ * @param url URL to fetch (absolute, followed redirects honored).
+ * @param opts.timeoutMs  AbortSignal.timeout — default 20000ms.
+ * @returns { html, status, finalUrl } where `html` is always UTF-8 string.
+ */
+export async function decodeCharsetAwareFetch(
+  url: string,
+  opts: { timeoutMs?: number } = {},
+): Promise<{ html: string; status: number; finalUrl: string }> {
+  const res = await fetch(url, {
+    headers: { 'User-Agent': USER_AGENT },
+    signal: AbortSignal.timeout(opts.timeoutMs ?? 20_000),
+    redirect: 'follow',
+  });
+  if (!res.ok) {
+    throw new Error(`HTML fetch ${url}: HTTP ${res.status}`);
+  }
+
+  const buf = Buffer.from(await res.arrayBuffer());
+  const contentType = res.headers.get('content-type') ?? '';
+
+  // Priority 1: Content-Type header charset.
+  let charset = /charset=([A-Za-z0-9_-]+)/i.exec(contentType)?.[1]?.toLowerCase();
+
+  // Priority 2: <meta charset=...> or <meta http-equiv=Content-Type> in first 4KB.
+  // iso-8859-1 is usually the web-server default when the actual body declares
+  // a different charset internally — re-probe the document head in that case.
+  if (!charset || charset === 'iso-8859-1') {
+    const head = buf.subarray(0, 4096).toString('ascii');
+    charset =
+      /<meta[^>]+charset=["']?([A-Za-z0-9_-]+)/i.exec(head)?.[1]?.toLowerCase() ??
+      charset ??
+      'utf-8';
+  }
+
+  // Normalize Korean aliases to the iconv-lite canonical name.
+  const normalized =
+    charset === 'euc-kr' || charset === 'ks_c_5601-1987' ? 'cp949' : charset;
+
+  const html =
+    normalized === 'utf-8' || normalized === 'utf8'
+      ? buf.toString('utf8')
+      : iconv.decode(buf, normalized);
+
+  return { html, status: res.status, finalUrl: res.url };
+}
+
+/**
+ * Body selector chain per D-P2-02 / D-P2-11.
+ *
+ * Try in order: firm.selectors?.body override (if provided), then generic chain:
+ * article → main → .entry-content → .post-content → .article-body → #content.
+ * First selector matching AND yielding >120 chars of text wins.
+ *
+ * Fallback when nothing matches: find the single element parent with the
+ * most <p> children (the "p-dense parent" heuristic) and return its text.
+ * This handles sites that don't use any of the semantic wrappers.
+ *
+ * Noise strip: <script>, <style>, <nav>, <aside>, <footer>, ads, share
+ * widgets, related-posts, role=navigation are removed from the document
+ * BEFORE selectors match — ensures body text is signal, not footer junk.
+ *
+ * Text normalization (Pitfall 4): U+00A0 non-breaking space is replaced
+ * with ASCII space BEFORE \s+ collapse; otherwise the keyword filter's
+ * .slice(0, 500) boundary would land in inconsistent places across firms.
+ *
+ * Length cap: 10_000 chars — stays well under Gemini's 250K TPM shared
+ * quota while preserving enough context for a real summary.
+ *
+ * @param html full HTML page (from decodeCharsetAwareFetch typically).
+ * @param firmBodySelector  optional per-firm override from firm.selectors.body.
+ * @returns normalized body text (may be empty string if nothing extractable).
+ */
+export function extractBody(html: string, firmBodySelector?: string): string {
+  const $ = cheerio.load(html);
+
+  // Strip noise globally first so subsequent selectors see only signal.
+  const STRIP_SELECTORS = [
+    'script',
+    'style',
+    'nav',
+    'aside',
+    'footer',
+    '.ad',
+    '.social-share',
+    '.related-posts',
+    '[role="navigation"]',
+  ].join(',');
+  $(STRIP_SELECTORS).remove();
+
+  // Per-firm override wins (D-P2-11).
+  if (firmBodySelector) {
+    const override = $(firmBodySelector).first();
+    if (override.length && override.text().trim().length > 0) {
+      return normalize(override.text());
+    }
+  }
+
+  // Generic chain (D-P2-02 / RESEARCH Pattern 2).
+  const BODY_SELECTOR_CHAIN = [
+    'article',
+    'main',
+    '.entry-content',
+    '.post-content',
+    '.article-body',
+    '#content',
+  ];
+  for (const sel of BODY_SELECTOR_CHAIN) {
+    const el = $(sel).first();
+    if (el.length && el.text().trim().length > 120) {
+      return normalize(el.text());
+    }
+  }
+
+  // Fallback: the <p>-dense parent.
+  let bestEl = $('body');
+  let bestScore = 0;
+  $('p').each((_, p) => {
+    const parent = $(p).parent();
+    const ps = parent.find('p').length;
+    if (ps > bestScore) {
+      bestEl = parent;
+      bestScore = ps;
+    }
+  });
+  return normalize(bestEl.text());
+}
+
+/**
+ * Whitespace + non-breaking-space normalization (Pitfall 4).
+ * Collapses runs of whitespace (including U+00A0) into single ASCII space,
+ * trims, caps at 10_000 chars.
+ *
+ * ORDER MATTERS: replace \u00a0 BEFORE the \s+ collapse, because JS regex
+ * \s does NOT include U+00A0 — it would leak through unnormalized.
+ */
+function normalize(text: string): string {
+  return text
+    .replace(/\u00a0/g, ' ') // Pitfall 4: non-breaking space → ASCII space FIRST
+    .replace(/\s+/g, ' ') // then collapse all whitespace runs
+    .trim()
+    .slice(0, 10_000);
 }
