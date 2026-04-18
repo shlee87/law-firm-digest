@@ -10,36 +10,53 @@
 //   1. loadFirms / loadRecipient        — fail-fast on bad YAML before any I/O.
 //   2. readState                         — needed BEFORE fetchAll so dedup has
 //                                          the prior seen-set at hand.
-//   3. fetchAll                          — per-firm try/catch inside; NEVER
-//                                          throws; errors captured on
-//                                          FirmResult.error.
-//   4. dedupAll                          — pure function; can't throw.
-//   5. summarize per item + pLimit(3)    — FETCH-03 concurrency cap on Gemini
+//   3. fetchAll                          — per-firm try/catch inside;
+//                                          Promise.allSettled + tier dispatch
+//                                          (Phase 2 FETCH-01/02); NEVER throws.
+//   4. enrichWithBody                    — Phase 2 D-P2-02. Fetch each item's
+//                                          detail page, extract body into
+//                                          item.description. Per-firm sequential
+//                                          detail fetches with 500ms delay
+//                                          (D-P2-10). NEVER throws.
+//   5. applyKeywordFilter                — Phase 2 D-P2-07 (CONF-06). Drop items
+//                                          that don't match include/exclude
+//                                          keywords BEFORE Gemini burns quota.
+//                                          Pure function. NEVER throws.
+//   6. dedupAll                          — pure function; can't throw. Extended
+//                                          bootstrap guard (D-P2-08 empty-state).
+//   7. summarize per item + pLimit(3)    — FETCH-03 concurrency cap on Gemini
 //                                          calls. SUMM-06 (B3): items WITHOUT
 //                                          item.description bypass Gemini
 //                                          entirely — the title NEVER enters
 //                                          the LLM prompt.
-//   6. if (newTotal > 0) compose+sendMail — DEDUP-03: silent day = no email.
-//   7. writeState                        — runs in BOTH branches (incl. the
+//   8. if (newTotal > 0) compose+sendMail — DEDUP-03: silent day = no email.
+//                                          EMAIL-05 failed-firm footer rendered
+//                                          from results.filter(r => r.error).
+//                                          EMAIL-07 SMTP pRetry wrapper.
+//   9. writeState                        — runs in BOTH branches (incl. the
 //                                          zero-new branch, which still
 //                                          refreshes lastUpdated and — on
-//                                          first-run bootstrap per B1 — seeds
-//                                          urls from r.raw via plan 10
-//                                          writer).
+//                                          first-run bootstrap per B1 and
+//                                          D-P2-08 empty-state bootstrap —
+//                                          seeds urls from r.raw).
 //
-// Pitfall 1 (non-idempotent retry) is prevented by step 7 running STRICTLY
-// AFTER step 6: if sendMail throws, writeState never runs, retry reads the
+// Pitfall 1 (non-idempotent retry) is prevented by step 9 running STRICTLY
+// AFTER step 8: if sendMail throws, writeState never runs, retry reads the
 // same seen.json, dedup returns the same new items, retry re-sends. Reversing
-// steps 6 and 7 would cause silent item loss on retry.
+// steps 8 and 9 would cause silent item loss on retry.
 //
 // Pattern 2 (DRY_RUN containment): this file does NOT import the env dry-run
 // helper. The two sanctioned DRY_RUN check sites are mailer/gmail.ts and
 // state/writer.ts. Any DRY_RUN branch here would be a Pattern 2 regression.
+// (Header comment deliberately avoids the literal identifier so a grep gate
+// for "env dry-run helper" import in main.ts stays at zero.)
 
 import pLimit from 'p-limit';
 import { loadFirms, loadRecipient } from './config/loader.js';
 import { readState } from './state/reader.js';
 import { fetchAll } from './pipeline/fetch.js';
+import { enrichWithBody } from './pipeline/enrichBody.js';
+import { applyKeywordFilter } from './pipeline/filter.js';
 import { dedupAll } from './pipeline/dedup.js';
 import { summarize } from './summarize/gemini.js';
 import { composeDigest } from './compose/digest.js';
@@ -54,21 +71,22 @@ async function main(): Promise<number> {
     const recipient = await loadRecipient();
     // D-05 override chain: env wins over YAML. fromAddr defaults to the
     // first recipient (when a list is configured) so the single-user
-    // self-send path still works with zero extra configuration; multi-
-    // recipient setups should put the Gmail-authenticated address first
-    // or set GMAIL_FROM_ADDRESS explicitly.
+    // self-send path still works with zero extra configuration.
     const fromAddr =
       process.env.GMAIL_FROM_ADDRESS ??
       (Array.isArray(recipient) ? recipient[0] : recipient);
     const seen = await readState();
 
+    // ---- Phase 2 pipeline order: fetch → enrich → filter → dedup ----
     const fetched = await fetchAll(firms);
-    const deduped = dedupAll(fetched, seen);
+    const enriched = await enrichWithBody(fetched);
+    const filtered = applyKeywordFilter(enriched);
+    const deduped = dedupAll(filtered, seen);
 
     // FETCH-03 spirit: cap parallel Gemini calls at 3 globally per run. A
-    // single shared limiter across all firms is correct — Phase 1 has one
-    // firm, Phase 2 will add many, and the cap should be per-run, not
-    // per-firm.
+    // single shared limiter across all firms is correct — pLimit(3) caps the
+    // Gemini free tier call rate while letting multiple firms run their
+    // summarize batches concurrently.
     const summarizeLimit = pLimit(3);
     const summarized: FirmResult[] = await Promise.all(
       deduped.map(async (r) => {
@@ -76,13 +94,12 @@ async function main(): Promise<number> {
         const out: SummarizedItem[] = await Promise.all(
           r.new.map((item) =>
             summarizeLimit(async (): Promise<SummarizedItem> => {
-              // SUMM-06 / B3 guard: if we have no real article body, the
-              // title is NOT a substitute — SUMM-06 forbids the title from
-              // ever reaching Gemini. Skip the LLM call entirely and mark
-              // the item with summaryModel: 'skipped' so logs and audits
-              // can distinguish "intentionally bypassed" from 'failed'
-              // (Gemini called and erred). Composer (plan 08) renders both
-              // null-summary origins identically.
+              // SUMM-06 / B3 guard: no real body → skip Gemini entirely.
+              // The title is NEVER a substitute for a body in the prompt.
+              // With Phase 2's enrichWithBody, most items have description
+              // populated from detail pages. When extraction failed AND
+              // there's no RSS teaser fallback, description stays undefined
+              // and this branch fires — summaryModel: 'skipped'.
               if (!item.description) {
                 return {
                   ...item,
@@ -99,7 +116,10 @@ async function main(): Promise<number> {
       }),
     );
 
-    const newTotal = summarized.reduce((n, r) => n + r.summarized.length, 0);
+    const newTotal = summarized.reduce(
+      (n, r) => n + r.summarized.length,
+      0,
+    );
 
     if (newTotal > 0) {
       const payload = composeDigest(summarized, recipient, fromAddr);
