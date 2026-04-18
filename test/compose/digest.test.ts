@@ -268,3 +268,22 @@ function failedFirmResult(
     durationMs: 0,
   };
 }
+
+describe('Phase 3 classifyError export surface', () => {
+  it('classifyError is importable from src/compose/templates.ts', async () => {
+    // Dynamic import keeps the test decoupled if the export site ever moves.
+    const mod = await import('../../src/compose/templates.js');
+    expect(typeof mod.classifyError).toBe('function');
+  });
+
+  it('classifyError returns the same taxonomy strings as before the export promotion', async () => {
+    const { classifyError } = await import('../../src/compose/templates.js');
+    expect(classifyError('robots.txt disallows /foo', 'fetch')).toBe('robots-blocked');
+    expect(classifyError('request timeout', 'fetch')).toBe('fetch-timeout');
+    expect(classifyError('HTTP 503 Service Unavailable', 'fetch')).toBe('http-503');
+    expect(classifyError('ENOTFOUND example.com', 'fetch')).toBe('dns-fail');
+    expect(classifyError('selectors not found', 'parse')).toBe('selector-miss');
+    expect(classifyError('parse error on <html>', 'parse')).toBe('parse-error');
+    expect(classifyError('mystery', 'fetch')).toBe('unknown');
+  });
+});

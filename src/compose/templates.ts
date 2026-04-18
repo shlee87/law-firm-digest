@@ -79,8 +79,13 @@ export function renderHtml(
  * Order of checks matters — robots precedes HTTP-code match because a
  * disallows message might incidentally include a status code; parse/timeout
  * are keyword-based and mutually exclusive with HTTP codes in practice.
+ *
+ * Phase 3 (2026-04-18): promoted from file-local `function` to `export
+ * function` so the Phase 3 `Recorder` (src/observability/recorder.ts) can
+ * reuse the same taxonomy for the step-summary `Errors` column (D-11).
+ * No semantic change.
  */
-function classifyError(msg: string, stage: string): string {
+export function classifyError(msg: string, stage: string): string {
   if (msg.includes('robots.txt disallows')) return 'robots-blocked';
   if (/timeout|timed out|ETIMEDOUT|aborted/i.test(msg)) return 'fetch-timeout';
   const http = /HTTP (\d{3})/.exec(msg);
