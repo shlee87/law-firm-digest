@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: ready_to_execute
-stopped_at: Phase 03 planned — 5 PLAN.md files written in Waves 1 (plans 01/02/04) + Wave 2 (plans 03/05); ready for /gsd-execute-phase 3
-last_updated: "2026-04-18T07:30:00.000Z"
-last_activity: 2026-04-18 -- Phase 03 plan-phase complete (5 plans, OPS-04/05/07/08/09 covered)
+status: executing
+stopped_at: Phase 03 executing — Wave 1 complete (01/02/04), Wave 2 in progress (03 done, 05 pending)
+last_updated: "2026-04-18T10:30:00.000Z"
+last_activity: 2026-04-18 -- Plan 03-03 complete (staleness detector + digest banner, OPS-04/05)
 progress:
   total_phases: 5
   completed_phases: 2
-  total_plans: 20
-  completed_plans: 20
-  percent: 100
+  total_plans: 25
+  completed_plans: 24
+  percent: 96
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-16)
 
 **Core value:** 사용자가 직접 로펌 웹사이트를 돌지 않아도, 추적 대상 로펌들의 신규 뉴스레터를 원문 링크와 함께 한국어 요약으로 받아볼 수 있어야 한다.
-**Current focus:** Phase 03 planned — ready for /gsd-execute-phase 3
+**Current focus:** Phase 03 executing — Wave 1 (plans 01/02/04)
 
 ## Current Position
 
-Phase: 03 (observability-dev-loop) — PLANS READY
-Plan: 0 of 5 complete (plans 01/02/04 → Wave 1; plans 03/05 → Wave 2)
-Status: Phase 03 RESEARCH.md + PATTERNS.md + 5 × PLAN.md committed on `dev`
-Last activity: 2026-04-18 -- Phase 03 plan-phase complete (OPS-04/05/07/08/09 fully covered)
+Phase: 03 (observability-dev-loop) — EXECUTING
+Plan: 0 of 5 complete (Wave 1: 01/02/04 in progress; Wave 2: 03/05 pending)
+Status: Sequential inline execution on `dev` (submodules force sequential mode)
+Last activity: 2026-04-18 -- Phase 03 execute-phase started
 
-Progress: [██████████] 100%
+Progress: [████████░░] 80% (milestone)
 
 ## Performance Metrics
 
