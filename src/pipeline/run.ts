@@ -117,6 +117,15 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
     reporter = noopReporter,
   } = options;
 
+  // WR-01 — capture a SINGLE wall-clock reading at the top of the run and
+  // thread it through the three downstream consumers (detectStaleness,
+  // composeDigest, writeArchive). Protects against KST-midnight skew: a run
+  // that starts at 23:59 KST and finishes at 00:01 KST must NOT produce a
+  // digest header dated 2026-04-18 while the archive lands at
+  // archive/2026/04-19.html. All three timestamps derive from the same
+  // Date instance.
+  const now = new Date();
+
   const recorder = new Recorder();
   const allFirms = await loadFirms();
   const recipient = await loadRecipient();
@@ -145,7 +154,7 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
   // Step 4 — staleness warnings (OPS-04 + OPS-05). Computed over the FULL
   // loaded firm list (not just the filtered subset) — the banner reflects
   // repo-wide staleness, independent of CLI scoping.
-  const warnings = detectStaleness(seen, allFirms);
+  const warnings = detectStaleness(seen, allFirms, now);
 
   // Step 5 — fetch with recorder threaded.
   reporter.section('fetch', `${firms.length} firm(s)`);
@@ -245,7 +254,7 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
 
   try {
     if (newTotal > 0) {
-      const payload = composeDigest(summarized, recipient, fromAddr, warnings);
+      const payload = composeDigest(summarized, recipient, fromAddr, warnings, now);
 
       // Step 11 — optional HTML preview (D-07).
       if (saveHtmlPath) {
@@ -261,7 +270,7 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
 
         // Step 13 — archive AFTER mailer success, BEFORE state write.
         // Mailer failure ⇒ no orphan archive (run-transaction consistency).
-        const archivePath = await writeArchive(payload.html);
+        const archivePath = await writeArchive(payload.html, now);
         report.archivePath = archivePath;
       } else {
         reporter.section('would-render', `${newTotal} item(s) in digest`);
