@@ -33,7 +33,20 @@ function parseArgs(argv: string[]): ParsedArgs {
   let saveHtmlPath: string | undefined;
   for (let i = 1; i < args.length; i++) {
     if (args[i] === '--save-html') {
-      saveHtmlPath = args[i + 1];
+      // WR-03 — validate that `--save-html` is followed by a real path, not
+      // end-of-args (undefined) or another flag. Without this guard, two
+      // footguns occur:
+      //   - `check:firm cooley --save-html`         → saveHtmlPath = undefined,
+      //     user's intent to save is silently ignored.
+      //   - `check:firm cooley --save-html --debug` → saveHtmlPath = '--debug',
+      //     writeFile creates a literal file named `--debug` in cwd.
+      // Exit code 2 matches the existing "usage error" convention (see header).
+      const next = args[i + 1];
+      if (!next || next.startsWith('--')) {
+        console.error('--save-html requires a file path argument');
+        process.exit(2);
+      }
+      saveHtmlPath = next;
       i++;
     }
   }
