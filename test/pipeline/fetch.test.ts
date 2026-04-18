@@ -19,6 +19,7 @@ import { fetchAll } from '../../src/pipeline/fetch.js';
 import { scrapeRss } from '../../src/scrapers/rss.js';
 import { scrapeHtml } from '../../src/scrapers/html.js';
 import { isAllowed, fetchRobots } from '../../src/scrapers/robots.js';
+import { Recorder } from '../../src/observability/recorder.js';
 import type { FirmConfig } from '../../src/types.js';
 
 const rssFirm: FirmConfig = {
@@ -209,5 +210,60 @@ describe('fetchAll (Phase 2 orchestrator)', () => {
     const out = await fetchAll([rssFirm]);
     expect(out[0].error!.message).toContain('***REDACTED***');
     expect(out[0].error!.message).not.toContain('AIza_FAKE_KEY_LONG_ENOUGH');
+  });
+});
+
+describe('Phase 3 — Recorder integration', () => {
+  beforeEach(() => {
+    vi.mocked(scrapeRss).mockReset();
+    vi.mocked(scrapeHtml).mockReset();
+    vi.mocked(fetchRobots)
+      .mockReset()
+      .mockImplementation(async () => [] as string[]);
+    vi.mocked(isAllowed)
+      .mockReset()
+      .mockImplementation(() => true);
+  });
+
+  it('feeds per-firm fetched count and duration on success', async () => {
+    vi.mocked(scrapeRss).mockResolvedValue([
+      { firmId: 'rss-firm', title: 't1', url: 'https://x/1', language: 'en' },
+      { firmId: 'rss-firm', title: 't2', url: 'https://x/2', language: 'en' },
+    ]);
+    const recorder = new Recorder();
+    await fetchAll([rssFirm], recorder);
+    const m = recorder.get('rss-firm');
+    expect(m).toBeDefined();
+    expect(m!.fetched).toBe(2);
+    expect(m!.durationMs).toBeGreaterThanOrEqual(0);
+    expect(m!.errorClass).toBeNull();
+  });
+
+  it('feeds errorClass + duration on per-firm catch branch via classifyError', async () => {
+    vi.mocked(scrapeHtml).mockRejectedValue(new Error('scrapeHtml: HTTP 503'));
+    const recorder = new Recorder();
+    await fetchAll([htmlFirm], recorder);
+    const m = recorder.get('html-firm');
+    expect(m).toBeDefined();
+    expect(m!.errorClass).toBe('http-503');
+    expect(m!.fetched).toBe(0);
+    expect(m!.durationMs).toBeGreaterThanOrEqual(0);
+  });
+
+  it('feeds errorClass for robots-blocked firm (via catch branch)', async () => {
+    vi.mocked(isAllowed).mockReturnValue(false);
+    const recorder = new Recorder();
+    await fetchAll([rssFirm], recorder);
+    expect(recorder.get('rss-firm')!.errorClass).toBe('robots-blocked');
+  });
+
+  it('is backward compatible when recorder is undefined — existing tests still pass', async () => {
+    vi.mocked(scrapeRss).mockResolvedValue([
+      { firmId: 'rss-firm', title: 't', url: 'https://x/1', language: 'en' },
+    ]);
+    // No recorder passed — should not throw, should still return FirmResult.
+    const out = await fetchAll([rssFirm]);
+    expect(out).toHaveLength(1);
+    expect(out[0].raw).toHaveLength(1);
   });
 });

@@ -36,9 +36,14 @@ import { scrapeRss } from '../scrapers/rss.js';
 import { scrapeHtml } from '../scrapers/html.js';
 import { fetchRobots, isAllowed } from '../scrapers/robots.js';
 import { scrubSecrets } from '../util/logging.js';
+import { classifyError } from '../compose/templates.js';
+import type { Recorder } from '../observability/recorder.js';
 import type { FirmConfig, FirmResult, RawItem } from '../types.js';
 
-export async function fetchAll(firms: FirmConfig[]): Promise<FirmResult[]> {
+export async function fetchAll(
+  firms: FirmConfig[],
+  recorder?: Recorder,
+): Promise<FirmResult[]> {
   const limit = pLimit(3);
 
   const settled = await Promise.allSettled(
@@ -76,14 +81,19 @@ export async function fetchAll(firms: FirmConfig[]): Promise<FirmResult[]> {
               );
           }
 
+          const duration = Date.now() - started;
+          recorder?.firm(firm.id).fetched(raw.length).durationMs(duration);
           return {
             firm,
             raw,
             new: [],
             summarized: [],
-            durationMs: Date.now() - started,
+            durationMs: duration,
           };
         } catch (err) {
+          const duration = Date.now() - started;
+          const message = scrubSecrets((err as Error).message);
+          recorder?.firm(firm.id).errorClass(classifyError(message, 'fetch')).durationMs(duration);
           return {
             firm,
             raw: [],
@@ -91,9 +101,9 @@ export async function fetchAll(firms: FirmConfig[]): Promise<FirmResult[]> {
             summarized: [],
             error: {
               stage: 'fetch',
-              message: scrubSecrets((err as Error).message),
+              message,
             },
-            durationMs: Date.now() - started,
+            durationMs: duration,
           };
         }
       }),
@@ -107,6 +117,11 @@ export async function fetchAll(firms: FirmConfig[]): Promise<FirmResult[]> {
   return settled.map((r, i) => {
     if (r.status === 'fulfilled') return r.value;
     const reason = r.reason;
+    const message = scrubSecrets(
+      reason instanceof Error ? reason.message : String(reason),
+    );
+    // Defense-in-depth recorder emission for settled-rejected branch.
+    recorder?.firm(firms[i].id).errorClass(classifyError(message, 'fetch')).durationMs(0);
     return {
       firm: firms[i],
       raw: [],
@@ -114,9 +129,7 @@ export async function fetchAll(firms: FirmConfig[]): Promise<FirmResult[]> {
       summarized: [],
       error: {
         stage: 'fetch',
-        message: scrubSecrets(
-          reason instanceof Error ? reason.message : String(reason),
-        ),
+        message,
       },
       durationMs: 0,
     };
