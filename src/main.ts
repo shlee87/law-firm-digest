@@ -51,89 +51,18 @@
 // (Header comment deliberately avoids the literal identifier so a grep gate
 // for "env dry-run helper" import in main.ts stays at zero.)
 
-import pLimit from 'p-limit';
-import { loadFirms, loadRecipient } from './config/loader.js';
-import { readState } from './state/reader.js';
-import { fetchAll } from './pipeline/fetch.js';
-import { enrichWithBody } from './pipeline/enrichBody.js';
-import { applyKeywordFilter } from './pipeline/filter.js';
-import { dedupAll } from './pipeline/dedup.js';
-import { summarize } from './summarize/gemini.js';
-import { composeDigest } from './compose/digest.js';
-import { sendMail } from './mailer/gmail.js';
-import { writeState } from './state/writer.js';
+import { runPipeline } from './pipeline/run.js';
 import { scrubSecrets } from './util/logging.js';
-import type { FirmResult, SummarizedItem } from './types.js';
 
 async function main(): Promise<number> {
   try {
-    const firms = await loadFirms();
-    const recipient = await loadRecipient();
-    // D-05 override chain: env wins over YAML. fromAddr defaults to the
-    // first recipient (when a list is configured) so the single-user
-    // self-send path still works with zero extra configuration.
-    const fromAddr =
-      process.env.GMAIL_FROM_ADDRESS ??
-      (Array.isArray(recipient) ? recipient[0] : recipient);
-    const seen = await readState();
-
-    // ---- Phase 2 pipeline order: fetch → enrich → filter → dedup ----
-    const fetched = await fetchAll(firms);
-    const enriched = await enrichWithBody(fetched);
-    const filtered = applyKeywordFilter(enriched);
-    const deduped = dedupAll(filtered, seen);
-
-    // FETCH-03 spirit: cap parallel Gemini calls at 3 globally per run. A
-    // single shared limiter across all firms is correct — pLimit(3) caps the
-    // Gemini free tier call rate while letting multiple firms run their
-    // summarize batches concurrently.
-    const summarizeLimit = pLimit(3);
-    const summarized: FirmResult[] = await Promise.all(
-      deduped.map(async (r) => {
-        if (r.error || r.new.length === 0) return r;
-        const out: SummarizedItem[] = await Promise.all(
-          r.new.map((item) =>
-            summarizeLimit(async (): Promise<SummarizedItem> => {
-              // SUMM-06 / B3 guard: no real body → skip Gemini entirely.
-              // The title is NEVER a substitute for a body in the prompt.
-              // With Phase 2's enrichWithBody, most items have description
-              // populated from detail pages. When extraction failed AND
-              // there's no RSS teaser fallback, description stays undefined
-              // and this branch fires — summaryModel: 'skipped'.
-              if (!item.description) {
-                return {
-                  ...item,
-                  summary_ko: null,
-                  summaryConfidence: 'low' as const,
-                  summaryModel: 'skipped',
-                };
-              }
-              return summarize(item, item.description);
-            }),
-          ),
-        );
-        return { ...r, summarized: out };
-      }),
-    );
-
-    const newTotal = summarized.reduce(
-      (n, r) => n + r.summarized.length,
-      0,
-    );
-
-    if (newTotal > 0) {
-      const payload = composeDigest(summarized, recipient, fromAddr);
-      await sendMail(payload); // EMAIL-06: throws on failure → caught below → exit 1.
-    } else {
-      // DEDUP-03: silent days do NOT send email; writeState still runs below
-      // so lastUpdated advances (OPS-05 staleness detection input) and a
-      // first-run bootstrap still seeds seen.firms[*].urls from r.raw.
-      console.log('No new items today — skipping email (DEDUP-03).');
-    }
-
-    // OPS-03: state write is the LAST step, strictly after sendMail has
-    // resolved. If sendMail threw, we never get here — retry is idempotent.
-    await writeState(seen, summarized);
+    // Phase 3 extraction: the full canonical sequence lives in runPipeline.
+    // main.ts is the cron entry point — it invokes runPipeline with default
+    // options (all side effects enabled) and translates throws into exit 1.
+    // The sequence itself (fetch → enrich → filter → dedup → summarize →
+    // compose → email → archive → step-summary → state) is documented in
+    // the leading docstring above AND in src/pipeline/run.ts.
+    await runPipeline({});
     return 0;
   } catch (err) {
     console.error('FATAL:', scrubSecrets((err as Error).message));
