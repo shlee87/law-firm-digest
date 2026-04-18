@@ -62,19 +62,24 @@ class CliReporter implements Reporter {
 async function main(): Promise<number> {
   const { firmId, saveHtmlPath } = parseArgs(process.argv);
 
-  // D-05 R-01 — match against enabled firm list only. loadFirms already
-  // filters enabled:true. Unknown id → clear error listing valid ids.
-  const firms = await loadFirms();
-  const match = firms.find((f) => f.id === firmId);
-  if (!match) {
-    const ids = firms.map((f) => f.id).sort().join(', ');
-    console.error(`Firm not found: ${firmId}. Valid ids: ${ids}`);
-    return 1;
-  }
-
-  console.log(`[check:firm] id=${firmId}`);
-
+  // WR-02 — loadFirms must live INSIDE the try/catch so a config-level
+  // ZodError (malformed firms.yaml) surfaces as a friendly one-liner
+  // instead of a raw rejection stack. Previously loadFirms sat above the
+  // try block, which defeated the check:firm DX goal ("clear error
+  // listing valid ids" / "config validation failure on line X").
   try {
+    // D-05 R-01 — match against enabled firm list only. loadFirms already
+    // filters enabled:true. Unknown id → clear error listing valid ids.
+    const firms = await loadFirms();
+    const match = firms.find((f) => f.id === firmId);
+    if (!match) {
+      const ids = firms.map((f) => f.id).sort().join(', ');
+      console.error(`Firm not found: ${firmId}. Valid ids: ${ids}`);
+      return 1;
+    }
+
+    console.log(`[check:firm] id=${firmId}`);
+
     const report = await runPipeline({
       firmFilter: firmId,
       skipEmail: true,
@@ -93,4 +98,15 @@ async function main(): Promise<number> {
   }
 }
 
-main().then((code) => process.exit(code));
+// WR-02 — belt-and-suspenders .catch() guards against any rejection that
+// escapes main()'s internal try/catch (e.g., a synchronous throw inside
+// parseArgs' return, or future refactors that move awaits outside the
+// try block). Without this, Node 22 would terminate with a raw
+// unhandled-rejection stack — ugly DX for the very CLI whose purpose is
+// debug-friendliness.
+main()
+  .then((code) => process.exit(code))
+  .catch((err) => {
+    console.error(`[check:firm] error: ${(err as Error).message}`);
+    process.exit(1);
+  });
