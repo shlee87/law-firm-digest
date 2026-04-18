@@ -35,6 +35,12 @@
 //       next run. Together they make the empty-state case self-healing
 //       within one run.
 //
+//   4. Phase 3 D-02 bootstrap grace field: on bootstrap branches (first-run
+//      OR D-P2-08 empty-state), write `enabledAt: new Date().toISOString()`
+//      onto the new per-firm record. On subsequent-run merges, preserve
+//      `priorFirm.enabledAt` if present; otherwise leave the field absent
+//      (Phase 3 Pitfall 9 — no silent retrofit of pre-Phase-3 entries).
+//
 // Atomic-ish write: writeFile to `${path}.tmp`, then rename. POSIX
 // rename is atomic on the same filesystem, so a mid-write crash leaves
 // either the old file intact or the new file fully materialized —
@@ -78,7 +84,16 @@ export async function writeState(
       const seededUrls = r.raw.map((x) => x.url).slice(0, MAX_PER_FIRM);
       const lastNewAt =
         r.raw.length > 0 ? r.raw[0]?.publishedAt ?? new Date().toISOString() : null;
-      nextFirms[r.firm.id] = { urls: seededUrls, lastNewAt };
+      // Phase 3 D-02: record the date this firm entered the pipeline so the
+      // staleness detector (Phase 3) can grant a 30-day bootstrap grace period
+      // to newly-added firms. Pre-Phase-3 state entries DO NOT get retrofitted
+      // in the subsequent-run branch below — they're past their implicit grace
+      // period already (Phase 3 Pitfall 9 — no silent retrofit).
+      nextFirms[r.firm.id] = {
+        urls: seededUrls,
+        lastNewAt,
+        enabledAt: new Date().toISOString(),
+      };
       continue;
     }
 
@@ -94,7 +109,14 @@ export async function writeState(
       newUrls.length > 0
         ? r.summarized[0]?.publishedAt ?? new Date().toISOString()
         : priorFirm.lastNewAt ?? null;
-    nextFirms[r.firm.id] = { urls: merged, lastNewAt };
+    nextFirms[r.firm.id] = {
+      urls: merged,
+      lastNewAt,
+      // Phase 3 D-02 preservation — if priorFirm had an enabledAt recorded on a
+      // prior bootstrap run, carry it forward untouched. If priorFirm lacks the
+      // field (legacy Phase 1/2 state), do NOT retrofit (Pitfall 9).
+      ...(priorFirm.enabledAt ? { enabledAt: priorFirm.enabledAt } : {}),
+    };
   }
 
   const next: SeenState = {

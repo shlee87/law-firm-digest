@@ -14,7 +14,7 @@
 // state between tests; DRY_RUN env var is explicitly reset.
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { readFile, rm } from 'node:fs/promises';
+import { readFile, rm, unlink } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { writeState } from '../../src/state/writer.js';
 import type { FirmConfig, FirmResult, SeenState } from '../../src/types.js';
@@ -264,5 +264,221 @@ describe('writeState', () => {
     await writeState(prior, [r], TMP);
     const written = await readJson(TMP);
     expect(written.firms.cooley.urls).toEqual(['https://cooley.com/old']);
+  });
+});
+
+describe('Phase 3 D-02 enabledAt handling', () => {
+  it('populates enabledAt on first-run bootstrap (priorFirm absent)', async () => {
+    const path = `/tmp/seen-test-${Date.now()}-a.json`;
+    const prior: SeenState = { version: 1, lastUpdated: null, firms: {} };
+    const firmCfg: FirmConfig = {
+      id: 'new-firm',
+      name: 'New Firm',
+      language: 'ko',
+      type: 'rss',
+      url: 'https://example.com/feed',
+      timezone: 'Asia/Seoul',
+      enabled: true,
+    };
+    const result: FirmResult = {
+      firm: firmCfg,
+      raw: [
+        { firmId: 'new-firm', title: 't', url: 'https://example.com/1', language: 'ko' },
+      ],
+      new: [],
+      summarized: [],
+      durationMs: 10,
+    };
+    const before = Date.now();
+    await writeState(prior, [result], path);
+    const after = Date.now();
+    const written = JSON.parse(await readFile(path, 'utf8')) as SeenState;
+    expect(written.firms['new-firm'].enabledAt).toBeDefined();
+    const t = Date.parse(written.firms['new-firm'].enabledAt!);
+    expect(t).toBeGreaterThanOrEqual(before);
+    expect(t).toBeLessThanOrEqual(after);
+    await unlink(path).catch(() => {});
+  });
+
+  it('populates enabledAt on empty-state bootstrap (D-P2-08 path)', async () => {
+    const path = `/tmp/seen-test-${Date.now()}-b.json`;
+    const prior: SeenState = {
+      version: 1,
+      lastUpdated: '2026-04-01T00:00:00.000Z',
+      firms: { 'ghost-firm': { urls: [], lastNewAt: null } },
+    };
+    const firmCfg: FirmConfig = {
+      id: 'ghost-firm',
+      name: 'Ghost',
+      language: 'en',
+      type: 'html',
+      url: 'https://example.com',
+      timezone: 'America/New_York',
+      enabled: true,
+    };
+    const result: FirmResult = {
+      firm: firmCfg,
+      raw: [
+        { firmId: 'ghost-firm', title: 't', url: 'https://example.com/1', language: 'en' },
+      ],
+      new: [],
+      summarized: [],
+      durationMs: 10,
+    };
+    await writeState(prior, [result], path);
+    const written = JSON.parse(await readFile(path, 'utf8')) as SeenState;
+    expect(written.firms['ghost-firm'].enabledAt).toBeDefined();
+    await unlink(path).catch(() => {});
+  });
+
+  it('preserves priorFirm.enabledAt on subsequent-run merge', async () => {
+    const path = `/tmp/seen-test-${Date.now()}-c.json`;
+    const ORIGINAL_ENABLED_AT = '2026-04-01T00:00:00.000Z';
+    const prior: SeenState = {
+      version: 1,
+      lastUpdated: '2026-04-15T00:00:00.000Z',
+      firms: {
+        cooley: {
+          urls: ['https://cooleygo.com/existing'],
+          lastNewAt: '2026-04-10T00:00:00.000Z',
+          enabledAt: ORIGINAL_ENABLED_AT,
+        },
+      },
+    };
+    const firmCfg: FirmConfig = {
+      id: 'cooley',
+      name: 'Cooley',
+      language: 'en',
+      type: 'rss',
+      url: 'https://cooleygo.com/feed/',
+      timezone: 'America/Los_Angeles',
+      enabled: true,
+    };
+    const result: FirmResult = {
+      firm: firmCfg,
+      raw: [
+        { firmId: 'cooley', title: 't', url: 'https://cooleygo.com/new', language: 'en' },
+      ],
+      new: [
+        {
+          firmId: 'cooley',
+          title: 't',
+          url: 'https://cooleygo.com/new',
+          language: 'en',
+          isNew: true,
+        },
+      ],
+      summarized: [
+        {
+          firmId: 'cooley',
+          title: 't',
+          url: 'https://cooleygo.com/new',
+          language: 'en',
+          isNew: true,
+          summary_ko: 's',
+          summaryConfidence: 'high',
+          summaryModel: 'gemini-2.5-flash',
+        },
+      ],
+      durationMs: 10,
+    };
+    await writeState(prior, [result], path);
+    const written = JSON.parse(await readFile(path, 'utf8')) as SeenState;
+    expect(written.firms.cooley.enabledAt).toBe(ORIGINAL_ENABLED_AT);
+    await unlink(path).catch(() => {});
+  });
+
+  it('does NOT retrofit enabledAt on legacy priorFirm without the field (Pitfall 9)', async () => {
+    const path = `/tmp/seen-test-${Date.now()}-d.json`;
+    const prior: SeenState = {
+      version: 1,
+      lastUpdated: '2026-04-15T00:00:00.000Z',
+      firms: {
+        'legacy-firm': {
+          urls: ['https://example.com/existing'],
+          lastNewAt: '2026-04-10T00:00:00.000Z',
+        },
+      },
+    };
+    const firmCfg: FirmConfig = {
+      id: 'legacy-firm',
+      name: 'Legacy',
+      language: 'en',
+      type: 'rss',
+      url: 'https://example.com/feed',
+      timezone: 'UTC',
+      enabled: true,
+    };
+    const result: FirmResult = {
+      firm: firmCfg,
+      raw: [
+        { firmId: 'legacy-firm', title: 't', url: 'https://example.com/new', language: 'en' },
+      ],
+      new: [
+        {
+          firmId: 'legacy-firm',
+          title: 't',
+          url: 'https://example.com/new',
+          language: 'en',
+          isNew: true,
+        },
+      ],
+      summarized: [
+        {
+          firmId: 'legacy-firm',
+          title: 't',
+          url: 'https://example.com/new',
+          language: 'en',
+          isNew: true,
+          summary_ko: 's',
+          summaryConfidence: 'high',
+          summaryModel: 'gemini-2.5-flash',
+        },
+      ],
+      durationMs: 10,
+    };
+    await writeState(prior, [result], path);
+    const written = JSON.parse(await readFile(path, 'utf8')) as SeenState;
+    expect(written.firms['legacy-firm'].enabledAt).toBeUndefined();
+    await unlink(path).catch(() => {});
+  });
+
+  it('preserves priorFirm.enabledAt when firm fetch-errored (error pass-through)', async () => {
+    const path = `/tmp/seen-test-${Date.now()}-e.json`;
+    const ORIGINAL_ENABLED_AT = '2026-03-01T00:00:00.000Z';
+    const prior: SeenState = {
+      version: 1,
+      lastUpdated: '2026-04-15T00:00:00.000Z',
+      firms: {
+        'kim-chang': {
+          urls: ['https://www.kimchang.com/old'],
+          lastNewAt: '2026-03-15T00:00:00.000Z',
+          enabledAt: ORIGINAL_ENABLED_AT,
+        },
+      },
+    };
+    const firmCfg: FirmConfig = {
+      id: 'kim-chang',
+      name: '김앤장',
+      language: 'ko',
+      type: 'html',
+      url: 'https://www.kimchang.com/ko/newsletter.kc',
+      timezone: 'Asia/Seoul',
+      enabled: true,
+    };
+    const result: FirmResult = {
+      firm: firmCfg,
+      raw: [],
+      new: [],
+      summarized: [],
+      error: { stage: 'fetch', message: 'fetch timeout' },
+      durationMs: 10,
+    };
+    await writeState(prior, [result], path);
+    const written = JSON.parse(await readFile(path, 'utf8')) as SeenState;
+    // Error pass-through: urls preserved, enabledAt preserved.
+    expect(written.firms['kim-chang'].enabledAt).toBe(ORIGINAL_ENABLED_AT);
+    expect(written.firms['kim-chang'].urls).toEqual(['https://www.kimchang.com/old']);
+    await unlink(path).catch(() => {});
   });
 });
