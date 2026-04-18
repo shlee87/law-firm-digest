@@ -82,7 +82,7 @@ Plans:
 
 ### Phase 4: JS-Rendered Tier (conditional)
 **Goal**: Complete the `FETCH-01` tiered-strategy contract by adding Playwright for any firm that genuinely requires JS rendering, verified empirically — or skip the phase entirely if the Phase 2 audit proves no firm needs it.
-**Depends on**: Phase 2
+**Depends on**: Phase 2, Phase 3
 **Requirements**: (none — this phase completes the JS-render branch of FETCH-01 only if an audited firm requires it; may be skipped with zero v1 coverage impact)
 **Success Criteria** (what must be TRUE):
   1. Phase 2 empirical audit produces a documented per-firm list indicating which (if any) firms return empty results from RSS and cheerio but contain items in a JS-rendered DOM; if the list is empty, this phase is explicitly marked "skipped" in STATE.md and the phase closes.
@@ -93,7 +93,7 @@ Plans:
 
 ### Phase 5: Triggered Polish (v1.x backlog)
 **Goal**: A holding zone for items that only earn their complexity cost when a specific trigger condition fires. Nothing in this phase is pre-committed; items activate individually on observed pain.
-**Depends on**: Phase 3 (Phase 4 if it ran, otherwise Phase 3)
+**Depends on**: Phase 3, Phase 4
 **Requirements**: (none — v2 backlog items from REQUIREMENTS.md §v2: TAG-01, MANUAL-01, LINK-01, QUOTA-01, PLAIN-01, CACHE-01, ARCH-01, STATE-01)
 **Success Criteria** (what must be TRUE):
   1. Each v2/v1.x item remains deferred until its named trigger condition is observed and logged (e.g., TAG-01 activates when skim speed degrades; LINK-01 activates when a broken link is clicked; CACHE-01 activates when a retry burns duplicate Gemini quota).
