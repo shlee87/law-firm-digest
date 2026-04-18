@@ -13,6 +13,10 @@
 //   - include_keywords/exclude_keywords default to [] at schema validation,
 //     so runtime code may assume they are always defined arrays even though
 //     the TS interface marks them optional (matches zod .optional().default([]))
+//   - SeenState.firms[].enabledAt is optional — written the first time a firm
+//     is processed by the state writer (Phase 3 D-02). Absent on pre-Phase-3
+//     state entries, which get implicit backwards-compat treatment in the
+//     staleness detector (Phase 3 Pitfall 9 — no silent retrofit).
 
 export type FirmType = 'rss' | 'html' | 'js-render';
 export type Language = 'ko' | 'en';
@@ -85,7 +89,14 @@ export interface RunReport {
 export interface SeenState {
   version: 1;
   lastUpdated: string | null;
-  firms: Record<string, { urls: string[]; lastNewAt: string | null }>;
+  firms: Record<
+    string,
+    {
+      urls: string[];
+      lastNewAt: string | null;
+      enabledAt?: string; // Phase 3 D-02: written on bootstrap; drives staleness bootstrap grace period.
+    }
+  >;
 }
 
 export interface RecipientConfig {
