@@ -208,4 +208,61 @@ describe('writeState', () => {
     expect(written.firms.cooley.urls).toEqual(['https://cooley.com/keep']);
     expect(written.firms.cooley.lastNewAt).toBe('2026-04-01T00:00:00.000Z');
   });
+
+  // --- Phase 2 D-P2-08 empty-state bootstrap mirror ---
+
+  it('(D-P2-08) empty-state firm ({urls:[], lastNewAt:null}) seeds urls from r.raw', async () => {
+    const prior: SeenState = {
+      version: 1,
+      lastUpdated: '2026-04-10T00:00:00.000Z',
+      firms: { cooley: { urls: [], lastNewAt: null } },
+    };
+    const r: FirmResult = {
+      firm: cooley,
+      raw: [
+        {
+          firmId: 'cooley',
+          title: 'A',
+          url: 'https://cooley.com/a',
+          publishedAt: '2026-04-15T12:00:00.000Z',
+          language: 'en',
+        },
+        {
+          firmId: 'cooley',
+          title: 'B',
+          url: 'https://cooley.com/b',
+          publishedAt: '2026-04-14T12:00:00.000Z',
+          language: 'en',
+        },
+      ],
+      new: [],
+      summarized: [],
+      durationMs: 0,
+    };
+    await writeState(prior, [r], TMP);
+    const written = await readJson(TMP);
+    expect(written.firms.cooley.urls).toEqual([
+      'https://cooley.com/a',
+      'https://cooley.com/b',
+    ]);
+    expect(written.firms.cooley.lastNewAt).toBe('2026-04-15T12:00:00.000Z');
+  });
+
+  it('(D-P2-08) non-empty prior urls — writer does NOT reseed, preserves prior', async () => {
+    const prior: SeenState = {
+      version: 1,
+      lastUpdated: '2026-04-10T00:00:00.000Z',
+      firms: { cooley: { urls: ['https://cooley.com/old'], lastNewAt: null } },
+    };
+    const r: FirmResult = {
+      firm: cooley,
+      raw: [],
+      new: [],
+      summarized: [], // no new items this run
+      durationMs: 0,
+    };
+    await writeState(prior, [r], TMP);
+    const written = await readJson(TMP);
+    expect(written.firms.cooley.urls).toEqual(['https://cooley.com/old']);
+  });
 });

@@ -141,4 +141,62 @@ describe('dedupAll', () => {
     const after = JSON.stringify(results);
     expect(after).toBe(before);
   });
+
+  // --- Phase 2 D-P2-08 empty-state bootstrap (Pitfall 6 defense) ---
+
+  it('(D-P2-08) empty-state bootstrap — priorFirm exists but urls:[] and lastNewAt:null → new:[] (same as missing firm)', () => {
+    const results = [
+      makeResult([
+        { url: 'https://cooley.com/a', title: 'A' },
+        { url: 'https://cooley.com/b', title: 'B' },
+        { url: 'https://cooley.com/c', title: 'C' },
+      ]),
+    ];
+    const seen: SeenState = {
+      version: 1,
+      lastUpdated: '2026-04-17T00:00:00.000Z',
+      firms: { cooley: { urls: [], lastNewAt: null } }, // empty-state
+    };
+    const out = dedupAll(results, seen);
+    expect(out[0].new).toEqual([]);
+    // B1 invariant: raw is preserved so writer seeds from it.
+    expect(out[0].raw).toHaveLength(3);
+  });
+
+  it('(D-P2-08) boundary — non-empty urls + null lastNewAt is NOT bootstrap (normal dedup)', () => {
+    const results = [
+      makeResult([
+        { url: 'https://cooley.com/a', title: 'A' },
+        { url: 'https://cooley.com/b', title: 'B' },
+      ]),
+    ];
+    const seen: SeenState = {
+      version: 1,
+      lastUpdated: null,
+      firms: { cooley: { urls: ['https://cooley.com/b'], lastNewAt: null } },
+    };
+    const out = dedupAll(results, seen);
+    // Normal dedup: /b is seen, /a is new
+    expect(out[0].new.map((n) => n.url)).toEqual(['https://cooley.com/a']);
+  });
+
+  it('(D-P2-08) boundary — empty urls + non-null lastNewAt is NOT bootstrap (normal dedup, 500-cap degenerate case)', () => {
+    const results = [
+      makeResult([
+        { url: 'https://cooley.com/a', title: 'A' },
+        { url: 'https://cooley.com/b', title: 'B' },
+      ]),
+    ];
+    const seen: SeenState = {
+      version: 1,
+      lastUpdated: null,
+      firms: {
+        cooley: { urls: [], lastNewAt: '2026-04-17T00:00:00.000Z' },
+      },
+    };
+    const out = dedupAll(results, seen);
+    // Firm HAS history (lastNewAt set) but urls happens to be empty right now.
+    // Treat as normal dedup — both items become new.
+    expect(out[0].new).toHaveLength(2);
+  });
 });

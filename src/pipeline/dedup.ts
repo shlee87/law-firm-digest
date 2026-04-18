@@ -9,11 +9,16 @@
 //      pipeline: a bug here cascades into state-file corruption and
 //      duplicate emails.
 //
-//   2. BOOTSTRAP (D-09, first-run policy) — when a firm has no prior
-//      entry in `seen.firms`, dedup emits `new: []` so the FIRST run of
-//      Phase 1 does NOT spray the back-catalog at the recipient. The
-//      RAW items remain on `r.raw` untouched so plan 10's state writer
-//      can use them to seed state (B1 cross-plan contract).
+//   2. BOOTSTRAP (D-09, first-run policy; D-P2-08, empty-state guard) —
+//      when a firm has no prior entry in `seen.firms` OR its prior entry
+//      is structurally empty (`urls: []` AND `lastNewAt: null`), dedup
+//      emits `new: []` so the FIRST run does NOT spray the back-catalog
+//      at the recipient. The empty-state branch defends against Pitfall 6
+//      (a manually-edited state file or a firm that was added but never
+//      produced a successful scrape + summarize run). The RAW items
+//      remain on `r.raw` untouched so plan 10's state writer can use
+//      them to seed state (B1 cross-plan contract — writer MUST also
+//      treat empty-state as bootstrap).
 //
 //   3. CANONICAL URL ASSUMPTION — this function does NOT call
 //      canonicalizeUrl. Every URL in `r.raw[*].url` is already canonical
@@ -47,10 +52,18 @@ export function dedupAll(
 
     const priorFirm = seen.firms[r.firm.id];
 
-    // D-09 first-run bootstrap: no prior state for this firm → emit
-    // nothing. r.raw is deliberately preserved so plan 10's writer can
-    // seed SeenState from it (B1 cross-plan invariant).
-    if (!priorFirm) {
+    // D-09 first-run bootstrap AND D-P2-08 empty-state bootstrap:
+    //   - `!priorFirm` — firm absent from state (first run after config add).
+    //   - priorFirm exists but `urls.length === 0 && lastNewAt === null` —
+    //     Pitfall 6 defense. Happens after manual state edits or after a
+    //     prior bootstrap was never followed by a successful dedup cycle
+    //     (e.g., the firm errored on every run since being added).
+    // Both branches emit new:[] and preserve r.raw so the writer seeds
+    // urls from it (B1 cross-plan invariant).
+    if (
+      !priorFirm ||
+      (priorFirm.urls.length === 0 && priorFirm.lastNewAt === null)
+    ) {
       return { ...r, new: [] };
     }
 

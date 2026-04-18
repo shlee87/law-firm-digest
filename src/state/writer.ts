@@ -27,6 +27,14 @@
 //      flood the recipient with the whole back-catalog. Bootstrap MUST
 //      consume r.raw to honor D-09's "silent seed on run 1" promise.
 //
+//   3b. D-P2-08 empty-state bootstrap (Pitfall 6 defense): if priorFirm
+//       exists but is structurally empty (urls:[] AND lastNewAt:null),
+//       treat it as bootstrap too. Mirror of dedup.ts guard. Without
+//       this mirror, dedup short-circuits to new:[] but writer leaves
+//       urls:[] in place, and the SAME empty-state re-occurs on the
+//       next run. Together they make the empty-state case self-healing
+//       within one run.
+//
 // Atomic-ish write: writeFile to `${path}.tmp`, then rename. POSIX
 // rename is atomic on the same filesystem, so a mid-write crash leaves
 // either the old file intact or the new file fully materialized —
@@ -57,11 +65,16 @@ export async function writeState(
 
     const priorFirm = prior.firms[r.firm.id];
 
-    if (!priorFirm) {
-      // D-09 / B1 first-run bootstrap: main.ts skipped summarization
-      // because dedup returned new:[], so r.summarized is []. Seed urls
-      // from r.raw directly so the NEXT run sees these URLs as seen and
-      // only emits genuinely-new items.
+    // D-09 / B1 first-run bootstrap AND D-P2-08 empty-state bootstrap:
+    // mirror of the dedup.ts guard. When dedup returned new:[] because
+    // priorFirm was missing OR structurally empty, r.summarized is [].
+    // Seed urls from r.raw directly so the NEXT run sees these URLs as
+    // seen and only emits genuinely-new items.
+    const isBootstrap =
+      !priorFirm ||
+      (priorFirm.urls.length === 0 && priorFirm.lastNewAt === null);
+
+    if (isBootstrap) {
       const seededUrls = r.raw.map((x) => x.url).slice(0, MAX_PER_FIRM);
       const lastNewAt =
         r.raw.length > 0 ? r.raw[0]?.publishedAt ?? new Date().toISOString() : null;
