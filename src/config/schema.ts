@@ -27,12 +27,30 @@ export const FirmSchema = z
       .object({
         list_item: z.string(),
         title: z.string(),
-        link: z.string(),
+        link: z.string().optional(),
+        link_onclick_regex: z.string().optional(),
+        link_template: z
+          .string()
+          .regex(
+            /^(https?:\/\/|\/)/,
+            'link_template must be absolute (https://...) or path-absolute (/...) per Pitfall 5',
+          )
+          .optional(),
         date: z.string().optional(),
+        body: z.string().optional(),
       })
+      .refine(
+        (s) => !!s.link || (!!s.link_onclick_regex && !!s.link_template),
+        {
+          message:
+            'Each firm needs either selectors.link OR (selectors.link_onclick_regex + selectors.link_template)',
+        },
+      )
       .optional(),
     user_agent: z.string().optional(),
     timeout_ms: z.number().int().positive().default(20000),
+    include_keywords: z.array(z.string()).optional().default([]),
+    exclude_keywords: z.array(z.string()).optional().default([]),
   })
   .strict();
 

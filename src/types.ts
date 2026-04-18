@@ -10,6 +10,9 @@
 //   - FirmConfig.timezone is required (CONF-05)
 //   - RawItem.description is optional (RSS-only body for summarizer input)
 //   - SummarizedItem carries NO body field (COMP-05 — body never persisted)
+//   - include_keywords/exclude_keywords default to [] at schema validation,
+//     so runtime code may assume they are always defined arrays even though
+//     the TS interface marks them optional (matches zod .optional().default([]))
 
 export type FirmType = 'rss' | 'html' | 'js-render';
 export type Language = 'ko' | 'en';
@@ -25,11 +28,16 @@ export interface FirmConfig {
   selectors?: {
     list_item: string;
     title: string;
-    link: string;
+    link?: string;
+    link_onclick_regex?: string;
+    link_template?: string;
     date?: string;
+    body?: string;
   };
   user_agent?: string;
   timeout_ms?: number;
+  include_keywords?: string[];
+  exclude_keywords?: string[];
 }
 
 export interface RawItem {

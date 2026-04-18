@@ -29,6 +29,20 @@
 #   state key 슬러그는 'cooley' 를 유지 (Phase 2 에서 메인 사이트가
 #   HTML 티어로 들어올 때 'cooley-go' / 'cooley' 로 분리할 수 있도록).
 # =============================================================
+# Phase 2 firm list (D-P2-14 Option A+B — locked 2026-04-17):
+#   Live firms (9): 3 RSS (cooley, clifford-chance, freshfields),
+#                   4 HTML plain-href (shin-kim, yulchon, logos, skadden),
+#                   2 HTML onclick-extract (kim-chang, bkl).
+#   Disabled placeholders (3): lee-ko, yoon-yang, latham — JS-render
+#                   required; defer to Phase 4 or further backup swap.
+#
+# 추가 필드 (Phase 2):
+#   selectors.link_onclick_regex / link_template : 김앤장·태평양처럼
+#       onclick 이벤트로 상세 URL 을 구성하는 사이트용.
+#   selectors.body : 본문 추출 selector (optional; 없으면 일반 chain).
+#   include_keywords / exclude_keywords : 대소문자 무시 substring 필터
+#       (기본 []). D-P2-17 기준 전 firm 이 [] 로 출발.
+# =============================================================
 
 firms:
   - id: cooley
@@ -38,3 +52,149 @@ firms:
     url: https://cooleygo.com/feed/
     timezone: America/Los_Angeles
     enabled: true
+
+  # ----- UK RSS firms (2) -----
+  - id: clifford-chance
+    name: Clifford Chance
+    language: en
+    type: rss
+    url: https://www.cliffordchance.com/rss/rss-feed-briefings.html
+    timezone: Europe/London
+    enabled: true
+
+  - id: freshfields
+    name: Freshfields
+    language: en
+    type: rss
+    url: https://www.freshfields.com/en/rss/news
+    timezone: Europe/London
+    enabled: true
+
+  # ----- KR HTML plain-href firms (3) -----
+  - id: shin-kim
+    name: 세종
+    language: ko
+    type: html
+    url: https://www.shinkim.com/kor/media/newsletter
+    timezone: Asia/Seoul
+    enabled: true
+    selectors:
+      list_item: ".post-prime"
+      title: "a.text"
+      link: "a.text"
+      date: ".foot-item.posted"
+      body: ".post-content"
+
+  - id: yulchon
+    name: 율촌
+    language: ko
+    type: html
+    url: https://www.yulchon.com/ko/resources/publications/newsletter.do
+    timezone: Asia/Seoul
+    enabled: true
+    selectors:
+      list_item: "ul.list_type_post > li"
+      title: "p.title"
+      link: "a.post_link"
+      date: "p.date"
+
+  - id: logos
+    name: 법무법인 로고스
+    language: ko
+    type: html
+    url: https://www.lawlogos.com/sub/news/newsletter.asp
+    timezone: Asia/Seoul
+    enabled: true
+    selectors:
+      list_item: ".board-box .list tr"
+      title: "a"
+      link: "a"
+      date: ".date"
+
+  # ----- US HTML plain-href firm (1) — monthly cadence, expect silent weeks -----
+  # Skadden audit (RESEARCH L144): the <a class="insightful-card"> IS the anchor
+  # and the card body (title/date) lives as descendants of that anchor. The
+  # Drupal view that renders the grid wraps each card in a `.views-row` div.
+  # We therefore select the WRAPPER as list_item and the anchor itself as link,
+  # so $(el).find(link) resolves to a descendant anchor rather than el itself
+  # (cheerio find() only searches descendants). If plan 03's live-fixture probe
+  # shows the wrapper class has drifted, tighten list_item to the observed
+  # wrapper and keep the link selector unchanged.
+  - id: skadden
+    name: Skadden
+    language: en
+    type: html
+    url: https://www.skadden.com/insights
+    timezone: America/New_York
+    enabled: true
+    selectors:
+      list_item: ".views-row"
+      title: ".insightful-card__title, .highlight-card-title"
+      link: "a.insightful-card, a.highlight-card"
+      date: ".insightful-card__date"
+
+  # ----- KR HTML onclick-extract firms (2) — require link_onclick_regex + link_template -----
+  - id: kim-chang
+    name: 김앤장 법률사무소
+    language: ko
+    type: html
+    url: https://www.kimchang.com/ko/newsletter.kc
+    timezone: Asia/Seoul
+    enabled: true
+    selectors:
+      list_item: "ul.notice_list > li"
+      title: ".notice_txt .title, .notice_txt._dotdotdot_news"
+      link_onclick_regex: "goDetail\\('(\\d+)','(\\d+)'\\)"
+      link_template: "https://www.kimchang.com/ko/insights/detail.kc?sch_section={1}&idx={2}"
+      date: ".notice_date"
+
+  - id: bkl
+    name: 태평양
+    language: ko
+    type: html
+    url: https://www.bkl.co.kr/law/insight/informationList.do?lang=ko
+    timezone: Asia/Seoul
+    enabled: true
+    selectors:
+      list_item: "ul li.info-item, ul li"
+      title: ".info-title, .title"
+      link_onclick_regex: "goView\\('(\\d+)'\\)"
+      link_template: "/law/insight/informationView.do?infoNo={1}&lang=ko"
+      date: ".info-date, .date"
+
+  # ----- Disabled placeholders (3) — JS-render required; defer to Phase 4 -----
+  - id: lee-ko
+    name: 광장
+    language: ko
+    type: html
+    url: https://www.leeko.com/leenko/news/newsLetterList.do?lang=KR
+    timezone: Asia/Seoul
+    enabled: false  # JS-render required — defer to Phase 4
+    selectors:
+      list_item: "ul#contentsList > li"
+      title: ".title"
+      link: "a"
+
+  - id: yoon-yang
+    name: 화우
+    language: ko
+    type: html
+    url: https://www.yoonyang.com/kor/insights/newsletters
+    timezone: Asia/Seoul
+    enabled: false  # JS-render required — defer to Phase 4
+    selectors:
+      list_item: "ul#contentsList > li"
+      title: ".title"
+      link: "a"
+
+  - id: latham
+    name: Latham & Watkins
+    language: en
+    type: html
+    url: https://www.lw.com/en/insights-landing
+    timezone: America/New_York
+    enabled: false  # JS-render required — defer to Phase 4
+    selectors:
+      list_item: ".content-card"
+      title: ".content-card__title"
+      link: "a"
