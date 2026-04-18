@@ -133,4 +133,138 @@ describe('composeDigest', () => {
     expect(payload.to).toEqual(recipients);
     expect(payload.from).toBe('primary@example.com');
   });
+
+  // --- Phase 2 EMAIL-05 / D-P2-04 coverage ---
+
+  it('EMAIL-05 — failed-firm footer renders http-{status} classification', () => {
+    const results: FirmResult[] = [
+      ...fixture(),
+      failedFirmResult('RSS fetch clifford-chance: HTTP 503'),
+    ];
+    const payload = composeDigest(results, 'u@e.com', 'u@e.com', fixedDate);
+    expect(payload.html).toContain('이번 실행에서 수집 실패');
+    expect(payload.html).toContain('http-503');
+    expect(payload.html).toContain('Clifford Chance');
+    expect(payload.html).toContain('(clifford-chance)');
+  });
+
+  it('EMAIL-05 — failed firm does NOT appear in the subject count', () => {
+    const results: FirmResult[] = [
+      ...fixture(),
+      failedFirmResult('RSS fetch clifford-chance: HTTP 503'),
+    ];
+    const payload = composeDigest(results, 'u@e.com', 'u@e.com', fixedDate);
+    // One firm in the subject (cooley) + one failed (clifford-chance in footer),
+    // so "(1 firms, 3 items)" — NOT "(2 firms, ..." and NOT "(1 firms, 4" either.
+    expect(payload.subject).toBe('[법률 다이제스트] 2026-04-17 (1 firms, 3 items)');
+  });
+
+  it('EMAIL-05 — robots-blocked classification end-to-end', () => {
+    const results: FirmResult[] = [
+      ...fixture(),
+      failedFirmResult('robots.txt disallows https://example.com/feed'),
+    ];
+    const payload = composeDigest(results, 'u@e.com', 'u@e.com', fixedDate);
+    expect(payload.html).toContain('robots-blocked');
+    expect(payload.html).not.toContain('http-'); // no HTTP code visible
+  });
+
+  it('EMAIL-05 — fetch-timeout classification', () => {
+    const results: FirmResult[] = [
+      ...fixture(),
+      failedFirmResult('The operation was aborted due to timeout'),
+    ];
+    const payload = composeDigest(results, 'u@e.com', 'u@e.com', fixedDate);
+    expect(payload.html).toContain('fetch-timeout');
+  });
+
+  it('EMAIL-05 — XSS defense: firm.name with <script> is escaped', () => {
+    const hostile: FirmResult = {
+      firm: { ...cliffordChance, name: '<script>alert(1)</script>' },
+      raw: [],
+      new: [],
+      summarized: [],
+      error: { stage: 'fetch', message: 'HTTP 500' },
+      durationMs: 0,
+    };
+    const payload = composeDigest(
+      [...fixture(), hostile],
+      'u@e.com',
+      'u@e.com',
+      fixedDate,
+    );
+    expect(payload.html).toContain('&lt;script&gt;alert(1)&lt;/script&gt;');
+    expect(payload.html).not.toContain('<script>alert(1)</script>');
+  });
+
+  it('EMAIL-05 — no failed firms → NO footer block rendered (visual no-op on clean runs)', () => {
+    const payload = composeDigest(fixture(), 'u@e.com', 'u@e.com', fixedDate);
+    expect(payload.html).not.toContain('이번 실행에서 수집 실패');
+    expect(payload.html).toContain('AI 요약 — 원문 확인 필수');
+  });
+
+  it('EMAIL-05 — message longer than 140 chars is truncated in footer', () => {
+    const longMsg = 'HTTP 503 ' + 'A'.repeat(200);
+    const results: FirmResult[] = [...fixture(), failedFirmResult(longMsg)];
+    const payload = composeDigest(results, 'u@e.com', 'u@e.com', fixedDate);
+    const m = /<li>[^<]*Clifford Chance[^<]*<\/li>/.exec(payload.html);
+    expect(m).not.toBeNull();
+    const aRun = /A+/.exec(m?.[0] ?? '');
+    expect(aRun).not.toBeNull();
+    expect(aRun![0].length).toBeLessThanOrEqual(140);
+  });
+
+  it('EMAIL-05 — message scrubSecrets: GEMINI_API_KEY replaced with ***REDACTED*** if accidentally echoed', () => {
+    const realKey = process.env.GEMINI_API_KEY;
+    process.env.GEMINI_API_KEY = 'THIS_IS_A_FAKE_KEY_LONG_ENOUGH_12345';
+    try {
+      const leak = `config error at THIS_IS_A_FAKE_KEY_LONG_ENOUGH_12345 position`;
+      const results: FirmResult[] = [
+        ...fixture(),
+        failedFirmResult(leak, 'parse'),
+      ];
+      const payload = composeDigest(results, 'u@e.com', 'u@e.com', fixedDate);
+      expect(payload.html).not.toContain('THIS_IS_A_FAKE_KEY_LONG_ENOUGH_12345');
+      expect(payload.html).toContain('***REDACTED***');
+    } finally {
+      if (realKey === undefined) delete process.env.GEMINI_API_KEY;
+      else process.env.GEMINI_API_KEY = realKey;
+    }
+  });
+
+  it('EMAIL-05 — snapshot with failed firm included (footer format locked)', () => {
+    const results: FirmResult[] = [
+      ...fixture(),
+      failedFirmResult(
+        'RSS fetch clifford-chance: HTTP 503\nUnrelated second line ignored.',
+      ),
+    ];
+    const payload = composeDigest(results, 'u@e.com', 'u@e.com', fixedDate);
+    expect(payload.html).toMatchSnapshot('digest-with-failed-firm');
+  });
 });
+
+const cliffordChance: FirmConfig = {
+  id: 'clifford-chance',
+  name: 'Clifford Chance',
+  language: 'en',
+  type: 'rss',
+  url: 'https://www.cliffordchance.com/rss/rss-feed-briefings.html',
+  timezone: 'Europe/London',
+  enabled: true,
+  timeout_ms: 20000,
+};
+
+function failedFirmResult(
+  message: string,
+  stage: 'fetch' | 'parse' | 'dedup' | 'summarize' = 'fetch',
+): FirmResult {
+  return {
+    firm: cliffordChance,
+    raw: [],
+    new: [],
+    summarized: [],
+    error: { stage, message },
+    durationMs: 0,
+  };
+}

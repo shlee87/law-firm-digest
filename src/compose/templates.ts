@@ -1,26 +1,50 @@
 // Email digest HTML renderer (D-07 minimal inline-CSS style).
 //
 // Pure function: takes FirmResult[] (already filtered to firms with summarized items)
-// plus a KST date string, returns a single <!doctype html>...</html> string ready
-// for EmailPayload.html.
+// plus a KST date string, optional failed-firms array, returns a single
+// <!doctype html>...</html> string ready for EmailPayload.html.
 //
-// XSS defense (threat model T-08-01/02/03): EVERY user-controlled string crossing
-// into HTML or attribute context passes through escapeHtml or escapeAttr before
-// interpolation. User-controlled = scraped title, Gemini summary_ko, scraped URL,
-// firm.name (config-sourced but escaped defensively). The date string is
-// developer/library-controlled (ISO format) but still escaped for defense-in-depth.
+// XSS defense (threat model T-08-01/02/03, and T-02-05-01 for the new footer):
+// EVERY user-controlled string crossing into HTML or attribute context passes
+// through escapeHtml or escapeAttr before interpolation. User-controlled =
+// scraped title, Gemini summary_ko, scraped URL, firm.name (config-sourced but
+// escaped defensively), firm.id (ditto), error.message (scrubSecrets + escapeHtml).
 //
 // B3 null-summary placeholder (2026-04-17 revision): when summary_ko is null —
 // whether from a Gemini failure (summaryModel === 'failed') OR the main.ts B3
 // bypass for description-less items (summaryModel === 'skipped') — render the
-// literal Korean placeholder "요약 없음 — 본문 부족" in italic grey. A single
-// user-facing message because the root cause in both branches is "no body
-// content to summarize from". Do NOT special-case by summaryModel here; the
-// branching policy lives upstream, templates just render.
+// literal Korean placeholder "요약 없음 — 본문 부족" in italic grey.
+//
+// EMAIL-05 failed-firm footer (Phase 2 addition, D-P2-04):
+// When a FirmResult carries an .error, classifyError() maps the message to a
+// compact errorClass tag and renderFailedFirmsFooter composes a Korean-header
+// <ul> of failed firms. errorClass taxonomy:
+//   - robots-blocked   (robots.txt disallows ...)
+//   - fetch-timeout    (timeout / ETIMEDOUT / aborted)
+//   - http-{status}    (message matches /HTTP (\d{3})/ — coupled to
+//                       scrapers/rss.ts L68 and scrapers/html.ts error shapes)
+//   - dns-fail         (ENOTFOUND / DNS)
+//   - parse-error      (stage='parse' OR keywords parse/selector)
+//   - selector-miss    (message mentions "selector not found" / "selectors miss")
+//   - unknown          (none of the above)
+//
+// Error messages are scrubSecrets'd then escapeHtml'd before output. Only
+// the FIRST LINE is rendered and it is hard-truncated at 140 chars — no
+// ellipsis, no stack traces in email (stack traces stay in GHA logs for
+// operator triage).
+//
+// Phase 1 01-08 LOCKED: escapeHtml stays LOCAL to this file. It is NOT
+// exported and MUST NOT be duplicated into a sibling file — the single
+// XSS-escape boundary of the renderer lives here and only here.
 
 import type { FirmResult } from '../types.js';
+import { scrubSecrets } from '../util/logging.js';
 
-export function renderHtml(firms: FirmResult[], dateKst: string): string {
+export function renderHtml(
+  firms: FirmResult[],
+  dateKst: string,
+  failed: FirmResult[] = [],
+): string {
   const sections = firms
     .map((r) => {
       const items = r.summarized
@@ -40,11 +64,54 @@ export function renderHtml(firms: FirmResult[], dateKst: string): string {
     })
     .join('');
 
+  const failedFooter = renderFailedFirmsFooter(failed);
+
   return `<!doctype html><html><body style="font-family:sans-serif;max-width:680px;margin:0 auto;padding:16px;">
     <h1 style="font-size:22px;">법률 다이제스트 ${escapeHtml(dateKst)}</h1>
     ${sections}
+    ${failedFooter}
     <footer style="margin-top:32px;color:#888;font-size:12px;">AI 요약 — 원문 확인 필수</footer>
   </body></html>`;
+}
+
+/**
+ * Classify an error.message + stage into a compact errorClass tag.
+ * Order of checks matters — robots precedes HTTP-code match because a
+ * disallows message might incidentally include a status code; parse/timeout
+ * are keyword-based and mutually exclusive with HTTP codes in practice.
+ */
+function classifyError(msg: string, stage: string): string {
+  if (msg.includes('robots.txt disallows')) return 'robots-blocked';
+  if (/timeout|timed out|ETIMEDOUT|aborted/i.test(msg)) return 'fetch-timeout';
+  const http = /HTTP (\d{3})/.exec(msg);
+  if (http) return `http-${http[1]}`;
+  if (/ENOTFOUND|DNS/i.test(msg)) return 'dns-fail';
+  if (/selectors? (miss|not found)/i.test(msg)) return 'selector-miss';
+  if (stage === 'parse' || /parse error|selector/i.test(msg)) return 'parse-error';
+  return 'unknown';
+}
+
+/**
+ * Render the Korean-header failed-firm footer <footer>...</footer>.
+ * Empty string if no failed firms (keeps clean runs visually unchanged).
+ */
+function renderFailedFirmsFooter(failed: FirmResult[]): string {
+  const filtered = failed.filter((f) => !!f.error);
+  if (filtered.length === 0) return '';
+
+  const items = filtered
+    .map((f) => {
+      const scrubbed = scrubSecrets(f.error!.message);
+      const firstLine = scrubbed.split('\n')[0].slice(0, 140);
+      const errClass = classifyError(scrubbed, f.error!.stage);
+      return `<li>${escapeHtml(f.firm.name)} (${escapeHtml(f.firm.id)}) — ${escapeHtml(errClass)}: ${escapeHtml(firstLine)}</li>`;
+    })
+    .join('');
+
+  return `<footer style="margin-top:32px;color:#999;font-size:12px;">
+  <div>⚠ 이번 실행에서 수집 실패 — 다음 실행에서 재시도됩니다:</div>
+  <ul style="margin:4px 0;">${items}</ul>
+</footer>`;
 }
 
 function escapeHtml(s: string): string {
