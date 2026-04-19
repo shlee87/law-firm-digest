@@ -350,7 +350,11 @@ export function parseListItemsFromHtml(html: string, firm: FirmConfig): RawItem[
       if (!title) return;
 
       let url: string;
-      if (selectors.link !== undefined && selectors.link !== '') {
+      if (typeof selectors.link === 'string' && selectors.link !== '') {
+        // Task 1 transient narrow: Phase 4.1 widened selectors.link to
+        // (string | LinkExtractor), but Task 2 introduces the object-form
+        // handler. This typeof check keeps the legacy string path typecheck-
+        // clean between commits without changing runtime behavior.
         const href = $(el).find(selectors.link).attr('href') ?? '';
         if (!href) return;
         url = canonicalizeUrl(href, firm.url);

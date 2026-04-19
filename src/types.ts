@@ -24,6 +24,22 @@
 export type FirmType = 'rss' | 'html' | 'js-render';
 export type Language = 'ko' | 'en';
 
+/**
+ * Phase 4.1: generalized link-extraction object form. When selectors.link is
+ * this shape, the extractor reads `attribute` (default 'href') from the
+ * element matched by `selector`, optionally applies `regex` to extract
+ * capture groups, and optionally substitutes them into `template` to build
+ * the final URL. Subsumes plain href reads, onclick-regex extraction, and
+ * data-* attribute extraction in one configurable shape. See
+ * src/config/schema.ts LinkExtractorSchema for validation rules.
+ */
+export interface LinkExtractor {
+  selector: string;
+  attribute?: string; // defaults to 'href' at runtime via schema default
+  regex?: string;
+  template?: string;
+}
+
 export interface FirmConfig {
   id: string;
   name: string;
@@ -36,7 +52,7 @@ export interface FirmConfig {
   selectors?: {
     list_item: string;
     title: string;
-    link?: string;
+    link?: string | LinkExtractor;
     link_onclick_regex?: string;
     link_template?: string;
     date?: string;

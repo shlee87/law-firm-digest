@@ -9,6 +9,46 @@
 
 import { z } from 'zod';
 
+/**
+ * Generalized link extraction for selectors.link (object form).
+ *
+ * Use this when the firm's anchor doesn't expose the article URL directly
+ * via the href attribute — e.g. href contains a JavaScript expression like
+ * "javascript:doView(12345)", or the URL ID lives in data-* / onclick / any
+ * other attribute. The extractor reads `attribute` from the element matched
+ * by `selector`, optionally applies `regex` to extract IDs, and optionally
+ * substitutes capture groups into `template` to build the final URL.
+ *
+ * Examples:
+ *   yoon-yang:    { selector: 'a', regex: 'doView\\((\\d+)\\)', template: '/.../view?id={1}' }
+ *   future data-id firm: { selector: 'a', attribute: 'data-id', regex: '(\\d+)', template: '/article/{1}' }
+ *   plain href via object: { selector: 'a' }   // equivalent to string form 'a'
+ *
+ * The `regex` and `template` fields are co-required: presence of one without
+ * the other is a validation error (see refine below).
+ */
+const LinkExtractorSchema = z
+  .object({
+    selector: z.string().min(1),
+    attribute: z.string().min(1).default('href'),
+    regex: z.string().optional(),
+    template: z
+      .string()
+      .regex(
+        /^(https?:\/\/|\/)/,
+        'link.template must be absolute (https://...) or path-absolute (/...) per Pitfall 5',
+      )
+      .optional(),
+  })
+  .strict()
+  .refine(
+    (l) => (!l.regex && !l.template) || (!!l.regex && !!l.template),
+    {
+      message:
+        'link.regex and link.template must be present together (or both absent for plain attribute extraction)',
+    },
+  );
+
 export const FirmSchema = z
   .object({
     id: z
@@ -28,7 +68,14 @@ export const FirmSchema = z
       .object({
         list_item: z.string(),
         title: z.string(),
-        link: z.string().optional(),
+        // Phase 4.1: link accepts EITHER a plain CSS-selector string (legacy,
+        // 5 existing firms unchanged) OR a LinkExtractorSchema object
+        // describing attribute-based extraction (covers yoon-yang's
+        // href="javascript:doView(N)" shape and any future data-* pattern).
+        link: z.union([z.string(), LinkExtractorSchema]).optional(),
+        // DEPRECATED — superseded by selectors.link object form (Phase 4.1). Kept
+        // for backward compat: kim-chang and bkl still use these fields. New firms
+        // should use the object form: link: { selector, attribute, regex, template }.
         link_onclick_regex: z.string().optional(),
         link_template: z
           .string()
