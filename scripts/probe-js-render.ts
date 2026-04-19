@@ -13,6 +13,12 @@
 //     --link "a" \
 //     [--language ko] [--timezone Asia/Seoul]
 //
+// Alternative link shape (firms using onclick JS-handlers instead of href):
+//   ... --link-onclick-regex "goDetail\\('([0-9]+)'\\)" \
+//       --link-template "/leenko/news/newsLetterView.do?lang=KR&newsletterNo={1}"
+// (One of --link OR --link-onclick-regex + --link-template is required —
+//  maps to the same two-branch link resolution in parseListItemsFromHtml.)
+//
 // Output:
 //   [probe] firm=lee-ko url=https://... wait_for=ul#contentsList > li
 //   [probe] launching chromium ...
@@ -40,7 +46,9 @@ interface ParsedArgs {
   waitFor: string;
   listItem: string;
   title: string;
-  link: string;
+  link?: string;
+  linkOnclickRegex?: string;
+  linkTemplate?: string;
   language: 'ko' | 'en';
   timezone: string;
 }
@@ -60,9 +68,15 @@ function parseArgs(argv: string[]): ParsedArgs {
   const listItem = get('list-item');
   const title = get('title');
   const link = get('link');
-  if (!firm || !url || !waitFor || !listItem || !title || !link) {
+  const linkOnclickRegex = get('link-onclick-regex');
+  const linkTemplate = get('link-template');
+  // Either --link, OR --link-onclick-regex + --link-template — matches the
+  // two-branch resolution in parseListItemsFromHtml (src/scrapers/util.ts).
+  const hasLinkDirect = !!link;
+  const hasLinkOnclick = !!linkOnclickRegex && !!linkTemplate;
+  if (!firm || !url || !waitFor || !listItem || !title || (!hasLinkDirect && !hasLinkOnclick)) {
     console.error(
-      'Usage: pnpm tsx scripts/probe-js-render.ts --firm <id> --url <url> --wait-for <sel> --list-item <sel> --title <sel> --link <sel> [--language ko|en] [--timezone <IANA>]',
+      'Usage: pnpm tsx scripts/probe-js-render.ts --firm <id> --url <url> --wait-for <sel> --list-item <sel> --title <sel> (--link <sel> | --link-onclick-regex <re> --link-template <tpl>) [--language ko|en] [--timezone <IANA>]',
     );
     process.exit(4);
   }
@@ -73,6 +87,8 @@ function parseArgs(argv: string[]): ParsedArgs {
     listItem,
     title,
     link,
+    linkOnclickRegex,
+    linkTemplate,
     language: (get('language') as 'ko' | 'en') ?? 'ko',
     timezone: get('timezone') ?? 'Asia/Seoul',
   };
@@ -99,7 +115,12 @@ async function main(): Promise<number> {
       selectors: {
         list_item: args.listItem,
         title: args.title,
+        // parseListItemsFromHtml treats link='' + link_onclick_regex+link_template
+        // as the onclick branch; give it undefined (not '') so the branch selects
+        // cleanly even if --link was omitted entirely.
         link: args.link,
+        link_onclick_regex: args.linkOnclickRegex,
+        link_template: args.linkTemplate,
       },
     };
     const probeStart = Date.now();
