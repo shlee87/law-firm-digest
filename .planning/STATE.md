@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-js-rendered-tier-conditional-02-PLAN.md
-last_updated: "2026-04-19T04:44:57.973Z"
+stopped_at: Completed 04-js-rendered-tier-conditional-03-PLAN.md
+last_updated: "2026-04-19T05:39:47.025Z"
 last_activity: 2026-04-19
 progress:
   total_phases: 5
   completed_phases: 2
   total_plans: 35
-  completed_plans: 27
-  percent: 77
+  completed_plans: 28
+  percent: 80
 ---
 
 # Project State
@@ -26,12 +26,12 @@ See: .planning/PROJECT.md (updated 2026-04-16)
 ## Current Position
 
 Phase: 04 (js-rendered-tier-conditional) — IN PROGRESS
-Plan: 2 of 8 (schema foundation — COMPLETE)
+Plan: 3 of 8 (schema foundation — COMPLETE)
 Next: 04-02 (jsRender scraper) next in Wave 1
 Status: Ready to execute
 Last activity: 2026-04-19
 
-Progress: [████████░░] 77%
+Progress: [████████░░] 80%
 
 **Note on plan counter:** Phase 5 was pre-planned (1 governance plan) before Phase 4 execution began. Phase 4 is now executing; Phase 5 remains planned but unexecuted pending Phase 4 completion. The `state.advance-plan` call against this Current Position ran at a moment when it still pointed at Phase 5, incrementing that phase's plan-1-of-1 counter — the real advancement this session was Phase 4 plan 0→1.
 
@@ -71,6 +71,7 @@ Progress: [████████░░] 77%
 | Phase 01-foundation-vertical-slice P12 | ~2h | 2 tasks tasks | 1 file files |
 | Phase 04-js-rendered-tier-conditional P01 | 2min | 3 tasks | 3 files |
 | Phase 04-js-rendered-tier-conditional P02 | 5min | 3 tasks | 3 files |
+| Phase 04-js-rendered-tier-conditional P03 | 13min | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -121,6 +122,10 @@ Recent decisions affecting current work:
 - Phase 04-02: normalizeDateString promoted from html.ts file-local to util.ts exported helper — avoids cross-tier file dependency between jsRender.ts and html.ts
 - Phase 04-02: missing-selectors branch returns [] instead of throwing — lets scrapeHtml preserve historical no-throw (D-P2-03) while jsRender.ts can wrap with its own selector-miss classification
 - Phase 04-02: fetch + charset-aware decode stays in html.ts, not lifted into util.parseListItemsFromHtml — jsRender.ts owns its own network stack via Playwright, so the helper handles only string → items
+- Phase 04-03: playwright resolved to 1.59.1 (pnpm ^1.58.0 spec — latest matching minor); stack lock permits via caret-range pinning
+- Phase 04-03: scrapeJsRender(firm, browser) uses Pattern 1 Browser-injection — composition root owns launch/close, scraper owns only per-firm BrowserContext; enables mock-based testing without chromium binary
+- Phase 04-03: Three error-message shapes (browser-launch-fail / playwright-timeout / zero items extracted (selector-miss)) are load-bearing — coupled to classifyError regex in compose/templates.ts; must not modify without lockstep classifier update
+- Phase 04-03: waitUntil='domcontentloaded' + state='attached' + hardcoded 15s timeouts (D-13) — 'load' too strict for SPAs, 'networkidle' redundant with wait_for; no YAML exposure of timeout in v1
 
 ### Pending Todos
 
@@ -142,8 +147,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-19T04:44:57.970Z
-Stopped at: Completed 04-js-rendered-tier-conditional-02-PLAN.md
+Last session: 2026-04-19T05:39:47.022Z
+Stopped at: Completed 04-js-rendered-tier-conditional-03-PLAN.md
 Resume file: None
 
 **Planned Phase:** 05 (triggered-polish-v1-x-backlog) — 1 plans — 2026-04-18T19:04:37.083Z
