@@ -91,4 +91,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-19 after Phase 4 (JS-Rendered Tier, conditional) completion — Playwright chromium --only-shell tier shipped with D-08 fail-loud contract; 4 js-render firms activated (lee-ko, yoon-yang, barun, latham), 13 firms total live, FETCH-01 tiered contract (RSS → HTML → JS-render) complete*
+*Last updated: 2026-04-19 after Phase 5 (Triggered Polish, v1.x backlog) completion — governance-only phase, zero code shipped per D-14; 13-item backlog roster cataloged with named trigger conditions; parent closes on D-10.1 (CONTEXT.md on dev, met) + D-10.2 (Phase 3 supplement for QUOTA/ARCH/CACHE counters, pending via 03-06-PLAN.md)*
