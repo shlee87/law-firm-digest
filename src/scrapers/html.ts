@@ -35,9 +35,14 @@
 // Error message shape `scrapeHtml {firm.id}: HTTP {status}` is COUPLED to
 // compose/templates.ts classifyError regex `/HTTP (\d{3})/` (plan 05). Do
 // NOT change the format without updating the classifier in lockstep.
+//
+// Phase 4 (2026-04-18): the HTML-string → RawItem[] loop has been lifted into
+// scrapers/util.ts as parseListItemsFromHtml, so both scrapeHtml and the new
+// scrapeJsRender (Phase 4 plan 03) share identical extraction semantics. The
+// fetch + charset-aware decode path remains here because scrapeJsRender's
+// Playwright browser owns its own network stack.
 
-import * as cheerio from 'cheerio';
-import { canonicalizeUrl, decodeCharsetAwareFetch, parseDate } from './util.js';
+import { decodeCharsetAwareFetch, parseListItemsFromHtml } from './util.js';
 import type { FirmConfig, RawItem } from '../types.js';
 
 /**
@@ -77,104 +82,5 @@ export async function scrapeHtml(firm: FirmConfig): Promise<RawItem[]> {
     throw err;
   }
 
-  const $ = cheerio.load(html);
-  const items: RawItem[] = [];
-  const selectors = firm.selectors;
-
-  $(selectors.list_item).each((_, el) => {
-    try {
-      // Title
-      const title = $(el).find(selectors.title).first().text().trim();
-      if (!title) return; // silently skip rows without a title
-
-      // URL — branch A (plain href) vs branch B (onclick extract)
-      let url: string;
-      if (selectors.link !== undefined && selectors.link !== '') {
-        const href = $(el).find(selectors.link).attr('href') ?? '';
-        if (!href) return; // silently skip rows whose anchor has no href
-        url = canonicalizeUrl(href, firm.url);
-      } else if (selectors.link_onclick_regex && selectors.link_template) {
-        // Prefer an anchor INSIDE the row, fall back to onclick on the row itself.
-        const anchor = $(el).find('a[onclick]').first();
-        const onclick = anchor.attr('onclick') ?? $(el).attr('onclick') ?? '';
-        if (!onclick) return;
-        const match = new RegExp(selectors.link_onclick_regex).exec(onclick);
-        if (!match) return;
-        let resolved = selectors.link_template;
-        for (let i = 1; i < match.length; i++) {
-          resolved = resolved.replaceAll(`{${i}}`, match[i]);
-        }
-        // Pitfall 5 defense: link_template is zod-validated to be absolute
-        // (https://...) or path-absolute (/...). Relative templates are
-        // rejected at schema-load. canonicalizeUrl resolves against firm.url
-        // so path-absolute templates anchor to origin, not the list-page path.
-        url = canonicalizeUrl(resolved, firm.url);
-      } else {
-        // No link branch configured. Schema refine (plan 01) catches this at
-        // load-time; defense-in-depth: silently skip at scrape-time too.
-        return;
-      }
-
-      // publishedAt — optional, best-effort
-      let publishedAt: string | undefined;
-      if (selectors.date) {
-        const dateText = $(el).find(selectors.date).first().text().trim();
-        if (dateText) {
-          const iso = normalizeDateString(dateText);
-          if (iso) {
-            try {
-              publishedAt = parseDate(iso, firm.timezone);
-            } catch {
-              // Invalid IANA zone or unparseable ISO — leave publishedAt
-              // undefined rather than tanking the item. Plan 04 / summarize
-              // don't require it.
-            }
-          }
-        }
-      }
-
-      items.push({
-        firmId: firm.id,
-        title,
-        url,
-        publishedAt,
-        language: firm.language,
-        description: undefined, // plan 04 enrichBody will populate
-      });
-    } catch {
-      // Per-item isolation: one malformed row does not tank the whole firm.
-      // Any exception from cheerio selector evaluation or URL canonicalization
-      // is swallowed here so sibling rows continue to process. Firm-level
-      // failures (bad list page HTML, non-OK HTTP) already threw above.
-    }
-  });
-
-  return items;
-}
-
-/**
- * Normalize common list-page date formats to a Date.parse-friendly ISO-8601
- * local string (no offset — parseDate anchors with firm.timezone).
- *
- * Recognized formats (audit-observed 2026-04-17):
- *   "2026.04.17"         → 2026-04-17T00:00:00  (Shin-Kim / 세종)
- *   "2026. 04. 17."      → 2026-04-17T00:00:00  (Yulchon / 율촌)
- *   "2026. 4. 17"        → 2026-04-17T00:00:00  (space-padded single digit)
- *   "17 April 2026"      → 2026-04-17T...       (Date.parse-compatible English)
- *   "April 17, 2026"     → 2026-04-17T...       (Skadden US format)
- *
- * Returns null for anything unparseable — caller leaves publishedAt undefined.
- */
-function normalizeDateString(raw: string): string | null {
-  // Asian YYYY.MM.DD with optional space padding and trailing dot
-  const m = /(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})\.?/.exec(raw);
-  if (m) {
-    return `${m[1]}-${m[2].padStart(2, '0')}-${m[3].padStart(2, '0')}T00:00:00`;
-  }
-  // Fall back to native Date.parse for English forms
-  const d = new Date(raw);
-  if (!isNaN(d.getTime())) {
-    return d.toISOString().slice(0, 19);
-  }
-  return null;
+  return parseListItemsFromHtml(html, firm);
 }
