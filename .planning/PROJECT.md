@@ -91,4 +91,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-18 after Phase 3 (Observability + Dev Loop) completion — staleness banner, $GITHUB_STEP_SUMMARY, writeArchive, pnpm check:firm CLI all shipped; runPipeline is the single composition root*
+*Last updated: 2026-04-19 after Phase 4 (JS-Rendered Tier, conditional) completion — Playwright chromium --only-shell tier shipped with D-08 fail-loud contract; 4 js-render firms activated (lee-ko, yoon-yang, barun, latham), 13 firms total live, FETCH-01 tiered contract (RSS → HTML → JS-render) complete*
