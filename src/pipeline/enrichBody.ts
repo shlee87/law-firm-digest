@@ -32,6 +32,26 @@
 //   - This function NEVER throws. Contract is same-length FirmResult[] out
 //     with no fresh error objects.
 //
+// Phase 4 D-04 Playwright fallback:
+//   - Applies ONLY to the js-render tier (rss/html tiers unchanged); the
+//     branch is gated on the per-firm tier discriminant just below.
+//   - Triggered when static extractBody returns fewer than 200 chars —
+//     indicates the detail page is probably JS-hydrated too.
+//   - Re-fetches the same URL in a fresh per-firm BrowserContext; reuses
+//     the same extractBody chain on hydrated HTML.
+//   - Keeps whichever body is longer (static vs hydrated). Equal length
+//     → static (fewer side effects).
+//   - Per-item try/catch discipline preserved — one failed Playwright
+//     detail fetch does not block sibling items.
+//   - No additional politeness delay on the Playwright path beyond the
+//     existing 500ms inter-item gate (the Playwright nav itself dominates
+//     the perceived per-item pacing at ~2-3s each).
+//   - Note: plan 06 Task 2 intentionally does NOT plumb fallback counts
+//     through the Reporter interface — it's a noisy signal that clutters
+//     the CLI with per-item lines. The per-firm step-summary row already
+//     shows body counts. If a future operator finds fallback-visibility
+//     insufficient, promote to a Phase 5 triggered observability item.
+//
 // COMP-05 invariant: body is populated IN-PLACE on RawItem.description
 // (already an optional field) — NOT on a new 'body' field. The state writer
 // (state/writer.ts) does not persist description; therefore body never
@@ -42,10 +62,14 @@
 // two sanctioned check sites remain mailer/gmail.ts + state/writer.ts.
 
 import pLimit from 'p-limit';
+import type { Browser } from 'playwright';
 import { decodeCharsetAwareFetch, extractBody } from '../scrapers/util.js';
+import { USER_AGENT } from '../util/logging.js';
 import type { FirmResult } from '../types.js';
 
 const INTER_FETCH_DELAY_MS = 500;
+const STATIC_BODY_MIN_CHARS = 200; // D-04 / Research §10 threshold
+const DETAIL_PAGE_TIMEOUT_MS = 15_000; // D-14
 
 /**
  * Enrich every RawItem's description with body text extracted from its
@@ -54,10 +78,16 @@ const INTER_FETCH_DELAY_MS = 500;
  * @param results FirmResult[] from fetchAll. Failed firms are passed through
  *                by reference, successful firms have their r.raw items'
  *                description field populated.
+ * @param browser Optional shared Browser handle. When present AND a firm has
+ *                type === 'js-render', a static extraction shorter than
+ *                STATIC_BODY_MIN_CHARS triggers a Playwright re-fetch of the
+ *                same URL. The longer of (static, hydrated) wins. When
+ *                absent, behavior is identical to pre-Phase-4 static-only.
  * @returns same-length FirmResult[]. Never throws.
  */
 export async function enrichWithBody(
   results: FirmResult[],
+  browser?: Browser,
 ): Promise<FirmResult[]> {
   return Promise.all(
     results.map(async (r) => {
@@ -76,17 +106,57 @@ export async function enrichWithBody(
                 setTimeout(res, INTER_FETCH_DELAY_MS),
               );
             }
+            // Static first — existing logic unchanged (keeps Phase 2 semantics for rss/html).
             try {
               const { html } = await decodeCharsetAwareFetch(item.url, {
                 timeoutMs: r.firm.timeout_ms ?? 20_000,
               });
-              const body = extractBody(html, r.firm.selectors?.body);
-              // Overwrite description ONLY if extraction produced content.
-              // If extractBody returns '' (empty — which can happen when the
-              // whole document was only noise), preserve any prior description
-              // (e.g. RSS teaser) rather than erasing signal.
-              if (body && body.length > 0) {
-                return { ...item, description: body };
+              const staticBody = extractBody(html, r.firm.selectors?.body);
+
+              // D-04 Playwright fallback for js-render firms. Conditions:
+              //   - firm.type must be 'js-render' (rss/html ignore this branch)
+              //   - static body under threshold (signal too weak)
+              //   - browser must be available (runPipeline only launches when hasJsRender)
+              if (
+                r.firm.type === 'js-render' &&
+                staticBody.length < STATIC_BODY_MIN_CHARS &&
+                browser
+              ) {
+                try {
+                  const ctx = await browser.newContext({ userAgent: USER_AGENT });
+                  try {
+                    const page = await ctx.newPage();
+                    await page.goto(item.url, {
+                      timeout: DETAIL_PAGE_TIMEOUT_MS,
+                      waitUntil: 'domcontentloaded',
+                    });
+                    const hydratedHtml = await page.content();
+                    const hydratedBody = extractBody(
+                      hydratedHtml,
+                      r.firm.selectors?.body,
+                    );
+                    // Keep whichever body has more signal. Equal length
+                    // (including both 0) → static (fewer side effects).
+                    if (hydratedBody.length > staticBody.length) {
+                      return { ...item, description: hydratedBody };
+                    }
+                  } finally {
+                    await ctx.close();
+                  }
+                } catch {
+                  // Per-item isolation — one failed Playwright detail fallback
+                  // doesn't tank the firm. Falls through to returning the
+                  // static body (or original item) below.
+                }
+              }
+
+              // Existing behavior: overwrite description ONLY if extraction
+              // produced content. If extractBody returns '' (empty — which
+              // can happen when the whole document was only noise), preserve
+              // any prior description (e.g. RSS teaser) rather than erasing
+              // signal.
+              if (staticBody && staticBody.length > 0) {
+                return { ...item, description: staticBody };
               }
               return item;
             } catch {
