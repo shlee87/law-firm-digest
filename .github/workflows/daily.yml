@@ -52,6 +52,27 @@ jobs:
           node-version: lts/*
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
+      - name: Cache Playwright browser binary
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          # Cache keyed on pnpm-lock hash — pnpm-lock pins the playwright
+          # package version, so a playwright bump naturally invalidates the
+          # cache and a fresh binary is pulled. OS prefix because Ubuntu
+          # GHA runner images can change system libs in ways that require
+          # re-running --with-deps.
+          key: ${{ runner.os }}-playwright-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
+
+      - name: Install Playwright chromium shell (on cache miss)
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        # chromium --only-shell = ~100MB (headless shell only, no full Chromium).
+        # --with-deps = install Ubuntu apt dependencies (fonts, libnss, etc)
+        # without which chromium.launch() fails with "Host system is missing
+        # dependencies". PROJECT.md stack lock requires this exact form.
+        run: pnpm exec playwright install chromium --only-shell --with-deps
       - name: Run daily digest pipeline
         id: run_pipeline
         run: pnpm tsx src/main.ts
@@ -89,6 +110,9 @@ jobs:
           | \`429\` flood from Gemini | free-tier quota 소진, 내일 다시 시도 (p-retry 가 이미 flash-lite 로 fallback 시도함) |
           | \`ZodError ... firms\` | \`config/firms.yaml\` 형식 오류 |
           | \`ENOTFOUND\` or \`getaddrinfo\` | 해당 로펌 사이트 DNS 실패 — 일시적 네트워크 문제일 가능성 |
+          | \`browser-launch-fail\` or \`chromium executable not found\` | Playwright 바이너리 캐시 미스 또는 apt 의존성 누락. Actions UI 에서 **Run workflow** 로 한 번 더 실행하면 캐시 스텝이 바이너리를 재다운로드합니다. 반복 실패 시 \`pnpm-lock.yaml\` 재생성 (playwright 버전 변경) |
+          | \`playwright-timeout waiting for\` | 로펌이 해당 CSS 셀렉터를 렌더링하지 않음 (사이트 DOM 구조 변경). \`config/firms.yaml\` 에서 \`wait_for\` 값을 실제 렌더링된 selector 로 수정. \`pnpm check:firm <id>\` 로 로컬 확인 가능 |
+          | \`zero items extracted (selector-miss)\` | \`wait_for\` 는 매치되었지만 \`selectors.list_item\` 가 아이템을 못 찾음. 로펌이 리스트 페이지 구조를 바꿨을 가능성. \`config/firms.yaml\` 의 \`selectors.list_item\` 를 live DOM 에 맞춰 수정 |
 
           ## Next steps
 
