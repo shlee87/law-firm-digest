@@ -18,15 +18,19 @@
 // EMAIL-05 failed-firm footer (Phase 2 addition, D-P2-04):
 // When a FirmResult carries an .error, classifyError() maps the message to a
 // compact errorClass tag and renderFailedFirmsFooter composes a Korean-header
-// <ul> of failed firms. errorClass taxonomy:
-//   - robots-blocked   (robots.txt disallows ...)
-//   - fetch-timeout    (timeout / ETIMEDOUT / aborted)
-//   - http-{status}    (message matches /HTTP (\d{3})/ — coupled to
-//                       scrapers/rss.ts L68 and scrapers/html.ts error shapes)
-//   - dns-fail         (ENOTFOUND / DNS)
-//   - parse-error      (stage='parse' OR keywords parse/selector)
-//   - selector-miss    (message mentions "selector not found" / "selectors miss")
-//   - unknown          (none of the above)
+// <ul> of failed firms.
+//
+// Error class taxonomy (Phase 2 + Phase 4):
+//   - robots-blocked       (robots.txt disallows ...)
+//   - fetch-timeout        (timeout / ETIMEDOUT / aborted — non-Playwright)
+//   - browser-launch-fail  (Phase 4 — chromium launch / install / executable)
+//   - playwright-timeout   (Phase 4 — waitForSelector exceeded 15s)
+//   - selector-miss        (Phase 2 html OR Phase 4 js-render zero-items throw)
+//   - http-{status}        (message matches /HTTP (\d{3})/ — coupled to
+//                           scrapers/rss.ts L68 and scrapers/html.ts error shapes)
+//   - dns-fail             (ENOTFOUND / DNS)
+//   - parse-error          (stage='parse' OR keywords parse/selector)
+//   - unknown              (none of the above)
 //
 // Error messages are scrubSecrets'd then escapeHtml'd before output. Only
 // the FIRST LINE is rendered and it is hard-truncated at 140 chars — no
@@ -91,6 +95,18 @@ export function renderHtml(
  */
 export function classifyError(msg: string, stage: string): string {
   if (msg.includes('robots.txt disallows')) return 'robots-blocked';
+  // Phase 4 additions — check BEFORE generic timeout/fetch-timeout patterns
+  // because Playwright's TimeoutError also matches /timeout/ (generic check
+  // below would mis-classify it as 'fetch-timeout'). The 'playwright-timeout'
+  // token is emitted verbatim by scrapers/jsRender.ts; the wider regex covers
+  // Playwright's own TimeoutError.message text shape plus the literal token.
+  if (/playwright-timeout|waitForSelector|TimeoutError\.?.*Playwright/i.test(msg))
+    return 'playwright-timeout';
+  if (/browser-launch-fail|chromium|playwright.*(launch|install|executable)/i.test(msg))
+    return 'browser-launch-fail';
+  if (/zero items extracted \(selector-miss\)|jsRender.*no items extracted/i.test(msg))
+    return 'selector-miss';
+  // Generic (Phase 1/2) — UNCHANGED
   if (/timeout|timed out|ETIMEDOUT|aborted/i.test(msg)) return 'fetch-timeout';
   const http = /HTTP (\d{3})/.exec(msg);
   if (http) return `http-${http[1]}`;
