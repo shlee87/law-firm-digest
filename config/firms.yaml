@@ -29,19 +29,20 @@
 #   state key 슬러그는 'cooley' 를 유지 (Phase 2 에서 메인 사이트가
 #   HTML 티어로 들어올 때 'cooley-go' / 'cooley' 로 분리할 수 있도록).
 # =============================================================
-# Phase 2 firm list (D-P2-14 Option A+B — locked 2026-04-17):
-#   Live firms (9): 3 RSS (cooley, clifford-chance, freshfields),
-#                   4 HTML plain-href (shin-kim, yulchon, logos, skadden),
-#                   2 HTML onclick-extract (kim-chang, bkl).
-#   Disabled placeholders (3): lee-ko, yoon-yang, latham — JS-render
-#                   required; defer to Phase 4 or further backup swap.
+# Phase 2 + Phase 4 firm list (locked 2026-04-18):
+#   Phase 2 live firms (9): 3 RSS (cooley, clifford-chance, freshfields),
+#                           4 HTML plain-href (shin-kim, yulchon, logos, skadden),
+#                           2 HTML onclick-extract (kim-chang, bkl).
+#   Phase 4 activations (4): lee-ko, yoon-yang, latham (flipped from disabled
+#                            placeholder to type js-render) + barun (new block).
+#                            All four require a wait_for CSS selector — zod
+#                            superRefine enforces at config-load time.
 #
-# 추가 필드 (Phase 2):
-#   selectors.link_onclick_regex / link_template : 김앤장·태평양처럼
-#       onclick 이벤트로 상세 URL 을 구성하는 사이트용.
-#   selectors.body : 본문 추출 selector (optional; 없으면 일반 chain).
-#   include_keywords / exclude_keywords : 대소문자 무시 substring 필터
-#       (기본 []). D-P2-17 기준 전 firm 이 [] 로 출발.
+# Added in Phase 4:
+#   tier 'js-render'     : Playwright chromium --only-shell fetches + hydrates
+#                          the list page before cheerio extraction.
+#   wait_for             : CSS selector page.waitForSelector() must resolve
+#                          before reading content(). 15s timeout hardcoded.
 # =============================================================
 
 firms:
@@ -162,38 +163,47 @@ firms:
       link_template: "/law/insight/informationView.do?infoNo={1}&lang=ko"
       date: ".info-date, .date"
 
-  # ----- Disabled placeholders (3) — JS-render required; defer to Phase 4 -----
+  # ----- KR js-render firms (2) — activated in Phase 4 (probe-verified 2026-04-19) -----
   - id: lee-ko
     name: 광장
     language: ko
-    type: html
+    type: js-render
     url: https://www.leeko.com/leenko/news/newsLetterList.do?lang=KR
+    wait_for: ".leeko-new-newsletter__item"
     timezone: Asia/Seoul
-    enabled: false  # JS-render required — defer to Phase 4
+    enabled: true
     selectors:
-      list_item: "ul#contentsList > li"
-      title: ".title"
-      link: "a"
+      list_item: ".leeko-new-newsletter__item"
+      title: ".leeko-new-newsletter__item-title"
+      link_onclick_regex: "goDetail\\('([0-9]+)'\\)"
+      link_template: "/leenko/news/newsLetterView.do?lang=KR&newsletterNo={1}"
+      date: ".leeko-new-newsletter__item-date"
 
   - id: yoon-yang
     name: 화우
     language: ko
-    type: html
+    type: js-render
     url: https://www.yoonyang.com/kor/insights/newsletters
+    wait_for: "ul#contentsList > li"
     timezone: Asia/Seoul
-    enabled: false  # JS-render required — defer to Phase 4
+    enabled: true
     selectors:
       list_item: "ul#contentsList > li"
-      title: ".title"
-      link: "a"
+      title: ".tit"
+      link:
+        selector: "a"
+        regex: "doView\\((\\d+)\\)"
+        template: "/kor/insights/newsletter/{1}"
 
+  # ----- US js-render firm (1) — activated in Phase 4 (probe-verified 2026-04-19) -----
   - id: latham
     name: Latham & Watkins
     language: en
-    type: html
+    type: js-render
     url: https://www.lw.com/en/insights-landing
+    wait_for: ".content-card"
     timezone: America/New_York
-    enabled: false  # JS-render required — defer to Phase 4
+    enabled: true
     selectors:
       list_item: ".content-card"
       title: ".content-card__title"
