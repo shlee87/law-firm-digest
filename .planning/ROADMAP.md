@@ -112,7 +112,7 @@ Phases execute in numeric order. Phase 4 is conditional — skipped if Phase 2 a
 | 1. Foundation + Vertical Slice | 12/12 | Complete | 2026-04-17 |
 | 2. Multi-Firm HTML Tier + Failure Isolation | 0/8 | Not started | - |
 | 3. Observability + Dev Loop | 0/TBD | Not started | - |
-| 4. JS-Rendered Tier (conditional) | 0/TBD | Not started | - |
+| 4. JS-Rendered Tier (conditional) | 1/8 | In Progress | - |
 | 5. Triggered Polish (v1.x backlog) | 0/TBD | Not started | - |
 
 ---

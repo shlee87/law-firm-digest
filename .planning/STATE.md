@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: Phase 5 planned (1 governance plan)
-last_updated: "2026-04-18T19:04:37.085Z"
-last_activity: 2026-04-18 -- Phase 5 planned (governance / no-code)
+status: executing
+stopped_at: Completed 04-js-rendered-tier-conditional-01-PLAN.md
+last_updated: "2026-04-19T00:54:50.778Z"
+last_activity: 2026-04-19
 progress:
   total_phases: 5
   completed_phases: 3
   total_plans: 34
-  completed_plans: 25
-  percent: 74
+  completed_plans: 26
+  percent: 76
 ---
 
 # Project State
@@ -25,12 +25,15 @@ See: .planning/PROJECT.md (updated 2026-04-16)
 
 ## Current Position
 
-Phase: 05 (triggered-polish-v1-x-backlog) — READY TO EXECUTE
-Plan: 0 of 1 (governance verification plan)
-Status: Ready to execute Phase 05
-Last activity: 2026-04-18 -- Phase 5 planned (governance / no-code)
+Phase: 04 (js-rendered-tier-conditional) — IN PROGRESS
+Plan: 1 of 8 (schema foundation — COMPLETE)
+Next: 04-02 (jsRender scraper) next in Wave 1
+Status: Wave 1 plan 04-01 completed
+Last activity: 2026-04-19
 
-Progress: [████████░░] 80% (milestone)
+Progress: [████████░░] 76%
+
+**Note on plan counter:** Phase 5 was pre-planned (1 governance plan) before Phase 4 execution began. Phase 4 is now executing; Phase 5 remains planned but unexecuted pending Phase 4 completion. The `state.advance-plan` call against this Current Position ran at a moment when it still pointed at Phase 5, incrementing that phase's plan-1-of-1 counter — the real advancement this session was Phase 4 plan 0→1.
 
 ## Performance Metrics
 
@@ -66,6 +69,7 @@ Progress: [████████░░] 80% (milestone)
 | Phase 01-foundation-vertical-slice P05 | ~5 min | 4 tasks tasks | 5 files files |
 | Phase 01-foundation-vertical-slice P11 | ~7 min | 1 tasks tasks | 1 files files |
 | Phase 01-foundation-vertical-slice P12 | ~2h | 2 tasks tasks | 1 file files |
+| Phase 04-js-rendered-tier-conditional P01 | 2min | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -110,6 +114,8 @@ Recent decisions affecting current work:
 - [Phase 01-foundation-vertical-slice]: 01-12: Live-verification surfaced 3 bugs unit tests could not catch (pnpm/action-setup v5 rejects combined version+packageManager, Gemini short-excerpt collapse, failure observability gap) — Phase 2+ should treat first live-dispatch run as true acceptance for GHA changes, not just grep gates
 - [Phase 01-foundation-vertical-slice]: 01-12: pnpm/action-setup pinned to @v5 (plan suggested @v4) with NO version input — package.json#packageManager (pnpm@9.15.0) is single source of truth per W3. Specifying both causes ERR_PNPM_BAD_PM_VERSION on v5
 - [Phase 01-foundation-vertical-slice]: 01-12: Added if: failure() step that auto-opens bilingual (EN/KR) GitHub Issue with symptom-to-fix remediation table (ZodError, 535/GMAIL_AUTH_FAILURE, 401/API_KEY_INVALID, 429, ENOTFOUND) — operator MTTR drops from 'grep 500-line logs' to 'read issue, apply fix, click Re-run'. Required permissions: issues: write (still minimum scope)
+- Phase 04-01: superRefine applied after .strict() — zod v4 preserves unknown-field rejection through returned ZodEffects (regression test locked via Test 6 of new describe block)
+- Phase 04-01: Single schema + superRefine chosen over discriminatedUnion — avoids duplicating shared fields across three branches for one conditional field (wait_for)
 
 ### Pending Todos
 
@@ -131,8 +137,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: --stopped-at
-Stopped at: Phase 5 context gathered
-Resume file: --resume-file
+Last session: 2026-04-19T00:54:35.662Z
+Stopped at: Completed 04-js-rendered-tier-conditional-01-PLAN.md
+Resume file: None
 
 **Planned Phase:** 05 (triggered-polish-v1-x-backlog) — 1 plans — 2026-04-18T19:04:37.083Z
