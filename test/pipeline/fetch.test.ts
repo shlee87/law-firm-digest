@@ -101,13 +101,16 @@ describe('fetchAll (Phase 2 orchestrator)', () => {
     expect(out[0].raw).toHaveLength(1);
   });
 
-  it('(3) js-render tier throws Phase 4 territory → caught into error result', async () => {
+  it('(3) js-render tier without browser → caught into error result (Phase 4: browser required)', async () => {
+    // Phase 4 change: js-render no longer throws "Phase 4 territory".
+    // Instead, if runPipeline fails to inject a browser, fetchAll surfaces
+    // a clear programmer-error message as a per-firm FirmResult.error.
     const out = await fetchAll([jsFirm]);
     expect(vi.mocked(scrapeRss)).not.toHaveBeenCalled();
     expect(vi.mocked(scrapeHtml)).not.toHaveBeenCalled();
     expect(out[0].raw).toEqual([]);
     expect(out[0].error).toBeDefined();
-    expect(out[0].error!.message).toContain('Phase 4 territory');
+    expect(out[0].error!.message).toMatch(/js-render requires a launched Browser/);
   });
 
   it('(4) robots-blocked — no scraper invoked, error contains "robots.txt disallows"', async () => {
