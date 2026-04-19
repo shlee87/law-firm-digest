@@ -66,6 +66,7 @@
 
 import pLimit from 'p-limit';
 import { writeFile } from 'node:fs/promises';
+import { chromium, type Browser } from 'playwright';
 import { loadFirms, loadRecipient } from '../config/loader.js';
 import { readState } from '../state/reader.js';
 import { fetchAll } from './fetch.js';
@@ -105,6 +106,7 @@ export interface RunReport {
   archivePath?: string;
   warnings: StalenessWarnings;
   recorder: Recorder;
+  jsRenderFailures: number; // Phase 4 D-08 — count of type==='js-render' firms that errored
 }
 
 export async function runPipeline(options: RunOptions = {}): Promise<RunReport> {
@@ -149,148 +151,175 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
     reporter.section('target', `firm=${match.id}`);
   }
 
-  const seen = await readState();
-
-  // Step 4 — staleness warnings (OPS-04 + OPS-05). Computed over the FULL
-  // loaded firm list (not just the filtered subset) — the banner reflects
-  // repo-wide staleness, independent of CLI scoping.
-  const warnings = detectStaleness(seen, allFirms, now);
-
-  // Step 5 — fetch with recorder threaded.
-  reporter.section('fetch', `${firms.length} firm(s)`);
-  const fetched = await fetchAll(firms, recorder);
-  reporter.section(
-    'fetch',
-    fetched
-      .map((r) =>
-        r.error
-          ? `${r.firm.id}: error ${r.error.message}`
-          : `${r.firm.id}: ${r.raw.length} items (${r.durationMs}ms)`,
-      )
-      .join(' | '),
-  );
-
-  const enriched = await enrichWithBody(fetched);
-  reporter.section(
-    'enrich',
-    enriched
-      .map(
-        (r) =>
-          `${r.firm.id}: ${r.raw.filter((i) => !!i.description).length}/${r.raw.length} bodies`,
-      )
-      .join(' | '),
-  );
-
-  const filtered = applyKeywordFilter(enriched);
-  reporter.section(
-    'filter',
-    filtered.map((r) => `${r.firm.id}: ${r.raw.length} after filter`).join(' | '),
-  );
-
-  const deduped = dedupAll(filtered, seen);
-  for (const r of deduped) {
-    recorder.firm(r.firm.id).newCount(r.new.length);
+  // D-05 / Phase 4 RESEARCH §4 — launch ONE chromium per run, shared across
+  // all js-render firms. Short-circuit when no firm needs it (§8) — saves
+  // ~1.2s on days when all js-render firms are disabled.
+  const hasJsRender = firms.some((f) => f.type === 'js-render');
+  let browser: Browser | undefined;
+  if (hasJsRender) {
+    browser = await chromium.launch({ headless: true });
   }
-  reporter.section(
-    'dedup',
-    deduped.map((r) => `${r.firm.id}: ${r.new.length} new`).join(' | '),
-  );
-
-  // Step 9 — summarize with skipGemini shortcut. FETCH-03 spirit: cap
-  // parallel Gemini calls at 3 globally per run.
-  const summarizeLimit = pLimit(3);
-  const summarized: FirmResult[] = await Promise.all(
-    deduped.map(async (r) => {
-      if (r.error || r.new.length === 0) return r;
-      const out: SummarizedItem[] = await Promise.all(
-        r.new.map((item) =>
-          summarizeLimit(async (): Promise<SummarizedItem> => {
-            if (skipGemini) {
-              // D-08 CLI path: emit shell with summaryModel='cli-skipped' so
-              // downstream render still produces HTML without Gemini calls.
-              return {
-                ...item,
-                summary_ko: null,
-                summaryConfidence: 'low' as const,
-                summaryModel: 'cli-skipped',
-              };
-            }
-            // SUMM-06 / B3 guard: no real body → skip Gemini entirely.
-            if (!item.description) {
-              return {
-                ...item,
-                summary_ko: null,
-                summaryConfidence: 'low' as const,
-                summaryModel: 'skipped',
-              };
-            }
-            return summarize(item, item.description);
-          }),
-        ),
-      );
-      recorder
-        .firm(r.firm.id)
-        .summarized(
-          out.filter(
-            (it) => it.summaryModel !== 'skipped' && it.summaryModel !== 'cli-skipped',
-          ).length,
-        );
-      return { ...r, summarized: out };
-    }),
-  );
-
-  const newTotal = summarized.reduce((n, r) => n + r.summarized.length, 0);
-  reporter.section(
-    skipGemini ? 'would-summarize' : 'summarize',
-    `${newTotal} item(s)`,
-  );
-
-  const report: RunReport = {
-    results: summarized,
-    digestSent: false,
-    warnings,
-    recorder,
-  };
 
   try {
-    if (newTotal > 0) {
-      const payload = composeDigest(summarized, recipient, fromAddr, warnings, now);
+    const seen = await readState();
 
-      // Step 11 — optional HTML preview (D-07).
-      if (saveHtmlPath) {
-        await writeFile(saveHtmlPath, payload.html, 'utf8');
-        report.saveHtmlWritten = saveHtmlPath;
-        reporter.section('save-html', saveHtmlPath);
-      }
+    // Step 4 — staleness warnings (OPS-04 + OPS-05). Computed over the FULL
+    // loaded firm list (not just the filtered subset) — the banner reflects
+    // repo-wide staleness, independent of CLI scoping.
+    const warnings = detectStaleness(seen, allFirms, now);
 
-      // Step 12 — send email (EMAIL-06 fail-loud).
-      if (!skipEmail) {
-        await sendMail(payload);
-        report.digestSent = true;
+    // Step 5 — fetch with recorder threaded.
+    reporter.section('fetch', `${firms.length} firm(s)`);
+    const fetched = await fetchAll(firms, recorder, browser);
+    reporter.section(
+      'fetch',
+      fetched
+        .map((r) =>
+          r.error
+            ? `${r.firm.id}: error ${r.error.message}`
+            : `${r.firm.id}: ${r.raw.length} items (${r.durationMs}ms)`,
+        )
+        .join(' | '),
+    );
 
-        // Step 13 — archive AFTER mailer success, BEFORE state write.
-        // Mailer failure ⇒ no orphan archive (run-transaction consistency).
-        const archivePath = await writeArchive(payload.html, now);
-        report.archivePath = archivePath;
+    const enriched = await enrichWithBody(fetched);
+    reporter.section(
+      'enrich',
+      enriched
+        .map(
+          (r) =>
+            `${r.firm.id}: ${r.raw.filter((i) => !!i.description).length}/${r.raw.length} bodies`,
+        )
+        .join(' | '),
+    );
+
+    const filtered = applyKeywordFilter(enriched);
+    reporter.section(
+      'filter',
+      filtered.map((r) => `${r.firm.id}: ${r.raw.length} after filter`).join(' | '),
+    );
+
+    const deduped = dedupAll(filtered, seen);
+    for (const r of deduped) {
+      recorder.firm(r.firm.id).newCount(r.new.length);
+    }
+    reporter.section(
+      'dedup',
+      deduped.map((r) => `${r.firm.id}: ${r.new.length} new`).join(' | '),
+    );
+
+    // Step 9 — summarize with skipGemini shortcut. FETCH-03 spirit: cap
+    // parallel Gemini calls at 3 globally per run.
+    const summarizeLimit = pLimit(3);
+    const summarized: FirmResult[] = await Promise.all(
+      deduped.map(async (r) => {
+        if (r.error || r.new.length === 0) return r;
+        const out: SummarizedItem[] = await Promise.all(
+          r.new.map((item) =>
+            summarizeLimit(async (): Promise<SummarizedItem> => {
+              if (skipGemini) {
+                // D-08 CLI path: emit shell with summaryModel='cli-skipped' so
+                // downstream render still produces HTML without Gemini calls.
+                return {
+                  ...item,
+                  summary_ko: null,
+                  summaryConfidence: 'low' as const,
+                  summaryModel: 'cli-skipped',
+                };
+              }
+              // SUMM-06 / B3 guard: no real body → skip Gemini entirely.
+              if (!item.description) {
+                return {
+                  ...item,
+                  summary_ko: null,
+                  summaryConfidence: 'low' as const,
+                  summaryModel: 'skipped',
+                };
+              }
+              return summarize(item, item.description);
+            }),
+          ),
+        );
+        recorder
+          .firm(r.firm.id)
+          .summarized(
+            out.filter(
+              (it) => it.summaryModel !== 'skipped' && it.summaryModel !== 'cli-skipped',
+            ).length,
+          );
+        return { ...r, summarized: out };
+      }),
+    );
+
+    const newTotal = summarized.reduce((n, r) => n + r.summarized.length, 0);
+    reporter.section(
+      skipGemini ? 'would-summarize' : 'summarize',
+      `${newTotal} item(s)`,
+    );
+
+    // Phase 4 D-08 — count js-render firms that errored. main.ts reads this
+    // to decide exit code AFTER runPipeline has returned (email+state+archive
+    // all committed). jsRenderFailures > 0 → workflow goes red, Issue-opener
+    // fires, but recipient already has today's digest from healthy firms.
+    const jsRenderFailures = summarized.filter(
+      (r) => r.firm.type === 'js-render' && r.error != null,
+    ).length;
+
+    const report: RunReport = {
+      results: summarized,
+      digestSent: false,
+      warnings,
+      recorder,
+      jsRenderFailures: jsRenderFailures,
+    };
+
+    try {
+      if (newTotal > 0) {
+        const payload = composeDigest(summarized, recipient, fromAddr, warnings, now);
+
+        // Step 11 — optional HTML preview (D-07).
+        if (saveHtmlPath) {
+          await writeFile(saveHtmlPath, payload.html, 'utf8');
+          report.saveHtmlWritten = saveHtmlPath;
+          reporter.section('save-html', saveHtmlPath);
+        }
+
+        // Step 12 — send email (EMAIL-06 fail-loud).
+        if (!skipEmail) {
+          await sendMail(payload);
+          report.digestSent = true;
+
+          // Step 13 — archive AFTER mailer success, BEFORE state write.
+          // Mailer failure ⇒ no orphan archive (run-transaction consistency).
+          const archivePath = await writeArchive(payload.html, now);
+          report.archivePath = archivePath;
+        } else {
+          reporter.section('would-render', `${newTotal} item(s) in digest`);
+        }
       } else {
-        reporter.section('would-render', `${newTotal} item(s) in digest`);
+        // DEDUP-03 silent-day: no email, but writeState still runs below so
+        // lastUpdated advances (OPS-05 staleness input) and first-run bootstrap
+        // seeds seen.firms[*].urls from r.raw.
+        reporter.section('compose', 'no new items — digest skipped (DEDUP-03)');
       }
-    } else {
-      // DEDUP-03 silent-day: no email, but writeState still runs below so
-      // lastUpdated advances (OPS-05 staleness input) and first-run bootstrap
-      // seeds seen.firms[*].urls from r.raw.
-      reporter.section('compose', 'no new items — digest skipped (DEDUP-03)');
+
+      // Step 15 — state write (OPS-03 LAST step, strictly after sendMail).
+      if (!skipStateWrite) {
+        await writeState(seen, summarized);
+      }
+    } finally {
+      // Step 14 — step summary always emitted (even on throw). Env-gated
+      // no-op inside writeStepSummary when GITHUB_STEP_SUMMARY is unset.
+      await writeStepSummary(recorder, allFirms);
     }
 
-    // Step 15 — state write (OPS-03 LAST step, strictly after sendMail).
-    if (!skipStateWrite) {
-      await writeState(seen, summarized);
-    }
+    return report;
   } finally {
-    // Step 14 — step summary always emitted (even on throw). Env-gated
-    // no-op inside writeStepSummary when GITHUB_STEP_SUMMARY is unset.
-    await writeStepSummary(recorder, allFirms);
+    // Phase 4 D-05 — browser.close() runs LAST, after writeStepSummary and
+    // writeState. Runs unconditionally on throw too (e.g., sendMail failure,
+    // ZodError) so no zombie chromium processes leak across retries.
+    if (browser) {
+      await browser.close();
+    }
   }
-
-  return report;
 }
