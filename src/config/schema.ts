@@ -4,8 +4,8 @@
 // this enforces CONF-02 fail-fast policy: a typo like `nmae:` is surfaced
 // at startup, not six hours later during a scrape.
 //
-// Phase 1 deliberately accepts only 'rss' | 'html' in FirmSchema; the
-// 'js-render' tier is a Phase 4 extension and is NOT valid input today.
+// Phase 1 accepts rss | html; Phase 4 adds 'js-render' (requires wait_for).
+// The superRefine below enforces wait_for presence/absence by tier.
 
 import { z } from 'zod';
 
@@ -17,12 +17,13 @@ export const FirmSchema = z
       .regex(/^[a-z0-9-]+$/, 'id must be lowercase slug'),
     name: z.string().min(1),
     language: z.enum(['ko', 'en']),
-    type: z.enum(['rss', 'html']),
+    type: z.enum(['rss', 'html', 'js-render']),
     url: z.string().url(),
     timezone: z
       .string()
       .regex(/^[A-Za-z_]+\/[A-Za-z_]+$/, 'IANA timezone like Asia/Seoul'),
     enabled: z.boolean().default(true),
+    wait_for: z.string().min(1).optional(),
     selectors: z
       .object({
         list_item: z.string(),
@@ -52,7 +53,26 @@ export const FirmSchema = z
     include_keywords: z.array(z.string()).optional().default([]),
     exclude_keywords: z.array(z.string()).optional().default([]),
   })
-  .strict();
+  .strict()
+  .superRefine((firm, ctx) => {
+    if (firm.type === 'js-render') {
+      if (!firm.wait_for || firm.wait_for.length === 0) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'firms[].wait_for is required when type === "js-render"',
+          path: ['wait_for'],
+        });
+      }
+    } else {
+      if (firm.wait_for !== undefined) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'firms[].wait_for is only valid when type === "js-render"',
+          path: ['wait_for'],
+        });
+      }
+    }
+  });
 
 export const FirmsConfigSchema = z
   .object({
