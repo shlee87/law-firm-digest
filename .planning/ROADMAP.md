@@ -16,9 +16,9 @@ LegalNewsletter ships as a vertical slice first (one firm end-to-end through fet
 
 - [x] **Phase 1: Foundation + Vertical Slice** - One firm end-to-end through Gemini + Gmail + committed state, with every "cheap now" pitfall baked in
 - [x] **Phase 2: Multi-Firm HTML Tier + Failure Isolation** - All 12 firms live via tiered fetch (RSS + cheerio HTML), one firm's breakage never zeros the digest
-- [ ] **Phase 3: Observability + Dev Loop** - Silent rot becomes visible (staleness alerts, step summary, archive, check:firm CLI, operational README)
+- [x] **Phase 3: Observability + Dev Loop** - Silent rot becomes visible (staleness alerts, step summary, archive, check:firm CLI, operational README)
 - [x] **Phase 4: JS-Rendered Tier (conditional)** - Playwright tier only if Phase 2 audit proves some firm actually requires JS rendering; otherwise skip
-- [ ] **Phase 5: Triggered Polish (v1.x backlog)** - Each item activates only when its named trigger condition fires; none are pre-committed
+- [x] **Phase 5: Triggered Polish (v1.x backlog)** - Each item activates only when its named trigger condition fires; none are pre-committed
 
 ## Phase Details
 
@@ -111,7 +111,7 @@ Phases execute in numeric order. Phase 4 is conditional — skipped if Phase 2 a
 |-------|----------------|--------|-----------|
 | 1. Foundation + Vertical Slice | 12/12 | Complete | 2026-04-17 |
 | 2. Multi-Firm HTML Tier + Failure Isolation | 8/8 | Complete | 2026-04-19 |
-| 3. Observability + Dev Loop | 0/TBD | Not started | - |
+| 3. Observability + Dev Loop | 5/5 + 1 deferred (03-06 supplement) | Complete | 2026-04-18 |
 | 4. JS-Rendered Tier (conditional) | 8/8 | Complete | 2026-04-19 |
 | 5. Triggered Polish (v1.x backlog) | 1/1 | Complete (parent-close pending D-10.2) | 2026-04-19 |
 
