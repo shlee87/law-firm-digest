@@ -413,3 +413,166 @@ describe('normalizeDateString (Phase 4 exported)', () => {
     expect(normalizeDateString('banana')).toBeNull();
   });
 });
+
+// --------------------------------------------------------------------------
+// Phase 4.1 — unified extractLinkUrl (3 modes: object, string, legacy onclick)
+// --------------------------------------------------------------------------
+
+describe('parseListItemsFromHtml link extraction (Phase 4.1 unified extractor)', () => {
+  const baseFirm: FirmConfig = {
+    id: 'test-firm',
+    name: 'Test Firm',
+    language: 'ko',
+    type: 'html',
+    url: 'https://example.com',
+    timezone: 'Asia/Seoul',
+    enabled: true,
+    timeout_ms: 20_000,
+    include_keywords: [],
+    exclude_keywords: [],
+  };
+
+  it('Mode 2 (string link): plain CSS selector → take href as-is — backward compat', () => {
+    const html = `
+      <ul><li class="item">
+        <a class="ttl" href="/post/123">Article 123</a>
+      </li></ul>`;
+    const firm: FirmConfig = {
+      ...baseFirm,
+      selectors: { list_item: '.item', title: '.ttl', link: 'a' },
+    };
+    const items = parseListItemsFromHtml(html, firm);
+    expect(items).toHaveLength(1);
+    expect(items[0].title).toBe('Article 123');
+    expect(items[0].url).toBe('https://example.com/post/123');
+  });
+
+  it('Mode 3 (legacy onclick): link_onclick_regex + link_template — backward compat', () => {
+    const html = `
+      <ul><li class="item">
+        <a class="ttl" href="#" onclick="goView('456')">News 456</a>
+      </li></ul>`;
+    const firm: FirmConfig = {
+      ...baseFirm,
+      selectors: {
+        list_item: '.item',
+        title: '.ttl',
+        link_onclick_regex: "goView\\('(\\d+)'\\)",
+        link_template: '/news/view/{1}',
+      },
+    };
+    const items = parseListItemsFromHtml(html, firm);
+    expect(items).toHaveLength(1);
+    expect(items[0].url).toBe('https://example.com/news/view/456');
+  });
+
+  it('Mode 1 (object link, attribute=href + regex + template): yoon-yang pattern', () => {
+    const html = `
+      <ul id="contentsList"><li>
+        <span class="title">화우 뉴스레터 12345</span>
+        <a href="javascript:doView(12345)">제목</a>
+      </li></ul>`;
+    const firm: FirmConfig = {
+      ...baseFirm,
+      url: 'https://www.yoonyang.com',
+      selectors: {
+        list_item: 'ul#contentsList > li',
+        title: '.title',
+        link: {
+          selector: 'a',
+          // attribute defaults to 'href'
+          regex: 'doView\\((\\d+)\\)',
+          template: '/kor/insights/newsletters/view?id={1}',
+        },
+      },
+    };
+    const items = parseListItemsFromHtml(html, firm);
+    expect(items).toHaveLength(1);
+    expect(items[0].url).toBe(
+      'https://yoonyang.com/kor/insights/newsletters/view?id=12345',
+    );
+  });
+
+  it('Mode 1 (object link, attribute=onclick): subsumes legacy onclick mode', () => {
+    const html = `
+      <ul><li class="item">
+        <span class="ttl">Onclick via object</span>
+        <a href="#" onclick="goDetail(789)">제목</a>
+      </li></ul>`;
+    const firm: FirmConfig = {
+      ...baseFirm,
+      selectors: {
+        list_item: '.item',
+        title: '.ttl',
+        link: {
+          selector: 'a',
+          attribute: 'onclick',
+          regex: 'goDetail\\((\\d+)\\)',
+          template: '/article/{1}',
+        },
+      },
+    };
+    const items = parseListItemsFromHtml(html, firm);
+    expect(items).toHaveLength(1);
+    expect(items[0].url).toBe('https://example.com/article/789');
+  });
+
+  it('Mode 1 (object link, attribute=data-id, no regex): plain attribute extraction', () => {
+    const html = `
+      <ul><li class="item">
+        <span class="ttl">Data-attribute style</span>
+        <a data-id="/news/abc-123">제목</a>
+      </li></ul>`;
+    const firm: FirmConfig = {
+      ...baseFirm,
+      selectors: {
+        list_item: '.item',
+        title: '.ttl',
+        link: { selector: 'a', attribute: 'data-id' },
+      },
+    };
+    const items = parseListItemsFromHtml(html, firm);
+    expect(items).toHaveLength(1);
+    expect(items[0].url).toBe('https://example.com/news/abc-123');
+  });
+
+  it('Mode 1: regex with no match → item silently skipped (per-item isolation)', () => {
+    const html = `
+      <ul><li class="item">
+        <span class="ttl">Bad pattern</span>
+        <a href="javascript:somethingElse()">제목</a>
+      </li></ul>`;
+    const firm: FirmConfig = {
+      ...baseFirm,
+      selectors: {
+        list_item: '.item',
+        title: '.ttl',
+        link: {
+          selector: 'a',
+          regex: 'doView\\((\\d+)\\)',
+          template: '/{1}',
+        },
+      },
+    };
+    const items = parseListItemsFromHtml(html, firm);
+    expect(items).toHaveLength(0);
+  });
+
+  it('Mode 1: missing attribute → item silently skipped', () => {
+    const html = `
+      <ul><li class="item">
+        <span class="ttl">No attr</span>
+        <a>No href</a>
+      </li></ul>`;
+    const firm: FirmConfig = {
+      ...baseFirm,
+      selectors: {
+        list_item: '.item',
+        title: '.ttl',
+        link: { selector: 'a' },
+      },
+    };
+    const items = parseListItemsFromHtml(html, firm);
+    expect(items).toHaveLength(0);
+  });
+});

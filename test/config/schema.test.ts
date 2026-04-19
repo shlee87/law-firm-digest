@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { FirmSchema } from '../../src/config/schema.js';
+import { FirmSchema, FirmsConfigSchema } from '../../src/config/schema.js';
 
 const baseValid = {
   id: 'test-firm',
@@ -192,5 +192,122 @@ describe('FirmSchema (Phase 4 js-render extensions)', () => {
       nmae: 'typo',
     });
     expect(r.success).toBe(false);
+  });
+});
+
+// --------------------------------------------------------------------------
+// Phase 4.1 — selectors.link union (string | LinkExtractorSchema)
+// --------------------------------------------------------------------------
+
+describe('FirmSchema selectors.link union (Phase 4.1)', () => {
+  const baseFirm = {
+    id: 'lx-test',
+    name: 'Link Extractor Test',
+    language: 'ko',
+    type: 'html',
+    url: 'https://example.com',
+    timezone: 'Asia/Seoul',
+  };
+
+  it('accepts selectors.link as a plain string (legacy form)', () => {
+    const r = FirmSchema.safeParse({
+      ...baseFirm,
+      selectors: { list_item: '.item', title: '.ttl', link: 'a' },
+    });
+    expect(r.success).toBe(true);
+  });
+
+  it('accepts selectors.link as an object with selector only', () => {
+    const r = FirmSchema.safeParse({
+      ...baseFirm,
+      selectors: {
+        list_item: '.item',
+        title: '.ttl',
+        link: { selector: 'a' },
+      },
+    });
+    expect(r.success).toBe(true);
+  });
+
+  it('accepts selectors.link as an object with selector + attribute + regex + template', () => {
+    const r = FirmSchema.safeParse({
+      ...baseFirm,
+      selectors: {
+        list_item: '.item',
+        title: '.ttl',
+        link: {
+          selector: 'a',
+          attribute: 'data-id',
+          regex: '(\\d+)',
+          template: '/article/{1}',
+        },
+      },
+    });
+    expect(r.success).toBe(true);
+  });
+
+  it('rejects selectors.link object with regex but no template', () => {
+    const r = FirmSchema.safeParse({
+      ...baseFirm,
+      selectors: {
+        list_item: '.item',
+        title: '.ttl',
+        link: { selector: 'a', regex: '(\\d+)' },
+      },
+    });
+    expect(r.success).toBe(false);
+  });
+
+  it('rejects selectors.link object with template but no regex', () => {
+    const r = FirmSchema.safeParse({
+      ...baseFirm,
+      selectors: {
+        list_item: '.item',
+        title: '.ttl',
+        link: { selector: 'a', template: '/foo/{1}' },
+      },
+    });
+    expect(r.success).toBe(false);
+  });
+
+  it('rejects selectors with neither link nor (link_onclick_regex + link_template)', () => {
+    const r = FirmSchema.safeParse({
+      ...baseFirm,
+      selectors: { list_item: '.item', title: '.ttl' },
+    });
+    expect(r.success).toBe(false);
+  });
+
+  it('still accepts legacy link_onclick_regex + link_template combo', () => {
+    const r = FirmSchema.safeParse({
+      ...baseFirm,
+      selectors: {
+        list_item: '.item',
+        title: '.ttl',
+        link_onclick_regex: "goView\\('(\\d+)'\\)",
+        link_template: '/view/{1}',
+      },
+    });
+    expect(r.success).toBe(true);
+  });
+});
+
+// --------------------------------------------------------------------------
+// Phase 4.1 — regression: existing firms.yaml parses unchanged under new schema
+// --------------------------------------------------------------------------
+
+describe('config/firms.yaml regression under Phase 4.1 schema', () => {
+  it('all existing firms still parse against generalized schema', async () => {
+    const fs = await import('node:fs/promises');
+    const yaml = await import('yaml');
+    const raw = await fs.readFile('config/firms.yaml', 'utf8');
+    const parsed = yaml.parse(raw);
+    const r = FirmsConfigSchema.safeParse(parsed);
+    if (!r.success) {
+      // surface issues in CI output when regression hits
+      // eslint-disable-next-line no-console
+      console.error(JSON.stringify(r.error.issues, null, 2));
+    }
+    expect(r.success).toBe(true);
   });
 });
