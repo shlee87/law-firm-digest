@@ -314,6 +314,77 @@ function normalize(text: string): string {
 // --------------------------------------------------------------------------
 
 /**
+ * Resolve an item's URL using the firm's selectors. Encapsulates the three
+ * supported link-extraction modes — keep this in one place so adding a
+ * fourth mode never sprouts another scattered branch in parseListItemsFromHtml.
+ *
+ * Modes (priority order):
+ *   1. selectors.link is OBJECT — generalized attribute extractor
+ *      (Phase 4.1; subsumes onclick, href-with-regex, data-id, etc.)
+ *   2. selectors.link is STRING — plain CSS selector, take href as-is
+ *      (5 existing firms — unchanged)
+ *   3. legacy link_onclick_regex + link_template — kim-chang, bkl
+ *      (DEPRECATED but supported indefinitely)
+ *
+ * Returns the raw URL string (NOT yet canonicalized — caller does that
+ * with firm.url as base) or null if extraction fails for any reason.
+ * NEVER throws — per-item discipline lives in the caller's try/catch.
+ *
+ * The `itemEl` parameter is typed `any` matching pre-existing util.ts style
+ * (the surrounding `.each((_, el) => ...)` callback is also untyped). The
+ * caller supplies an element from a cheerio `.each` iteration; `$(itemEl)`
+ * wraps it into a Cheerio collection for the usual traversal/attribute API.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function extractLinkUrl($: ReturnType<typeof cheerio.load>, itemEl: any, firm: FirmConfig): string | null {
+  const selectors = firm.selectors;
+  if (!selectors) return null;
+
+  // Mode 1: link is an object — generalized attribute extractor
+  if (typeof selectors.link === 'object' && selectors.link !== null) {
+    const lx = selectors.link;
+    const attribute = lx.attribute ?? 'href';
+    const el = $(itemEl).find(lx.selector).first();
+    if (el.length === 0) return null;
+    const attrValue = el.attr(attribute) ?? '';
+    if (!attrValue) return null;
+
+    if (lx.regex && lx.template) {
+      const match = new RegExp(lx.regex).exec(attrValue);
+      if (!match) return null;
+      let resolved = lx.template;
+      for (let i = 1; i < match.length; i++) {
+        resolved = resolved.replaceAll(`{${i}}`, match[i] ?? '');
+      }
+      return resolved;
+    }
+    return attrValue;
+  }
+
+  // Mode 2: link is a non-empty string — plain CSS selector, take href
+  if (typeof selectors.link === 'string' && selectors.link !== '') {
+    const href = $(itemEl).find(selectors.link).attr('href') ?? '';
+    return href || null;
+  }
+
+  // Mode 3: legacy onclick path — DEPRECATED but supported
+  if (selectors.link_onclick_regex && selectors.link_template) {
+    const anchor = $(itemEl).find('a[onclick]').first();
+    const onclick = anchor.attr('onclick') ?? $(itemEl).attr('onclick') ?? '';
+    if (!onclick) return null;
+    const match = new RegExp(selectors.link_onclick_regex).exec(onclick);
+    if (!match) return null;
+    let resolved = selectors.link_template;
+    for (let i = 1; i < match.length; i++) {
+      resolved = resolved.replaceAll(`{${i}}`, match[i] ?? '');
+    }
+    return resolved;
+  }
+
+  return null;
+}
+
+/**
  * Shared HTML-string → RawItem[] extractor used by both `scrapers/html.ts`
  * (server-rendered HTML via fetch) and `scrapers/jsRender.ts` (Playwright-
  * rendered HTML via page.content()). Accepts a full HTML string and a firm
@@ -323,11 +394,12 @@ function normalize(text: string): string {
  * format fix, onclick-extract adjustment, or skip-malformed-row heuristic
  * applies to every js-rendered and server-rendered firm in one edit.
  *
- * Lifted verbatim from scrapers/html.ts:80-152 (2026-04-18) — per-item
- * try/catch discipline, silent skip on missing title/href, onclick-regex
- * capture-group substitution, canonicalizeUrl resolution against firm.url
- * base, and Pitfall 5 link_template absolute/path-absolute invariant are
- * all preserved.
+ * Phase 4.1: link-resolution logic moved into extractLinkUrl helper — all
+ * three modes (object / string / legacy-onclick) live there. The body of
+ * parseListItemsFromHtml is now branch-free for link extraction. Per-item
+ * try/catch still wraps the entire iteration, so if extractLinkUrl ever
+ * throws (defense-in-depth; contract says it never does), the row is
+ * silently skipped identically to before.
  *
  * @throws NEVER. Returns [] for HTML with zero matching list items. The
  *         firm-level "list page empty" signal should be classified by the
@@ -349,29 +421,9 @@ export function parseListItemsFromHtml(html: string, firm: FirmConfig): RawItem[
       const title = $(el).find(selectors.title).first().text().trim();
       if (!title) return;
 
-      let url: string;
-      if (typeof selectors.link === 'string' && selectors.link !== '') {
-        // Task 1 transient narrow: Phase 4.1 widened selectors.link to
-        // (string | LinkExtractor), but Task 2 introduces the object-form
-        // handler. This typeof check keeps the legacy string path typecheck-
-        // clean between commits without changing runtime behavior.
-        const href = $(el).find(selectors.link).attr('href') ?? '';
-        if (!href) return;
-        url = canonicalizeUrl(href, firm.url);
-      } else if (selectors.link_onclick_regex && selectors.link_template) {
-        const anchor = $(el).find('a[onclick]').first();
-        const onclick = anchor.attr('onclick') ?? $(el).attr('onclick') ?? '';
-        if (!onclick) return;
-        const match = new RegExp(selectors.link_onclick_regex).exec(onclick);
-        if (!match) return;
-        let resolved = selectors.link_template;
-        for (let i = 1; i < match.length; i++) {
-          resolved = resolved.replaceAll(`{${i}}`, match[i]);
-        }
-        url = canonicalizeUrl(resolved, firm.url);
-      } else {
-        return;
-      }
+      const rawUrl = extractLinkUrl($, el, firm);
+      if (!rawUrl) return;
+      const url = canonicalizeUrl(rawUrl, firm.url);
 
       let publishedAt: string | undefined;
       if (selectors.date) {
