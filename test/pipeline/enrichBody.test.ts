@@ -1,6 +1,6 @@
 // TDD coverage for src/pipeline/enrichBody.ts.
 //
-// Contract locked:
+// Contract locked (Phase 2):
 //   1. Happy path — detail fetch succeeds → item.description populated
 //      with extracted body text.
 //   2. Firm-level error pass-through — r.error set → reference-equal
@@ -11,6 +11,14 @@
 //      (pLimit(1)) with >=500ms minimum interval between items 2+.
 //   6. firm.selectors.body override — passed through to extractBody.
 //   7. description-preserve on failure — RSS teaser is not erased.
+//
+// Phase 4 plan 06 additions (Playwright fallback):
+//   8.  Fallback fires when static body < 200 chars for js-render firm.
+//   9.  Fallback skipped when static body >= 200 chars (no Playwright nav).
+//   10. Fallback skipped for rss/html firms even when static body is short.
+//   11. Longer-wins semantic: static body kept when hydrated body is shorter.
+//   12. Per-item isolation — Playwright throw doesn't tank the firm.
+//   13. Backwards-compat — enrichWithBody works without a browser argument.
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { enrichWithBody } from '../../src/pipeline/enrichBody.js';
@@ -225,4 +233,199 @@ describe('enrichWithBody', () => {
     expect(starts[1] - starts[0]).toBeGreaterThanOrEqual(450);
     expect(starts[2] - starts[1]).toBeGreaterThanOrEqual(450);
   }, 10_000);
+});
+
+// ----------------------------------------------------------------------------
+// Phase 4 plan 06 — Playwright fallback for js-render firms.
+//
+// Locks the four invariants from must_haves:
+//   (a) fallback fires when static < 200 chars for js-render firm
+//   (b) fallback skipped when static >= 200 chars (no Playwright nav)
+//   (c) fallback skipped for rss/html firms (tier-aware branch)
+//   (d) longer-wins semantic (static kept when hydrated is shorter)
+// Plus two backwards-compat invariants:
+//   (e) per-item isolation when Playwright throws
+//   (f) enrichWithBody is callable without a browser argument
+// ----------------------------------------------------------------------------
+
+describe('enrichWithBody (Phase 4 Playwright fallback)', () => {
+  let originalFetch: typeof fetch;
+  beforeEach(() => {
+    originalFetch = globalThis.fetch;
+  });
+  afterEach(() => {
+    globalThis.fetch = originalFetch;
+  });
+
+  function makeMockBrowser(hydratedHtml: string) {
+    const page = {
+      goto: vi.fn().mockResolvedValue(undefined),
+      content: vi.fn().mockResolvedValue(hydratedHtml),
+    };
+    const ctx = {
+      newPage: vi.fn().mockResolvedValue(page),
+      close: vi.fn().mockResolvedValue(undefined),
+    };
+    const browser = {
+      newContext: vi.fn().mockResolvedValue(ctx),
+    };
+    return { browser, ctx, page };
+  }
+
+  const jsRenderFirm: FirmConfig = {
+    id: 'lee-ko',
+    name: '광장',
+    language: 'ko',
+    type: 'js-render',
+    url: 'https://www.leeko.com/leenko/news/newsLetterList.do?lang=KR',
+    timezone: 'Asia/Seoul',
+    enabled: true,
+    wait_for: 'ul',
+    selectors: { list_item: 'li', title: '.t', link: 'a' },
+    timeout_ms: 20_000,
+  };
+
+  const jsRenderFirmResult: FirmResult = {
+    firm: jsRenderFirm,
+    raw: [
+      {
+        firmId: 'lee-ko',
+        title: 'Test Article',
+        url: 'https://www.leeko.com/article/1',
+        language: 'ko',
+        description: undefined,
+      },
+    ],
+    new: [],
+    summarized: [],
+    durationMs: 0,
+  };
+
+  it('fires Playwright fallback when static body < 200 chars for js-render firm', async () => {
+    const shortStaticHtml = '<html><body><p>Too short</p></body></html>';
+    const hydratedHtml =
+      '<html><body><article>' +
+      'This is a much longer hydrated article body that should win over the static fallback. '.repeat(
+        10,
+      ) +
+      '</article></body></html>';
+
+    globalThis.fetch = vi.fn(
+      async () =>
+        new Response(shortStaticHtml, {
+          status: 200,
+          headers: { 'content-type': 'text/html; charset=utf-8' },
+        }),
+    ) as unknown as typeof fetch;
+
+    const { browser, ctx } = makeMockBrowser(hydratedHtml);
+    const out = await enrichWithBody([jsRenderFirmResult], browser as never);
+    expect(out[0].raw[0].description).toContain('hydrated article body');
+    expect(ctx.close).toHaveBeenCalled();
+    expect(browser.newContext).toHaveBeenCalledWith(
+      expect.objectContaining({
+        userAgent: expect.stringContaining('LegalNewsletterBot'),
+      }),
+    );
+  });
+
+  it('does NOT fire Playwright fallback when static body >= 200 chars', async () => {
+    const longStaticHtml =
+      '<html><body><article>' + 'A'.repeat(300) + '</article></body></html>';
+    const hydratedHtml = '<html><body>should not be reached</body></html>';
+
+    globalThis.fetch = vi.fn(
+      async () =>
+        new Response(longStaticHtml, {
+          status: 200,
+          headers: { 'content-type': 'text/html; charset=utf-8' },
+        }),
+    ) as unknown as typeof fetch;
+
+    const { browser, page } = makeMockBrowser(hydratedHtml);
+    const out = await enrichWithBody([jsRenderFirmResult], browser as never);
+    expect(out[0].raw[0].description).toMatch(/A{200,}/);
+    expect(page.goto).not.toHaveBeenCalled();
+  });
+
+  it('does NOT fire Playwright fallback for rss firms even when body is short', async () => {
+    const rssFirmResult: FirmResult = {
+      ...jsRenderFirmResult,
+      firm: { ...jsRenderFirmResult.firm, type: 'rss', wait_for: undefined },
+    };
+    const shortHtml = '<html><body><p>short</p></body></html>';
+    globalThis.fetch = vi.fn(
+      async () =>
+        new Response(shortHtml, {
+          status: 200,
+          headers: { 'content-type': 'text/html; charset=utf-8' },
+        }),
+    ) as unknown as typeof fetch;
+
+    const { browser, page } = makeMockBrowser('<html/>');
+    await enrichWithBody([rssFirmResult], browser as never);
+    expect(page.goto).not.toHaveBeenCalled();
+  });
+
+  it('keeps static body when hydrated body is SHORTER (longer-wins semantic)', async () => {
+    const staticHtml =
+      '<html><body><article>' + 'X'.repeat(150) + '</article></body></html>';
+    const hydratedHtml = '<html><body><article>SHORT</article></body></html>';
+    globalThis.fetch = vi.fn(
+      async () =>
+        new Response(staticHtml, {
+          status: 200,
+          headers: { 'content-type': 'text/html; charset=utf-8' },
+        }),
+    ) as unknown as typeof fetch;
+    const { browser } = makeMockBrowser(hydratedHtml);
+    const out = await enrichWithBody([jsRenderFirmResult], browser as never);
+    expect(out[0].raw[0].description).toMatch(/X{100,}/);
+    expect(out[0].raw[0].description).not.toContain('SHORT');
+  });
+
+  it('per-item isolates a Playwright fallback throw (returns static body instead of erroring out)', async () => {
+    const shortStatic = '<html><body><p>short</p></body></html>';
+    globalThis.fetch = vi.fn(
+      async () =>
+        new Response(shortStatic, {
+          status: 200,
+          headers: { 'content-type': 'text/html; charset=utf-8' },
+        }),
+    ) as unknown as typeof fetch;
+
+    const brokenBrowser = {
+      newContext: vi.fn().mockRejectedValue(new Error('mock Playwright failure')),
+    };
+    const out = await enrichWithBody(
+      [jsRenderFirmResult],
+      brokenBrowser as never,
+    );
+    // Static body had something extractable — even if short — it's returned
+    // when the Playwright fallback fails. The assertion is that the call
+    // resolved (no throw bubbled up).
+    expect(out).toHaveLength(1);
+    expect(out[0].raw).toHaveLength(1);
+  });
+
+  it('works without a browser argument (callable standalone for rss/html-only pipelines)', async () => {
+    const rssFirmResult: FirmResult = {
+      ...jsRenderFirmResult,
+      firm: { ...jsRenderFirmResult.firm, type: 'rss', wait_for: undefined },
+    };
+    globalThis.fetch = vi.fn(
+      async () =>
+        new Response(
+          '<html><body><article>normal body text here yes that is long enough to pass the 120-char generic-chain length gate without any tricks at all really truly long.</article></body></html>',
+          {
+            status: 200,
+            headers: { 'content-type': 'text/html; charset=utf-8' },
+          },
+        ),
+    ) as unknown as typeof fetch;
+
+    const out = await enrichWithBody([rssFirmResult]); // no browser
+    expect(out).toHaveLength(1);
+    expect(out[0].raw[0].description).toContain('normal body text');
+  });
 });
