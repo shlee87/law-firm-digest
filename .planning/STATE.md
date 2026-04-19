@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-js-rendered-tier-conditional-07-PLAN.md
-last_updated: "2026-04-19T16:36:16.611Z"
+stopped_at: Completed 04.1-link-extractor-generalization-01-PLAN.md
+last_updated: "2026-04-19T17:01:32.602Z"
 last_activity: 2026-04-19
 progress:
   total_phases: 5
@@ -25,15 +25,17 @@ See: .planning/PROJECT.md (updated 2026-04-16)
 
 ## Current Position
 
-Phase: 04 (js-rendered-tier-conditional) — EXECUTING
-Plan: 3 of 8
-Next: 04-02 (jsRender scraper) next in Wave 1
+Phase: 04.1 (link-extractor-generalization) — COMPLETE (1/1 plans)
+Resuming: Phase 04 (js-rendered-tier-conditional) at plan 04-08 (firm activation)
+Next: 04-08 (activate lee-ko, yoon-yang, barun, latham in firms.yaml — yoon-yang now unblocked by 04.1-01)
 Status: Ready to execute
 Last activity: 2026-04-19
 
 Progress: [█████████░] 91%
 
 **Note on plan counter:** Phase 5 was pre-planned (1 governance plan) before Phase 4 execution began. Phase 4 is now executing; Phase 5 remains planned but unexecuted pending Phase 4 completion. The `state.advance-plan` call against this Current Position ran at a moment when it still pointed at Phase 5, incrementing that phase's plan-1-of-1 counter — the real advancement this session was Phase 4 plan 0→1.
+
+**Note on Phase 04.1:** Side-phase inserted between Phase 04 plan 07 (probe results) and plan 08 (firm activation) to remove the yoon-yang extractor blocker identified in 04-07-PROBE-RESULTS.md. Phase 04.1 contains a single plan (04.1-01) that generalized `selectors.link` to a union (string | LinkExtractor). Phase 04 resumes at plan 04-08 after 04.1 completion. The `state.advance-plan` handler bumped Phase 04's plan counter (3→4) because it doesn't model sub-phases; actual Phase 04 completion remains at 7/8.
 
 ## Performance Metrics
 
@@ -76,6 +78,7 @@ Progress: [█████████░] 91%
 | Phase 04-js-rendered-tier-conditional P05 | 3min | 1 tasks | 1 files |
 | Phase 04-js-rendered-tier-conditional P06 | 5min | 3 tasks | 3 files |
 | Phase 04-js-rendered-tier-conditional P07 | 25min | 2 tasks tasks | 2 files files |
+| Phase 04.1-link-extractor-generalization P01 | ~7min | 3 tasks tasks | 5 files files |
 
 ## Accumulated Context
 
@@ -143,6 +146,10 @@ Recent decisions affecting current work:
 - Phase 04-07: yoon-yang cannot be enabled until parseListItemsFromHtml gains a third URL-resolution branch (link_href_regex + link_template) for href='javascript:doView(N)' shape without onclick attr. Plan 08 must either add the branch or keep yoon-yang enabled: false.
 - Phase 04-07: barun canonical newsletter URL is https://barunlaw.com/barunnews/N (discovered live); Phase 2 audit candidate www.baruninews.com has dead DNS. Server-rendered HTML; js-render tier works as a superset.
 - Phase 04-07: Probe script extended with --link-onclick-regex + --link-template (Rule 2 during live run) so the probe CLI mirrors parseListItemsFromHtml's two URL-resolution branches one-to-one; necessary to verify lee-ko without falsely failing plan scope.
+- Phase 04.1-01: LinkExtractorSchema as zod union — not discriminated — keeps YAML clean (no redundant type tag); .strict() on inner schema catches typos like 'attr:' vs 'attribute:' at config-load time
+- Phase 04.1-01: extractLinkUrl returns raw URL (pre-canonicalize); caller applies canonicalizeUrl — preserves pure helper + matches parseListItemsFromHtml's resolve→canonicalize separation
+- Phase 04.1-01: legacy link_onclick_regex + link_template kept valid indefinitely; migration to Mode 1 object form is triggered (firm site change, future sunset), not forced — zero churn for kim-chang and bkl
+- Phase 04.1-01: yoon-yang unblocked — plan 04-08 can now activate with link: { selector: a, regex: 'doView\\((\\d+)\\)', template: '/kor/insights/newsletter/{1}' } YAML-only (no code change)
 
 ### Pending Todos
 
@@ -153,7 +160,7 @@ None yet.
 - **Phase 2 entry:** per-firm empirical audit required (RSS / robots.txt / encoding / anti-bot status for all 12 firms) — trigger `/gsd-research-phase` before planning Phase 2
 - **PROJECT.md correction pending:** Gemini free-tier RPD text needs update at first `/gsd-transition` (current PROJECT.md Context references ~250 RPD reality; initial draft once said 1,500 — verify latest wording)
 - **Recipient email location decision:** YAML vs GHA secret — defer to Phase 1 implementation
-- Plan 08 must add parseListItemsFromHtml link_href_regex+link_template branch (or fallback) before enabling yoon-yang in firms.yaml — current extractor cannot resolve href='javascript:doView(N)' without onclick attr
+- ~~Plan 08 must add parseListItemsFromHtml link_href_regex+link_template branch (or fallback) before enabling yoon-yang in firms.yaml — current extractor cannot resolve href='javascript:doView(N)' without onclick attr~~ **RESOLVED by Phase 04.1-01** — selectors.link is now a union (string | LinkExtractor); yoon-yang is expressible as `link: { selector: 'a', regex: 'doView\\((\\d+)\\)', template: '/kor/insights/newsletter/{1}' }` (04.1-01-SUMMARY.md)
 
 ## Deferred Items
 
@@ -165,8 +172,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-19T16:36:10.822Z
-Stopped at: Completed 04-js-rendered-tier-conditional-07-PLAN.md
-Resume file: yoon-yang extractor patch required before enable in plan 08
+Last session: 2026-04-19T17:01:32.598Z
+Stopped at: Completed 04.1-link-extractor-generalization-01-PLAN.md
+Resume file: None
 
 **Planned Phase:** 05 (triggered-polish-v1-x-backlog) — 1 plans — 2026-04-18T19:04:37.083Z
