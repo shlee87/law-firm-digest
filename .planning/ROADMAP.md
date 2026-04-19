@@ -113,7 +113,7 @@ Phases execute in numeric order. Phase 4 is conditional — skipped if Phase 2 a
 | 2. Multi-Firm HTML Tier + Failure Isolation | 0/8 | Not started | - |
 | 3. Observability + Dev Loop | 0/TBD | Not started | - |
 | 4. JS-Rendered Tier (conditional) | 8/8 | Complete | 2026-04-19 |
-| 5. Triggered Polish (v1.x backlog) | 0/TBD | Not started | - |
+| 5. Triggered Polish (v1.x backlog) | 1/1 | Complete (parent-close pending D-10.2) | 2026-04-19 |
 
 ---
 *Roadmap created: 2026-04-16*
