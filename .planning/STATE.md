@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-js-rendered-tier-conditional-06-PLAN.md
-last_updated: "2026-04-19T06:28:31.730Z"
+stopped_at: Completed 04-js-rendered-tier-conditional-07-PLAN.md
+last_updated: "2026-04-19T16:36:16.611Z"
 last_activity: 2026-04-19
 progress:
   total_phases: 5
   completed_phases: 2
   total_plans: 35
-  completed_plans: 31
-  percent: 89
+  completed_plans: 32
+  percent: 91
 ---
 
 # Project State
@@ -26,12 +26,12 @@ See: .planning/PROJECT.md (updated 2026-04-16)
 ## Current Position
 
 Phase: 04 (js-rendered-tier-conditional) — EXECUTING
-Plan: 2 of 8
+Plan: 3 of 8
 Next: 04-02 (jsRender scraper) next in Wave 1
 Status: Ready to execute
 Last activity: 2026-04-19
 
-Progress: [█████████░] 89%
+Progress: [█████████░] 91%
 
 **Note on plan counter:** Phase 5 was pre-planned (1 governance plan) before Phase 4 execution began. Phase 4 is now executing; Phase 5 remains planned but unexecuted pending Phase 4 completion. The `state.advance-plan` call against this Current Position ran at a moment when it still pointed at Phase 5, incrementing that phase's plan-1-of-1 counter — the real advancement this session was Phase 4 plan 0→1.
 
@@ -75,6 +75,7 @@ Progress: [█████████░] 89%
 | Phase 04 P04 | ~12min | 5 tasks tasks | 7 files files |
 | Phase 04-js-rendered-tier-conditional P05 | 3min | 1 tasks | 1 files |
 | Phase 04-js-rendered-tier-conditional P06 | 5min | 3 tasks | 3 files |
+| Phase 04-js-rendered-tier-conditional P07 | 25min | 2 tasks tasks | 2 files files |
 
 ## Accumulated Context
 
@@ -138,6 +139,10 @@ Recent decisions affecting current work:
 - Phase 04-06: longer-of-(static, hydrated) wins; equal-length defaults to static — defensive arbitration prevents hydrated regression where same-length but different (worse) text would replace static
 - Phase 04-06: per-firm BrowserContext opened+closed per fallback ATTEMPT (not per firm) — keeps cookies/storage isolated per article AND lets per-item try/catch isolate context-creation failures
 - Phase 04-06: Reporter-line for 'static fallback → Playwright' (Claude's Discretion #6) intentionally NOT plumbed — would clutter CLI; per-firm step-summary body-counts already expose the signal at the right granularity. Phase 5 promotion candidate
+- Phase 04-07: Phase 2 audit hint drift confirmed — lee-ko's ul#contentsList > li does not exist on live page; actual selector is .leeko-new-newsletter__item. Plan 07's probe-before-enable discipline (D-03) validated — plan 08 would have shipped broken selectors without this step.
+- Phase 04-07: yoon-yang cannot be enabled until parseListItemsFromHtml gains a third URL-resolution branch (link_href_regex + link_template) for href='javascript:doView(N)' shape without onclick attr. Plan 08 must either add the branch or keep yoon-yang enabled: false.
+- Phase 04-07: barun canonical newsletter URL is https://barunlaw.com/barunnews/N (discovered live); Phase 2 audit candidate www.baruninews.com has dead DNS. Server-rendered HTML; js-render tier works as a superset.
+- Phase 04-07: Probe script extended with --link-onclick-regex + --link-template (Rule 2 during live run) so the probe CLI mirrors parseListItemsFromHtml's two URL-resolution branches one-to-one; necessary to verify lee-ko without falsely failing plan scope.
 
 ### Pending Todos
 
@@ -148,6 +153,7 @@ None yet.
 - **Phase 2 entry:** per-firm empirical audit required (RSS / robots.txt / encoding / anti-bot status for all 12 firms) — trigger `/gsd-research-phase` before planning Phase 2
 - **PROJECT.md correction pending:** Gemini free-tier RPD text needs update at first `/gsd-transition` (current PROJECT.md Context references ~250 RPD reality; initial draft once said 1,500 — verify latest wording)
 - **Recipient email location decision:** YAML vs GHA secret — defer to Phase 1 implementation
+- Plan 08 must add parseListItemsFromHtml link_href_regex+link_template branch (or fallback) before enabling yoon-yang in firms.yaml — current extractor cannot resolve href='javascript:doView(N)' without onclick attr
 
 ## Deferred Items
 
@@ -159,8 +165,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-19T06:28:31.727Z
-Stopped at: Completed 04-js-rendered-tier-conditional-06-PLAN.md
-Resume file: None
+Last session: 2026-04-19T16:36:10.822Z
+Stopped at: Completed 04-js-rendered-tier-conditional-07-PLAN.md
+Resume file: yoon-yang extractor patch required before enable in plan 08
 
 **Planned Phase:** 05 (triggered-polish-v1-x-backlog) — 1 plans — 2026-04-18T19:04:37.083Z
