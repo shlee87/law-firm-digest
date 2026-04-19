@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-js-rendered-tier-conditional-05-PLAN.md
-last_updated: "2026-04-19T06:08:15.847Z"
+stopped_at: Completed 04-js-rendered-tier-conditional-06-PLAN.md
+last_updated: "2026-04-19T06:28:31.730Z"
 last_activity: 2026-04-19
 progress:
   total_phases: 5
   completed_phases: 2
   total_plans: 35
-  completed_plans: 30
-  percent: 86
+  completed_plans: 31
+  percent: 89
 ---
 
 # Project State
@@ -31,7 +31,7 @@ Next: 04-02 (jsRender scraper) next in Wave 1
 Status: Ready to execute
 Last activity: 2026-04-19
 
-Progress: [█████████░] 86%
+Progress: [█████████░] 89%
 
 **Note on plan counter:** Phase 5 was pre-planned (1 governance plan) before Phase 4 execution began. Phase 4 is now executing; Phase 5 remains planned but unexecuted pending Phase 4 completion. The `state.advance-plan` call against this Current Position ran at a moment when it still pointed at Phase 5, incrementing that phase's plan-1-of-1 counter — the real advancement this session was Phase 4 plan 0→1.
 
@@ -74,6 +74,7 @@ Progress: [█████████░] 86%
 | Phase 04-js-rendered-tier-conditional P03 | 13min | 3 tasks | 4 files |
 | Phase 04 P04 | ~12min | 5 tasks tasks | 7 files files |
 | Phase 04-js-rendered-tier-conditional P05 | 3min | 1 tasks | 1 files |
+| Phase 04-js-rendered-tier-conditional P06 | 5min | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -133,6 +134,10 @@ Recent decisions affecting current work:
 - Phase 04-04: Browser close in OUTER finally wrapping existing step-summary finally — order: email→archive→state→stepSummary→browser.close→return; main.ts exit(1) AFTER return so exit is strictly post-cleanup (D-08)
 - Phase 04-04: Existing test (3) 'Phase 4 territory' updated in Task 1 commit (not Task 5) to keep git bisect clean — suite green at every commit boundary
 - Phase 04-05: Remediation row text for browser-launch-fail avoids literal 'actions/cache@v4' substring to satisfy grep-count == 1 acceptance criterion
+- Phase 04-06: STATIC_BODY_MIN_CHARS=200 (Research §10) — signal/noise floor below which Gemini summary universally falls to confidence:low. Higher → too many fallbacks → 3-min budget risk; lower → miss real cases
+- Phase 04-06: longer-of-(static, hydrated) wins; equal-length defaults to static — defensive arbitration prevents hydrated regression where same-length but different (worse) text would replace static
+- Phase 04-06: per-firm BrowserContext opened+closed per fallback ATTEMPT (not per firm) — keeps cookies/storage isolated per article AND lets per-item try/catch isolate context-creation failures
+- Phase 04-06: Reporter-line for 'static fallback → Playwright' (Claude's Discretion #6) intentionally NOT plumbed — would clutter CLI; per-firm step-summary body-counts already expose the signal at the right granularity. Phase 5 promotion candidate
 
 ### Pending Todos
 
@@ -154,8 +159,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-19T06:08:15.845Z
-Stopped at: Completed 04-js-rendered-tier-conditional-05-PLAN.md
+Last session: 2026-04-19T06:28:31.727Z
+Stopped at: Completed 04-js-rendered-tier-conditional-06-PLAN.md
 Resume file: None
 
 **Planned Phase:** 05 (triggered-polish-v1-x-backlog) — 1 plans — 2026-04-18T19:04:37.083Z
