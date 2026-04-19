@@ -114,3 +114,83 @@ describe('FirmSchema (Phase 2 extensions)', () => {
     expect(r.success).toBe(false);
   });
 });
+
+describe('FirmSchema (Phase 4 js-render extensions)', () => {
+  const jsRenderBase = {
+    id: 'test-js-firm',
+    name: 'Test JS Firm',
+    language: 'ko' as const,
+    type: 'js-render' as const,
+    url: 'https://example.com/news',
+    timezone: 'Asia/Seoul',
+    enabled: true,
+  };
+
+  it('accepts type: js-render with wait_for + selectors', () => {
+    const r = FirmSchema.safeParse({
+      ...jsRenderBase,
+      wait_for: 'ul#contentsList > li',
+      selectors: { list_item: 'ul#contentsList > li', title: '.title', link: 'a' },
+    });
+    expect(r.success).toBe(true);
+  });
+
+  it('rejects js-render firm with no wait_for field', () => {
+    const r = FirmSchema.safeParse({
+      ...jsRenderBase,
+      selectors: { list_item: 'li', title: '.t', link: 'a' },
+    });
+    expect(r.success).toBe(false);
+    expect(JSON.stringify(r.error?.issues)).toContain('wait_for is required when type');
+  });
+
+  it('rejects js-render firm with empty wait_for string', () => {
+    const r = FirmSchema.safeParse({
+      ...jsRenderBase,
+      wait_for: '',
+      selectors: { list_item: 'li', title: '.t', link: 'a' },
+    });
+    expect(r.success).toBe(false);
+  });
+
+  it('rejects rss firm that mistakenly includes wait_for', () => {
+    const r = FirmSchema.safeParse({
+      id: 'bad-rss',
+      name: 'Bad RSS',
+      language: 'en',
+      type: 'rss',
+      url: 'https://example.com/feed',
+      timezone: 'Europe/London',
+      enabled: true,
+      wait_for: 'should-not-be-here',
+    });
+    expect(r.success).toBe(false);
+    expect(JSON.stringify(r.error?.issues)).toContain('wait_for is only valid when type');
+  });
+
+  it('rejects html firm that mistakenly includes wait_for', () => {
+    const r = FirmSchema.safeParse({
+      id: 'bad-html',
+      name: 'Bad HTML',
+      language: 'ko',
+      type: 'html',
+      url: 'https://example.com',
+      timezone: 'Asia/Seoul',
+      enabled: true,
+      wait_for: 'should-not-be-here',
+      selectors: { list_item: 'li', title: '.t', link: 'a' },
+    });
+    expect(r.success).toBe(false);
+    expect(JSON.stringify(r.error?.issues)).toContain('wait_for is only valid when type');
+  });
+
+  it('still enforces .strict() regression — unknown top-level field rejected for js-render', () => {
+    const r = FirmSchema.safeParse({
+      ...jsRenderBase,
+      wait_for: 'li',
+      selectors: { list_item: 'li', title: '.t', link: 'a' },
+      nmae: 'typo',
+    });
+    expect(r.success).toBe(false);
+  });
+});
