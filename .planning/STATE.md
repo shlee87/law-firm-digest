@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-js-rendered-tier-conditional-04-PLAN.md
-last_updated: "2026-04-19T05:58:12.973Z"
+stopped_at: Completed 04-js-rendered-tier-conditional-05-PLAN.md
+last_updated: "2026-04-19T06:08:15.847Z"
 last_activity: 2026-04-19
 progress:
   total_phases: 5
   completed_phases: 2
   total_plans: 35
-  completed_plans: 29
-  percent: 83
+  completed_plans: 30
+  percent: 86
 ---
 
 # Project State
@@ -21,17 +21,17 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-16)
 
 **Core value:** 사용자가 직접 로펌 웹사이트를 돌지 않아도, 추적 대상 로펌들의 신규 뉴스레터를 원문 링크와 함께 한국어 요약으로 받아볼 수 있어야 한다.
-**Current focus:** Phase 05 planned (governance / no-code per D-14)
+**Current focus:** Phase 04 — js-rendered-tier-conditional
 
 ## Current Position
 
-Phase: 04 (js-rendered-tier-conditional) — IN PROGRESS
-Plan: 4 of 8 (schema foundation — COMPLETE)
+Phase: 04 (js-rendered-tier-conditional) — EXECUTING
+Plan: 2 of 8
 Next: 04-02 (jsRender scraper) next in Wave 1
 Status: Ready to execute
 Last activity: 2026-04-19
 
-Progress: [████████░░] 83%
+Progress: [█████████░] 86%
 
 **Note on plan counter:** Phase 5 was pre-planned (1 governance plan) before Phase 4 execution began. Phase 4 is now executing; Phase 5 remains planned but unexecuted pending Phase 4 completion. The `state.advance-plan` call against this Current Position ran at a moment when it still pointed at Phase 5, incrementing that phase's plan-1-of-1 counter — the real advancement this session was Phase 4 plan 0→1.
 
@@ -73,6 +73,7 @@ Progress: [████████░░] 83%
 | Phase 04-js-rendered-tier-conditional P02 | 5min | 3 tasks | 3 files |
 | Phase 04-js-rendered-tier-conditional P03 | 13min | 3 tasks | 4 files |
 | Phase 04 P04 | ~12min | 5 tasks tasks | 7 files files |
+| Phase 04-js-rendered-tier-conditional P05 | 3min | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -131,6 +132,7 @@ Recent decisions affecting current work:
 - Phase 04-04: runPipeline owns chromium Browser lifecycle with hasJsRender short-circuit — rss-only/html-only runs skip launch (no chromium dependency surface on non-js-render runs)
 - Phase 04-04: Browser close in OUTER finally wrapping existing step-summary finally — order: email→archive→state→stepSummary→browser.close→return; main.ts exit(1) AFTER return so exit is strictly post-cleanup (D-08)
 - Phase 04-04: Existing test (3) 'Phase 4 territory' updated in Task 1 commit (not Task 5) to keep git bisect clean — suite green at every commit boundary
+- Phase 04-05: Remediation row text for browser-launch-fail avoids literal 'actions/cache@v4' substring to satisfy grep-count == 1 acceptance criterion
 
 ### Pending Todos
 
@@ -152,8 +154,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-19T05:58:01.837Z
-Stopped at: Completed 04-js-rendered-tier-conditional-04-PLAN.md
+Last session: 2026-04-19T06:08:15.845Z
+Stopped at: Completed 04-js-rendered-tier-conditional-05-PLAN.md
 Resume file: None
 
 **Planned Phase:** 05 (triggered-polish-v1-x-backlog) — 1 plans — 2026-04-18T19:04:37.083Z
