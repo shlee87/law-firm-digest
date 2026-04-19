@@ -16,6 +16,7 @@ import { fromZonedTime } from 'date-fns-tz';
 import iconv from 'iconv-lite';
 import * as cheerio from 'cheerio';
 import { USER_AGENT } from '../util/logging.js';
+import type { FirmConfig, RawItem } from '../types.js';
 
 /**
  * Query-string keys that are stripped from every URL during canonicalization.
@@ -306,4 +307,127 @@ function normalize(text: string): string {
     .replace(/\s+/g, ' ') // then collapse all whitespace runs
     .trim()
     .slice(0, 10_000);
+}
+
+// --------------------------------------------------------------------------
+// Phase 4 additions — shared HTML-string → RawItem[] extractor (04-02)
+// --------------------------------------------------------------------------
+
+/**
+ * Shared HTML-string → RawItem[] extractor used by both `scrapers/html.ts`
+ * (server-rendered HTML via fetch) and `scrapers/jsRender.ts` (Playwright-
+ * rendered HTML via page.content()). Accepts a full HTML string and a firm
+ * whose selectors block describes the list_item / title / link shape.
+ *
+ * DRY source of truth: both tiers MUST go through this function so a date-
+ * format fix, onclick-extract adjustment, or skip-malformed-row heuristic
+ * applies to every js-rendered and server-rendered firm in one edit.
+ *
+ * Lifted verbatim from scrapers/html.ts:80-152 (2026-04-18) — per-item
+ * try/catch discipline, silent skip on missing title/href, onclick-regex
+ * capture-group substitution, canonicalizeUrl resolution against firm.url
+ * base, and Pitfall 5 link_template absolute/path-absolute invariant are
+ * all preserved.
+ *
+ * @throws NEVER. Returns [] for HTML with zero matching list items. The
+ *         firm-level "list page empty" signal should be classified by the
+ *         CALLER (scrapeJsRender may choose to throw "zero items" for the
+ *         new errorClass 'selector-miss' — scrapeHtml historically does
+ *         NOT throw; D-P2-03 preserved).
+ */
+export function parseListItemsFromHtml(html: string, firm: FirmConfig): RawItem[] {
+  if (!firm.selectors) {
+    return []; // defense-in-depth; schema refine blocks this at load-time
+  }
+
+  const $ = cheerio.load(html);
+  const items: RawItem[] = [];
+  const selectors = firm.selectors;
+
+  $(selectors.list_item).each((_, el) => {
+    try {
+      const title = $(el).find(selectors.title).first().text().trim();
+      if (!title) return;
+
+      let url: string;
+      if (selectors.link !== undefined && selectors.link !== '') {
+        const href = $(el).find(selectors.link).attr('href') ?? '';
+        if (!href) return;
+        url = canonicalizeUrl(href, firm.url);
+      } else if (selectors.link_onclick_regex && selectors.link_template) {
+        const anchor = $(el).find('a[onclick]').first();
+        const onclick = anchor.attr('onclick') ?? $(el).attr('onclick') ?? '';
+        if (!onclick) return;
+        const match = new RegExp(selectors.link_onclick_regex).exec(onclick);
+        if (!match) return;
+        let resolved = selectors.link_template;
+        for (let i = 1; i < match.length; i++) {
+          resolved = resolved.replaceAll(`{${i}}`, match[i]);
+        }
+        url = canonicalizeUrl(resolved, firm.url);
+      } else {
+        return;
+      }
+
+      let publishedAt: string | undefined;
+      if (selectors.date) {
+        const dateText = $(el).find(selectors.date).first().text().trim();
+        if (dateText) {
+          const iso = normalizeDateString(dateText);
+          if (iso) {
+            try {
+              publishedAt = parseDate(iso, firm.timezone);
+            } catch {
+              // swallow — leave publishedAt undefined
+            }
+          }
+        }
+      }
+
+      items.push({
+        firmId: firm.id,
+        title,
+        url,
+        publishedAt,
+        language: firm.language,
+        description: undefined,
+      });
+    } catch {
+      // per-item isolation — identical to html.ts:145-149
+    }
+  });
+
+  return items;
+}
+
+/**
+ * Normalize common list-page date formats to a Date.parse-friendly ISO-8601
+ * local string (no offset — parseDate anchors with firm.timezone). LIFTED
+ * from scrapers/html.ts:168-180 so both tiers share identical date parsing.
+ *
+ * NOTE: this helper was previously file-local in html.ts; promote to module
+ * export so jsRender.ts (plan 03) does not need to re-declare it OR import
+ * html.ts (which would be a tier-cross-dependency smell).
+ *
+ * Recognized formats (audit-observed 2026-04-17):
+ *   "2026.04.17"         → 2026-04-17T00:00:00  (Shin-Kim / 세종)
+ *   "2026. 04. 17."      → 2026-04-17T00:00:00  (Yulchon / 율촌)
+ *   "2026. 4. 17"        → 2026-04-17T00:00:00  (space-padded single digit)
+ *   "17 April 2026"      → 2026-04-17T...       (Date.parse-compatible English)
+ *   "April 17, 2026"     → 2026-04-17T...       (Skadden US format)
+ *
+ * Returns null for anything unparseable — caller leaves publishedAt undefined.
+ */
+export function normalizeDateString(raw: string): string | null {
+  // Asian YYYY.MM.DD with optional space padding and trailing dot
+  const m = /(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})\.?/.exec(raw);
+  if (m) {
+    return `${m[1]}-${m[2].padStart(2, '0')}-${m[3].padStart(2, '0')}T00:00:00`;
+  }
+  // Fall back to native Date.parse for English forms
+  const d = new Date(raw);
+  if (!isNaN(d.getTime())) {
+    return d.toISOString().slice(0, 19);
+  }
+  return null;
 }
