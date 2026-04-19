@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-js-rendered-tier-conditional-01-PLAN.md
-last_updated: "2026-04-19T00:54:50.778Z"
+stopped_at: Completed 04-js-rendered-tier-conditional-02-PLAN.md
+last_updated: "2026-04-19T04:44:57.973Z"
 last_activity: 2026-04-19
 progress:
   total_phases: 5
-  completed_phases: 3
-  total_plans: 34
-  completed_plans: 26
-  percent: 76
+  completed_phases: 2
+  total_plans: 35
+  completed_plans: 27
+  percent: 77
 ---
 
 # Project State
@@ -26,12 +26,12 @@ See: .planning/PROJECT.md (updated 2026-04-16)
 ## Current Position
 
 Phase: 04 (js-rendered-tier-conditional) — IN PROGRESS
-Plan: 1 of 8 (schema foundation — COMPLETE)
+Plan: 2 of 8 (schema foundation — COMPLETE)
 Next: 04-02 (jsRender scraper) next in Wave 1
-Status: Wave 1 plan 04-01 completed
+Status: Ready to execute
 Last activity: 2026-04-19
 
-Progress: [████████░░] 76%
+Progress: [████████░░] 77%
 
 **Note on plan counter:** Phase 5 was pre-planned (1 governance plan) before Phase 4 execution began. Phase 4 is now executing; Phase 5 remains planned but unexecuted pending Phase 4 completion. The `state.advance-plan` call against this Current Position ran at a moment when it still pointed at Phase 5, incrementing that phase's plan-1-of-1 counter — the real advancement this session was Phase 4 plan 0→1.
 
@@ -70,6 +70,7 @@ Progress: [████████░░] 76%
 | Phase 01-foundation-vertical-slice P11 | ~7 min | 1 tasks tasks | 1 files files |
 | Phase 01-foundation-vertical-slice P12 | ~2h | 2 tasks tasks | 1 file files |
 | Phase 04-js-rendered-tier-conditional P01 | 2min | 3 tasks | 3 files |
+| Phase 04-js-rendered-tier-conditional P02 | 5min | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -116,6 +117,10 @@ Recent decisions affecting current work:
 - [Phase 01-foundation-vertical-slice]: 01-12: Added if: failure() step that auto-opens bilingual (EN/KR) GitHub Issue with symptom-to-fix remediation table (ZodError, 535/GMAIL_AUTH_FAILURE, 401/API_KEY_INVALID, 429, ENOTFOUND) — operator MTTR drops from 'grep 500-line logs' to 'read issue, apply fix, click Re-run'. Required permissions: issues: write (still minimum scope)
 - Phase 04-01: superRefine applied after .strict() — zod v4 preserves unknown-field rejection through returned ZodEffects (regression test locked via Test 6 of new describe block)
 - Phase 04-01: Single schema + superRefine chosen over discriminatedUnion — avoids duplicating shared fields across three branches for one conditional field (wait_for)
+- Phase 04-02: parseListItemsFromHtml helper takes (html, firm) not (html, firm, selectors) — matches existing scrapeHtml pattern; caller avoids 4-arg duplication
+- Phase 04-02: normalizeDateString promoted from html.ts file-local to util.ts exported helper — avoids cross-tier file dependency between jsRender.ts and html.ts
+- Phase 04-02: missing-selectors branch returns [] instead of throwing — lets scrapeHtml preserve historical no-throw (D-P2-03) while jsRender.ts can wrap with its own selector-miss classification
+- Phase 04-02: fetch + charset-aware decode stays in html.ts, not lifted into util.parseListItemsFromHtml — jsRender.ts owns its own network stack via Playwright, so the helper handles only string → items
 
 ### Pending Todos
 
@@ -137,8 +142,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-19T00:54:35.662Z
-Stopped at: Completed 04-js-rendered-tier-conditional-01-PLAN.md
+Last session: 2026-04-19T04:44:57.970Z
+Stopped at: Completed 04-js-rendered-tier-conditional-02-PLAN.md
 Resume file: None
 
 **Planned Phase:** 05 (triggered-polish-v1-x-backlog) — 1 plans — 2026-04-18T19:04:37.083Z
