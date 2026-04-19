@@ -52,7 +52,7 @@ firms:
     type: rss
     url: https://cooleygo.com/feed/
     timezone: America/Los_Angeles
-    enabled: true
+    enabled: false  # disabled 2026-04-19 — cooleygo.com /feed/ CF-blocked (403). Restore after v1.1 sitemap tier lands. See .planning/backlog/cooley-cf-bypass.md
 
   # ----- UK RSS firms (2) -----
   - id: clifford-chance
