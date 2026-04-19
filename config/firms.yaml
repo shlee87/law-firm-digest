@@ -195,6 +195,21 @@ firms:
         regex: "doView\\((\\d+)\\)"
         template: "/kor/insights/newsletter/{1}"
 
+  # ----- KR js-render firm (NEW IN PHASE 4, no Phase 2 placeholder) -----
+  - id: barun
+    name: 법무법인(유한) 바른
+    language: ko
+    type: js-render
+    url: https://barunlaw.com/barunnews/N
+    wait_for: ".articlebox"
+    timezone: Asia/Seoul
+    enabled: true
+    selectors:
+      list_item: ".articlebox"
+      title: ".article_tit"
+      link: "a"
+      date: ".article_date"
+
   # ----- US js-render firm (1) — activated in Phase 4 (probe-verified 2026-04-19) -----
   - id: latham
     name: Latham & Watkins
