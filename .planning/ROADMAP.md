@@ -15,7 +15,7 @@ LegalNewsletter ships as a vertical slice first (one firm end-to-end through fet
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
 - [x] **Phase 1: Foundation + Vertical Slice** - One firm end-to-end through Gemini + Gmail + committed state, with every "cheap now" pitfall baked in
-- [ ] **Phase 2: Multi-Firm HTML Tier + Failure Isolation** - All 12 firms live via tiered fetch (RSS + cheerio HTML), one firm's breakage never zeros the digest
+- [x] **Phase 2: Multi-Firm HTML Tier + Failure Isolation** - All 12 firms live via tiered fetch (RSS + cheerio HTML), one firm's breakage never zeros the digest
 - [ ] **Phase 3: Observability + Dev Loop** - Silent rot becomes visible (staleness alerts, step summary, archive, check:firm CLI, operational README)
 - [x] **Phase 4: JS-Rendered Tier (conditional)** - Playwright tier only if Phase 2 audit proves some firm actually requires JS rendering; otherwise skip
 - [ ] **Phase 5: Triggered Polish (v1.x backlog)** - Each item activates only when its named trigger condition fires; none are pre-committed
@@ -59,14 +59,14 @@ Plans:
   5. SMTP transient 5xx retries with backoff; SMTP 535 authentication failure fails the workflow immediately with a `GMAIL_AUTH_FAILURE` marker and App Password regeneration link in the log.
 **Plans**: 8 plans
 Plans:
-- [ ] 02-01-PLAN.md — Schema + types + firms.yaml with 9 live + 3 disabled placeholders (D-P2-14/15/16/17; CONF-04, CONF-06)
-- [ ] 02-02-PLAN.md — util.ts charset-aware fetch + body extractor + TRACKING_PARAMS extension (D-P2-06/11/16)
-- [ ] 02-03-PLAN.md — scrapers/html.ts with plain-href + onclick-extract branches (FETCH-01)
-- [ ] 02-04-PLAN.md — pipeline/enrichBody.ts + pipeline/filter.ts (D-P2-02/07/10; FETCH-01, CONF-06)
-- [ ] 02-05-PLAN.md — Failed-firm email footer + classifyError (EMAIL-05)
-- [ ] 02-06-PLAN.md — SMTP selective retry via p-retry v8 + AbortError (EMAIL-07)
-- [ ] 02-07-PLAN.md — Dedup + writer D-P2-08 empty-state bootstrap guard (DEDUP-05)
-- [ ] 02-08-PLAN.md — fetch.ts Promise.allSettled + tier dispatch + main.ts wiring + D-P2-13 prompt routing (FETCH-01, FETCH-02, CONF-04)
+- [x] 02-01-PLAN.md — Schema + types + firms.yaml with 9 live + 3 disabled placeholders (D-P2-14/15/16/17; CONF-04, CONF-06)
+- [x] 02-02-PLAN.md — util.ts charset-aware fetch + body extractor + TRACKING_PARAMS extension (D-P2-06/11/16)
+- [x] 02-03-PLAN.md — scrapers/html.ts with plain-href + onclick-extract branches (FETCH-01)
+- [x] 02-04-PLAN.md — pipeline/enrichBody.ts + pipeline/filter.ts (D-P2-02/07/10; FETCH-01, CONF-06)
+- [x] 02-05-PLAN.md — Failed-firm email footer + classifyError (EMAIL-05)
+- [x] 02-06-PLAN.md — SMTP selective retry via p-retry v8 + AbortError (EMAIL-07)
+- [x] 02-07-PLAN.md — Dedup + writer D-P2-08 empty-state bootstrap guard (DEDUP-05)
+- [x] 02-08-PLAN.md — fetch.ts Promise.allSettled + tier dispatch + main.ts wiring + D-P2-13 prompt routing (FETCH-01, FETCH-02, CONF-04)
 
 ### Phase 3: Observability + Dev Loop
 **Goal**: Silent rot (one firm quietly returning zero items for weeks) becomes observable — in the digest itself, in GHA step summary, and via a single-firm CLI probe. The builder can diagnose and fix a firm without pushing to main and waiting for cron.
@@ -110,7 +110,7 @@ Phases execute in numeric order. Phase 4 is conditional — skipped if Phase 2 a
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation + Vertical Slice | 12/12 | Complete | 2026-04-17 |
-| 2. Multi-Firm HTML Tier + Failure Isolation | 0/8 | Not started | - |
+| 2. Multi-Firm HTML Tier + Failure Isolation | 8/8 | Complete | 2026-04-19 |
 | 3. Observability + Dev Loop | 0/TBD | Not started | - |
 | 4. JS-Rendered Tier (conditional) | 8/8 | Complete | 2026-04-19 |
 | 5. Triggered Polish (v1.x backlog) | 1/1 | Complete (parent-close pending D-10.2) | 2026-04-19 |
