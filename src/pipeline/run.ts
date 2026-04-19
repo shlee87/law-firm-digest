@@ -182,7 +182,7 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
         .join(' | '),
     );
 
-    const enriched = await enrichWithBody(fetched);
+    const enriched = await enrichWithBody(fetched, browser);
     reporter.section(
       'enrich',
       enriched
