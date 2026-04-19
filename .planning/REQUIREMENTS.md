@@ -9,7 +9,8 @@ Derived from `.planning/research/FEATURES.md` categorization (T1–T17 table sta
 
 ### Fetching (FETCH)
 
-- [ ] **FETCH-01**: 시스템은 RSS → static HTML → JS-rendered 세 계층의 fetch 전략 중 로펌별 설정에 맞는 방식을 선택해 뉴스레터 목록을 가져온다
+- [x] **FETCH-01
+**: 시스템은 RSS → static HTML → JS-rendered 세 계층의 fetch 전략 중 로펌별 설정에 맞는 방식을 선택해 뉴스레터 목록을 가져온다
 - [ ] **FETCH-02**: 한 로펌의 fetch 실패가 다른 로펌 fetch를 중단시키지 않는다 (`Promise.allSettled` 기반 격리)
 - [x] **FETCH-03**: 각 로펌 사이트당 하루 1회·1요청 원칙을 지킨다 (`p-limit(3)` 동시성 제한 포함)
 - [x] **FETCH-04**: 모든 로펌 요청은 정직한 User-Agent (`LegalNewsletterBot/1.0 (+<repo-url>)`)를 사용한다 — 브라우저 위장 금지

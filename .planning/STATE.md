@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04.1-link-extractor-generalization-01-PLAN.md
-last_updated: "2026-04-19T17:01:32.602Z"
+stopped_at: Completed 04-js-rendered-tier-conditional-08-PLAN.md
+last_updated: "2026-04-19T17:22:39.854Z"
 last_activity: 2026-04-19
 progress:
   total_phases: 5
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 35
-  completed_plans: 32
-  percent: 91
+  completed_plans: 33
+  percent: 94
 ---
 
 # Project State
@@ -25,13 +25,14 @@ See: .planning/PROJECT.md (updated 2026-04-16)
 
 ## Current Position
 
-Phase: 04.1 (link-extractor-generalization) — COMPLETE (1/1 plans)
+Phase: 04 (js-rendered-tier-conditional) — EXECUTING
+Plan: 2 of 8
 Resuming: Phase 04 (js-rendered-tier-conditional) at plan 04-08 (firm activation)
 Next: 04-08 (activate lee-ko, yoon-yang, barun, latham in firms.yaml — yoon-yang now unblocked by 04.1-01)
 Status: Ready to execute
 Last activity: 2026-04-19
 
-Progress: [█████████░] 91%
+Progress: [█████████░] 94%
 
 **Note on plan counter:** Phase 5 was pre-planned (1 governance plan) before Phase 4 execution began. Phase 4 is now executing; Phase 5 remains planned but unexecuted pending Phase 4 completion. The `state.advance-plan` call against this Current Position ran at a moment when it still pointed at Phase 5, incrementing that phase's plan-1-of-1 counter — the real advancement this session was Phase 4 plan 0→1.
 
@@ -79,6 +80,7 @@ Progress: [█████████░] 91%
 | Phase 04-js-rendered-tier-conditional P06 | 5min | 3 tasks | 3 files |
 | Phase 04-js-rendered-tier-conditional P07 | 25min | 2 tasks tasks | 2 files files |
 | Phase 04.1-link-extractor-generalization P01 | ~7min | 3 tasks tasks | 5 files files |
+| Phase 04-js-rendered-tier-conditional P08 | 12min | 3 tasks tasks | 2 files files |
 
 ## Accumulated Context
 
@@ -150,6 +152,9 @@ Recent decisions affecting current work:
 - Phase 04.1-01: extractLinkUrl returns raw URL (pre-canonicalize); caller applies canonicalizeUrl — preserves pure helper + matches parseListItemsFromHtml's resolve→canonicalize separation
 - Phase 04.1-01: legacy link_onclick_regex + link_template kept valid indefinitely; migration to Mode 1 object form is triggered (firm site change, future sunset), not forced — zero churn for kim-chang and bkl
 - Phase 04.1-01: yoon-yang unblocked — plan 04-08 can now activate with link: { selector: a, regex: 'doView\\((\\d+)\\)', template: '/kor/insights/newsletter/{1}' } YAML-only (no code change)
+- Phase 04-08: Firm activation via verbatim PROBE-RESULTS paste — no selector adjustments needed; plan executed as written
+- Phase 04-08: yoon-yang activated YAML-only via Phase 04.1-01 LinkExtractor union — no parseListItemsFromHtml patch needed; PLAN's pre-supposed Rule 2 extractor work was obviated by the 04.1 generalization that landed earlier
+- Phase 04-08: barun detail-page body extraction returns 0/10 (generic chain + Playwright fallback both empty) — documented as Phase 5 polish candidate; inert today since dedup=0 new and SUMM-06 B3 guard absorbs the missing body gracefully
 
 ### Pending Todos
 
@@ -172,8 +177,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-19T17:01:32.598Z
-Stopped at: Completed 04.1-link-extractor-generalization-01-PLAN.md
+Last session: 2026-04-19T17:22:39.851Z
+Stopped at: Completed 04-js-rendered-tier-conditional-08-PLAN.md
 Resume file: None
 
 **Planned Phase:** 05 (triggered-polish-v1-x-backlog) — 1 plans — 2026-04-18T19:04:37.083Z
