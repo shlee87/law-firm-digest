@@ -45,6 +45,15 @@
 // same seen.json, dedup returns the same new items, retry re-sends. Reversing
 // steps 8 and 9 would cause silent item loss on retry.
 //
+// Phase 4 D-08 fail-loud rule: runPipeline now tracks jsRenderFailures — the
+// count of type==='js-render' firms whose FirmResult carries an error. main()
+// returns 1 AFTER runPipeline has returned (i.e., after email + archive + state
+// write all completed) when that count is > 0. Order matters: the recipient
+// sees today's healthy-firm digest, state advances, archive is committed —
+// THEN the workflow goes red and the Phase 1 OPS-07 issue-opener fires.
+// Reversing would lose state on js-render failures or suppress today's digest
+// entirely; both are worse than the current "partial digest + red run" trade.
+//
 // Pattern 2 (DRY_RUN containment): this file does NOT import the env dry-run
 // helper. The two sanctioned DRY_RUN check sites are mailer/gmail.ts and
 // state/writer.ts. Any DRY_RUN branch here would be a Pattern 2 regression.
@@ -59,10 +68,20 @@ async function main(): Promise<number> {
     // Phase 3 extraction: the full canonical sequence lives in runPipeline.
     // main.ts is the cron entry point — it invokes runPipeline with default
     // options (all side effects enabled) and translates throws into exit 1.
-    // The sequence itself (fetch → enrich → filter → dedup → summarize →
-    // compose → email → archive → step-summary → state) is documented in
-    // the leading docstring above AND in src/pipeline/run.ts.
-    await runPipeline({});
+    //
+    // Phase 4 D-08: after runPipeline returns (email sent, archive + state
+    // written), inspect jsRenderFailures. If any js-render firm errored,
+    // return 1 so the GHA step goes red and the if: failure() auto-issue
+    // step fires — but ONLY after today's healthy-firm digest + state are
+    // locked in. The failing js-render firm still surfaces in the email's
+    // failed-firm footer via Phase 2 EMAIL-05 mechanism.
+    const report = await runPipeline({});
+    if (report.jsRenderFailures > 0) {
+      console.error(
+        `FATAL: ${report.jsRenderFailures} js-render firm(s) failed — see email footer; state + archive have already been committed`,
+      );
+      return 1;
+    }
     return 0;
   } catch (err) {
     console.error('FATAL:', scrubSecrets((err as Error).message));
