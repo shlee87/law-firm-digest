@@ -10,6 +10,9 @@ vi.mock('../../src/scrapers/rss.js', () => ({
 vi.mock('../../src/scrapers/html.js', () => ({
   scrapeHtml: vi.fn(),
 }));
+vi.mock('../../src/scrapers/jsRender.js', () => ({
+  scrapeJsRender: vi.fn(),
+}));
 vi.mock('../../src/scrapers/robots.js', () => ({
   fetchRobots: vi.fn(async () => [] as string[]),
   isAllowed: vi.fn(() => true),
@@ -18,6 +21,7 @@ vi.mock('../../src/scrapers/robots.js', () => ({
 import { fetchAll } from '../../src/pipeline/fetch.js';
 import { scrapeRss } from '../../src/scrapers/rss.js';
 import { scrapeHtml } from '../../src/scrapers/html.js';
+import { scrapeJsRender } from '../../src/scrapers/jsRender.js';
 import { isAllowed, fetchRobots } from '../../src/scrapers/robots.js';
 import { Recorder } from '../../src/observability/recorder.js';
 import type { FirmConfig } from '../../src/types.js';
@@ -268,5 +272,57 @@ describe('Phase 3 — Recorder integration', () => {
     const out = await fetchAll([rssFirm]);
     expect(out).toHaveLength(1);
     expect(out[0].raw).toHaveLength(1);
+  });
+});
+
+describe('fetchAll (Phase 4 js-render dispatch)', () => {
+  beforeEach(() => {
+    vi.mocked(scrapeRss).mockReset();
+    vi.mocked(scrapeHtml).mockReset();
+    vi.mocked(scrapeJsRender).mockReset();
+    vi.mocked(fetchRobots)
+      .mockReset()
+      .mockImplementation(async () => [] as string[]);
+    vi.mocked(isAllowed)
+      .mockReset()
+      .mockImplementation(() => true);
+  });
+
+  const leeKoFirm: FirmConfig = {
+    id: 'lee-ko',
+    name: '광장',
+    language: 'ko',
+    type: 'js-render',
+    url: 'https://www.leeko.com/leenko/news/newsLetterList.do?lang=KR',
+    timezone: 'Asia/Seoul',
+    enabled: true,
+    wait_for: 'ul#contentsList > li',
+    selectors: { list_item: 'ul#contentsList > li', title: '.title', link: 'a' },
+  };
+
+  it('calls scrapeJsRender with the injected browser for js-render firms', async () => {
+    vi.mocked(scrapeJsRender).mockResolvedValue([
+      {
+        firmId: 'lee-ko',
+        title: 'A',
+        url: 'https://example.com/a',
+        language: 'ko',
+      },
+    ]);
+    // fakeBrowser is opaque here because scrapeJsRender is mocked.
+    const fakeBrowser = {} as never;
+
+    const results = await fetchAll([leeKoFirm], undefined, fakeBrowser);
+    expect(vi.mocked(scrapeJsRender)).toHaveBeenCalledTimes(1);
+    expect(vi.mocked(scrapeJsRender)).toHaveBeenCalledWith(leeKoFirm, fakeBrowser);
+    expect(results[0].raw).toHaveLength(1);
+    expect(results[0].error).toBeUndefined();
+  });
+
+  it('throws inside firm try-block when js-render firm present but no browser threaded (FirmResult.error populated)', async () => {
+    const results = await fetchAll([leeKoFirm]); // no browser threaded
+    expect(vi.mocked(scrapeJsRender)).not.toHaveBeenCalled();
+    expect(results[0].error).toBeDefined();
+    expect(results[0].error?.message).toMatch(/js-render requires a launched Browser/);
   });
 });

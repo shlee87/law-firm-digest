@@ -367,3 +367,39 @@ describe('Phase 3 classifyError export surface', () => {
     expect(classifyError('mystery', 'fetch')).toBe('unknown');
   });
 });
+
+describe('classifyError (Phase 4 additions)', () => {
+  it('returns "playwright-timeout" for the jsRender timeout message shape', async () => {
+    const { classifyError } = await import('../../src/compose/templates.js');
+    const msg = 'scrapeJsRender lee-ko: playwright-timeout waiting for ul#contentsList > li';
+    expect(classifyError(msg, 'fetch')).toBe('playwright-timeout');
+  });
+
+  it('returns "browser-launch-fail" for chromium executable not found', async () => {
+    const { classifyError } = await import('../../src/compose/templates.js');
+    const msg =
+      'scrapeJsRender lee-ko: browser-launch-fail chromium executable not found at /home/runner/.cache/ms-playwright/chromium';
+    expect(classifyError(msg, 'fetch')).toBe('browser-launch-fail');
+  });
+
+  it('returns "selector-miss" for the zero-items-extracted jsRender shape', async () => {
+    const { classifyError } = await import('../../src/compose/templates.js');
+    const msg =
+      'scrapeJsRender lee-ko: zero items extracted (selector-miss) — wait_for matched but list_item ul#contentsList > li returned nothing';
+    expect(classifyError(msg, 'fetch')).toBe('selector-miss');
+  });
+
+  it('still classifies generic HTML-tier "selectors not found" as selector-miss (Phase 2 regression)', async () => {
+    const { classifyError } = await import('../../src/compose/templates.js');
+    expect(classifyError('selectors not found on example.com', 'fetch')).toBe('selector-miss');
+  });
+
+  it('does NOT mis-classify Playwright timeout as generic fetch-timeout (ordering regression)', async () => {
+    const { classifyError } = await import('../../src/compose/templates.js');
+    const msg = 'scrapeJsRender lee-ko: playwright-timeout waiting for ul#contentsList > li';
+    // Generic fetch-timeout regex would match "timeout" — verify Phase 4
+    // specific check fires FIRST and returns the specific class.
+    expect(classifyError(msg, 'fetch')).not.toBe('fetch-timeout');
+    expect(classifyError(msg, 'fetch')).toBe('playwright-timeout');
+  });
+});

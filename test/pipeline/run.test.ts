@@ -24,6 +24,8 @@ const mocks = vi.hoisted(() => {
     summarizeMock: vi.fn(),
     sendMailMock: vi.fn(),
     writeArchiveMock: vi.fn(),
+    chromiumLaunchMock: vi.fn(),
+    browserCloseMock: vi.fn(),
   };
 });
 
@@ -57,6 +59,9 @@ vi.mock('../../src/mailer/gmail.js', () => ({
 }));
 vi.mock('../../src/archive/writer.js', () => ({
   writeArchive: mocks.writeArchiveMock,
+}));
+vi.mock('playwright', () => ({
+  chromium: { launch: mocks.chromiumLaunchMock },
 }));
 
 // Import AFTER mocks are set up. Vitest hoists vi.mock calls so this import
@@ -291,5 +296,108 @@ describe('runPipeline — composition root', () => {
     expect(report.warnings.staleFirms).toEqual([]);
     expect(report.warnings.lastRunStale).toBeNull();
     expect(report.recorder).toBeDefined();
+    // Phase 4 D-08 — jsRenderFailures populated on every run (0 when no
+    // js-render firms are enabled or all succeeded).
+    expect(report.jsRenderFailures).toBe(0);
+  });
+});
+
+describe('runPipeline (Phase 4 browser lifecycle)', () => {
+  beforeEach(() => {
+    mocks.loadFirmsMock.mockReset().mockResolvedValue(FIRMS); // only rss + html
+    mocks.loadRecipientMock.mockReset().mockResolvedValue('user@example.com');
+    mocks.readStateMock.mockReset().mockResolvedValue({
+      version: 1,
+      lastUpdated: null,
+      firms: {},
+    });
+    mocks.writeStateMock.mockReset().mockResolvedValue(undefined);
+    mocks.fetchAllMock
+      .mockReset()
+      .mockImplementation(async (firms: typeof FIRMS) =>
+        firms.map((f) => ({
+          firm: f,
+          raw: [],
+          new: [],
+          summarized: [],
+          durationMs: 0,
+        })),
+      );
+    mocks.enrichWithBodyMock.mockReset().mockImplementation(async (r: unknown) => r);
+    mocks.applyKeywordFilterMock.mockReset().mockImplementation((r: unknown) => r);
+    mocks.dedupAllMock
+      .mockReset()
+      .mockImplementation(
+        (results: { raw: unknown[] }[]) =>
+          results.map((r) => ({ ...r, new: [] })),
+      );
+    mocks.summarizeMock.mockReset();
+    mocks.sendMailMock.mockReset().mockResolvedValue(undefined);
+    mocks.writeArchiveMock.mockReset().mockResolvedValue('/tmp/fake-archive.html');
+    mocks.chromiumLaunchMock
+      .mockReset()
+      .mockImplementation(() => {
+        throw new Error('chromium.launch should not have been called when no js-render firm is enabled');
+      });
+    mocks.browserCloseMock.mockReset().mockResolvedValue(undefined);
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it('does NOT call chromium.launch when no enabled firm has type="js-render"', async () => {
+    // FIRMS (from describe above) contains only type: 'rss' and type: 'html'.
+    // The short-circuit should skip chromium.launch entirely.
+    await runPipeline({ skipEmail: true, skipStateWrite: true, skipGemini: true });
+    expect(mocks.chromiumLaunchMock).not.toHaveBeenCalled();
+  });
+
+  it('DOES call chromium.launch exactly once when at least one firm is js-render, and closes the browser in finally', async () => {
+    mocks.chromiumLaunchMock
+      .mockReset()
+      .mockResolvedValue({ close: mocks.browserCloseMock });
+    const jsRenderFirm = {
+      id: 'lee-ko',
+      name: '광장',
+      language: 'ko' as const,
+      type: 'js-render' as const,
+      url: 'https://example.com/lee-ko',
+      timezone: 'Asia/Seoul',
+      enabled: true,
+      wait_for: 'ul#contentsList > li',
+    };
+    mocks.loadFirmsMock.mockResolvedValue([...FIRMS, jsRenderFirm]);
+
+    await runPipeline({ skipEmail: true, skipStateWrite: true, skipGemini: true });
+
+    expect(mocks.chromiumLaunchMock).toHaveBeenCalledTimes(1);
+    expect(mocks.browserCloseMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('closes the browser even when a mid-pipeline stage throws', async () => {
+    mocks.chromiumLaunchMock
+      .mockReset()
+      .mockResolvedValue({ close: mocks.browserCloseMock });
+    const jsRenderFirm = {
+      id: 'lee-ko',
+      name: '광장',
+      language: 'ko' as const,
+      type: 'js-render' as const,
+      url: 'https://example.com/lee-ko',
+      timezone: 'Asia/Seoul',
+      enabled: true,
+      wait_for: 'ul',
+    };
+    mocks.loadFirmsMock.mockResolvedValue([jsRenderFirm]);
+    mocks.fetchAllMock.mockImplementationOnce(async () => {
+      throw new Error('fetchAll exploded');
+    });
+
+    await expect(
+      runPipeline({ skipEmail: true, skipStateWrite: true, skipGemini: true }),
+    ).rejects.toThrow(/fetchAll exploded/);
+    // Browser.close must still have fired via the outer finally{}.
+    expect(mocks.browserCloseMock).toHaveBeenCalledTimes(1);
   });
 });
