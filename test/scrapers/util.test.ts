@@ -12,7 +12,10 @@ import {
   parseDate,
   decodeCharsetAwareFetch,
   extractBody,
+  parseListItemsFromHtml,
+  normalizeDateString,
 } from '../../src/scrapers/util.js';
+import type { FirmConfig } from '../../src/types.js';
 
 describe('canonicalizeUrl', () => {
   // The canonical form of the Cooley test article (RESEARCH.md L547-552).
@@ -300,5 +303,113 @@ describe('extractBody', () => {
     const body = extractBody(html);
     expect(body.startsWith('foo bar')).toBe(true);
     expect(body).not.toMatch(/\u00a0/);
+  });
+});
+
+// --------------------------------------------------------------------------
+// Phase 4 — shared HTML-string → RawItem[] extractor tests (plan 04-02)
+// --------------------------------------------------------------------------
+
+describe('parseListItemsFromHtml (Phase 4 shared extractor)', () => {
+  it('extracts plain-href items using selectors.link', async () => {
+    const html = await readFile(
+      new URL('../fixtures/shin-kim.list.html', import.meta.url),
+      'utf8',
+    );
+    const firm: FirmConfig = {
+      id: 'shin-kim',
+      name: '세종',
+      language: 'ko',
+      type: 'html',
+      url: 'https://www.shinkim.com/kor/media/newsletter',
+      timezone: 'Asia/Seoul',
+      enabled: true,
+      selectors: {
+        list_item: '.post-prime',
+        title: 'a.text',
+        link: 'a.text',
+        date: '.foot-item.posted',
+      },
+    };
+    const items = parseListItemsFromHtml(html, firm);
+    expect(items.length).toBeGreaterThan(0);
+    expect(items[0].firmId).toBe('shin-kim');
+    expect(items[0].title).toBeTruthy();
+    expect(items[0].url).toMatch(/^https:\/\//);
+    expect(items[0].language).toBe('ko');
+    expect(items[0].description).toBeUndefined();
+  });
+
+  it('extracts onclick-reconstructed URLs using link_onclick_regex + link_template', async () => {
+    const html = await readFile(
+      new URL('../fixtures/bkl.list.html', import.meta.url),
+      'utf8',
+    );
+    const firm: FirmConfig = {
+      id: 'bkl',
+      name: '태평양',
+      language: 'ko',
+      type: 'html',
+      url: 'https://www.bkl.co.kr/law/insight/informationList.do?lang=ko',
+      timezone: 'Asia/Seoul',
+      enabled: true,
+      selectors: {
+        list_item: 'ul li.info-item',
+        title: '.info-title',
+        link_onclick_regex: "goView\\('(\\d+)'\\)",
+        link_template: '/law/insight/informationView.do?infoNo={1}&lang=ko',
+        date: '.info-date',
+      },
+    };
+    const items = parseListItemsFromHtml(html, firm);
+    expect(items.length).toBeGreaterThan(0);
+    for (const it of items) {
+      expect(it.url).toContain('/law/insight/informationView.do?infoNo=');
+      expect(it.url).toContain('lang=ko');
+    }
+  });
+
+  it('returns [] when no list_item matches (empty list page)', () => {
+    const html = '<html><body><p>no matching elements</p></body></html>';
+    const firm: FirmConfig = {
+      id: 'empty-test',
+      name: 'Empty',
+      language: 'en',
+      type: 'html',
+      url: 'https://example.com',
+      timezone: 'America/New_York',
+      enabled: true,
+      selectors: { list_item: 'ul#does-not-exist > li', title: '.t', link: 'a' },
+    };
+    expect(parseListItemsFromHtml(html, firm)).toEqual([]);
+  });
+
+  it('returns [] when firm has no selectors block (defense-in-depth)', () => {
+    const firm: FirmConfig = {
+      id: 'no-selectors',
+      name: 'No',
+      language: 'en',
+      type: 'html',
+      url: 'https://example.com',
+      timezone: 'America/New_York',
+      enabled: true,
+    };
+    expect(parseListItemsFromHtml('<html></html>', firm)).toEqual([]);
+  });
+});
+
+describe('normalizeDateString (Phase 4 exported)', () => {
+  it('parses YYYY.MM.DD (shin-kim format)', () => {
+    expect(normalizeDateString('2026.04.17')).toBe('2026-04-17T00:00:00');
+  });
+  it('parses YYYY. MM. DD. (yulchon format)', () => {
+    expect(normalizeDateString('2026. 04. 17.')).toBe('2026-04-17T00:00:00');
+  });
+  it('falls back to native Date.parse for English forms', () => {
+    const r = normalizeDateString('April 17, 2026');
+    expect(r).toMatch(/^2026-04-17T/);
+  });
+  it('returns null for unparseable input', () => {
+    expect(normalizeDateString('banana')).toBeNull();
   });
 });
