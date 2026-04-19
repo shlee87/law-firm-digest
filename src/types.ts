@@ -9,6 +9,9 @@
 //   - SummarizedItem.summary_ko is string | null (SUMM-04 nullable)
 //   - FirmConfig.timezone is required (CONF-05)
 //   - RawItem.description is optional (RSS-only body for summarizer input)
+//   - FirmConfig.wait_for is required by schema when type==='js-render' and
+//     disallowed otherwise; TS interface marks optional because Phase 1 and
+//     Phase 2 firms (rss, html) legitimately lack it.
 //   - SummarizedItem carries NO body field (COMP-05 — body never persisted)
 //   - include_keywords/exclude_keywords default to [] at schema validation,
 //     so runtime code may assume they are always defined arrays even though
@@ -29,6 +32,7 @@ export interface FirmConfig {
   url: string;
   timezone: string;
   enabled: boolean;
+  wait_for?: string;  // required when type === 'js-render' (enforced by schema superRefine)
   selectors?: {
     list_item: string;
     title: string;
