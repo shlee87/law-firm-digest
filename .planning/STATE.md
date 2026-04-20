@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
 status: executing
-stopped_at: Completed 08-01-PLAN.md — GUARD-01 Layer 1+2+API-fail reconciliation
-last_updated: "2026-04-20T20:26:51.937Z"
+stopped_at: Completed 08-02-PLAN.md — GUARD-02 fixture tests
+last_updated: "2026-04-20T20:35:21.066Z"
 last_activity: 2026-04-20
 progress:
   total_phases: 6
   completed_phases: 2
   total_plans: 17
-  completed_plans: 12
-  percent: 71
+  completed_plans: 13
+  percent: 76
 ---
 
 # Project State
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-19)
 ## Current Position
 
 Phase: 08 (hallucination-guard) — EXECUTING
-Plan: 2 of 6
+Plan: 3 of 6
 Status: Ready to execute
 Last activity: 2026-04-20
 
@@ -104,6 +104,7 @@ Last activity: 2026-04-20
 | Phase 07-spa-aware-detail-tier P05 | ~20 min | 2 tasks tasks | 1 file files |
 | Phase 07 P06 | ~37 min | 4 tasks | 3 files |
 | Phase 08-hallucination-guard P01 | 4min | 3 tasks | 7 files |
+| Phase 08-hallucination-guard P02 | 6min | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -220,6 +221,8 @@ Recent decisions affecting current work:
 - 08-01: Zod SummaryZ .min(10) removed; empty string newly valid as sentinel; .max(800) preserved as length-cap defense
 - 08-01: catch-block in gemini.ts null → item.title (API-fail path); 'failed' sentinel + summaryError retained for operational visibility
 - 08-01: cli-skipped path unchanged — still returns null; never reaches email template (Phase 1 B3 design preserved)
+- p-retry backoff raises test (e) to 15 000ms timeout — cleaner than fake timers for black-box retry test
+- Default fetchAll description raised 4→120 chars — Layer 1 short-circuit blocked summarizeMock in existing pipeline test
 
 ### Pending Todos
 
@@ -240,8 +243,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-20T20:26:51.933Z
-Stopped at: Completed 08-01-PLAN.md — GUARD-01 Layer 1+2+API-fail reconciliation
+Last session: 2026-04-20T20:35:21.061Z
+Stopped at: Completed 08-02-PLAN.md — GUARD-02 fixture tests
 Resume file: None
 
 **Next action:** `/gsd:plan-phase 6` — plan Phase 6: Firm Audit + Probe
