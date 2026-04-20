@@ -82,10 +82,13 @@ Derived from `.planning/research/FEATURES.md` categorization (T1–T17 table sta
 
 ### Firm Audit (AUDIT)
 
-- [ ] **AUDIT-01**: Developer can run a firm-audit probe that fetches every enabled firm's list page and reports item count + selector match status per firm
+- [x] **AUDIT-01
+**: Developer can run a firm-audit probe that fetches every enabled firm's list page and reports item count + selector match status per firm
 - [ ] **AUDIT-02**: The probe fetches each firm's detail URLs for N≥2 items and cross-compares extracted body text — identical bodies across distinct URLs flag SPA/hallucination risk
-- [ ] **AUDIT-03**: Probe output is written to `.planning/phases/06-firm-audit/06-AUDIT.md` with a per-firm diagnosis table (OK / list-fail / selector-empty / detail-identical / detail-empty / detail-quality-unknown)
-- [ ] **AUDIT-04**: Each audit finding has an explicit remediation path recorded (enable js-render detail, fix selector, disable firm, or migrate to sitemap tier)
+- [x] **AUDIT-03
+**: Probe output is written to `.planning/phases/06-firm-audit/06-AUDIT.md` with a per-firm diagnosis table (OK / list-fail / selector-empty / detail-identical / detail-empty / detail-quality-unknown)
+- [x] **AUDIT-04
+**: Each audit finding has an explicit remediation path recorded (enable js-render detail, fix selector, disable firm, or migrate to sitemap tier)
 
 ### SPA-Aware Detail Tier (DETAIL)
 

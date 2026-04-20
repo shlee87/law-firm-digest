@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
-status: planning
-stopped_at: Phase 6 context gathered
-last_updated: "2026-04-20T03:23:06.169Z"
-last_activity: 2026-04-19 — v1.1 roadmap created (Phase 6–11)
+status: executing
+stopped_at: Completed 06-01-PLAN.md — audit foundation types and loader extension
+last_updated: "2026-04-20T03:32:32.693Z"
+last_activity: 2026-04-20
 progress:
   total_phases: 6
   completed_phases: 0
   total_plans: 5
-  completed_plans: 0
-  percent: 0
+  completed_plans: 1
+  percent: 20
 ---
 
 # Project State
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-19)
 
 **Core value:** 사용자가 직접 로펌 웹사이트를 돌지 않아도, 추적 대상 로펌들의 신규 뉴스레터를 원문 링크와 함께 한국어 요약으로 받아볼 수 있어야 한다.
-**Current focus:** Phase 06 — Firm Audit + Probe
+**Current focus:** Phase 06 — firm-audit-probe
 
 ## Current Position
 
-Phase: 06 — Firm Audit + Probe
-Plan: —
-Status: Roadmap created, awaiting Phase 6 discussion/planning
-Last activity: 2026-04-19 — v1.1 roadmap created (Phase 6–11)
+Phase: 06 (firm-audit-probe) — EXECUTING
+Plan: 2 of 5
+Status: Ready to execute
+Last activity: 2026-04-20
 
 **⚠ Known production regressions (discovered 2026-04-19 via Phase 02 UAT demo):**
 
@@ -90,6 +90,7 @@ Last activity: 2026-04-19 — v1.1 roadmap created (Phase 6–11)
 | Phase 04.1-link-extractor-generalization P01 | ~7min | 3 tasks tasks | 5 files files |
 | Phase 04-js-rendered-tier-conditional P08 | 12min | 3 tasks tasks | 2 files files |
 | Phase Phase 05-triggered-polish-v1-x-backlog PP01 | ~3min | 3 tasks tasks | 1 file files |
+| Phase 06-firm-audit-probe P01 | 4min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -169,6 +170,8 @@ Recent decisions affecting current work:
 - [v1.1 roadmap]: Phase 6 is blocking-first — audit findings drive the firm list for DETAIL-04 (which firms need detail_tier: js-render). Phase 11 is terminal and depends on all Phase 6–10 passing.
 - [v1.1 roadmap]: GUARD (Phase 8) is defense-in-depth; it ships after Phase 7 fixes extraction so the guard handles residual edge cases, not primary failures.
 - [v1.1 roadmap]: SITEMAP (Phase 9) depends on Phase 7 because sitemap tier reuses the Playwright detail-fetch path already generalized in Phase 7.
+- 06-01: LoadFirmsOptions default={} preserves backwards compat for all 3 call sites (main.ts/checkFirm.ts/run.ts); includeDisabled:true branch added for Phase 6 audit + Phase 9 sitemap baseline (D-05)
+- 06-01: Status(6) and Remediation(5) unions are CLOSED with never-exhaustiveness pattern — downstream writer switches fail-build on new enum value without case coverage (D-07/D-08/D-10 enforcement)
 
 ### Pending Todos
 
@@ -189,9 +192,9 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: --stopped-at
-Stopped at: Phase 6 context gathered
-Resume file: --resume-file
+Last session: 2026-04-20T03:32:32.689Z
+Stopped at: Completed 06-01-PLAN.md — audit foundation types and loader extension
+Resume file: None
 
 **Next action:** `/gsd:plan-phase 6` — plan Phase 6: Firm Audit + Probe
 
