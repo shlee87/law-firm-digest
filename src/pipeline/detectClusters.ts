@@ -8,8 +8,14 @@
 // emitted to stderr with format mirroring GMAIL_AUTH_FAILURE (D-16).
 //
 // INPUT CONTRACT: FirmResult[] post-summarize. summary_ko === null items
-// are excluded from signature calculation (possible only on cli-skipped
-// debugging path post-Plan-01; real-run paths now produce title-verbatim).
+// are excluded from signature calculation. The ONLY sanctioned null source
+// is the `pnpm check:firm --skip-gemini` debugging path (run.ts sets
+// summaryModel='cli-skipped' on that branch). Post-Plan-01 real-run paths
+// always produce a string (title-verbatim via Layer 1 short-circuit or
+// catch-block fallback). A non-'cli-skipped' null reaching this detector
+// would indicate a pre-Phase-8 regression — we log a warning below but
+// still `continue` so the detector is resilient (fail-open for detection,
+// fail-loud in logs for the operator).
 //
 // OUTPUT CONTRACT: NEW FirmResult[] (never mutates input) + markers.
 // Immutable update via .map + spread mirrors pipeline convention at
@@ -66,7 +72,18 @@ export function detectHallucinationClusters(
     // paths produce title-verbatim strings).
     const groups = new Map<string, SummarizedItem[]>();
     for (const item of r.summarized) {
-      if (item.summary_ko === null) continue;
+      if (item.summary_ko === null) {
+        // Defense-in-depth (WR-02): the only sanctioned null path is the
+        // debug cli-skipped branch. Any other null is a pre-Phase-8
+        // regression — surface it via stderr so the operator notices
+        // rather than silently bypassing cluster detection.
+        if (item.summaryModel !== 'cli-skipped') {
+          console.warn(
+            `[detectClusters] unexpected null summary_ko on non-cli path: firm=${r.firm.id} model=${item.summaryModel}`,
+          );
+        }
+        continue;
+      }
       const sig = item.summary_ko.slice(0, SIGNATURE_LENGTH);
       const g = groups.get(sig) ?? [];
       g.push(item);
