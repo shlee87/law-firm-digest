@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
 status: executing
-stopped_at: Completed 07-01 (schema + types + tests)
-last_updated: "2026-04-20T12:47:41.229Z"
+stopped_at: Completed 07-02 (enrichBody detail_tier flip + run.ts hasJsRender extension)
+last_updated: "2026-04-20T12:57:27.122Z"
 last_activity: 2026-04-20
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 11
-  completed_plans: 6
-  percent: 55
+  completed_plans: 7
+  percent: 64
 ---
 
 # Project State
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-19)
 ## Current Position
 
 Phase: 07 (spa-aware-detail-tier) — EXECUTING
-Plan: 2 of 6
+Plan: 3 of 6
 Status: Ready to execute
 Last activity: 2026-04-20
 
@@ -97,6 +97,7 @@ Last activity: 2026-04-20
 | Phase 06-firm-audit-probe PP04 | 3m 38s | 2 tasks | 2 files |
 | Phase 06-firm-audit-probe P05 | 10min | 3 tasks | 3 files |
 | Phase 07-spa-aware-detail-tier P01 | ~2min | 2 tasks | 3 files |
+| Phase 07-spa-aware-detail-tier P02 | ~5min | 2 tasks tasks | 3 files files |
 
 ## Accumulated Context
 
@@ -191,6 +192,11 @@ Recent decisions affecting current work:
 - 06-05: auditFirms.ts exit-code 1 is returned from main(), NOT called inline — matches checkFirm.ts shape and keeps process.exit(2) count accurate for acceptance gate
 - 07-01: detail_tier added as z.enum(['js-render', 'static']).default('static').optional() sibling of exclude_keywords — inherits .strict() and produces path-qualified zod error automatically (DETAIL-05 free); no superRefine rule added per D-05 (type and detail_tier orthogonal)
 - 07-01: Phase 7 detail_tier extension test block placed between Phase 4 js-render extensions and Phase 4.1 selectors.link union — matches file's chronological describe-block ordering; .strict() regression coverage not duplicated (already covered in Phase 4 block line 187)
+- 07-02: enrichBody flipped from type-gated fallback to detail_tier-gated Playwright-ONLY branch (D-05/D-07); static path runs for detail_tier='static' or unset (zod-defaulted); STATIC_BODY_MIN_CHARS constant deleted
+- 07-02: hasJsRender predicate in run.ts expanded to 'type==js-render OR detail_tier==js-render' (D-06); browser lifecycle untouched (Phase 4 D-05 lock preserved)
+- 07-02: Phase 4 fallback test block (7 tests) replaced with Phase 7 detail_tier-gated block (5 tests) in same commit as production flip — avoids red-between-commits (git bisect clean)
+- 07-02: JSDoc on enrichWithBody rewritten in same task commit (Rule 1 preventive fix) — stale STATIC_BODY_MIN_CHARS reference removed; plan acceptance criterion grep==1 for decodeCharsetAwareFetch is plan-authoring imprecision (original had 2 matches, achievable max given import + call-site)
+- 07-02: Plan 07-04 (run.ts hasJsRender expansion) already completed by 07-02 Task 2 — flagged for checker that 07-04 may need retirement or re-scoping
 
 ### Pending Todos
 
@@ -211,8 +217,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-20T12:47:41.226Z
-Stopped at: Completed 07-01 (schema + types + tests)
+Last session: 2026-04-20T12:57:27.119Z
+Stopped at: Completed 07-02 (enrichBody detail_tier flip + run.ts hasJsRender extension)
 Resume file: None
 
 **Next action:** `/gsd:plan-phase 6` — plan Phase 6: Firm Audit + Probe
