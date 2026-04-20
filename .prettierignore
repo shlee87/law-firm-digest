@@ -1,0 +1,2 @@
+# Phase 6 audit writer snapshot — exact-string assertions, do not auto-format
+test/audit/__snapshots__/
