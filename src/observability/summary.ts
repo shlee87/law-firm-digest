@@ -42,14 +42,24 @@ export async function writeStepSummary(
   const path = process.env.GITHUB_STEP_SUMMARY;
   if (!path) return;
 
-  // Phase 8 D-15 — Plan 06 will render markers as a
-  // ## ⚠ Data Quality Warnings markdown section after the per-firm table.
-  // This intentional reference suppresses unused-var warnings until then.
-  void markers;
-
+  // Build payload: table always; markers section only when non-empty
+  // (D-15: clean-run invisible posture). SINGLE appendFile call wraps
+  // both writes so a half-success cannot leave the file inconsistent
+  // (Pitfall 5).
   const table = recorder.toMarkdownTable(firms);
+  let payload = table + '\n';
+  if (markers.length > 0) {
+    const lines = markers
+      .map(
+        (m) =>
+          `- **${m.firmId}**: HALLUCINATION_CLUSTER_DETECTED — ${m.count} items demoted`,
+      )
+      .join('\n');
+    payload += `\n## ⚠ Data Quality Warnings\n\n${lines}\n`;
+  }
+
   try {
-    await appendFile(path, table + '\n', 'utf8');
+    await appendFile(path, payload, 'utf8');
   } catch (err) {
     // Phase 3 Pitfall 10: never propagate. Observability failure must not
     // surface as a red workflow. Scrub secrets defense-in-depth.
