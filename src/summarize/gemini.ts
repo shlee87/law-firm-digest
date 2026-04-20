@@ -27,7 +27,10 @@ import { scrubSecrets } from '../util/logging.js';
 import type { NewItem, SummarizedItem } from '../types.js';
 
 const SummaryZ = z.object({
-  summary_ko: z.string().min(10).max(800).nullable(),
+  // GUARD-01 Layer 2 (Phase 8): empty string is the generic-boilerplate
+  // sentinel — caller substitutes item.title when parsed.summary_ko === ''.
+  // .min(10) removed; .max(800) preserved (input length cap defense).
+  summary_ko: z.string().max(800).nullable(),
   confidence: z.enum(['high', 'medium', 'low']),
 });
 
@@ -68,6 +71,19 @@ export async function summarize(item: NewItem, body: string): Promise<Summarized
       },
     });
     const parsed = SummaryZ.parse(JSON.parse(res.text ?? '{}'));
+    // GUARD-01 Layer 2 (Phase 8) Option C: Gemini returns '' when body is
+    // generic boilerplate per the preamble rule; caller substitutes the title
+    // here so SUMM-06 (title-never-in-prompt) is preserved. summaryConfidence
+    // is forced to 'low' in this branch because Gemini already returned 'low'
+    // per the rule, but defense-in-depth re-pins if the model drifts.
+    if (parsed.summary_ko === '') {
+      return {
+        ...item,
+        summary_ko: item.title,
+        summaryConfidence: 'low' as const,
+        summaryModel: model,
+      };
+    }
     return {
       ...item,
       summary_ko: parsed.summary_ko,
