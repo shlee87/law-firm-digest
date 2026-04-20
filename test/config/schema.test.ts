@@ -195,6 +195,42 @@ describe('FirmSchema (Phase 4 js-render extensions)', () => {
   });
 });
 
+describe('FirmSchema (Phase 7 detail_tier extension)', () => {
+  const htmlBase = {
+    id: 'test-html-firm',
+    name: 'Test HTML Firm',
+    language: 'ko' as const,
+    type: 'html' as const,
+    url: 'https://example.com/news',
+    timezone: 'Asia/Seoul',
+    enabled: true,
+    selectors: { list_item: 'li', title: '.t', link: 'a' },
+  };
+
+  it('accepts detail_tier: "js-render" on an html firm', () => {
+    const r = FirmSchema.safeParse({ ...htmlBase, detail_tier: 'js-render' });
+    expect(r.success).toBe(true);
+  });
+
+  it('accepts detail_tier: "static" on any tier', () => {
+    const r = FirmSchema.safeParse({ ...htmlBase, detail_tier: 'static' });
+    expect(r.success).toBe(true);
+  });
+
+  it('defaults detail_tier to "static" when omitted', () => {
+    const r = FirmSchema.safeParse(htmlBase);
+    expect(r.success).toBe(true);
+    if (r.success) expect(r.data.detail_tier).toBe('static');
+  });
+
+  it('rejects detail_tier: "invalid-value" with path-qualified zod error (DETAIL-05)', () => {
+    const r = FirmSchema.safeParse({ ...htmlBase, detail_tier: 'invalid-value' });
+    expect(r.success).toBe(false);
+    // DETAIL-05 literal — error must mention the invalid field path.
+    expect(JSON.stringify(r.error?.issues)).toContain('detail_tier');
+  });
+});
+
 // --------------------------------------------------------------------------
 // Phase 4.1 — selectors.link union (string | LinkExtractorSchema)
 // --------------------------------------------------------------------------
