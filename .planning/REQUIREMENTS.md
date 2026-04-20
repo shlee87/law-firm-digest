@@ -84,7 +84,8 @@ Derived from `.planning/research/FEATURES.md` categorization (T1–T17 table sta
 
 - [x] **AUDIT-01
 **: Developer can run a firm-audit probe that fetches every enabled firm's list page and reports item count + selector match status per firm
-- [ ] **AUDIT-02**: The probe fetches each firm's detail URLs for N≥2 items and cross-compares extracted body text — identical bodies across distinct URLs flag SPA/hallucination risk
+- [x] **AUDIT-02
+**: The probe fetches each firm's detail URLs for N≥2 items and cross-compares extracted body text — identical bodies across distinct URLs flag SPA/hallucination risk
 - [x] **AUDIT-03
 **: Probe output is written to `.planning/phases/06-firm-audit/06-AUDIT.md` with a per-firm diagnosis table (OK / list-fail / selector-empty / detail-identical / detail-empty / detail-quality-unknown)
 - [x] **AUDIT-04
