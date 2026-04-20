@@ -7,6 +7,7 @@
     "dev": "tsx src/main.ts",
     "dry-run": "DRY_RUN=1 tsx src/main.ts",
     "check:firm": "tsx src/cli/checkFirm.ts",
+    "audit:firms": "tsx src/cli/auditFirms.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
