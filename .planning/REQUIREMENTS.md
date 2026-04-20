@@ -205,10 +205,34 @@ Every v1 requirement maps to exactly one phase. Phase 4 (JS-rendered tier) is co
 | COMP-03 | Phase 1 | Complete |
 | COMP-04 | Phase 1 | Complete |
 | COMP-05 | Phase 1 | Complete |
+| AUDIT-01 | Phase 6 | Pending |
+| AUDIT-02 | Phase 6 | Pending |
+| AUDIT-03 | Phase 6 | Pending |
+| AUDIT-04 | Phase 6 | Pending |
+| DETAIL-01 | Phase 7 | Pending |
+| DETAIL-02 | Phase 7 | Pending |
+| DETAIL-03 | Phase 7 | Pending |
+| DETAIL-04 | Phase 7 | Pending |
+| DETAIL-05 | Phase 7 | Pending |
+| GUARD-01 | Phase 8 | Pending |
+| GUARD-02 | Phase 8 | Pending |
+| GUARD-03 | Phase 8 | Pending |
+| GUARD-04 | Phase 8 | Pending |
+| SITEMAP-01 | Phase 9 | Pending |
+| SITEMAP-02 | Phase 9 | Pending |
+| SITEMAP-03 | Phase 9 | Pending |
+| SITEMAP-04 | Phase 9 | Pending |
+| SITEMAP-05 | Phase 9 | Pending |
+| DQOBS-01 | Phase 10 | Pending |
+| DQOBS-02 | Phase 10 | Pending |
+| DQOBS-03 | Phase 10 | Pending |
+| RESUME-01 | Phase 11 | Pending |
+| RESUME-02 | Phase 11 | Pending |
 
 **Coverage:**
 - v1 requirements: 46 total (FETCH 4 + DEDUP 7 + SUMM 6 + EMAIL 7 + CONF 7 + OPS 10 + COMP 5)
-- Mapped to phases: 46 ✓
+- v1.1 requirements: 22 total (AUDIT 4 + DETAIL 5 + GUARD 4 + SITEMAP 5 + DQOBS 3 + RESUME 2)
+- Total mapped: 68/68 ✓
 - Unmapped: 0
 
 **Per-phase totals:**
@@ -217,7 +241,13 @@ Every v1 requirement maps to exactly one phase. Phase 4 (JS-rendered tier) is co
 - Phase 3 (Observability + Dev Loop): 5 requirements
 - Phase 4 (JS-Rendered Tier, conditional): 0 net-new requirements (completes FETCH-01's JS-render branch only if audit qualifies)
 - Phase 5 (Triggered Polish, v1.x backlog): 0 v1 requirements (v2 items only, activated on trigger)
+- Phase 6 (Firm Audit + Probe): 4 requirements (AUDIT-01..04)
+- Phase 7 (SPA-Aware Detail Tier): 5 requirements (DETAIL-01..05)
+- Phase 8 (Hallucination Guard): 4 requirements (GUARD-01..04)
+- Phase 9 (Cooley Sitemap Tier): 5 requirements (SITEMAP-01..05)
+- Phase 10 (Data-Quality Observability): 3 requirements (DQOBS-01..03)
+- Phase 11 (Cron Resumption Gate): 2 requirements (RESUME-01..02)
 
 ---
 *Requirements defined: 2026-04-16*
-*Last updated: 2026-04-17 after roadmap traceability population*
+*Last updated: 2026-04-19 — v1.1 requirements (22 REQs, Phase 6–11) added to traceability*

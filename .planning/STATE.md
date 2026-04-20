@@ -2,12 +2,12 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: data-quality-hardening
-status: defining_requirements
+status: roadmap_created
 stopped_at: null
-last_updated: "2026-04-19T21:00:00Z"
+last_updated: "2026-04-19T00:00:00Z"
 last_activity: 2026-04-19
 progress:
-  total_phases: 0
+  total_phases: 6
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -18,17 +18,17 @@ progress:
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-04-16)
+See: .planning/PROJECT.md (updated 2026-04-19)
 
 **Core value:** 사용자가 직접 로펌 웹사이트를 돌지 않아도, 추적 대상 로펌들의 신규 뉴스레터를 원문 링크와 함께 한국어 요약으로 받아볼 수 있어야 한다.
-**Current focus:** Phase 05 — triggered-polish-v1-x-backlog
+**Current focus:** Phase 06 — Firm Audit + Probe
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 06 — Firm Audit + Probe
 Plan: —
-Status: Defining requirements
-Last activity: 2026-04-19 — Milestone v1.1 Data-Quality Hardening started
+Status: Roadmap created, awaiting Phase 6 discussion/planning
+Last activity: 2026-04-19 — v1.1 roadmap created (Phase 6–11)
 
 **⚠ Known production regressions (discovered 2026-04-19 via Phase 02 UAT demo):**
 - bkl detail URLs are SPA — all items receive identical landing-page body → hallucinated summaries
@@ -165,17 +165,18 @@ Recent decisions affecting current work:
 - Phase 04-08: barun detail-page body extraction returns 0/10 (generic chain + Playwright fallback both empty) — documented as Phase 5 polish candidate; inert today since dedup=0 new and SUMM-06 B3 guard absorbs the missing body gracefully
 - Phase 05-01: Governance-only plan (files_modified: []) — emitted 05-VERIFICATION.md asserting 13-item D-01 roster LATENT, D-10.1 met (CONTEXT.md committed), D-10.2 pending (Phase 3 supplement counter rows for QUOTA-01/ARCH-01/CACHE-01 scheduled post-Phase-4). Phase 5 parent cannot close until D-10.2 lands.
 - Phase 05-01: Tasks 1 and 2 (grep-based cross-checks) produced zero artifacts; evidence lives in 05-01-SUMMARY.md. Only Task 3 (VERIFICATION.md) committed individually — honors files_modified:[] contract without losing evidence trail.
+- [v1.1 roadmap]: Phase 6 is blocking-first — audit findings drive the firm list for DETAIL-04 (which firms need detail_tier: js-render). Phase 11 is terminal and depends on all Phase 6–10 passing.
+- [v1.1 roadmap]: GUARD (Phase 8) is defense-in-depth; it ships after Phase 7 fixes extraction so the guard handles residual edge cases, not primary failures.
+- [v1.1 roadmap]: SITEMAP (Phase 9) depends on Phase 7 because sitemap tier reuses the Playwright detail-fetch path already generalized in Phase 7.
 
 ### Pending Todos
 
-None yet.
+None.
 
 ### Blockers/Concerns
 
-- **Phase 2 entry:** per-firm empirical audit required (RSS / robots.txt / encoding / anti-bot status for all 12 firms) — trigger `/gsd-research-phase` before planning Phase 2
-- **PROJECT.md correction pending:** Gemini free-tier RPD text needs update at first `/gsd-transition` (current PROJECT.md Context references ~250 RPD reality; initial draft once said 1,500 — verify latest wording)
-- **Recipient email location decision:** YAML vs GHA secret — defer to Phase 1 implementation
-- ~~Plan 08 must add parseListItemsFromHtml link_href_regex+link_template branch (or fallback) before enabling yoon-yang in firms.yaml — current extractor cannot resolve href='javascript:doView(N)' without onclick attr~~ **RESOLVED by Phase 04.1-01** — selectors.link is now a union (string | LinkExtractor); yoon-yang is expressible as `link: { selector: 'a', regex: 'doView\\((\\d+)\\)', template: '/kor/insights/newsletter/{1}' }` (04.1-01-SUMMARY.md)
+- Phase 6 entry: run `pnpm check:firm` probe against all enabled firms to produce 06-AUDIT.md before any code changes land in Phase 7
+- Phase 11 entry: all Phase 6–10 success criteria must be demonstrably met before RESUME-02 (cron uncomment) executes
 
 ## Deferred Items
 
@@ -187,8 +188,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-19T17:54:00.320Z
-Stopped at: Completed 05-triggered-polish-v1-x-backlog-01-PLAN.md
+Last session: 2026-04-19
+Stopped at: v1.1 roadmap created (Phase 6–11 appended to ROADMAP.md)
 Resume file: None
 
-**Planned Phase:** 05 (triggered-polish-v1-x-backlog) — 1 plans — 2026-04-18T19:04:37.083Z
+**Next action:** `/gsd:plan-phase 6` — plan Phase 6: Firm Audit + Probe

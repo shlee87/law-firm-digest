@@ -1,17 +1,20 @@
 # Roadmap: LegalNewsletter
 
 **Created:** 2026-04-16
-**Granularity:** coarse (3–5 phases)
-**Coverage:** 46/46 v1 requirements mapped
+**Granularity:** coarse (3–5 phases per milestone)
+**Coverage:** 46/46 v1 requirements + 22/22 v1.1 requirements mapped
 
 ## Overview
 
 LegalNewsletter ships as a vertical slice first (one firm end-to-end through fetch → dedup → summarize → email → state commit), then scales horizontally (multi-firm HTML tier + per-firm failure isolation), then hardens against silent rot (staleness alerts + dev-loop CLI + archive). A conditional JS-rendered tier follows only if the Phase 2 empirical audit identifies a firm that genuinely requires it. Phase 5 is a triggered backlog — items activate only when their specific pain surfaces. Every PITFALLS.md `[CHEAP NOW]` item lands in Phase 1 or Phase 2 (canonicalization, timezone handling, run-transaction ordering, concurrency key, fail-loud SMTP, secrets hygiene, honest UA + robots.txt); retrofitting any of these is multi-day work on corrupted state.
 
+**v1.1 Data-Quality Hardening (Phase 6–11):** A follow-on milestone triggered by Phase 02 UAT demo (2026-04-19) revealing hallucinated summaries on html-tier firms. The arc is: audit what's actually broken (Phase 6) → fix SPA detail fetching (Phase 7) → add Gemini hallucination guard (Phase 8) → restore Cooley via sitemap tier (Phase 9) → surface body-quality metrics in step summary (Phase 10) → re-enable cron only after all prior gates pass (Phase 11). Phase 11 (Cron Resumption Gate) is explicitly terminal and depends on all prior v1.1 phases.
+
 ## Phases
 
 **Phase Numbering:**
-- Integer phases (1, 2, 3, 4, 5): Planned milestone work
+- Integer phases (1, 2, 3, 4, 5): v1.0 milestone work (shipped)
+- Integer phases (6–11): v1.1 milestone work (data-quality hardening)
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
 - [x] **Phase 1: Foundation + Vertical Slice** - One firm end-to-end through Gemini + Gmail + committed state, with every "cheap now" pitfall baked in
@@ -19,6 +22,12 @@ LegalNewsletter ships as a vertical slice first (one firm end-to-end through fet
 - [x] **Phase 3: Observability + Dev Loop** - Silent rot becomes visible (staleness alerts, step summary, archive, check:firm CLI, operational README)
 - [x] **Phase 4: JS-Rendered Tier (conditional)** - Playwright tier only if Phase 2 audit proves some firm actually requires JS rendering; otherwise skip
 - [x] **Phase 5: Triggered Polish (v1.x backlog)** - Each item activates only when its named trigger condition fires; none are pre-committed
+- [ ] **Phase 6: Firm Audit + Probe** - Per-firm list/detail probe diagnoses every enabled firm's actual extraction quality and documents remediation paths
+- [ ] **Phase 7: SPA-Aware Detail Tier** - `detail_tier` config flag lets html-tier firms route their detail fetch through Playwright when their detail pages are JS-rendered
+- [ ] **Phase 8: Hallucination Guard** - Gemini prompt and post-summarize detector prevent title-only hallucinations when body is empty, short, or generic-boilerplate
+- [ ] **Phase 9: Cooley Sitemap Tier** - New `type: sitemap` scraper parses WordPress sitemap XML, restoring Cooley with CF-safe article fetch
+- [ ] **Phase 10: Data-Quality Observability** - GHA step-summary and email footer expose per-firm body-quality metrics so degradation is visible without reading logs
+- [ ] **Phase 11: Cron Resumption Gate** - Manual dispatch + visual inspection confirms zero hallucination regressions before cron schedule is uncommented
 
 ## Phase Details
 
@@ -102,10 +111,83 @@ Plans:
 **Plans**: TBD (activated per trigger)
 **Note**: This phase is a triggered backlog, not a planned sprint. `/gsd-insert-phase` is the mechanism for promoting an individual item into a 5.x decimal phase when its trigger fires.
 
+---
+
+## Milestone v1.1 — Data-Quality Hardening
+
+**Goal:** Elevate production output to trustworthy quality — hallucinated summaries eliminated, every enabled firm extracting real article body, Cooley restored, cron resumed.
+
+**Entry condition:** v1.0 Phase 02 UAT (2026-04-19) confirmed that html-tier firms bkl and kim-chang produce hallucinated summaries due to SPA detail pages. Cron paused until all v1.1 acceptance criteria met.
+
+**Arc:** Audit → Fix extraction → Guard summarization → Restore Cooley → Surface quality metrics → Resume cron.
+
+### Phase 6: Firm Audit + Probe
+**Goal**: Every enabled firm's actual extraction quality is documented — which firms return real article body, which return SPA/generic content, which fail list fetch entirely — so subsequent phases fix the right things.
+**Depends on**: Phase 5 (v1.0 complete)
+**Requirements**: AUDIT-01, AUDIT-02, AUDIT-03, AUDIT-04
+**Success Criteria** (what must be TRUE):
+  1. Running the probe against all enabled firms reports item count and selector-match status for each firm's list page (e.g., "bkl: 9 items extracted" or "shin-kim: 0 items — fetch-fail").
+  2. Running the probe against bkl fetches 2+ detail URLs and flags identical extracted bodies across distinct URLs as SPA/hallucination risk.
+  3. `.planning/phases/06-firm-audit/06-AUDIT.md` exists and contains a per-firm diagnosis row for each enabled firm using the defined status vocabulary (OK / list-fail / selector-empty / detail-identical / detail-empty / detail-quality-unknown).
+  4. Each firm row with a non-OK status has an explicit remediation path recorded (one of: enable js-render detail, fix selector, disable firm, or migrate to sitemap tier).
+**Plans**: TBD
+
+### Phase 7: SPA-Aware Detail Tier
+**Goal**: Firms whose detail pages are JS-rendered can declare `detail_tier: 'js-render'` in `config/firms.yaml` so their article bodies are fetched via Playwright — independent of how their list page is fetched.
+**Depends on**: Phase 6 (audit identifies which firms need js-render detail)
+**Requirements**: DETAIL-01, DETAIL-02, DETAIL-03, DETAIL-04, DETAIL-05
+**Success Criteria** (what must be TRUE):
+  1. A firm with `type: html` and `detail_tier: 'js-render'` in firms.yaml has its detail URLs fetched via Playwright; a firm with no `detail_tier` field behaves identically to before (static fetch, backwards compatible).
+  2. After setting `detail_tier: 'js-render'` on bkl, running `pnpm check:firm bkl` shows 2+ items with distinct, non-identical extracted body text (not generic firm landing page).
+  3. After setting `detail_tier: 'js-render'` on kim-chang, running `pnpm check:firm kim-chang` shows at least one item with non-empty extracted body.
+  4. Setting `detail_tier: 'invalid-value'` in firms.yaml causes startup to fail with a zod error that includes the precise YAML path (e.g., `firms[2].detail_tier`).
+**Plans**: TBD
+
+### Phase 8: Hallucination Guard
+**Goal**: Gemini is prevented from producing plausible-sounding but fabricated summaries when article body is absent, too short, or generic boilerplate — and clusters of identical summaries within a single firm's digest are automatically detected and flagged.
+**Depends on**: Phase 7 (extraction fixed first; guard is defense-in-depth, not the primary fix)
+**Requirements**: GUARD-01, GUARD-02, GUARD-03, GUARD-04
+**Success Criteria** (what must be TRUE):
+  1. Sending an empty body string to the summarizer produces `summary_ko` equal to the item title verbatim and `confidence: 'low'` — not a fabricated 3-sentence summary.
+  2. Sending a body shorter than 100 characters or a generic-firm-overview text to the summarizer produces the same title-verbatim + confidence:low result; sending a real article body (200+ chars, content-specific) produces a genuine 3–5 line Korean summary.
+  3. After summarizing a simulated bkl batch where 5 items share the same first 50 chars of summary, the run log contains a `HALLUCINATION_CLUSTER_DETECTED` marker with the firm id, and all 5 items are demoted to `confidence: 'low'`.
+  4. The `HALLUCINATION_CLUSTER_DETECTED` marker appears in the GHA step-summary output and in the email footer — visible without opening raw logs.
+**Plans**: TBD
+
+### Phase 9: Cooley Sitemap Tier
+**Goal**: Cooley is restored as an active, monitored firm by routing through a new `type: sitemap` scraper that reads WordPress sitemap XML to discover recent articles and Playwright to extract body — bypassing the Cloudflare-blocked RSS endpoint.
+**Depends on**: Phase 7 (Playwright detail extraction already generalized; sitemap tier reuses that path)
+**Requirements**: SITEMAP-01, SITEMAP-02, SITEMAP-03, SITEMAP-04, SITEMAP-05
+**Success Criteria** (what must be TRUE):
+  1. `src/scrapers/sitemap.ts` parses `<url><loc><lastmod>` from a given sitemap XML URL and returns the top-N most recent URLs sorted by lastmod descending.
+  2. A firm configured with `type: sitemap` and pointing at `https://www.cooleygo.com/post-sitemap.xml` produces items in the digest; Cooley is no longer listed in the email footer as a failed firm.
+  3. `pnpm check:firm cooley` reports N > 0 items with non-empty extracted body text for each sampled item.
+  4. Firms with existing `type: rss`, `type: html`, or `type: js-render` config are unaffected — no regressions in their fetch behavior (180+ existing tests still pass).
+**Plans**: TBD
+
+### Phase 10: Data-Quality Observability
+**Goal**: Per-firm body-quality metrics (average body length, generic-body guard trigger count, confidence distribution) are visible in the GHA step-summary and email footer so quality degradation surfaces without requiring log inspection.
+**Depends on**: Phase 8 (GUARD metrics must exist before they can be surfaced)
+**Requirements**: DQOBS-01, DQOBS-02, DQOBS-03
+**Success Criteria** (what must be TRUE):
+  1. Each GHA run's step-summary table includes per-firm columns for average body length, number of generic-body guard triggers, and confidence distribution (high / medium / low counts).
+  2. A simulated run where a firm produces 4 out of 6 items with `confidence: 'low'` causes both the step-summary and the email footer to flag that firm as a data-quality concern.
+  3. Running with `DRY_RUN=1` prints the full DQOBS metrics table to stdout without writing state or sending email — usable for pre-cron sanity check.
+**Plans**: TBD
+
+### Phase 11: Cron Resumption Gate
+**Goal**: The daily cron schedule is restored only after a manual end-to-end run confirms zero hallucination regressions across all enabled firms, and that acceptance is recorded with a date in STATE.md.
+**Depends on**: Phase 6, Phase 7, Phase 8, Phase 9, Phase 10 (all prior v1.1 phases must be complete)
+**Requirements**: RESUME-01, RESUME-02
+**Success Criteria** (what must be TRUE):
+  1. A manual `workflow_dispatch` run completes successfully and the resulting digest email is visually inspected — every item's Korean summary reflects content specific to that article (not a generic firm description or title verbatim without cause).
+  2. `.github/workflows/daily.yml` has its `schedule:` block uncommented and a dated acceptance note is present in STATE.md recording the inspection result and confirming cron resumption.
+**Plans**: TBD
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order. Phase 4 is conditional — skipped if Phase 2 audit shows no qualifying firms. Phase 5 is a triggered backlog.
+Phases execute in numeric order. Phase 4 is conditional — skipped if Phase 2 audit shows no qualifying firms. Phase 5 is a triggered backlog. Phase 11 is terminal — must not execute until Phases 6–10 all pass.
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -114,6 +196,12 @@ Phases execute in numeric order. Phase 4 is conditional — skipped if Phase 2 a
 | 3. Observability + Dev Loop | 5/5 + 1 deferred (03-06 supplement) | Complete | 2026-04-18 |
 | 4. JS-Rendered Tier (conditional) | 8/8 | Complete | 2026-04-19 |
 | 5. Triggered Polish (v1.x backlog) | 1/1 | Complete (parent-close pending D-10.2) | 2026-04-19 |
+| 6. Firm Audit + Probe | 0/0 | Pending | — |
+| 7. SPA-Aware Detail Tier | 0/0 | Pending | — |
+| 8. Hallucination Guard | 0/0 | Pending | — |
+| 9. Cooley Sitemap Tier | 0/0 | Pending | — |
+| 10. Data-Quality Observability | 0/0 | Pending | — |
+| 11. Cron Resumption Gate | 0/0 | Pending | — |
 
 ## ⚠ v1.0 Milestone — Production Readiness Caveat
 
@@ -140,3 +228,4 @@ proposed phase breakdown:
 
 ---
 *Roadmap created: 2026-04-16*
+*v1.1 phases appended: 2026-04-19*
