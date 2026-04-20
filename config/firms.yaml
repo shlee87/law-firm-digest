@@ -149,8 +149,22 @@ firms:
     type: html
     url: https://www.kimchang.com/ko/newsletter.kc
     timezone: Asia/Seoul
-    enabled: true
-    detail_tier: 'js-render'  # Phase 7 DETAIL-04 activation (detail fetch previously empty)
+    # Phase 7-05 investigation (2026-04-20): disabled because our canonicalizeUrl
+    # helper (src/scrapers/util.ts:96) strips leading 'www.' from every URL, so
+    # list-parse produces detail URLs of the form 'https://kimchang.com/...'
+    # — but kim-chang's TLS certificate only covers 'www.kimchang.com' (CN=
+    # www.kimchang.com, SAN does not include the apex 'kimchang.com'). Every
+    # detail fetch therefore fails with ERR_CERT_COMMON_NAME_INVALID (both in
+    # Playwright and static fetch) — audit reports "0/2 detail fetches
+    # succeeded". List fetch works because firm.url is used as-is (un-
+    # canonicalized) and already contains 'www.'. Evidence + full fix path
+    # are recorded in .planning/phases/07-spa-aware-detail-tier/07-05-SUMMARY.md.
+    # Re-enable when a future phase adds host restoration on detail fetch
+    # (scoped to enrichBody + firmAudit — does not touch dedup canonicalization).
+    # Selectors + detail_tier preserved so re-enablement is a one-line
+    # 'enabled: true' flip.
+    enabled: false  # disabled 2026-04-20 (Phase 7-05) — TLS cert CN mismatch after canonicalizeUrl strips 'www.'. See 07-05-SUMMARY.md.
+    detail_tier: 'js-render'  # Phase 7 DETAIL-04 declared — activation blocked by canonicalize+TLS interaction; preserved for future re-enablement
     selectors:
       list_item: "ul.notice_list > li"
       title: ".notice_txt .title, .notice_txt._dotdotdot_news"
