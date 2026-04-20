@@ -63,4 +63,16 @@ describe('buildPrompt (D-P2-13 language routing)', () => {
     ]);
     expect(summarySchema.required).toEqual(['summary_ko', 'confidence']);
   });
+
+  it('(7) GUARD-01 Layer 2 rule present — prompt contains "title verbatim" and confidence literal', () => {
+    const p = buildPrompt(krItem, 'BODY-MARKER');
+    expect(p).toMatch(/title verbatim/i);
+    expect(p).toContain(`confidence: 'low'`);
+  });
+
+  it('(8) GUARD-01 Layer 2 rule is language-independent — appears for English firms too', () => {
+    const p = buildPrompt(enItem, 'BODY-MARKER');
+    expect(p).toMatch(/title verbatim/i);
+    expect(p).toContain(`confidence: 'low'`);
+  });
 });
