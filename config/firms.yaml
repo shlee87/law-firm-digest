@@ -111,21 +111,24 @@ firms:
     url: https://www.lawlogos.com/sub/news/newsletter.asp
     timezone: Asia/Seoul
     enabled: true
+    # Phase 7-04 selector fix (2026-04-20): live HTML uses
+    # <div class="board-box"><div class="list"><a><div class="text"><h5>title</h5>
+    # <div class="flex-box"><p>등록일<em>YYYY.MM.DD</em></p><p>조회수<em>N</em></p>
+    # — not the <tr> layout assumed in Phase 2. Date = first <em> inside .flex-box.
     selectors:
-      list_item: ".board-box .list tr"
-      title: "a"
+      list_item: ".board-box .list"
+      title: "h5"
       link: "a"
-      date: ".date"
+      date: ".flex-box em"
 
   # ----- US HTML plain-href firm (1) — monthly cadence, expect silent weeks -----
-  # Skadden audit (RESEARCH L144): the <a class="insightful-card"> IS the anchor
-  # and the card body (title/date) lives as descendants of that anchor. The
-  # Drupal view that renders the grid wraps each card in a `.views-row` div.
-  # We therefore select the WRAPPER as list_item and the anchor itself as link,
-  # so $(el).find(link) resolves to a descendant anchor rather than el itself
-  # (cheerio find() only searches descendants). If plan 03's live-fixture probe
-  # shows the wrapper class has drifted, tighten list_item to the observed
-  # wrapper and keep the link selector unchanged.
+  # Phase 7-04 selector fix (2026-04-20): skadden.com/insights migrated off
+  # Drupal `.views-row` to an Angular app. The statically-rendered list lives in
+  # `<section class="search-landing-listing">` under `<ul class="tile-listing">`
+  # where each `<li class="tile-listing__cell">` wraps `<a class="tile-insight"
+  # href="..."><div class="tile-insight__title">...</div><div class="tile-insight__date">Mon D, YYYY</div></a>`.
+  # Only the top ~3 items are server-rendered (the rest load via JS pagination);
+  # that is acceptable for a daily-cron digest — we never need the back catalog.
   - id: skadden
     name: Skadden
     language: en
@@ -134,10 +137,10 @@ firms:
     timezone: America/New_York
     enabled: true
     selectors:
-      list_item: ".views-row"
-      title: ".insightful-card__title, .highlight-card-title"
-      link: "a.insightful-card, a.highlight-card"
-      date: ".insightful-card__date"
+      list_item: "li.tile-listing__cell"
+      title: ".tile-insight__title"
+      link: "a.tile-insight"
+      date: ".tile-insight__date"
 
   # ----- KR HTML onclick-extract firms (2) — require link_onclick_regex + link_template -----
   - id: kim-chang
