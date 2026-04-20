@@ -152,9 +152,14 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
   }
 
   // D-05 / Phase 4 RESEARCH §4 — launch ONE chromium per run, shared across
-  // all js-render firms. Short-circuit when no firm needs it (§8) — saves
+  // all js-render firms. Short-circuit when no firm needs it — saves
   // ~1.2s on days when all js-render firms are disabled.
-  const hasJsRender = firms.some((f) => f.type === 'js-render');
+  // Phase 7 DETAIL-02 extension (D-06): an html-tier firm with
+  // detail_tier='js-render' (bkl, kim-chang) also requires the browser for
+  // per-item detail fetches in enrichBody.ts, so include them in the gate.
+  const hasJsRender = firms.some(
+    (f) => f.type === 'js-render' || f.detail_tier === 'js-render',
+  );
   let browser: Browser | undefined;
   if (hasJsRender) {
     browser = await chromium.launch({ headless: true });
