@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
 status: executing
-stopped_at: Completed 06-03-PLAN.md — AUDIT.md serializer (writer.ts) with never-exhaustiveness, snapshot test
-last_updated: "2026-04-20T03:43:35.203Z"
+stopped_at: Completed 06-04-PLAN.md — runAudit orchestrator with Promise.allSettled isolation, tier dispatch, 4-signal classifier, atomic AUDIT.md write
+last_updated: "2026-04-20T03:49:42.657Z"
 last_activity: 2026-04-20
 progress:
   total_phases: 6
   completed_phases: 0
   total_plans: 5
-  completed_plans: 3
-  percent: 60
+  completed_plans: 4
+  percent: 80
 ---
 
 # Project State
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-19)
 ## Current Position
 
 Phase: 06 (firm-audit-probe) — EXECUTING
-Plan: 4 of 5
+Plan: 5 of 5
 Status: Ready to execute
 Last activity: 2026-04-20
 
@@ -93,6 +93,7 @@ Last activity: 2026-04-20
 | Phase 06-firm-audit-probe P01 | 4min | 2 tasks | 4 files |
 | Phase 06-firm-audit-probe P02 | 8min | 2 tasks | 2 files |
 | Phase 06-firm-audit-probe P03 | ~3m 24s | 2 tasks | 4 files |
+| Phase 06-firm-audit-probe PP04 | 3m 38s | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -179,6 +180,9 @@ Recent decisions affecting current work:
 - 06-02: RESEARCH.md classifier code (L482-527) omits Pitfall 1 guard; PLAN.md action block supplies corrected version — implementation follows PLAN.md
 - 06-03: statusLabel() and remediationToTargetPhase() both use TS never exhaustiveness — two independent TS never switches enforcing D-10 at build-time
 - 06-03: .prettierignore created fresh (file did not exist); contains snapshot exclusion for test/audit/__snapshots__/
+- 06-04: AUDIT_OUTPUT_PATH hardcoded as '.planning/phases/06-firm-audit-probe/06-AUDIT.md' (Phase 11 gate contract)
+- 06-04: defaultRemediation html+detail-identical → enable-js-render-detail; js-render+detail-identical → monitor (RESEARCH Pattern 5)
+- 06-04: probeVersion reads process.env.GITHUB_SHA — no execSync git overhead, detached-worktree safe (RESEARCH A6)
 
 ### Pending Todos
 
@@ -199,8 +203,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-20T03:43:35.199Z
-Stopped at: Completed 06-03-PLAN.md — AUDIT.md serializer (writer.ts) with never-exhaustiveness, snapshot test
+Last session: 2026-04-20T03:49:42.653Z
+Stopped at: Completed 06-04-PLAN.md — runAudit orchestrator with Promise.allSettled isolation, tier dispatch, 4-signal classifier, atomic AUDIT.md write
 Resume file: None
 
 **Next action:** `/gsd:plan-phase 6` — plan Phase 6: Firm Audit + Probe
