@@ -132,11 +132,11 @@ Plans:
   4. Each firm row with a non-OK status has an explicit remediation path recorded (one of: enable js-render detail, fix selector, disable firm, or migrate to sitemap tier).
 **Plans**: 5 plans
 Plans:
-- [ ] 06-01-PLAN.md — Loader extension (LoadFirmsOptions{includeDisabled}) + audit/types.ts (Status/Remediation/AuditRow/AuditReport/RunOptions) [AUDIT-01/03/04]
-- [ ] 06-02-PLAN.md — signals.ts 4-signal pure functions + 35-test signals.test.ts (TDD RED→GREEN, Pitfall 1 vacuous-fire guard) [AUDIT-02/03]
-- [ ] 06-03-PLAN.md — writer.ts markdown serializer + snapshot test + .prettierignore (TS never-exhaustiveness on Status/Remediation enums) [AUDIT-03/04]
-- [ ] 06-04-PLAN.md — firmAudit.ts orchestrator (allSettled isolation, tier dispatch, Playwright lifecycle, atomic writeFile) + 14 integration tests [AUDIT-01/02/03/04]
-- [ ] 06-05-PLAN.md — auditFirms.ts CLI + package.json audit:firms script + DELETE scripts/detail-page-audit.ts + human-verify checkpoint [AUDIT-01/03]
+- [x] 06-01-PLAN.md — Loader extension (LoadFirmsOptions{includeDisabled}) + audit/types.ts (Status/Remediation/AuditRow/AuditReport/RunOptions) [AUDIT-01/03/04]
+- [x] 06-02-PLAN.md — signals.ts 4-signal pure functions + 35-test signals.test.ts (TDD RED→GREEN, Pitfall 1 vacuous-fire guard) [AUDIT-02/03]
+- [x] 06-03-PLAN.md — writer.ts markdown serializer + snapshot test + .prettierignore (TS never-exhaustiveness on Status/Remediation enums) [AUDIT-03/04]
+- [x] 06-04-PLAN.md — firmAudit.ts orchestrator (allSettled isolation, tier dispatch, Playwright lifecycle, atomic writeFile) + 14 integration tests [AUDIT-01/02/03/04]
+- [x] 06-05-PLAN.md — auditFirms.ts CLI + package.json audit:firms script + DELETE scripts/detail-page-audit.ts + human-verify checkpoint [AUDIT-01/03]
 
 ### Phase 7: SPA-Aware Detail Tier
 **Goal**: Firms whose detail pages are JS-rendered can declare `detail_tier: 'js-render'` in `config/firms.yaml` so their article bodies are fetched via Playwright — independent of how their list page is fetched.
@@ -202,7 +202,7 @@ Phases execute in numeric order. Phase 4 is conditional — skipped if Phase 2 a
 | 3. Observability + Dev Loop | 5/5 + 1 deferred (03-06 supplement) | Complete | 2026-04-18 |
 | 4. JS-Rendered Tier (conditional) | 8/8 | Complete | 2026-04-19 |
 | 5. Triggered Polish (v1.x backlog) | 1/1 | Complete (parent-close pending D-10.2) | 2026-04-19 |
-| 6. Firm Audit + Probe | 0/0 | Pending | — |
+| 6. Firm Audit + Probe | 5/5 | Complete | 2026-04-20 |
 | 7. SPA-Aware Detail Tier | 0/0 | Pending | — |
 | 8. Hallucination Guard | 0/0 | Pending | — |
 | 9. Cooley Sitemap Tier | 0/0 | Pending | — |

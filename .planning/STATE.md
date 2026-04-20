@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
-status: executing
-stopped_at: Completed 06-04-PLAN.md — runAudit orchestrator with Promise.allSettled isolation, tier dispatch, 4-signal classifier, atomic AUDIT.md write
-last_updated: "2026-04-20T03:49:42.657Z"
+status: verifying
+stopped_at: "Completed 06-05-PLAN.md — auditFirms.ts CLI + audit:firms script + DELETE old script + human-verify approved (bkl=detail-identical confirmed)"
+last_updated: "2026-04-20T04:00:12.032Z"
 last_activity: 2026-04-20
 progress:
   total_phases: 6
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 5
-  completed_plans: 4
-  percent: 80
+  completed_plans: 5
+  percent: 100
 ---
 
 # Project State
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-04-19)
 
 Phase: 06 (firm-audit-probe) — EXECUTING
 Plan: 5 of 5
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-04-20
 
 **⚠ Known production regressions (discovered 2026-04-19 via Phase 02 UAT demo):**
@@ -94,6 +94,7 @@ Last activity: 2026-04-20
 | Phase 06-firm-audit-probe P02 | 8min | 2 tasks | 2 files |
 | Phase 06-firm-audit-probe P03 | ~3m 24s | 2 tasks | 4 files |
 | Phase 06-firm-audit-probe PP04 | 3m 38s | 2 tasks | 2 files |
+| Phase 06-firm-audit-probe P05 | 10min | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -183,6 +184,9 @@ Recent decisions affecting current work:
 - 06-04: AUDIT_OUTPUT_PATH hardcoded as '.planning/phases/06-firm-audit-probe/06-AUDIT.md' (Phase 11 gate contract)
 - 06-04: defaultRemediation html+detail-identical → enable-js-render-detail; js-render+detail-identical → monitor (RESEARCH Pattern 5)
 - 06-04: probeVersion reads process.env.GITHUB_SHA — no execSync git overhead, detached-worktree safe (RESEARCH A6)
+- 06-05: Disabled rows DO NOT participate in exit-code — exit 1 is driven by enabled non-OK rows only; cooley (disabled) does not flip CI red (Open Question 1 resolution)
+- 06-05: scripts/detail-page-audit.ts deleted in same commit as package.json registration — D-02 single-source-of-truth; git history preserves file body for reference
+- 06-05: auditFirms.ts exit-code 1 is returned from main(), NOT called inline — matches checkFirm.ts shape and keeps process.exit(2) count accurate for acceptance gate
 
 ### Pending Todos
 
@@ -203,8 +207,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-20T03:49:42.653Z
-Stopped at: Completed 06-04-PLAN.md — runAudit orchestrator with Promise.allSettled isolation, tier dispatch, 4-signal classifier, atomic AUDIT.md write
+Last session: 2026-04-20T04:00:12.028Z
+Stopped at: Completed 06-05-PLAN.md — auditFirms.ts CLI + audit:firms script + DELETE old script + human-verify approved (bkl=detail-identical confirmed)
 Resume file: None
 
 **Next action:** `/gsd:plan-phase 6` — plan Phase 6: Firm Audit + Probe
