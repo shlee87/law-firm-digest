@@ -151,7 +151,7 @@ Plans:
 Plans:
 - [x] 07-01-PLAN.md — detail_tier zod field + FirmConfig TS type + schema test block (DETAIL-01, DETAIL-05)
 - [ ] 07-02-PLAN.md — enrichBody branch swap (type→detail_tier gate) + run.ts hasJsRender predicate extension (DETAIL-02, DETAIL-03)
-- [ ] 07-03-PLAN.md — 6-firm YAML migration (bkl/kim-chang/lee-ko/yoon-yang/barun/latham) + header stanza + bkl audit flip verification (DETAIL-04)
+- [x] 07-03-PLAN.md — 6-firm YAML migration (bkl/kim-chang/lee-ko/yoon-yang/barun/latham) + header stanza + bkl audit flip verification (DETAIL-04)
 - [ ] 07-04-PLAN.md — Selector remediation for logos/skadden/lee-ko/barun via probe-fix-probe iteration loop (DETAIL-04)
 - [ ] 07-05-PLAN.md — kim-chang root-cause investigation + remediation (fix URL | fix selector | disable-with-reason per D-10) (DETAIL-04)
 - [ ] 07-06-PLAN.md — Full phase verification: regenerate audit + test suite + UAT regression checkpoint + VERIFICATION.md (DETAIL-01..DETAIL-05)

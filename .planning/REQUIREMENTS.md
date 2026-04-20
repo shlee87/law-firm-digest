@@ -99,7 +99,8 @@ Derived from `.planning/research/FEATURES.md` categorization (T1–T17 table sta
 **: When `detail_tier: 'js-render'`, `enrichBody` fetches each item's detail URL via Playwright (shared chromium browser) instead of static fetch
 - [x] **DETAIL-03
 **: `detail_tier` defaults to `'static'` so existing firms need no YAML change (backwards compatible)
-- [ ] **DETAIL-04**: `bkl` and `kim-chang` are activated with `detail_tier: 'js-render'` after audit confirms their detail pages require JS rendering
+- [x] **DETAIL-04
+**: `bkl` and `kim-chang` are activated with `detail_tier: 'js-render'` after audit confirms their detail pages require JS rendering
 - [x] **DETAIL-05
 **: Schema validation rejects unknown `detail_tier` values at startup with a precise YAML path in the error message
 

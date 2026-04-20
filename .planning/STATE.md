@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
 status: executing
-stopped_at: Completed 07-02 (enrichBody detail_tier flip + run.ts hasJsRender extension)
-last_updated: "2026-04-20T12:57:27.122Z"
+stopped_at: Completed 07-03 (detail_tier YAML migration — 6 firms declared; bkl extractBody gap flagged for plan 07-04)
+last_updated: "2026-04-20T13:11:27.517Z"
 last_activity: 2026-04-20
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 11
-  completed_plans: 7
-  percent: 64
+  completed_plans: 8
+  percent: 73
 ---
 
 # Project State
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-19)
 ## Current Position
 
 Phase: 07 (spa-aware-detail-tier) — EXECUTING
-Plan: 3 of 6
+Plan: 4 of 6
 Status: Ready to execute
 Last activity: 2026-04-20
 
@@ -98,6 +98,7 @@ Last activity: 2026-04-20
 | Phase 06-firm-audit-probe P05 | 10min | 3 tasks | 3 files |
 | Phase 07-spa-aware-detail-tier P01 | ~2min | 2 tasks | 3 files |
 | Phase 07-spa-aware-detail-tier P02 | ~5min | 2 tasks tasks | 3 files files |
+| Phase 07-spa-aware-detail-tier P03 | ~11min | 3 tasks tasks | 1 files files |
 
 ## Accumulated Context
 
@@ -197,6 +198,9 @@ Recent decisions affecting current work:
 - 07-02: Phase 4 fallback test block (7 tests) replaced with Phase 7 detail_tier-gated block (5 tests) in same commit as production flip — avoids red-between-commits (git bisect clean)
 - 07-02: JSDoc on enrichWithBody rewritten in same task commit (Rule 1 preventive fix) — stale STATIC_BODY_MIN_CHARS reference removed; plan acceptance criterion grep==1 for decodeCharsetAwareFetch is plan-authoring imprecision (original had 2 matches, achievable max given import + call-site)
 - 07-02: Plan 07-04 (run.ts hasJsRender expansion) already completed by 07-02 Task 2 — flagged for checker that 07-04 may need retirement or re-scoping
+- 07-03: detail_tier: 'js-render' declared for 6 firms in YAML — bkl/kim-chang activation + lee-ko/yoon-yang/barun/latham migration. Non-developer header stanza added in Korean (CONF-07).
+- 07-03: Task 3 audit-regen did not flip bkl from detail-identical because (a) firmAudit.ts dispatches by firm.type not detail_tier [by design per PATTERNS.md] and (b) extractBody()'s generic chain hits #content on bkl detail pages which is nav chrome, not article body. Fix belongs in plan 07-04 (selectors.body override for bkl) or a new follow-up.
+- 07-03: Playwright-based production detail fetch confirmed working — distinct 62k/67k-byte HTML per infoNo returned (direct curl + Playwright page.title() both confirm article page, not homepage). The v1.0 UAT bkl hallucination root cause is extractBody selector gap, NOT Playwright/URL.
 
 ### Pending Todos
 
@@ -217,8 +221,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-20T12:57:27.119Z
-Stopped at: Completed 07-02 (enrichBody detail_tier flip + run.ts hasJsRender extension)
+Last session: 2026-04-20T13:11:15.688Z
+Stopped at: Completed 07-03 (detail_tier YAML migration — 6 firms declared; bkl extractBody gap flagged for plan 07-04)
 Resume file: None
 
 **Next action:** `/gsd:plan-phase 6` — plan Phase 6: Firm Audit + Probe
