@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
-status: planning
-stopped_at: Phase 8 context gathered
-last_updated: "2026-04-20T16:19:49.647Z"
+status: executing
+stopped_at: Completed 08-01-PLAN.md — GUARD-01 Layer 1+2+API-fail reconciliation
+last_updated: "2026-04-20T20:26:51.937Z"
 last_activity: 2026-04-20
 progress:
   total_phases: 6
   completed_phases: 2
-  total_plans: 11
-  completed_plans: 11
-  percent: 100
+  total_plans: 17
+  completed_plans: 12
+  percent: 71
 ---
 
 # Project State
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-19)
 
 **Core value:** 사용자가 직접 로펌 웹사이트를 돌지 않아도, 추적 대상 로펌들의 신규 뉴스레터를 원문 링크와 함께 한국어 요약으로 받아볼 수 있어야 한다.
-**Current focus:** Phase 07 — spa-aware-detail-tier
+**Current focus:** Phase 08 — hallucination-guard
 
 ## Current Position
 
-Phase: 8
-Plan: Not started
-Status: Ready to plan
+Phase: 08 (hallucination-guard) — EXECUTING
+Plan: 2 of 6
+Status: Ready to execute
 Last activity: 2026-04-20
 
 **⚠ Known production regressions (discovered 2026-04-19 via Phase 02 UAT demo):**
@@ -103,6 +103,7 @@ Last activity: 2026-04-20
 | Phase 07-spa-aware-detail-tier P04 | ~5 min | 3 tasks | 1 files |
 | Phase 07-spa-aware-detail-tier P05 | ~20 min | 2 tasks tasks | 1 file files |
 | Phase 07 P06 | ~37 min | 4 tasks | 3 files |
+| Phase 08-hallucination-guard P01 | 4min | 3 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -215,6 +216,10 @@ Recent decisions affecting current work:
 - 07-06: Task 3 UAT probe revealed bkl still produces identical 5277-char bodies (v1.0 hallucination persisted). Root cause SAME as kim-chang 07-05 — canonicalizeUrl strips 'www.' + bkl.co.kr HTTP 302 path-strips to homepage. Applied Rule-2 deviation: disable bkl with 35-line evidence comment (mirrors 07-05 kim-chang pattern). Correct body selector '.view-type1' verified distinct across infoNo 6542/6541/6540 and documented in disable comment for future re-enablement.
 - 07-06: Phase 7 closes PASSED WITH EXCEPTIONS — SC-1 PASSED (DETAIL-01/03), SC-4 PASSED (DETAIL-05), SC-2 DEFERRED (bkl, 07-06 deviation), SC-3 DEFERRED (kim-chang, 07-05 option C). Shared follow-up plan (restoreFetchHost helper in enrichBody + firmAudit + unit tests) fixes both bkl and kim-chang in one commit; DETAIL-02/04 still-not-fully-met pending that plan.
 - 07-06: Rule-2 disposition preferred over Rule-4 checkpoint for bkl disable — user memory preference is 'aggressive failure detection / loudest alarm'. Disabling a firm from cron output is a production-safety action, not a scope-creep. Reversible in one-line flip once URL-handling follow-up lands.
+- 08-01: Option C empty-string sentinel chosen for GUARD-01 Layer 2 — Gemini returns '' for generic boilerplate; caller substitutes item.title post-parse, preserving SUMM-06 byte-for-byte
+- 08-01: Zod SummaryZ .min(10) removed; empty string newly valid as sentinel; .max(800) preserved as length-cap defense
+- 08-01: catch-block in gemini.ts null → item.title (API-fail path); 'failed' sentinel + summaryError retained for operational visibility
+- 08-01: cli-skipped path unchanged — still returns null; never reaches email template (Phase 1 B3 design preserved)
 
 ### Pending Todos
 
@@ -235,10 +240,10 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: --stopped-at
-Stopped at: Phase 8 context gathered
-Resume file: --resume-file
+Last session: 2026-04-20T20:26:51.933Z
+Stopped at: Completed 08-01-PLAN.md — GUARD-01 Layer 1+2+API-fail reconciliation
+Resume file: None
 
 **Next action:** `/gsd:plan-phase 6` — plan Phase 6: Firm Audit + Probe
 
-**Planned Phase:** 07 (SPA-Aware Detail Tier) — 6 plans — 2026-04-20T05:11:10.399Z
+**Planned Phase:** 8 (Hallucination Guard) — 6 plans — 2026-04-20T19:29:00.027Z

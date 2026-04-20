@@ -106,7 +106,8 @@ Derived from `.planning/research/FEATURES.md` categorization (T1–T17 table sta
 
 ### Hallucination Guard (GUARD)
 
-- [ ] **GUARD-01**: The Gemini prompt includes an explicit rule — if body is empty, shorter than 100 chars, or matches a generic-firm-overview pattern, the model returns `summary_ko = title verbatim` and `confidence: 'low'`
+- [x] **GUARD-01
+**: The Gemini prompt includes an explicit rule — if body is empty, shorter than 100 chars, or matches a generic-firm-overview pattern, the model returns `summary_ko = title verbatim` and `confidence: 'low'`
 - [ ] **GUARD-02**: Fixture tests cover four body shapes: (a) empty, (b) short (<100 chars), (c) generic-firm-overview boilerplate, (d) real article body — cases (a)–(c) produce title-verbatim output, case (d) produces a real 3–5 line summary
 - [ ] **GUARD-03**: Post-summarize detection: if 3+ items within the same firm's digest have summaries whose first 50 chars are identical, all such items are demoted to `confidence: 'low'` and the run logs a `HALLUCINATION_CLUSTER_DETECTED` marker with the firm id
 - [ ] **GUARD-04**: `HALLUCINATION_CLUSTER_DETECTED` surfaces in both the GHA step-summary and the email footer so the operator can act without reading logs
