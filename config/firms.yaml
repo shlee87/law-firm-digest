@@ -189,6 +189,12 @@ firms:
       link_onclick_regex: "goDetail\\('([0-9]+)'\\)"
       link_template: "/leenko/news/newsLetterView.do?lang=KR&newsletterNo={1}"
       date: ".leeko-new-newsletter__item-date"
+      # Phase 7-04 body selector fix (2026-04-20): the generic chain was
+      # hitting a short author-contact block (~32-39 chars per item, all
+      # beginning with "T02-... E...@leeko.com"). The real article body lives
+      # in `.leeko-board-detail__contents` (~5000+ chars per item, direct text
+      # child of the Playwright-hydrated `<div class="leeko-board-detail">`).
+      body: ".leeko-board-detail__contents"
 
   - id: yoon-yang
     name: 화우
@@ -222,6 +228,16 @@ firms:
       title: ".article_tit"
       link: "a"
       date: ".article_date"
+      # Phase 7-04 body selector (2026-04-20): barun detail pages are
+      # image-only HTML email templates (<table id="Table_01"> wrapping
+      # <img> tiles with empty alt attributes). Zero textual body content
+      # is available by design — the newsletter is rendered as JPG/PNG
+      # images rather than HTML prose. Setting this selector documents
+      # the intended scope (the tile table) even though text extraction
+      # returns ~0 chars; SUMM-06 B3 guard absorbs the missing body by
+      # skipping Gemini. Phase 10/11 monitor candidate: either OCR path
+      # or mark barun as title-only in the digest.
+      body: "#Table_01"
 
   # ----- US js-render firm (1) — activated in Phase 4 (probe-verified 2026-04-19) -----
   - id: latham
