@@ -142,6 +142,7 @@ firms:
     url: https://www.kimchang.com/ko/newsletter.kc
     timezone: Asia/Seoul
     enabled: true
+    detail_tier: 'js-render'  # Phase 7 DETAIL-04 activation (detail fetch previously empty)
     selectors:
       list_item: "ul.notice_list > li"
       title: ".notice_txt .title, .notice_txt._dotdotdot_news"
@@ -156,6 +157,7 @@ firms:
     url: https://www.bkl.co.kr/law/insight/informationList.do?lang=ko
     timezone: Asia/Seoul
     enabled: true
+    detail_tier: 'js-render'  # Phase 7 — list is static HTML, detail is SPA (v1.0 UAT hallucination fix)
     selectors:
       list_item: "ul li.info-item, ul li"
       title: ".info-title, .title"
@@ -172,6 +174,7 @@ firms:
     wait_for: ".leeko-new-newsletter__item"
     timezone: Asia/Seoul
     enabled: true
+    detail_tier: 'js-render'  # Phase 7 migration — explicit declaration (preserves Phase 4 behavior after type-gate removal)
     selectors:
       list_item: ".leeko-new-newsletter__item"
       title: ".leeko-new-newsletter__item-title"
@@ -187,6 +190,7 @@ firms:
     wait_for: "ul#contentsList > li"
     timezone: Asia/Seoul
     enabled: true
+    detail_tier: 'js-render'  # Phase 7 migration — explicit declaration
     selectors:
       list_item: "ul#contentsList > li"
       title: ".tit"
@@ -204,6 +208,7 @@ firms:
     wait_for: ".articlebox"
     timezone: Asia/Seoul
     enabled: true
+    detail_tier: 'js-render'  # Phase 7 migration — explicit declaration
     selectors:
       list_item: ".articlebox"
       title: ".article_tit"
@@ -219,6 +224,7 @@ firms:
     wait_for: ".content-card"
     timezone: America/New_York
     enabled: true
+    detail_tier: 'js-render'  # Phase 7 migration — explicit declaration
     selectors:
       list_item: ".content-card"
       title: ".content-card__title"
