@@ -38,19 +38,19 @@ function fixture(): FirmResult[] {
           url: 'https://cooley.com/news/insight/2026/2026-04-10-ma',
           language: 'en',
           isNew: true,
-          summary_ko: null,
+          summary_ko: 'Second <Article> with HTML-ish Title',
           summaryConfidence: 'low',
           summaryModel: 'failed',
           summaryError: 'quota exceeded',
         },
         {
-          // B3 path: item with no description; main.ts bypassed Gemini.
+          // B3 path: item with no description; Plan 01 Layer 1 short-circuit.
           firmId: 'cooley',
           title: 'Title-only Article (B3 skipped)',
           url: 'https://cooley.com/news/insight/2026/2026-04-05-privacy',
           language: 'en',
           isNew: true,
-          summary_ko: null,
+          summary_ko: 'Title-only Article (B3 skipped)',
           summaryConfidence: 'low',
           summaryModel: 'skipped',
         },
@@ -94,7 +94,7 @@ describe('composeDigest', () => {
     expect(payload.html).not.toContain('<script');
   });
 
-  it('B3: null summary_ko (either failed or skipped) renders Korean placeholder "요약 없음 — 본문 부족"', () => {
+  it('Phase 8 D-04: null-branch placeholder "요약 없음 — 본문 부족" is REMOVED from all rendering paths', () => {
     const payload = composeDigest(
       fixture(),
       'user@example.com',
@@ -102,13 +102,27 @@ describe('composeDigest', () => {
       undefined,
       fixedDate,
     );
-    const placeholderCount = (payload.html.match(/요약 없음 — 본문 부족/g) ?? [])
-      .length;
-    // Fixture has two null-summary items (summaryModel 'failed' + 'skipped');
-    // both must render the placeholder.
-    expect(placeholderCount).toBe(2);
-    // The old English-ish '(요약 실패 — 원문 확인)' must NOT appear anywhere.
-    expect(payload.html).not.toContain('(요약 실패 — 원문 확인)');
+    expect(payload.html).not.toContain('요약 없음 — 본문 부족');
+  });
+
+  it('Phase 8 D-13: B3 title-verbatim singleton (summaryModel==="skipped") shows ⚠ 본문 확보 실패 badge', () => {
+    const payload = composeDigest(
+      fixture(),
+      'user@example.com',
+      'user@example.com',
+      undefined,
+      fixedDate,
+    );
+    // Fixture third item is summaryModel:'failed' (title-verbatim from catch block)
+    // Fixture fourth item is summaryModel:'skipped' (title-verbatim from Layer 1)
+    // Only the 'skipped' item triggers D-13 badge.
+    expect(payload.html).toContain('⚠ 본문 확보 실패');
+    // The title appears in the summary slot for the skipped item.
+    expect(payload.html).toContain('Title-only Article (B3 skipped)');
+    // The 'failed' item's title-verbatim summary renders WITHOUT the badge
+    // (summaryModel !== 'skipped'). Confirm the badge appears exactly once.
+    const badgeCount = (payload.html.match(/⚠ 본문 확보 실패/g) ?? []).length;
+    expect(badgeCount).toBe(1);
   });
 
   it('HTML snapshot is stable', () => {
@@ -246,6 +260,96 @@ describe('composeDigest', () => {
     ];
     const payload = composeDigest(results, 'u@e.com', 'u@e.com', undefined, fixedDate);
     expect(payload.html).toMatchSnapshot('digest-with-failed-firm');
+  });
+
+  // --- Phase 8 GUARD-04 coverage: cluster fold UI + data-quality footer ---
+
+  it('Phase 8 D-11/D-12: cluster-demoted items (isClusterMember=true) fold under 품질 의심 block, summaries hidden', () => {
+    const clusteredFirm: FirmResult = {
+      firm: cooley,
+      raw: [],
+      new: [],
+      summarized: [
+        {
+          firmId: 'cooley', title: 'Cluster Item 1',
+          url: 'https://cooley.com/a', language: 'en', isNew: true,
+          summary_ko: '법무법인 태평양은 1980년에 설립된 한국의 종합 법률...',
+          summaryConfidence: 'low', summaryModel: 'gemini-2.5-flash',
+          isClusterMember: true,
+        },
+        {
+          firmId: 'cooley', title: 'Cluster Item 2',
+          url: 'https://cooley.com/b', language: 'en', isNew: true,
+          summary_ko: '법무법인 태평양은 1980년에 설립된 한국의 종합 법률...',
+          summaryConfidence: 'low', summaryModel: 'gemini-2.5-flash',
+          isClusterMember: true,
+        },
+        {
+          firmId: 'cooley', title: 'Cluster Item 3',
+          url: 'https://cooley.com/c', language: 'en', isNew: true,
+          summary_ko: '법무법인 태평양은 1980년에 설립된 한국의 종합 법률...',
+          summaryConfidence: 'low', summaryModel: 'gemini-2.5-flash',
+          isClusterMember: true,
+        },
+      ],
+      durationMs: 100,
+    };
+    const payload = composeDigest([clusteredFirm], 'u@e.com', 'u@e.com', undefined, fixedDate);
+    expect(payload.html).toContain('⚠ 품질 의심 — 접힘');
+    expect(payload.html).toContain('요약 숨김, 원문 링크만 표시');
+    // All three titles appear (inside the fold <li>).
+    expect(payload.html).toContain('Cluster Item 1');
+    expect(payload.html).toContain('Cluster Item 2');
+    expect(payload.html).toContain('Cluster Item 3');
+    // The hallucinated summary text does NOT appear.
+    expect(payload.html).not.toContain('법무법인 태평양은 1980년에 설립된 한국의 종합 법률...');
+    expect(payload.html).toContain('원문 보기');
+  });
+
+  it('Phase 8 D-14: renderDataQualityFooter emits ⚠ 데이터 품질 경고 footer with HALLUCINATION_CLUSTER_DETECTED per affected firm', () => {
+    const clusteredFirm: FirmResult = {
+      firm: cooley, raw: [], new: [],
+      summarized: [1, 2, 3, 4, 5].map((i) => ({
+        firmId: 'cooley', title: `Cluster Item ${i}`,
+        url: `https://cooley.com/${i}`, language: 'en' as const, isNew: true as const,
+        summary_ko: '법무법인 태평양은 1980년에 설립된...',
+        summaryConfidence: 'low' as const, summaryModel: 'gemini-2.5-flash',
+        isClusterMember: true as const,
+      })),
+      durationMs: 100,
+    };
+    const payload = composeDigest([clusteredFirm], 'u@e.com', 'u@e.com', undefined, fixedDate);
+    expect(payload.html).toContain('⚠ 데이터 품질 경고 — 요약 신뢰도 의심');
+    expect(payload.html).toContain('HALLUCINATION_CLUSTER_DETECTED (5 items, 요약 숨김)');
+    // Footer ordering: failed-firms (if any) → data-quality → disclaimer.
+    const disclaimerIdx = payload.html.indexOf('AI 요약 — 원문 확인 필수');
+    const dqIdx = payload.html.indexOf('데이터 품질 경고');
+    expect(dqIdx).toBeLessThan(disclaimerIdx);
+    expect(dqIdx).toBeGreaterThan(0);
+  });
+
+  it('Phase 8 D-14: no clusters → data-quality footer NOT rendered (clean-run invisible posture)', () => {
+    const payload = composeDigest(fixture(), 'u@e.com', 'u@e.com', undefined, fixedDate);
+    expect(payload.html).not.toContain('데이터 품질 경고');
+    expect(payload.html).not.toContain('HALLUCINATION_CLUSTER_DETECTED');
+  });
+
+  it('Phase 8 D-14 XSS: marker firmName with <script> is escaped', () => {
+    const hostileFirm: FirmConfig = { ...cooley, name: '<script>alert(1)</script>' };
+    const clusteredFirm: FirmResult = {
+      firm: hostileFirm, raw: [], new: [],
+      summarized: [1, 2, 3].map((i) => ({
+        firmId: 'cooley', title: `Item ${i}`,
+        url: `https://cooley.com/${i}`, language: 'en' as const, isNew: true as const,
+        summary_ko: '동일한 prefix 50자...',
+        summaryConfidence: 'low' as const, summaryModel: 'gemini-2.5-flash',
+        isClusterMember: true as const,
+      })),
+      durationMs: 100,
+    };
+    const payload = composeDigest([clusteredFirm], 'u@e.com', 'u@e.com', undefined, fixedDate);
+    expect(payload.html).not.toContain('<script>alert(1)</script>');
+    expect(payload.html).toContain('&lt;script&gt;alert(1)&lt;/script&gt;');
   });
 });
 
