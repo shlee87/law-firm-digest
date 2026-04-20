@@ -763,27 +763,37 @@ Phase 8 does NOT require a new Recorder field. The cluster count is a separate `
 
 This table is NOT empty. A4 and A7 are MEDIUM-risk decisions the planner must address explicitly.
 
-## Open Questions
+## Open Questions (RESOLVED)
+
+> All four questions below were resolved during planning. Canonical resolutions
+> live in `08-01-PLAN.md <decisions>` (SUMM-06 reconciliation, Gemini API-fail
+> path, B3 singleton detection mechanism) and in the discretionary Phase 10
+> deferral for Q4. Text below is preserved verbatim for traceability; inline
+> `RESOLVED:` markers record the resolution outcome.
 
 1. **SUMM-06 reconciliation for Layer 2 rule (see A4 / Pattern 2 / Pitfall 6)**
    - What we know: SUMM-06 forbids `item.title` in the prompt string; Phase 1 STATE.md line 129 confirms the grep-gate is load-bearing.
    - What's unclear: Which of Options A / B / C does the planner choose? Each has specific downstream impact (Zod schema, Phase 1 grep test, prompt preamble wording).
    - Recommendation: Option C (Gemini returns empty `""` + caller substitutes title) is cleanest. Requires relaxing `SummaryZ.summary_ko` min length or allowing a specific sentinel string. Planner should spell out the choice explicitly in the plan.
+   - **RESOLVED:** Option C adopted. See `08-01-PLAN.md <decisions>` — SummaryZ relaxed to `.min(0).max(800).nullable()`; caller in `src/summarize/gemini.ts` substitutes `item.title` when parsed `summary_ko === ''`. SUMM-06 grep gate preserved (title still never appears in prompt).
 
 2. **Gemini API-failure path post-D-04 (see A7 / Pitfall 2)**
    - What we know: `gemini.ts:100-106` returns `summary_ko: null` on retry-exhausted failure. D-04 removes the null branch in the template.
    - What's unclear: Do API-failed items render as (a) empty summary slot, (b) narrow null template branch with new message, or (c) title-verbatim promotion in `gemini.ts` catch block?
    - Recommendation: Option (c) — promote to title-verbatim in the catch block at `gemini.ts:100-106`. Parallels the Layer 1 short-circuit shape. This closes out null-summary in ALL real-run paths and lets D-04's null-branch removal be truly complete.
+   - **RESOLVED:** Option (c) adopted. See `08-01-PLAN.md <decisions>` — catch block at `gemini.ts:100-106` returns `{ summary_ko: item.title, summaryConfidence: 'low', summaryModel: 'failed', summaryError: … }`. Real-run paths now produce zero `summary_ko: null`; `cli-skipped` debug path is the only remaining null emitter and is out of template scope (paired with `skipEmail`).
 
 3. **Should B3 title-verbatim singletons (D-13) use a distinct flag?**
    - What we know: D-13 says singleton title-verbatim items show a `⚠ 본문 확보 실패` badge instead of fold UI.
    - What's unclear: Template detection mechanism. Options: (a) `summaryModel === 'skipped'`, (b) `summary_ko === item.title`, (c) explicit flag `isBodyShortCircuit: true`.
    - Recommendation: Option (a) `summaryModel === 'skipped'` — the existing sentinel is sufficient and matches the template's existing convention of branching on model sentinel (cli-skipped, failed, etc.).
+   - **RESOLVED:** Option (a) adopted. See `08-01-PLAN.md <decisions>` — template checks `summaryModel === 'skipped' && !isClusterMember` to render the `⚠ 본문 확보 실패` badge. No new `isBodyShortCircuit` flag is introduced (keeps the SummarizedItem shape lean; Plan 04 wires the badge).
 
 4. **Recorder field for clustered count (discretionary)**
    - What we know: Step-summary currently has 5 columns + cluster section below.
    - What's unclear: Should the per-firm table add a "Clustered" column for stronger visibility? CONTEXT does not require it.
    - Recommendation: Skip — the `## ⚠ Data Quality Warnings` section (D-15) is already below the table and sufficient. Phase 10 DQOBS will expand the table.
+   - **RESOLVED: SKIPPED (discretionary; Phase 10 will expand recorder table).** Phase 8 emits the `## ⚠ Data Quality Warnings` markdown section below the per-firm table as specified in D-15; no `FirmMetrics.clusterCount` field is added in this phase.
 
 ## Environment Availability
 

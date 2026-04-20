@@ -167,12 +167,12 @@ Plans:
   4. The `HALLUCINATION_CLUSTER_DETECTED` marker appears in the GHA step-summary output and in the email footer — visible without opening raw logs.
 **Plans**: 6 plans
 Plans:
-- [ ] 08-01-PLAN.md — Layer 1 short-circuit + Layer 2 prompt rule + B3 title-verbatim + Gemini API-fail promotion + isClusterMember type (GUARD-01)
-- [ ] 08-02-PLAN.md — 4-body-shape fixture tests + prompt.test.ts Layer 2 assertions + run.test.ts reconciliation (GUARD-02)
-- [ ] 08-03-PLAN.md — detectClusters.ts pure function + run.ts hook + markers hoisting + writeStepSummary signature extension (GUARD-03)
-- [ ] 08-04-PLAN.md — Template D-04 null-branch removal + D-13 B3 badge + D-11/D-12 fold UI + D-14 renderDataQualityFooter + digest.test.ts updates (GUARD-04 email footer)
-- [ ] 08-05-PLAN.md — clusterDetection.test.ts 12 unit tests (threshold / scope / immutability / multibyte / D-16 format) (GUARD-03)
-- [ ] 08-06-PLAN.md — writeStepSummary D-15 markdown section rendering + test coverage (GUARD-04 step-summary)
+- [x] 08-01-PLAN.md — Layer 1 short-circuit + Layer 2 prompt rule + B3 title-verbatim + Gemini API-fail promotion + isClusterMember type (GUARD-01)
+- [x] 08-02-PLAN.md — 4-body-shape fixture tests + prompt.test.ts Layer 2 assertions + run.test.ts reconciliation (GUARD-02)
+- [x] 08-03-PLAN.md — detectClusters.ts pure function + run.ts hook + markers hoisting + writeStepSummary signature extension (GUARD-03)
+- [x] 08-04-PLAN.md — Template D-04 null-branch removal + D-13 B3 badge + D-11/D-12 fold UI + D-14 renderDataQualityFooter + digest.test.ts updates (GUARD-04 email footer)
+- [x] 08-05-PLAN.md — clusterDetection.test.ts 12 unit tests (threshold / scope / immutability / multibyte / D-16 format) (GUARD-03)
+- [x] 08-06-PLAN.md — writeStepSummary D-15 markdown section rendering + test coverage (GUARD-04 step-summary)
 
 ### Phase 9: Cooley Sitemap Tier
 **Goal**: Cooley is restored as an active, monitored firm by routing through a new `type: sitemap` scraper that reads WordPress sitemap XML to discover recent articles and Playwright to extract body — bypassing the Cloudflare-blocked RSS endpoint.
