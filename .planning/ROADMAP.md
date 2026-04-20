@@ -149,7 +149,7 @@ Plans:
   4. Setting `detail_tier: 'invalid-value'` in firms.yaml causes startup to fail with a zod error that includes the precise YAML path (e.g., `firms[2].detail_tier`).
 **Plans**: 6 plans
 Plans:
-- [ ] 07-01-PLAN.md — detail_tier zod field + FirmConfig TS type + schema test block (DETAIL-01, DETAIL-05)
+- [x] 07-01-PLAN.md — detail_tier zod field + FirmConfig TS type + schema test block (DETAIL-01, DETAIL-05)
 - [ ] 07-02-PLAN.md — enrichBody branch swap (type→detail_tier gate) + run.ts hasJsRender predicate extension (DETAIL-02, DETAIL-03)
 - [ ] 07-03-PLAN.md — 6-firm YAML migration (bkl/kim-chang/lee-ko/yoon-yang/barun/latham) + header stanza + bkl audit flip verification (DETAIL-04)
 - [ ] 07-04-PLAN.md — Selector remediation for logos/skadden/lee-ko/barun via probe-fix-probe iteration loop (DETAIL-04)
@@ -210,7 +210,7 @@ Phases execute in numeric order. Phase 4 is conditional — skipped if Phase 2 a
 | 4. JS-Rendered Tier (conditional) | 8/8 | Complete | 2026-04-19 |
 | 5. Triggered Polish (v1.x backlog) | 1/1 | Complete (parent-close pending D-10.2) | 2026-04-19 |
 | 6. Firm Audit + Probe | 5/5 | Complete | 2026-04-20 |
-| 7. SPA-Aware Detail Tier | 0/6 | Planning | — |
+| 7. SPA-Aware Detail Tier | 1/6 | Executing | — |
 | 8. Hallucination Guard | 0/0 | Pending | — |
 | 9. Cooley Sitemap Tier | 0/0 | Pending | — |
 | 10. Data-Quality Observability | 0/0 | Pending | — |

@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
-status: planning
-stopped_at: Phase 7 context gathered
-last_updated: "2026-04-20T04:38:30.878Z"
+status: executing
+stopped_at: Completed 07-01 (schema + types + tests)
+last_updated: "2026-04-20T12:47:41.229Z"
 last_activity: 2026-04-20
 progress:
   total_phases: 6
   completed_phases: 1
-  total_plans: 5
-  completed_plans: 5
-  percent: 100
+  total_plans: 11
+  completed_plans: 6
+  percent: 55
 ---
 
 # Project State
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-19)
 
 **Core value:** 사용자가 직접 로펌 웹사이트를 돌지 않아도, 추적 대상 로펌들의 신규 뉴스레터를 원문 링크와 함께 한국어 요약으로 받아볼 수 있어야 한다.
-**Current focus:** Phase 06 — firm-audit-probe
+**Current focus:** Phase 07 — spa-aware-detail-tier
 
 ## Current Position
 
-Phase: 7
-Plan: Not started
-Status: Ready to plan
+Phase: 07 (spa-aware-detail-tier) — EXECUTING
+Plan: 2 of 6
+Status: Ready to execute
 Last activity: 2026-04-20
 
 **⚠ Known production regressions (discovered 2026-04-19 via Phase 02 UAT demo):**
@@ -96,6 +96,7 @@ Last activity: 2026-04-20
 | Phase 06-firm-audit-probe P03 | ~3m 24s | 2 tasks | 4 files |
 | Phase 06-firm-audit-probe PP04 | 3m 38s | 2 tasks | 2 files |
 | Phase 06-firm-audit-probe P05 | 10min | 3 tasks | 3 files |
+| Phase 07-spa-aware-detail-tier P01 | ~2min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -188,6 +189,8 @@ Recent decisions affecting current work:
 - 06-05: Disabled rows DO NOT participate in exit-code — exit 1 is driven by enabled non-OK rows only; cooley (disabled) does not flip CI red (Open Question 1 resolution)
 - 06-05: scripts/detail-page-audit.ts deleted in same commit as package.json registration — D-02 single-source-of-truth; git history preserves file body for reference
 - 06-05: auditFirms.ts exit-code 1 is returned from main(), NOT called inline — matches checkFirm.ts shape and keeps process.exit(2) count accurate for acceptance gate
+- 07-01: detail_tier added as z.enum(['js-render', 'static']).default('static').optional() sibling of exclude_keywords — inherits .strict() and produces path-qualified zod error automatically (DETAIL-05 free); no superRefine rule added per D-05 (type and detail_tier orthogonal)
+- 07-01: Phase 7 detail_tier extension test block placed between Phase 4 js-render extensions and Phase 4.1 selectors.link union — matches file's chronological describe-block ordering; .strict() regression coverage not duplicated (already covered in Phase 4 block line 187)
 
 ### Pending Todos
 
@@ -208,10 +211,10 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: --stopped-at
-Stopped at: Phase 7 context gathered
-Resume file: --resume-file
+Last session: 2026-04-20T12:47:41.226Z
+Stopped at: Completed 07-01 (schema + types + tests)
+Resume file: None
 
 **Next action:** `/gsd:plan-phase 6` — plan Phase 6: Firm Audit + Probe
 
-**Planned Phase:** 6 (Firm Audit + Probe) — 5 plans — 2026-04-20T03:23:06.165Z
+**Planned Phase:** 07 (SPA-Aware Detail Tier) — 6 plans — 2026-04-20T05:11:10.399Z
