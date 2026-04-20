@@ -49,6 +49,7 @@ export interface FirmConfig {
   timezone: string;
   enabled: boolean;
   wait_for?: string;  // required when type === 'js-render' (enforced by schema superRefine)
+  detail_tier?: 'js-render' | 'static';  // Phase 7 DETAIL-01: orthogonal to `type`; governs detail-page fetch path only.
   selectors?: {
     list_item: string;
     title: string;

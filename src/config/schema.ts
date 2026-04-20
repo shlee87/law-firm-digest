@@ -99,6 +99,12 @@ export const FirmSchema = z
     timeout_ms: z.number().int().positive().default(20000),
     include_keywords: z.array(z.string()).optional().default([]),
     exclude_keywords: z.array(z.string()).optional().default([]),
+    // Phase 7 DETAIL-01/05. Governs the DETAIL fetch path independently of
+    // `type` (which governs list-page fetch). 'js-render' makes enrichBody
+    // always route detail fetches through Playwright (D-07 — no static
+    // attempt). Defaults to 'static' so unmodified firms keep exact
+    // Phase 1-6 semantics (DETAIL-03 backwards compat literal).
+    detail_tier: z.enum(['js-render', 'static']).default('static').optional(),
   })
   .strict()
   .superRefine((firm, ctx) => {
