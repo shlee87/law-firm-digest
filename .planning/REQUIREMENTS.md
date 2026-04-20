@@ -75,6 +75,52 @@ Derived from `.planning/research/FEATURES.md` categorization (T1–T17 table sta
 - [x] **COMP-04**: 저장소는 기본 private (GHA 무료 티어 2,000 min/월 내에서 충분)
 - [x] **COMP-05**: 저작권 이슈 최소화 — 뉴스레터 전문을 저장·재배포하지 않으며, 요약과 원문 링크만 전달
 
+## v1.1 Requirements — Data-Quality Hardening
+
+**Defined:** 2026-04-19
+**Context:** v1.0 shipped planned scope (Phase 1–5, 180+ tests) but Phase 02 UAT demo (2026-04-19) exposed hallucinated summaries on html-tier firms. Source: `.planning/backlog/v1.0-data-quality-audit.md`. Cron paused until v1.1 acceptance met.
+
+### Firm Audit (AUDIT)
+
+- [ ] **AUDIT-01**: Developer can run a firm-audit probe that fetches every enabled firm's list page and reports item count + selector match status per firm
+- [ ] **AUDIT-02**: The probe fetches each firm's detail URLs for N≥2 items and cross-compares extracted body text — identical bodies across distinct URLs flag SPA/hallucination risk
+- [ ] **AUDIT-03**: Probe output is written to `.planning/phases/06-firm-audit/06-AUDIT.md` with a per-firm diagnosis table (OK / list-fail / selector-empty / detail-identical / detail-empty / detail-quality-unknown)
+- [ ] **AUDIT-04**: Each audit finding has an explicit remediation path recorded (enable js-render detail, fix selector, disable firm, or migrate to sitemap tier)
+
+### SPA-Aware Detail Tier (DETAIL)
+
+- [ ] **DETAIL-01**: A firm can declare `detail_tier: 'js-render' | 'static'` in `config/firms.yaml`, independent of its list-page `type`
+- [ ] **DETAIL-02**: When `detail_tier: 'js-render'`, `enrichBody` fetches each item's detail URL via Playwright (shared chromium browser) instead of static fetch
+- [ ] **DETAIL-03**: `detail_tier` defaults to `'static'` so existing firms need no YAML change (backwards compatible)
+- [ ] **DETAIL-04**: `bkl` and `kim-chang` are activated with `detail_tier: 'js-render'` after audit confirms their detail pages require JS rendering
+- [ ] **DETAIL-05**: Schema validation rejects unknown `detail_tier` values at startup with a precise YAML path in the error message
+
+### Hallucination Guard (GUARD)
+
+- [ ] **GUARD-01**: The Gemini prompt includes an explicit rule — if body is empty, shorter than 100 chars, or matches a generic-firm-overview pattern, the model returns `summary_ko = title verbatim` and `confidence: 'low'`
+- [ ] **GUARD-02**: Fixture tests cover four body shapes: (a) empty, (b) short (<100 chars), (c) generic-firm-overview boilerplate, (d) real article body — cases (a)–(c) produce title-verbatim output, case (d) produces a real 3–5 line summary
+- [ ] **GUARD-03**: Post-summarize detection: if 3+ items within the same firm's digest have summaries whose first 50 chars are identical, all such items are demoted to `confidence: 'low'` and the run logs a `HALLUCINATION_CLUSTER_DETECTED` marker with the firm id
+- [ ] **GUARD-04**: `HALLUCINATION_CLUSTER_DETECTED` surfaces in both the GHA step-summary and the email footer so the operator can act without reading logs
+
+### Sitemap Tier (SITEMAP)
+
+- [ ] **SITEMAP-01**: A new `src/scrapers/sitemap.ts` parses `<url><loc><lastmod>` from an XML sitemap URL and returns the top-N most recent URLs (sorted by lastmod desc)
+- [ ] **SITEMAP-02**: Sitemap-tier firms reuse the js-render detail path (Playwright + `.post-content` or firm-configured body selector) for article body extraction
+- [ ] **SITEMAP-03**: `config/firms.yaml` schema accepts `type: sitemap` with required `url` (sitemap URL) and optional `latest_n` (default 10)
+- [ ] **SITEMAP-04**: Cooley is migrated to `type: sitemap` pointing at `https://www.cooleygo.com/post-sitemap.xml` with `enabled: true` restored; CF-blocked RSS configuration is removed
+- [ ] **SITEMAP-05**: `pnpm check:firm cooley` reports N>0 items and non-empty extracted body for each sampled item
+
+### Data-Quality Observability (DQOBS)
+
+- [ ] **DQOBS-01**: The GHA step-summary table adds per-firm columns — average body length, generic-body count (GUARD triggers), confidence distribution (high/medium/low)
+- [ ] **DQOBS-02**: If a firm's most recent run produces ≥50% `confidence: 'low'` summaries, the email footer and step-summary flag it as a data-quality concern
+- [ ] **DQOBS-03**: `DRY_RUN=1` mode prints the same DQOBS metrics without writing state or sending email, so the operator can diagnose before unpausing cron
+
+### Cron Resumption Gate (RESUME)
+
+- [ ] **RESUME-01**: After all v1.1 phases complete, one manual `workflow_dispatch` run is executed and its digest is visually inspected for hallucinated-summary regressions
+- [ ] **RESUME-02**: `.github/workflows/daily.yml` `schedule:` is uncommented (cron restored) only after RESUME-01 passes and a dated acceptance note is recorded in STATE.md
+
 ## v2 Requirements
 
 Deferred — 각각은 trigger 조건이 관찰되면 승격.
