@@ -104,8 +104,19 @@ export function detectHallucinationClusters(
         // D-16 marker (mirrors GMAIL_AUTH_FAILURE in src/mailer/gmail.ts:93)
         // Single-line stderr, UPPERCASE marker, key=value metadata, no
         // scrubSecrets (signature is user-facing summary prefix, safe).
+        //
+        // WR-03: escape backslash, double-quote, and newline in `sig` for
+        // the log line ONLY. The underlying `signature` field in the
+        // emitted ClusterMarker is NOT touched — downstream consumers
+        // (email footer, step summary) see the original prefix. Gemini
+        // can emit a literal `"` or newline in the first 50 chars; this
+        // keeps the `key="value"` format parseable by log-tail tooling.
+        const safeSig = sig
+          .replace(/\\/g, '\\\\')
+          .replace(/"/g, '\\"')
+          .replace(/\n/g, '\\n');
         console.error(
-          `HALLUCINATION_CLUSTER_DETECTED: firm=${r.firm.id} count=${group.length} signature="${sig}"`,
+          `HALLUCINATION_CLUSTER_DETECTED: firm=${r.firm.id} count=${group.length} signature="${safeSig}"`,
         );
       }
     }
