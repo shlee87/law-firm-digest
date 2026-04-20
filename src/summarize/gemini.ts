@@ -41,10 +41,10 @@ const SummaryZ = z.object({
  * `item.description` from the RSS feed). Do NOT substitute the article title
  * as a fallback body — SUMM-06 forbids the title from entering the LLM prompt.
  * When only the title is available, callers MUST skip this function entirely
- * and construct a SummarizedItem with
- * `{ summary_ko: null, summaryConfidence: 'low', summaryModel: 'skipped' }`.
- * That branch lives in main.ts (plan 11 B3 revision); this module trusts its
- * caller.
+ * and construct a SummarizedItem with title-verbatim summary_ko (Phase 8
+ * D-03): `{ summary_ko: item.title, summaryConfidence: 'low', summaryModel: 'skipped' }`.
+ * That branch lives in src/pipeline/run.ts Layer 1 short-circuit; this module
+ * trusts its caller.
  *
  * Never throws. On failure returns a SummarizedItem with
  * `summaryModel: 'failed'` and `summaryError` scrubbed via scrubSecrets.
@@ -113,9 +113,13 @@ export async function summarize(item: NewItem, body: string): Promise<Summarized
     console.error(
       `[summarize] model=${model} url=${item.url} FAILED: ${scrubbed}`,
     );
+    // Phase 8 Open-Q #2 resolution: promote API-fail to title-verbatim so
+    // downstream template never sees null from a real-run path. Parallels
+    // Layer 1 short-circuit shape. 'failed' sentinel + summaryError retained
+    // for operational visibility (console.error above + recorder.errorClass).
     return {
       ...item,
-      summary_ko: null,
+      summary_ko: item.title,
       summaryConfidence: 'low',
       summaryModel: 'failed',
       summaryError: scrubbed,

@@ -232,16 +232,22 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
                   summaryModel: 'cli-skipped',
                 };
               }
-              // SUMM-06 / B3 guard: no real body → skip Gemini entirely.
-              if (!item.description) {
+              // GUARD-01 Layer 1 (Phase 8 D-01/D-02/D-03): short-circuit when
+              // body is empty, whitespace-only, or <100 chars trim-length.
+              // Returns title-verbatim (was null pre-Phase-8) so downstream
+              // template never sees null from a real-run path. SUMM-06 caller
+              // contract preserved — Gemini never sees the title. 'skipped'
+              // sentinel reused (CONTEXT discretion; Phase 10 may refine).
+              const body = item.description ?? '';
+              if (body.trim().length < 100) {
                 return {
                   ...item,
-                  summary_ko: null,
+                  summary_ko: item.title,
                   summaryConfidence: 'low' as const,
                   summaryModel: 'skipped',
                 };
               }
-              return summarize(item, item.description);
+              return summarize(item, body);
             }),
           ),
         );
