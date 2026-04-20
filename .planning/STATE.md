@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
 status: verifying
-stopped_at: Completed 07-05 (kim-chang root-cause — disabled with canonicalize+TLS evidence; option C per D-10)
-last_updated: "2026-04-20T14:57:28.472Z"
+stopped_at: "Completed 07-06 (Phase 7 close-out: SC-1/4 PASSED, SC-2/3 DEFERRED; bkl disabled with same canonicalize+www root cause as kim-chang 07-05)"
+last_updated: "2026-04-20T15:38:27.052Z"
 last_activity: 2026-04-20
 progress:
   total_phases: 6
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 11
-  completed_plans: 10
-  percent: 91
+  completed_plans: 11
+  percent: 100
 ---
 
 # Project State
@@ -101,6 +101,7 @@ Last activity: 2026-04-20
 | Phase 07-spa-aware-detail-tier P03 | ~11min | 3 tasks tasks | 1 files files |
 | Phase 07-spa-aware-detail-tier P04 | ~5 min | 3 tasks | 1 files |
 | Phase 07-spa-aware-detail-tier P05 | ~20 min | 2 tasks tasks | 1 file files |
+| Phase 07 P06 | ~37 min | 4 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -210,6 +211,9 @@ Recent decisions affecting current work:
 - 07-05: kim-chang detail fetch fails because canonicalizeUrl (src/scrapers/util.ts:96) unconditionally strips 'www.', and the server's TLS cert has CN=www.kimchang.com with no SAN for the apex — bare-apex requests fail with ERR_CERT_COMMON_NAME_INVALID. Disabled with full evidence comment per D-10 option C; detail_tier + selectors preserved for one-line re-enable once a future URL-handling plan lands host restoration in enrichBody + firmAudit.
 - 07-05: Chose option C (disable with reason) over option A (code fix to canonicalize / enrichBody) because plan 07-05 frontmatter declares files_modified: [config/firms.yaml] — a code fix exceeds plan scope and belongs in a follow-up URL-handling plan. Tested a minimal 'restoreFetchHost(itemUrl, firmUrl)' helper in a throwaway script (since deleted) and confirmed both sample URLs return HTTP 200 with distinct 55KB/71KB article bodies — so re-enablement viability is proven, only landing scope differs.
 - 07-05: DETAIL-04 requirement SHOULD NOT be marked complete in REQUIREMENTS.md — DETAIL-04 literal is 'kim-chang activation' but this plan took the D-10 fallback (disable). The requirement transfers to a follow-up URL-handling plan; only mark complete after kim-chang actually returns OK in audit.
+- 07-06: Task 3 UAT probe revealed bkl still produces identical 5277-char bodies (v1.0 hallucination persisted). Root cause SAME as kim-chang 07-05 — canonicalizeUrl strips 'www.' + bkl.co.kr HTTP 302 path-strips to homepage. Applied Rule-2 deviation: disable bkl with 35-line evidence comment (mirrors 07-05 kim-chang pattern). Correct body selector '.view-type1' verified distinct across infoNo 6542/6541/6540 and documented in disable comment for future re-enablement.
+- 07-06: Phase 7 closes PASSED WITH EXCEPTIONS — SC-1 PASSED (DETAIL-01/03), SC-4 PASSED (DETAIL-05), SC-2 DEFERRED (bkl, 07-06 deviation), SC-3 DEFERRED (kim-chang, 07-05 option C). Shared follow-up plan (restoreFetchHost helper in enrichBody + firmAudit + unit tests) fixes both bkl and kim-chang in one commit; DETAIL-02/04 still-not-fully-met pending that plan.
+- 07-06: Rule-2 disposition preferred over Rule-4 checkpoint for bkl disable — user memory preference is 'aggressive failure detection / loudest alarm'. Disabling a firm from cron output is a production-safety action, not a scope-creep. Reversible in one-line flip once URL-handling follow-up lands.
 
 ### Pending Todos
 
@@ -230,8 +234,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-20T14:57:13.059Z
-Stopped at: Completed 07-05 (kim-chang root-cause — disabled with canonicalize+TLS evidence; option C per D-10)
+Last session: 2026-04-20T15:38:27.048Z
+Stopped at: Completed 07-06 (Phase 7 close-out: SC-1/4 PASSED, SC-2/3 DEFERRED; bkl disabled with same canonicalize+www root cause as kim-chang 07-05)
 Resume file: None
 
 **Next action:** `/gsd:plan-phase 6` — plan Phase 6: Firm Audit + Probe

@@ -218,11 +218,11 @@ Every v1 requirement maps to exactly one phase. Phase 4 (JS-rendered tier) is co
 | AUDIT-02 | Phase 6 | Pending |
 | AUDIT-03 | Phase 6 | Pending |
 | AUDIT-04 | Phase 6 | Pending |
-| DETAIL-01 | Phase 7 | Pending |
-| DETAIL-02 | Phase 7 | Pending |
-| DETAIL-03 | Phase 7 | Pending |
-| DETAIL-04 | Phase 7 | Complete |
-| DETAIL-05 | Phase 7 | Pending |
+| DETAIL-01 | Phase 7 | Complete |
+| DETAIL-02 | Phase 7 | Deferred (bkl+kim-chang URL-handling follow-up) |
+| DETAIL-03 | Phase 7 | Complete |
+| DETAIL-04 | Phase 7 | Deferred (bkl+kim-chang disabled pending URL-handling follow-up) |
+| DETAIL-05 | Phase 7 | Complete |
 | GUARD-01 | Phase 8 | Pending |
 | GUARD-02 | Phase 8 | Pending |
 | GUARD-03 | Phase 8 | Pending |

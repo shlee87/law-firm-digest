@@ -23,7 +23,7 @@ LegalNewsletter ships as a vertical slice first (one firm end-to-end through fet
 - [x] **Phase 4: JS-Rendered Tier (conditional)** - Playwright tier only if Phase 2 audit proves some firm actually requires JS rendering; otherwise skip
 - [x] **Phase 5: Triggered Polish (v1.x backlog)** - Each item activates only when its named trigger condition fires; none are pre-committed
 - [ ] **Phase 6: Firm Audit + Probe** - Per-firm list/detail probe diagnoses every enabled firm's actual extraction quality and documents remediation paths
-- [ ] **Phase 7: SPA-Aware Detail Tier** - `detail_tier` config flag lets html-tier firms route their detail fetch through Playwright when their detail pages are JS-rendered
+- [x] **Phase 7: SPA-Aware Detail Tier** - `detail_tier` config flag lets html-tier firms route their detail fetch through Playwright when their detail pages are JS-rendered (CLOSED WITH EXCEPTIONS — SC-1/4 PASSED, SC-2/3 DEFERRED for bkl+kim-chang shared URL-handling follow-up)
 - [ ] **Phase 8: Hallucination Guard** - Gemini prompt and post-summarize detector prevent title-only hallucinations when body is empty, short, or generic-boilerplate
 - [ ] **Phase 9: Cooley Sitemap Tier** - New `type: sitemap` scraper parses WordPress sitemap XML, restoring Cooley with CF-safe article fetch
 - [ ] **Phase 10: Data-Quality Observability** - GHA step-summary and email footer expose per-firm body-quality metrics so degradation is visible without reading logs
@@ -153,8 +153,8 @@ Plans:
 - [x] 07-02-PLAN.md — enrichBody branch swap (type→detail_tier gate) + run.ts hasJsRender predicate extension (DETAIL-02, DETAIL-03)
 - [x] 07-03-PLAN.md — 6-firm YAML migration (bkl/kim-chang/lee-ko/yoon-yang/barun/latham) + header stanza + bkl audit flip verification (DETAIL-04)
 - [x] 07-04-PLAN.md — Selector remediation for logos/skadden/lee-ko/barun via probe-fix-probe iteration loop (DETAIL-04)
-- [ ] 07-05-PLAN.md — kim-chang root-cause investigation + remediation (fix URL | fix selector | disable-with-reason per D-10) (DETAIL-04)
-- [ ] 07-06-PLAN.md — Full phase verification: regenerate audit + test suite + UAT regression checkpoint + VERIFICATION.md (DETAIL-01..DETAIL-05)
+- [x] 07-05-PLAN.md — kim-chang root-cause investigation + remediation (fix URL | fix selector | disable-with-reason per D-10) (DETAIL-04)
+- [x] 07-06-PLAN.md — Full phase verification: regenerate audit + test suite + UAT regression checkpoint + VERIFICATION.md (DETAIL-01..DETAIL-05)
 
 ### Phase 8: Hallucination Guard
 **Goal**: Gemini is prevented from producing plausible-sounding but fabricated summaries when article body is absent, too short, or generic boilerplate — and clusters of identical summaries within a single firm's digest are automatically detected and flagged.
@@ -210,7 +210,7 @@ Phases execute in numeric order. Phase 4 is conditional — skipped if Phase 2 a
 | 4. JS-Rendered Tier (conditional) | 8/8 | Complete | 2026-04-19 |
 | 5. Triggered Polish (v1.x backlog) | 1/1 | Complete (parent-close pending D-10.2) | 2026-04-19 |
 | 6. Firm Audit + Probe | 5/5 | Complete | 2026-04-20 |
-| 7. SPA-Aware Detail Tier | 4/6 | Executing | — |
+| 7. SPA-Aware Detail Tier | 6/6 | Complete (with exceptions) | 2026-04-20 |
 | 8. Hallucination Guard | 0/0 | Pending | — |
 | 9. Cooley Sitemap Tier | 0/0 | Pending | — |
 | 10. Data-Quality Observability | 0/0 | Pending | — |
