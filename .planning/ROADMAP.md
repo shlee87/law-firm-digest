@@ -115,5 +115,28 @@ Phases execute in numeric order. Phase 4 is conditional — skipped if Phase 2 a
 | 4. JS-Rendered Tier (conditional) | 8/8 | Complete | 2026-04-19 |
 | 5. Triggered Polish (v1.x backlog) | 1/1 | Complete (parent-close pending D-10.2) | 2026-04-19 |
 
+## ⚠ v1.0 Milestone — Production Readiness Caveat
+
+All 5 phases pass their stated Success Criteria at code-path level (180+ unit
+tests, all green). However, a Phase 02 UAT demo on 2026-04-19 revealed that
+the actual **production output is not trustworthy**:
+
+- **bkl detail pages are SPA** — every detail URL returns the same landing-page
+  HTML, so all items receive an identical generic-firm body. Gemini then
+  hallucinates per-item summaries from title alone.
+- **kim-chang detail fetches fail** — body stays empty; Gemini hallucinates.
+- **shin-kim list fetch fails; logos / skadden list selectors return zero items.**
+- **Cooley RSS is Cloudflare-blocked** (separate backlog).
+- **Gemini prompt lacks a generic-body hallucination guard** — defense-in-depth
+  is missing; there is no prompt-level rule to refuse summary generation when
+  the body is empty or looks like a site-wide boilerplate.
+
+**Scheduled cron is paused** (`.github/workflows/daily.yml` `schedule:` commented
+out; `workflow_dispatch` remains available for probes). The v1.0 milestone
+delivered its planned scope, but a follow-on **v1.1 "data-quality hardening"
+milestone is required before the cron can resume**. Full finding list and
+proposed phase breakdown:
+`.planning/backlog/v1.0-data-quality-audit.md`.
+
 ---
 *Roadmap created: 2026-04-16*

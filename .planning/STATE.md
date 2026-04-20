@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: milestone_complete
-stopped_at: Retroactive closure of Phase 02 + Phase 03 UAT (2026-04-19)
-last_updated: "2026-04-19T19:15:00Z"
+status: milestone_scope_delivered_not_production_ready
+stopped_at: Phase 02 UAT demo (2026-04-19) revealed html-tier data-quality regressions
+last_updated: "2026-04-19T20:00:00Z"
 last_activity: 2026-04-19
 progress:
   total_phases: 5
@@ -12,6 +12,7 @@ progress:
   total_plans: 39
   completed_plans: 38
   percent: 100
+  quality_caveat: "All 5 phases pass stated Success Criteria at code-path level (180+ tests). Phase 02 UAT demo exposed data-quality regressions — html-tier firms produce hallucinated summaries in production. Cron paused; v1.1 audit milestone planned. See .planning/backlog/v1.0-data-quality-audit.md."
 ---
 
 # Project State
@@ -25,14 +26,22 @@ See: .planning/PROJECT.md (updated 2026-04-16)
 
 ## Current Position
 
-Phase: v1.0 milestone complete
+Phase: v1.0 milestone — scope delivered, NOT production-ready
 Plan: —
 Resuming: —
-Next: Plan v1.1 milestone or process Phase 3 03-06 deferred supplement (Phase 5 D-04/D-12 counters)
-Status: Milestone complete
+Next: Start v1.1 "data-quality hardening" milestone per .planning/backlog/v1.0-data-quality-audit.md
+Status: Milestone scope delivered (code-path PASS) but production output regressed — daily cron PAUSED
 Last activity: 2026-04-19
 
-Progress: [██████████] 100%
+Progress: [██████████] 100% scope / ⚠ production readiness BLOCKED pending v1.1 audit
+
+**⚠ Known production regressions (discovered 2026-04-19 via Phase 02 UAT demo):**
+- bkl detail URLs are SPA — all items receive identical landing-page body → hallucinated summaries
+- kim-chang detail fetches fail — empty body → hallucinated summaries
+- shin-kim list fetches fail; logos/skadden zero-item selector bitrot
+- Gemini prompt lacks generic-body hallucination guard (defense-in-depth missing)
+- cooley RSS CF-blocked (separate backlog: .planning/backlog/cooley-cf-bypass.md)
+- Full audit: .planning/backlog/v1.0-data-quality-audit.md
 
 **Note on plan counter:** Phase 5 was pre-planned (1 governance plan) before Phase 4 execution began. Phase 4 is now executing; Phase 5 remains planned but unexecuted pending Phase 4 completion. The `state.advance-plan` call against this Current Position ran at a moment when it still pointed at Phase 5, incrementing that phase's plan-1-of-1 counter — the real advancement this session was Phase 4 plan 0→1.
 
