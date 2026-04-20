@@ -83,6 +83,13 @@ export interface SummarizedItem extends NewItem {
   summaryConfidence: 'high' | 'medium' | 'low';
   summaryModel: string;
   summaryError?: string;
+  /**
+   * Phase 8 D-06/D-08: set by detectHallucinationClusters when this item
+   * is part of a 3+ same-firm prefix cluster. Template renders these items
+   * in the "⚠ 품질 의심 — 접힘" block (D-11/D-12), hiding summary_ko.
+   * Runtime-only — MUST NOT be persisted by state/writer.ts.
+   */
+  isClusterMember?: true;
 }
 
 export interface FirmResult {
