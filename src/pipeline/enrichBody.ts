@@ -32,25 +32,20 @@
 //   - This function NEVER throws. Contract is same-length FirmResult[] out
 //     with no fresh error objects.
 //
-// Phase 4 D-04 Playwright fallback:
-//   - Applies ONLY to the js-render tier (rss/html tiers unchanged); the
-//     branch is gated on the per-firm tier discriminant just below.
-//   - Triggered when static extractBody returns fewer than 200 chars —
-//     indicates the detail page is probably JS-hydrated too.
-//   - Re-fetches the same URL in a fresh per-firm BrowserContext; reuses
-//     the same extractBody chain on hydrated HTML.
-//   - Keeps whichever body is longer (static vs hydrated). Equal length
-//     → static (fewer side effects).
+// Phase 7 D-05/D-07 detail_tier-gated branch:
+//   - firms with firm.detail_tier === 'js-render' route detail fetches
+//     through Playwright EXCLUSIVELY — static fetch is NOT attempted.
+//     (Rationale: bkl returns a long-but-identical landing HTML from
+//     static fetch; threshold-based fallback cannot detect this, so we
+//     skip static entirely when the operator declared js-render detail.)
+//   - firms with firm.detail_tier === 'static' (including unset, which
+//     zod defaults to 'static') run the existing Phase 1-6 static path.
 //   - Per-item try/catch discipline preserved — one failed Playwright
-//     detail fetch does not block sibling items.
-//   - No additional politeness delay on the Playwright path beyond the
-//     existing 500ms inter-item gate (the Playwright nav itself dominates
-//     the perceived per-item pacing at ~2-3s each).
-//   - Note: plan 06 Task 2 intentionally does NOT plumb fallback counts
-//     through the Reporter interface — it's a noisy signal that clutters
-//     the CLI with per-item lines. The per-firm step-summary row already
-//     shows body counts. If a future operator finds fallback-visibility
-//     insufficient, promote to a Phase 5 triggered observability item.
+//     detail fetch does NOT poison sibling items (D-P2-03 mirror).
+//   - Per-firm BrowserContext (newContext → newPage → content → ctx.close
+//     in finally) preserves cookie/session isolation between items (D-09).
+//   - browser.close() is owned exclusively by run.ts outer finally — this
+//     module MUST NEVER call browser.close().
 //
 // COMP-05 invariant: body is populated IN-PLACE on RawItem.description
 // (already an optional field) — NOT on a new 'body' field. The state writer
@@ -68,7 +63,6 @@ import { USER_AGENT } from '../util/logging.js';
 import type { FirmResult } from '../types.js';
 
 const INTER_FETCH_DELAY_MS = 500;
-const STATIC_BODY_MIN_CHARS = 200; // D-04 / Research §10 threshold
 const DETAIL_PAGE_TIMEOUT_MS = 15_000; // D-14
 
 /**
@@ -79,10 +73,11 @@ const DETAIL_PAGE_TIMEOUT_MS = 15_000; // D-14
  *                by reference, successful firms have their r.raw items'
  *                description field populated.
  * @param browser Optional shared Browser handle. When present AND a firm has
- *                type === 'js-render', a static extraction shorter than
- *                STATIC_BODY_MIN_CHARS triggers a Playwright re-fetch of the
- *                same URL. The longer of (static, hydrated) wins. When
- *                absent, behavior is identical to pre-Phase-4 static-only.
+ *                detail_tier === 'js-render' (Phase 7 D-07), detail fetches
+ *                for that firm route through Playwright EXCLUSIVELY — the
+ *                static fetch path is skipped. When absent OR firm has
+ *                detail_tier === 'static' (or unset, zod-defaulted), the
+ *                existing Phase 1-6 static decodeCharsetAwareFetch path runs.
  * @returns same-length FirmResult[]. Never throws.
  */
 export async function enrichWithBody(
@@ -106,63 +101,55 @@ export async function enrichWithBody(
                 setTimeout(res, INTER_FETCH_DELAY_MS),
               );
             }
-            // Static first — existing logic unchanged (keeps Phase 2 semantics for rss/html).
+            // Phase 7 D-07: detail_tier === 'js-render' → Playwright ONLY,
+            // no static attempt. Browser presence is guaranteed by run.ts
+            // hasJsRender check (D-06) whenever any firm needs it; but we
+            // still defensively check `browser` to handle test harness calls
+            // that pass results without a browser.
+            if (r.firm.detail_tier === 'js-render' && browser) {
+              try {
+                const ctx = await browser.newContext({ userAgent: USER_AGENT });
+                try {
+                  const page = await ctx.newPage();
+                  await page.goto(item.url, {
+                    timeout: DETAIL_PAGE_TIMEOUT_MS,
+                    waitUntil: 'domcontentloaded',
+                  });
+                  const hydratedHtml = await page.content();
+                  const hydratedBody = extractBody(
+                    hydratedHtml,
+                    r.firm.selectors?.body,
+                  );
+                  if (hydratedBody && hydratedBody.length > 0) {
+                    return { ...item, description: hydratedBody };
+                  }
+                  return item;
+                } finally {
+                  await ctx.close();
+                }
+              } catch {
+                // Per-item isolation (D-P2-03 mirror) — a failed Playwright
+                // detail fetch does not tank sibling items. Leave description
+                // untouched.
+                return item;
+              }
+            }
+
+            // detail_tier === 'static' (or undefined, zod-defaulted) →
+            // existing Phase 1-6 static fetch path, unchanged.
             try {
               const { html } = await decodeCharsetAwareFetch(item.url, {
                 timeoutMs: r.firm.timeout_ms ?? 20_000,
               });
               const staticBody = extractBody(html, r.firm.selectors?.body);
-
-              // D-04 Playwright fallback for js-render firms. Conditions:
-              //   - firm.type must be 'js-render' (rss/html ignore this branch)
-              //   - static body under threshold (signal too weak)
-              //   - browser must be available (runPipeline only launches when hasJsRender)
-              if (
-                r.firm.type === 'js-render' &&
-                staticBody.length < STATIC_BODY_MIN_CHARS &&
-                browser
-              ) {
-                try {
-                  const ctx = await browser.newContext({ userAgent: USER_AGENT });
-                  try {
-                    const page = await ctx.newPage();
-                    await page.goto(item.url, {
-                      timeout: DETAIL_PAGE_TIMEOUT_MS,
-                      waitUntil: 'domcontentloaded',
-                    });
-                    const hydratedHtml = await page.content();
-                    const hydratedBody = extractBody(
-                      hydratedHtml,
-                      r.firm.selectors?.body,
-                    );
-                    // Keep whichever body has more signal. Equal length
-                    // (including both 0) → static (fewer side effects).
-                    if (hydratedBody.length > staticBody.length) {
-                      return { ...item, description: hydratedBody };
-                    }
-                  } finally {
-                    await ctx.close();
-                  }
-                } catch {
-                  // Per-item isolation — one failed Playwright detail fallback
-                  // doesn't tank the firm. Falls through to returning the
-                  // static body (or original item) below.
-                }
-              }
-
-              // Existing behavior: overwrite description ONLY if extraction
-              // produced content. If extractBody returns '' (empty — which
-              // can happen when the whole document was only noise), preserve
-              // any prior description (e.g. RSS teaser) rather than erasing
-              // signal.
               if (staticBody && staticBody.length > 0) {
                 return { ...item, description: staticBody };
               }
               return item;
             } catch {
-              // Per-item isolation — one 404 / timeout / DNS fail for this
-              // article does not affect sibling items. Keep original
-              // description (undefined for HTML tier, teaser for RSS tier).
+              // Per-item isolation — one 404 / timeout / DNS fail does not
+              // affect sibling items. Keep original description (undefined
+              // for HTML tier, teaser for RSS tier).
               return item;
             }
           }),
