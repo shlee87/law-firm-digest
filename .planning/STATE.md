@@ -1,18 +1,17 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
-status: milestone_scope_delivered_not_production_ready
-stopped_at: Phase 02 UAT demo (2026-04-19) revealed html-tier data-quality regressions
-last_updated: "2026-04-19T20:00:00Z"
+milestone: v1.1
+milestone_name: data-quality-hardening
+status: defining_requirements
+stopped_at: null
+last_updated: "2026-04-19T21:00:00Z"
 last_activity: 2026-04-19
 progress:
-  total_phases: 5
-  completed_phases: 5
-  total_plans: 39
-  completed_plans: 38
-  percent: 100
-  quality_caveat: "All 5 phases pass stated Success Criteria at code-path level (180+ tests). Phase 02 UAT demo exposed data-quality regressions — html-tier firms produce hallucinated summaries in production. Cron paused; v1.1 audit milestone planned. See .planning/backlog/v1.0-data-quality-audit.md."
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
@@ -26,14 +25,10 @@ See: .planning/PROJECT.md (updated 2026-04-16)
 
 ## Current Position
 
-Phase: v1.0 milestone — scope delivered, NOT production-ready
+Phase: Not started (defining requirements)
 Plan: —
-Resuming: —
-Next: Start v1.1 "data-quality hardening" milestone per .planning/backlog/v1.0-data-quality-audit.md
-Status: Milestone scope delivered (code-path PASS) but production output regressed — daily cron PAUSED
-Last activity: 2026-04-19
-
-Progress: [██████████] 100% scope / ⚠ production readiness BLOCKED pending v1.1 audit
+Status: Defining requirements
+Last activity: 2026-04-19 — Milestone v1.1 Data-Quality Hardening started
 
 **⚠ Known production regressions (discovered 2026-04-19 via Phase 02 UAT demo):**
 - bkl detail URLs are SPA — all items receive identical landing-page body → hallucinated summaries

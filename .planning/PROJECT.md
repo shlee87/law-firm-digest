@@ -4,6 +4,19 @@
 
 주요 국내·해외 로펌의 공개 뉴스레터/Legal Update 페이지를 매일 자동으로 수집하고, 신규 발행분이 있는 날에만 한 통의 통합 다이제스트 이메일로 받아보는 개인용 자동화 시스템. 여러 로펌 사이트를 수동으로 순회하던 작업을 대체한다.
 
+## Current Milestone: v1.1 Data-Quality Hardening
+
+**Goal:** v1.0에서 shipped된 pipeline의 production output을 신뢰 가능한 수준으로 끌어올린다 — hallucinated summary 0건, 모든 enabled firm이 실제 article body를 추출, cron 재개 가능.
+
+**Target features:**
+- Firm-by-firm audit + probe (list/detail fetch 전수 진단: bkl, kim-chang, shin-kim, logos, skadden, js-render 4종)
+- SPA-aware detail tier (`firm.detail_tier: 'js-render' | 'static'` schema 확장)
+- Gemini hallucination guard (generic/empty body → title-verbatim + confidence:low)
+- Cooley sitemap tier (CF-blocked RSS 회피 — 신규 `type: sitemap` scraper)
+- Data-quality observability (step summary body-quality 지표 + 이상 firm 플래그)
+
+**Acceptance:** 각 enabled firm detail body = 실제 article content, Gemini summary = 실제 내용 반영, cron 재개 후 1주일 관찰 hallucination 0건, cooley 복구 (또는 공식 disable 사유).
+
 ## Core Value
 
 사용자가 직접 로펌 웹사이트를 돌지 않아도, 추적 대상 로펌들의 신규 뉴스레터를 원문 링크와 함께 한국어 요약으로 받아볼 수 있어야 한다.
@@ -91,4 +104,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-19 after Phase 5 (Triggered Polish, v1.x backlog) completion — governance-only phase, zero code shipped per D-14; 13-item backlog roster cataloged with named trigger conditions; parent closes on D-10.1 (CONTEXT.md on dev, met) + D-10.2 (Phase 3 supplement for QUOTA/ARCH/CACHE counters, pending via 03-06-PLAN.md)*
+*Last updated: 2026-04-19 — Milestone v1.1 Data-Quality Hardening started. v1.0 shipped all planned scope (180+ tests, Phase 1-5 Success Criteria met) but Phase 02 UAT demo revealed hallucinated summaries on html-tier firms; cron paused. v1.1 scope synthesized from .planning/backlog/v1.0-data-quality-audit.md — 5 feature areas: firm audit, SPA-aware detail tier, Gemini hallucination guard, cooley sitemap tier, data-quality observability.*
