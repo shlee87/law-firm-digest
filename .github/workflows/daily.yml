@@ -26,8 +26,16 @@
 name: Daily Digest
 
 on:
-  schedule:
-    - cron: '0 9 * * *' # 09:00 UTC = 18:00 KST (OPS-01)
+  # PAUSED 2026-04-19 — v1.0 data-quality audit in progress.
+  # Multiple firms produce hallucinated Gemini summaries due to:
+  #   - bkl detail URLs all return the same landing-page HTML (SPA)
+  #   - kim-chang detail fetches fail, leaving body empty
+  #   - shin-kim list fetches fail
+  #   - logos / skadden list selectors return 0 items
+  #   - Gemini prompt lacks a generic-body hallucination guard
+  # Re-enable after .planning/backlog/v1.0-data-quality-audit.md is closed.
+  # schedule:
+  #   - cron: '0 9 * * *' # 09:00 UTC = 18:00 KST (OPS-01)
   workflow_dispatch: {} # manual trigger for smoke tests / gap closure
 
 concurrency: # OPS-02 — serialize overlapping runs (Pitfall #5)
