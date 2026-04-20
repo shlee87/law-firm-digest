@@ -1,17 +1,16 @@
 ---
 gsd_state_version: 1.0
 milestone: v1.1
-milestone_name: data-quality-hardening
-status: roadmap_created
-stopped_at: null
-last_updated: "2026-04-19T00:00:00Z"
-last_activity: 2026-04-19
+milestone_name: — Data-Quality Hardening
+status: planning
+stopped_at: Phase 6 context gathered
+last_updated: "2026-04-20T02:43:34.141Z"
+last_activity: 2026-04-19 — v1.1 roadmap created (Phase 6–11)
 progress:
   total_phases: 6
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
-  percent: 0
 ---
 
 # Project State
@@ -31,6 +30,7 @@ Status: Roadmap created, awaiting Phase 6 discussion/planning
 Last activity: 2026-04-19 — v1.1 roadmap created (Phase 6–11)
 
 **⚠ Known production regressions (discovered 2026-04-19 via Phase 02 UAT demo):**
+
 - bkl detail URLs are SPA — all items receive identical landing-page body → hallucinated summaries
 - kim-chang detail fetches fail — empty body → hallucinated summaries
 - shin-kim list fetches fail; logos/skadden zero-item selector bitrot
@@ -188,8 +188,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-19
-Stopped at: v1.1 roadmap created (Phase 6–11 appended to ROADMAP.md)
-Resume file: None
+Last session: --stopped-at
+Stopped at: Phase 6 context gathered
+Resume file: --resume-file
 
 **Next action:** `/gsd:plan-phase 6` — plan Phase 6: Firm Audit + Probe
