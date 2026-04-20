@@ -73,6 +73,7 @@ import { fetchAll } from './fetch.js';
 import { enrichWithBody } from './enrichBody.js';
 import { applyKeywordFilter } from './filter.js';
 import { dedupAll } from './dedup.js';
+import { detectHallucinationClusters, type ClusterMarker } from './detectClusters.js';
 import { summarize } from '../summarize/gemini.js';
 import { composeDigest } from '../compose/digest.js';
 import { sendMail } from '../mailer/gmail.js';
@@ -164,6 +165,10 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
   if (hasJsRender) {
     browser = await chromium.launch({ headless: true });
   }
+
+  // Phase 8 D-06 / Pitfall 5 — hoist markers above try so the finally-block
+  // writeStepSummary call at the end can see them even on early throw.
+  let markers: ClusterMarker[] = [];
 
   try {
     const seen = await readState();
@@ -262,7 +267,14 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
       }),
     );
 
-    const newTotal = summarized.reduce((n, r) => n + r.summarized.length, 0);
+    // Phase 8 D-06 — post-summarize hallucination cluster detection.
+    // Demotes 3+ same-firm prefix-identical summaries to 'low' and collects
+    // markers for the step-summary + email footer (GUARD-04 surfacing).
+    const clusterResult = detectHallucinationClusters(summarized);
+    const clusterAdjusted = clusterResult.firms;
+    markers = clusterResult.markers;
+
+    const newTotal = clusterAdjusted.reduce((n, r) => n + r.summarized.length, 0);
     reporter.section(
       skipGemini ? 'would-summarize' : 'summarize',
       `${newTotal} item(s)`,
@@ -272,12 +284,12 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
     // to decide exit code AFTER runPipeline has returned (email+state+archive
     // all committed). jsRenderFailures > 0 → workflow goes red, Issue-opener
     // fires, but recipient already has today's digest from healthy firms.
-    const jsRenderFailures = summarized.filter(
+    const jsRenderFailures = clusterAdjusted.filter(
       (r) => r.firm.type === 'js-render' && r.error != null,
     ).length;
 
     const report: RunReport = {
-      results: summarized,
+      results: clusterAdjusted,
       digestSent: false,
       warnings,
       recorder,
@@ -286,7 +298,7 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
 
     try {
       if (newTotal > 0) {
-        const payload = composeDigest(summarized, recipient, fromAddr, warnings, now);
+        const payload = composeDigest(clusterAdjusted, recipient, fromAddr, warnings, now);
 
         // Step 11 — optional HTML preview (D-07).
         if (saveHtmlPath) {
@@ -316,12 +328,14 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
 
       // Step 15 — state write (OPS-03 LAST step, strictly after sendMail).
       if (!skipStateWrite) {
-        await writeState(seen, summarized);
+        await writeState(seen, clusterAdjusted);
       }
     } finally {
       // Step 14 — step summary always emitted (even on throw). Env-gated
       // no-op inside writeStepSummary when GITHUB_STEP_SUMMARY is unset.
-      await writeStepSummary(recorder, allFirms);
+      // Phase 8 D-15 — markers surfaced in step-summary's
+      // ## ⚠ Data Quality Warnings section (Plan 06 wires the renderer).
+      await writeStepSummary(recorder, allFirms, markers);
     }
 
     return report;
