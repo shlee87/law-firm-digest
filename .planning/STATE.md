@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
 status: executing
-stopped_at: Completed 08-04-PLAN.md — email template Phase 8 rendering D-04/D-11/D-12/D-13/D-14
-last_updated: "2026-04-20T20:45:33.818Z"
+stopped_at: Completed 08-05-PLAN.md — 12 unit tests for detectHallucinationClusters (GUARD-03)
+last_updated: "2026-04-20T20:51:11.912Z"
 last_activity: 2026-04-20
 progress:
   total_phases: 6
   completed_phases: 2
   total_plans: 17
-  completed_plans: 15
-  percent: 88
+  completed_plans: 16
+  percent: 94
 ---
 
 # Project State
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-19)
 ## Current Position
 
 Phase: 08 (hallucination-guard) — EXECUTING
-Plan: 5 of 6
+Plan: 6 of 6
 Status: Ready to execute
 Last activity: 2026-04-20
 
@@ -107,6 +107,7 @@ Last activity: 2026-04-20
 | Phase 08-hallucination-guard P02 | 6min | 3 tasks | 3 files |
 | Phase 08-hallucination-guard P03 | 10min | 3 tasks | 3 files |
 | Phase 08-hallucination-guard P04 | 8min | 2 tasks | 3 files |
+| Phase 08-hallucination-guard P05 | 5min | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -230,6 +231,8 @@ Recent decisions affecting current work:
 - 08-03: markers hoisted above outer try block (Pitfall 5) so finally-block writeStepSummary always sees current run markers even on early throw
 - Option 2 marker threading: deriveMarkersFromFirms scans firms internally — composeDigest signature unchanged
 - D-13 badge condition: summaryModel === 'skipped' AND not isClusterMember — shows 본문 확보 실패 badge inline
+- 08-05: hallucinatedPrefix50 fixture must be exactly 50 UTF-16 code units — PLAN.md string was 30 chars; fixed to verified 50-char Korean string
+- 08-05: Test 9 toContain uses Korean prefix in signature field — D-16 marker format is firm=id only, not firm=name
 
 ### Pending Todos
 
@@ -250,8 +253,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-20T20:45:33.813Z
-Stopped at: Completed 08-04-PLAN.md — email template Phase 8 rendering D-04/D-11/D-12/D-13/D-14
+Last session: 2026-04-20T20:51:11.908Z
+Stopped at: Completed 08-05-PLAN.md — 12 unit tests for detectHallucinationClusters (GUARD-03)
 Resume file: None
 
 **Next action:** `/gsd:plan-phase 6` — plan Phase 6: Firm Audit + Probe
