@@ -123,7 +123,10 @@ describe('runPipeline — composition root', () => {
                 title: 't',
                 url: `https://x/${f.id}/1`,
                 language: f.language,
-                description: 'body',
+                // 120-char description so Phase 8 Layer 1 short-circuit
+                // (body.trim().length < 100) does NOT fire and summarizeMock
+                // is exercised by the default "invokes full pipeline" test.
+                description: 'x'.repeat(120),
               },
             ],
             new: [],
@@ -399,5 +402,156 @@ describe('runPipeline (Phase 4 browser lifecycle)', () => {
     ).rejects.toThrow(/fetchAll exploded/);
     // Browser.close must still have fired via the outer finally{}.
     expect(mocks.browserCloseMock).toHaveBeenCalledTimes(1);
+  });
+});
+
+// Phase 8 GUARD-01 Layer 1 short-circuit — added by Plan 08-02 Task 3.
+// Exercises src/pipeline/run.ts body.trim().length < 100 gate.
+describe('Phase 8 GUARD-01 Layer 1 short-circuit', () => {
+  beforeEach(() => {
+    // Reset from outer suite defaults; override only what this block needs.
+    mocks.loadFirmsMock.mockReset().mockResolvedValue(FIRMS);
+    mocks.loadRecipientMock.mockReset().mockResolvedValue('user@example.com');
+    mocks.readStateMock.mockReset().mockResolvedValue({
+      version: 1,
+      lastUpdated: null,
+      firms: {},
+    });
+    mocks.writeStateMock.mockReset().mockResolvedValue(undefined);
+    mocks.enrichWithBodyMock
+      .mockReset()
+      .mockImplementation(async (r: unknown) => r);
+    mocks.applyKeywordFilterMock
+      .mockReset()
+      .mockImplementation((r: unknown) => r);
+    mocks.sendMailMock.mockReset().mockResolvedValue(undefined);
+    mocks.writeArchiveMock.mockReset().mockResolvedValue('/tmp/fake.html');
+  });
+
+  it('body.trim().length < 100 → mocks.summarizeMock NOT called; summary_ko = item.title, summaryModel = "skipped"', async () => {
+    // Synthesize ONE firm with ONE raw item whose description is 50 chars
+    // (well below the 100-char Layer 1 threshold). After dedup marks it
+    // new, runPipeline should short-circuit BEFORE invoking summarize.
+    mocks.fetchAllMock
+      .mockReset()
+      .mockImplementation(async (firms: typeof FIRMS) =>
+        firms.map((f) => ({
+          firm: f,
+          raw: [
+            {
+              firmId: f.id,
+              title: `${f.id}-short-title`,
+              url: `https://x/${f.id}/short`,
+              language: f.language,
+              description: 'x'.repeat(50), // 50 chars — SHORT per D-02
+            },
+          ],
+          new: [],
+          summarized: [],
+          durationMs: 0,
+        })),
+      );
+    mocks.dedupAllMock.mockReset().mockImplementation(
+      (results: { raw: unknown[]; firm: unknown }[]) =>
+        results.map((r) => ({
+          ...r,
+          new: (r.raw as Array<Record<string, unknown>>).map((i) => ({
+            ...i,
+            isNew: true as const,
+          })),
+        })),
+    );
+    // Trap: if summarizeMock IS called, we surface a clear error.
+    mocks.summarizeMock.mockReset().mockImplementation(() => {
+      throw new Error(
+        'summarize() should NOT be called for short-body items (Layer 1 short-circuit)',
+      );
+    });
+
+    const report = await runPipeline({
+      skipEmail: true,
+      skipStateWrite: true,
+    });
+
+    // Primary assertion — trap was never tripped.
+    expect(mocks.summarizeMock).not.toHaveBeenCalled();
+
+    // Every summarized item was short-circuited to title-verbatim.
+    const items = report.results.flatMap((r) => r.summarized);
+    expect(items.length).toBeGreaterThan(0);
+    items.forEach((it) => {
+      expect(it.summary_ko).toBe(it.title);
+      expect(it.summaryConfidence).toBe('low');
+      expect(it.summaryModel).toBe('skipped');
+    });
+  });
+
+  it('body with real 150-char content → mocks.summarizeMock IS invoked once per item, summary_ko differs from title', async () => {
+    const longBody = '가'.repeat(150); // 150 Hangul chars — passes Layer 1.
+    mocks.fetchAllMock
+      .mockReset()
+      .mockImplementation(async (firms: typeof FIRMS) =>
+        firms.map((f) => ({
+          firm: f,
+          raw: [
+            {
+              firmId: f.id,
+              title: `${f.id}-long-title`,
+              url: `https://x/${f.id}/long`,
+              language: f.language,
+              description: longBody,
+            },
+          ],
+          new: [],
+          summarized: [],
+          durationMs: 0,
+        })),
+      );
+    mocks.dedupAllMock.mockReset().mockImplementation(
+      (results: { raw: unknown[]; firm: unknown }[]) =>
+        results.map((r) => ({
+          ...r,
+          new: (r.raw as Array<Record<string, unknown>>).map((i) => ({
+            ...i,
+            isNew: true as const,
+          })),
+        })),
+    );
+    mocks.summarizeMock
+      .mockReset()
+      .mockImplementation(
+        async (item: {
+          url: string;
+          firmId: string;
+          title: string;
+          language: string;
+          description?: string;
+        }) => ({
+          ...item,
+          isNew: true as const,
+          summary_ko: '실제 요약 내용입니다. 3-5 줄 한국어 요약입니다.',
+          summaryConfidence: 'high' as const,
+          summaryModel: 'gemini-2.5-flash',
+        }),
+      );
+
+    const report = await runPipeline({
+      skipEmail: true,
+      skipStateWrite: true,
+    });
+
+    // summarize was called for every new item (2 firms × 1 item each = 2).
+    expect(mocks.summarizeMock).toHaveBeenCalledTimes(FIRMS.length);
+    // Summarize was called with the 150-char body (not title substitution).
+    const firstCallBody = mocks.summarizeMock.mock.calls[0][1];
+    expect(firstCallBody).toBe(longBody);
+
+    const items = report.results.flatMap((r) => r.summarized);
+    expect(items.length).toBe(FIRMS.length);
+    items.forEach((it) => {
+      expect(it.summary_ko).not.toBe(it.title);
+      expect(it.summary_ko).toContain('실제 요약');
+      expect(it.summaryModel).toBe('gemini-2.5-flash');
+    });
   });
 });
