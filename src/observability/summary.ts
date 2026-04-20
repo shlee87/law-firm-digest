@@ -31,14 +31,21 @@ import { appendFile } from 'node:fs/promises';
 import type { FirmConfig } from '../types.js';
 import type { Recorder } from './recorder.js';
 import { scrubSecrets } from '../util/logging.js';
+import type { ClusterMarker } from '../pipeline/detectClusters.js';
 
 export async function writeStepSummary(
   recorder: Recorder,
   firms: FirmConfig[],
+  markers: ClusterMarker[] = [],
 ): Promise<void> {
   // D-12: no-op when the env var is unset (local runs, check:firm runs).
   const path = process.env.GITHUB_STEP_SUMMARY;
   if (!path) return;
+
+  // Phase 8 D-15 — Plan 06 will render markers as a
+  // ## ⚠ Data Quality Warnings markdown section after the per-firm table.
+  // This intentional reference suppresses unused-var warnings until then.
+  void markers;
 
   const table = recorder.toMarkdownTable(firms);
   try {
