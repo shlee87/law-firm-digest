@@ -130,7 +130,13 @@ Plans:
   2. Running the probe against bkl fetches 2+ detail URLs and flags identical extracted bodies across distinct URLs as SPA/hallucination risk.
   3. `.planning/phases/06-firm-audit/06-AUDIT.md` exists and contains a per-firm diagnosis row for each enabled firm using the defined status vocabulary (OK / list-fail / selector-empty / detail-identical / detail-empty / detail-quality-unknown).
   4. Each firm row with a non-OK status has an explicit remediation path recorded (one of: enable js-render detail, fix selector, disable firm, or migrate to sitemap tier).
-**Plans**: TBD
+**Plans**: 5 plans
+Plans:
+- [ ] 06-01-PLAN.md — Loader extension (LoadFirmsOptions{includeDisabled}) + audit/types.ts (Status/Remediation/AuditRow/AuditReport/RunOptions) [AUDIT-01/03/04]
+- [ ] 06-02-PLAN.md — signals.ts 4-signal pure functions + 35-test signals.test.ts (TDD RED→GREEN, Pitfall 1 vacuous-fire guard) [AUDIT-02/03]
+- [ ] 06-03-PLAN.md — writer.ts markdown serializer + snapshot test + .prettierignore (TS never-exhaustiveness on Status/Remediation enums) [AUDIT-03/04]
+- [ ] 06-04-PLAN.md — firmAudit.ts orchestrator (allSettled isolation, tier dispatch, Playwright lifecycle, atomic writeFile) + 14 integration tests [AUDIT-01/02/03/04]
+- [ ] 06-05-PLAN.md — auditFirms.ts CLI + package.json audit:firms script + DELETE scripts/detail-page-audit.ts + human-verify checkpoint [AUDIT-01/03]
 
 ### Phase 7: SPA-Aware Detail Tier
 **Goal**: Firms whose detail pages are JS-rendered can declare `detail_tier: 'js-render'` in `config/firms.yaml` so their article bodies are fetched via Playwright — independent of how their list page is fetched.
