@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
-status: executing
-stopped_at: Completed 07-04 (selector remediation — logos/skadden/lee-ko OK; barun documented exception)
-last_updated: "2026-04-20T14:43:05.327Z"
+status: verifying
+stopped_at: Completed 07-05 (kim-chang root-cause — disabled with canonicalize+TLS evidence; option C per D-10)
+last_updated: "2026-04-20T14:57:28.472Z"
 last_activity: 2026-04-20
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 11
-  completed_plans: 9
-  percent: 82
+  completed_plans: 10
+  percent: 91
 ---
 
 # Project State
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-04-19)
 
 Phase: 07 (spa-aware-detail-tier) — EXECUTING
 Plan: 6 of 6
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-04-20
 
 **⚠ Known production regressions (discovered 2026-04-19 via Phase 02 UAT demo):**
@@ -100,6 +100,7 @@ Last activity: 2026-04-20
 | Phase 07-spa-aware-detail-tier P02 | ~5min | 2 tasks tasks | 3 files files |
 | Phase 07-spa-aware-detail-tier P03 | ~11min | 3 tasks tasks | 1 files files |
 | Phase 07-spa-aware-detail-tier P04 | ~5 min | 3 tasks | 1 files |
+| Phase 07-spa-aware-detail-tier P05 | ~20 min | 2 tasks tasks | 1 file files |
 
 ## Accumulated Context
 
@@ -206,6 +207,9 @@ Recent decisions affecting current work:
 - 07-04: skadden migrated off Drupal .views-row to Angular li.tile-listing__cell + tile-insight* children; only top ~3 items server-rendered (rest via JS pagination) — acceptable for daily-cron digest that never needs back-catalog
 - 07-04: lee-ko body selector .leeko-board-detail__contents added — generic extractBody chain was landing on 32-39 char author-contact block (T02-... E...@leeko.com); override yields 2,224-10,000 chars/item with distinct jaccard=0.01 prose
 - 07-04: barun detail pages are image-only HTML email templates (<table id=Table_01> wrapping <img> tiles with empty alt); zero textual body available by design; body: #Table_01 documents intended scope; flagged as Phase 10/11 monitor candidate (OCR or title-only); SUMM-06 B3 guard absorbs empty body
+- 07-05: kim-chang detail fetch fails because canonicalizeUrl (src/scrapers/util.ts:96) unconditionally strips 'www.', and the server's TLS cert has CN=www.kimchang.com with no SAN for the apex — bare-apex requests fail with ERR_CERT_COMMON_NAME_INVALID. Disabled with full evidence comment per D-10 option C; detail_tier + selectors preserved for one-line re-enable once a future URL-handling plan lands host restoration in enrichBody + firmAudit.
+- 07-05: Chose option C (disable with reason) over option A (code fix to canonicalize / enrichBody) because plan 07-05 frontmatter declares files_modified: [config/firms.yaml] — a code fix exceeds plan scope and belongs in a follow-up URL-handling plan. Tested a minimal 'restoreFetchHost(itemUrl, firmUrl)' helper in a throwaway script (since deleted) and confirmed both sample URLs return HTTP 200 with distinct 55KB/71KB article bodies — so re-enablement viability is proven, only landing scope differs.
+- 07-05: DETAIL-04 requirement SHOULD NOT be marked complete in REQUIREMENTS.md — DETAIL-04 literal is 'kim-chang activation' but this plan took the D-10 fallback (disable). The requirement transfers to a follow-up URL-handling plan; only mark complete after kim-chang actually returns OK in audit.
 
 ### Pending Todos
 
@@ -226,8 +230,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-20T14:43:05.322Z
-Stopped at: Completed 07-04 (selector remediation — logos/skadden/lee-ko OK; barun documented exception)
+Last session: 2026-04-20T14:57:13.059Z
+Stopped at: Completed 07-05 (kim-chang root-cause — disabled with canonicalize+TLS evidence; option C per D-10)
 Resume file: None
 
 **Next action:** `/gsd:plan-phase 6` — plan Phase 6: Firm Audit + Probe
