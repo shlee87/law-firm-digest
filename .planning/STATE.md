@@ -4,13 +4,14 @@ milestone: v1.1
 milestone_name: — Data-Quality Hardening
 status: planning
 stopped_at: Phase 6 context gathered
-last_updated: "2026-04-20T02:43:34.141Z"
+last_updated: "2026-04-20T03:23:06.169Z"
 last_activity: 2026-04-19 — v1.1 roadmap created (Phase 6–11)
 progress:
   total_phases: 6
   completed_phases: 0
-  total_plans: 0
+  total_plans: 5
   completed_plans: 0
+  percent: 0
 ---
 
 # Project State
@@ -193,3 +194,5 @@ Stopped at: Phase 6 context gathered
 Resume file: --resume-file
 
 **Next action:** `/gsd:plan-phase 6` — plan Phase 6: Firm Audit + Probe
+
+**Planned Phase:** 6 (Firm Audit + Probe) — 5 plans — 2026-04-20T03:23:06.165Z
