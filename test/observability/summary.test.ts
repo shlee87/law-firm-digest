@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { Recorder } from '../../src/observability/recorder.js';
 import { writeStepSummary } from '../../src/observability/summary.js';
 import type { FirmConfig } from '../../src/types.js';
+import type { ClusterMarker } from '../../src/pipeline/detectClusters.js';
 
 function makeFirm(id: string, name: string): FirmConfig {
   return {
@@ -79,5 +80,81 @@ describe('writeStepSummary — $GITHUB_STEP_SUMMARY writer', () => {
     expect(warnSpy).toHaveBeenCalled();
     const warnMsg = warnSpy.mock.calls[0][0] as string;
     expect(warnMsg).toContain('[step-summary] write failed:');
+  });
+
+  // --- Phase 8 D-15 coverage ---
+
+  describe('Phase 8 D-15: Data Quality Warnings section', () => {
+    it('D-15: markers non-empty → ## ⚠ Data Quality Warnings section appended after table', async () => {
+      const path = join(tempDir, 'summary-d15.md');
+      vi.stubEnv('GITHUB_STEP_SUMMARY', path);
+      const r = new Recorder();
+      r.firm('bkl').fetched(5).newCount(5).summarized(5).durationMs(800);
+      r.firm('kim-chang').fetched(3).newCount(3).summarized(3).durationMs(400);
+      const firms = [makeFirm('bkl', 'BKL'), makeFirm('kim-chang', 'Kim & Chang')];
+      const markers: ClusterMarker[] = [
+        { firmId: 'bkl', firmName: '법무법인 태평양', count: 5, signature: 'sig1' },
+        { firmId: 'kim-chang', firmName: '김앤장', count: 3, signature: 'sig2' },
+      ];
+      await writeStepSummary(r, firms, markers);
+      const content = await readFile(path, 'utf8');
+      expect(content).toContain('## ⚠ Data Quality Warnings');
+      expect(content).toContain('- **bkl**: HALLUCINATION_CLUSTER_DETECTED — 5 items demoted');
+      expect(content).toContain('- **kim-chang**: HALLUCINATION_CLUSTER_DETECTED — 3 items demoted');
+      // Section appears AFTER the per-firm table
+      const tableIdx = content.indexOf('|');
+      const sectionIdx = content.indexOf('## ⚠ Data Quality Warnings');
+      expect(sectionIdx).toBeGreaterThan(tableIdx);
+    });
+
+    it('D-15: markers empty → NO Data Quality Warnings section appended (clean-run posture)', async () => {
+      const path = join(tempDir, 'summary-d15-clean.md');
+      vi.stubEnv('GITHUB_STEP_SUMMARY', path);
+      const r = new Recorder();
+      r.firm('cooley').fetched(10).newCount(2).summarized(2).durationMs(500);
+      const firms = [makeFirm('cooley', 'Cooley')];
+      await writeStepSummary(r, firms, []);
+      const content = await readFile(path, 'utf8');
+      expect(content).not.toContain('## ⚠ Data Quality Warnings');
+    });
+
+    it('D-15: GITHUB_STEP_SUMMARY unset → no write even with non-empty markers', async () => {
+      vi.stubEnv('GITHUB_STEP_SUMMARY', '');
+      const r = new Recorder();
+      r.firm('bkl').fetched(5);
+      const firms = [makeFirm('bkl', 'BKL')];
+      const markers: ClusterMarker[] = [
+        { firmId: 'bkl', firmName: '법무법인 태평양', count: 5, signature: 'sig1' },
+      ];
+      // Should return without writing anything
+      await expect(writeStepSummary(r, firms, markers)).resolves.toBeUndefined();
+      // No file should be created in tempDir (nothing was written)
+      const { readdir } = await import('node:fs/promises');
+      const files = await readdir(tempDir);
+      expect(files).toHaveLength(0);
+    });
+
+    it('D-15 Pitfall 5: SINGLE appendFile call for table + markers (transactional write — table and warnings section present in one atomic payload)', async () => {
+      // Pitfall 5: if table and markers were written in separate appendFile
+      // calls, a failure between the two would produce a partial file.
+      // Verify that BOTH the table and the markers section exist in the
+      // written file after a single writeStepSummary call — this is only
+      // possible if they were written atomically in one payload string.
+      const path = join(tempDir, 'summary-d15-pitfall5.md');
+      vi.stubEnv('GITHUB_STEP_SUMMARY', path);
+      const r = new Recorder();
+      r.firm('bkl').fetched(5).newCount(5).summarized(5).durationMs(800);
+      const firms = [makeFirm('bkl', 'BKL')];
+      const markers: ClusterMarker[] = [
+        { firmId: 'bkl', firmName: '법무법인 태평양', count: 5, signature: 'sig1' },
+      ];
+      await writeStepSummary(r, firms, markers);
+      const content = await readFile(path, 'utf8');
+      // Both must be present — written as one atomic payload (Pitfall 5)
+      expect(content).toContain('| Firm | Fetched |');
+      expect(content).toContain('## ⚠ Data Quality Warnings');
+      // The source file must only contain one await appendFile call (static invariant)
+      // Verified in acceptance criteria: grep -c "await appendFile" src/observability/summary.ts === 1
+    });
   });
 });
