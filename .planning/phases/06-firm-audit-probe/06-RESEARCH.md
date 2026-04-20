@@ -941,31 +941,31 @@ This is exactly what AUDIT.md should show for bkl after Phase 6 runs against the
 | A6 | `git rev-parse HEAD` is available at audit runtime to embed `firmAudit.ts` version in metadata footer. [ASSUMED] — Local dev: yes (in repo). GHA: yes (`actions/checkout` provides full git context by default). Detached worktree edge case: would fail. Acceptable to fall back to `'unknown'` string and not block audit. | D-09 metadata | Very low — cosmetic only |
 | A7 | Phase 6 should NOT modify production scrapers (`rss.ts`, `html.ts`, `jsRender.ts`) even if the audit reveals scraper bugs. The audit *measures*; remediation lands in Phase 7. [VERIFIED via CONTEXT.md `<domain>` "Phase 6은 진단(diagnosis)만 한다"] | Phase boundary | Low — explicitly locked in CONTEXT.md |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Should `--include-disabled` rows participate in the exit-code calculation?**
    - What we know: D-05 says disabled rows get `(disabled, baseline)` tag in AUDIT.md. D-03 says exit 1 if "any non-OK firm".
    - What's unclear: If cooley is included (--include-disabled) and shows `list-fail` (CF-block as expected), does that fail the audit's exit code? The PRE-baseline run for Phase 9 SHOULD show this as expected baseline (not a regression).
-   - Recommendation: **Disabled firms do NOT affect exit code.** Their rows are informational-only. Implementation: filter to `enabled: true` rows when computing `nonOk.length`. This makes the audit's exit code consistently reflect "enabled production firms broken" — the actionable signal.
+   - **RESOLVED:** Disabled firms do NOT affect exit code. Their rows are informational-only. Implementation: filter to `enabled: true` rows when computing `nonOk.length`. This makes the audit's exit code consistently reflect "enabled production firms broken" — the actionable signal. (Implemented in Plan 06-05 CLI exit-code computation.)
 
 2. **Should the audit run robots.txt checks for `--include-disabled` firms?**
    - What we know: Established pattern says yes (politeness applies even when probing).
    - What's unclear: cooley's robots may explicitly disallow the bot; running anyway might be impolite.
-   - Recommendation: **Always run robots check.** If disallowed, audit row says `list-fail` with reason "robots.txt disallows" — useful baseline.
+   - **RESOLVED:** Always run robots check. If disallowed, audit row says `list-fail` with reason "robots.txt disallows" — useful baseline. (Implemented in Plan 06-04 orchestrator robots gate, applied uniformly to enabled and disabled firms.)
 
 3. **What's the expected runtime budget for `pnpm audit:firms`?**
    - What we know: Phase 4 budget is 3 minutes for full pipeline (with email send); audit has fewer steps but more detail fetches per firm.
    - What's unclear: 12 firms × (1 list + 2 detail) × ~2-5s each + Playwright startup = ~60-180s estimated.
-   - Recommendation: No hard budget; document expected ~2 min in evidence; if Phase 11 GHA gate runs it, ensure step has 5-min timeout.
+   - **RESOLVED:** No hard budget; document expected ~2 min in evidence; if Phase 11 GHA gate runs it, ensure step has 5-min timeout. (Documented in Plan 06-05 human-verify checkpoint; Phase 11 owns the GHA timeout.)
 
 4. **Should `firmAudit.ts` write a sentinel file or marker that Phase 11 GHA workflow reads?**
    - What we know: D-03 says exit 1 on non-OK; that's the primary signal.
    - What's unclear: Should the workflow also commit AUDIT.md to git or just leave it on disk?
-   - Recommendation: **Out of scope for Phase 6.** AUDIT.md path is fixed; Phase 11 decides workflow integration (commit-via-`git-auto-commit-action` vs. PR comment vs. step-summary include).
+   - **RESOLVED:** Out of scope for Phase 6. AUDIT.md path is fixed; Phase 11 decides workflow integration (commit-via-`git-auto-commit-action` vs. PR comment vs. step-summary include).
 
 5. **What's the policy when `--include-disabled` is passed but no disabled firms exist?**
    - What we know: Currently 1 disabled firm (cooley); after Phase 9 may be 0.
-   - Recommendation: Silently no-op; flag does nothing additional. No special error.
+   - **RESOLVED:** Silently no-op; flag does nothing additional. No special error. (Implicit in Plan 06-04 — when loadFirms returns 0 disabled rows, the orchestrator iterates an empty list with no warning.)
 
 ## Environment Availability
 
