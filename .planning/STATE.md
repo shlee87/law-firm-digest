@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
-status: executing
-stopped_at: Completed 08-05-PLAN.md — 12 unit tests for detectHallucinationClusters (GUARD-03)
-last_updated: "2026-04-20T20:51:11.912Z"
+status: verifying
+stopped_at: Completed 08-06-PLAN.md — D-15 step-summary Data Quality Warnings section (GUARD-04 fully closed)
+last_updated: "2026-04-20T21:01:52.907Z"
 last_activity: 2026-04-20
 progress:
   total_phases: 6
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 17
-  completed_plans: 16
-  percent: 94
+  completed_plans: 17
+  percent: 100
 ---
 
 # Project State
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-04-19)
 
 Phase: 08 (hallucination-guard) — EXECUTING
 Plan: 6 of 6
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-04-20
 
 **⚠ Known production regressions (discovered 2026-04-19 via Phase 02 UAT demo):**
@@ -108,6 +108,7 @@ Last activity: 2026-04-20
 | Phase 08-hallucination-guard P03 | 10min | 3 tasks | 3 files |
 | Phase 08-hallucination-guard P04 | 8min | 2 tasks | 3 files |
 | Phase 08-hallucination-guard P05 | 5min | 1 tasks | 1 files |
+| Phase 08-hallucination-guard P06 | 7min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -233,6 +234,8 @@ Recent decisions affecting current work:
 - D-13 badge condition: summaryModel === 'skipped' AND not isClusterMember — shows 본문 확보 실패 badge inline
 - 08-05: hallucinatedPrefix50 fixture must be exactly 50 UTF-16 code units — PLAN.md string was 30 chars; fixed to verified 50-char Korean string
 - 08-05: Test 9 toContain uses Korean prefix in signature field — D-16 marker format is firm=id only, not firm=name
+- 08-06: Pitfall 5 single-appendFile — table + markers concatenated into one payload string before write; half-success impossible
+- 08-06: ESM vi.spyOn limitation for fsPromises — Pitfall 5 test uses file-content assertion instead; static grep gate (await appendFile count=1) is authoritative call-count invariant
 
 ### Pending Todos
 
@@ -253,8 +256,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-20T20:51:11.908Z
-Stopped at: Completed 08-05-PLAN.md — 12 unit tests for detectHallucinationClusters (GUARD-03)
+Last session: 2026-04-20T21:01:52.903Z
+Stopped at: Completed 08-06-PLAN.md — D-15 step-summary Data Quality Warnings section (GUARD-04 fully closed)
 Resume file: None
 
 **Next action:** `/gsd:plan-phase 6` — plan Phase 6: Firm Audit + Probe
