@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
 status: executing
-stopped_at: Completed 07-03 (detail_tier YAML migration — 6 firms declared; bkl extractBody gap flagged for plan 07-04)
-last_updated: "2026-04-20T13:11:27.517Z"
+stopped_at: Completed 07-04 (selector remediation — logos/skadden/lee-ko OK; barun documented exception)
+last_updated: "2026-04-20T14:43:05.327Z"
 last_activity: 2026-04-20
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 11
-  completed_plans: 8
-  percent: 73
+  completed_plans: 9
+  percent: 82
 ---
 
 # Project State
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-19)
 ## Current Position
 
 Phase: 07 (spa-aware-detail-tier) — EXECUTING
-Plan: 4 of 6
+Plan: 6 of 6
 Status: Ready to execute
 Last activity: 2026-04-20
 
@@ -99,6 +99,7 @@ Last activity: 2026-04-20
 | Phase 07-spa-aware-detail-tier P01 | ~2min | 2 tasks | 3 files |
 | Phase 07-spa-aware-detail-tier P02 | ~5min | 2 tasks tasks | 3 files files |
 | Phase 07-spa-aware-detail-tier P03 | ~11min | 3 tasks tasks | 1 files files |
+| Phase 07-spa-aware-detail-tier P04 | ~5 min | 3 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -201,6 +202,10 @@ Recent decisions affecting current work:
 - 07-03: detail_tier: 'js-render' declared for 6 firms in YAML — bkl/kim-chang activation + lee-ko/yoon-yang/barun/latham migration. Non-developer header stanza added in Korean (CONF-07).
 - 07-03: Task 3 audit-regen did not flip bkl from detail-identical because (a) firmAudit.ts dispatches by firm.type not detail_tier [by design per PATTERNS.md] and (b) extractBody()'s generic chain hits #content on bkl detail pages which is nav chrome, not article body. Fix belongs in plan 07-04 (selectors.body override for bkl) or a new follow-up.
 - 07-03: Playwright-based production detail fetch confirmed working — distinct 62k/67k-byte HTML per infoNo returned (direct curl + Playwright page.title() both confirm article page, not homepage). The v1.0 UAT bkl hallucination root cause is extractBody selector gap, NOT Playwright/URL.
+- 07-04: logos list_item selector updated from .board-box .list tr (0 items) → .board-box .list + title=h5 + date=.flex-box em after live probe revealed <div class="list"> layout (not <tr> as Phase 2 assumed); 10 items extracted
+- 07-04: skadden migrated off Drupal .views-row to Angular li.tile-listing__cell + tile-insight* children; only top ~3 items server-rendered (rest via JS pagination) — acceptable for daily-cron digest that never needs back-catalog
+- 07-04: lee-ko body selector .leeko-board-detail__contents added — generic extractBody chain was landing on 32-39 char author-contact block (T02-... E...@leeko.com); override yields 2,224-10,000 chars/item with distinct jaccard=0.01 prose
+- 07-04: barun detail pages are image-only HTML email templates (<table id=Table_01> wrapping <img> tiles with empty alt); zero textual body available by design; body: #Table_01 documents intended scope; flagged as Phase 10/11 monitor candidate (OCR or title-only); SUMM-06 B3 guard absorbs empty body
 
 ### Pending Todos
 
@@ -221,8 +226,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-20T13:11:15.688Z
-Stopped at: Completed 07-03 (detail_tier YAML migration — 6 firms declared; bkl extractBody gap flagged for plan 07-04)
+Last session: 2026-04-20T14:43:05.322Z
+Stopped at: Completed 07-04 (selector remediation — logos/skadden/lee-ko OK; barun documented exception)
 Resume file: None
 
 **Next action:** `/gsd:plan-phase 6` — plan Phase 6: Firm Audit + Probe
