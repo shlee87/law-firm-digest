@@ -10,10 +10,11 @@
 // scraped title, Gemini summary_ko, scraped URL, firm.name (config-sourced but
 // escaped defensively), firm.id (ditto), error.message (scrubSecrets + escapeHtml).
 //
-// B3 null-summary placeholder (2026-04-17 revision): when summary_ko is null —
-// whether from a Gemini failure (summaryModel === 'failed') OR the main.ts B3
-// bypass for description-less items (summaryModel === 'skipped') — render the
-// literal Korean placeholder "요약 없음 — 본문 부족" in italic grey.
+// Phase 8 D-04 (2026-04-20): null-branch placeholder removed. All real-run paths
+// now produce title-verbatim via Plan 01 Layer 1 / catch-block. summaryModel === 'skipped'
+// items show ⚠ 본문 확보 실패 badge (D-13). isClusterMember === true items are
+// partitioned into a fold-UI block (D-11/D-12). renderDataQualityFooter (D-14) appears
+// between failed-firms footer and disclaimer when clusters are detected.
 //
 // EMAIL-05 failed-firm footer (Phase 2 addition, D-P2-04):
 // When a FirmResult carries an .error, classifyError() maps the message to a
@@ -44,6 +45,7 @@
 import type { FirmResult } from '../types.js';
 import type { StalenessWarnings } from '../observability/staleness.js';
 import { scrubSecrets } from '../util/logging.js';
+import type { ClusterMarker } from '../pipeline/detectClusters.js';
 
 export function renderHtml(
   firms: FirmResult[],
@@ -53,31 +55,61 @@ export function renderHtml(
 ): string {
   const sections = firms
     .map((r) => {
-      const items = r.summarized
-        .map(
-          (it) => `
+      // Phase 8 D-11/D-12: partition by cluster membership so demoted
+      // items render in a separate fold-UI block below normal items.
+      const normal = r.summarized.filter((it) => !it.isClusterMember);
+      const demoted = r.summarized.filter((it) => it.isClusterMember === true);
+
+      const normalItems = normal
+        .map((it) => {
+          // D-13: B3 title-verbatim singleton (summaryModel === 'skipped')
+          // → add ⚠ 본문 확보 실패 badge next to the title-in-summary slot.
+          // NOTE: summary_ko is never null here (Plan 01 invariant —
+          // all real-run paths produce a string; only cli-skipped
+          // debugging path produces null, and it never reaches templates).
+          const badge =
+            it.summaryModel === 'skipped'
+              ? ` <span style="color:#f57f17;font-size:11px;">⚠ 본문 확보 실패</span>`
+              : '';
+          const summaryText = it.summary_ko ?? it.title;
+          return `
       <div style="margin:0 0 16px 0;">
         <div><a href="${escapeAttr(it.url)}">${escapeHtml(it.title)}</a></div>
-        ${
-          it.summary_ko
-            ? `<p style="margin:4px 0 0 0;color:#333;">${escapeHtml(it.summary_ko)}</p>`
-            : `<p style="margin:4px 0 0 0;color:#999;font-style:italic;">요약 없음 — 본문 부족</p>`
-        }
-      </div>`,
-        )
+        <p style="margin:4px 0 0 0;color:#333;">${escapeHtml(summaryText)}${badge}</p>
+      </div>`;
+        })
         .join('');
-      return `<section><h2 style="font-size:18px;margin:24px 0 8px 0;">${escapeHtml(r.firm.name)}</h2>${items}</section>`;
+
+      // D-11/D-12: fold-UI for cluster-demoted items. Gmail-compat <ul>,
+      // not <details>. Summary text hidden; title + 원문 보기 only.
+      const demotedBlock =
+        demoted.length > 0
+          ? `
+      <div style="margin-top:12px;color:#999;font-size:12px;">
+        <div>⚠ 품질 의심 — 접힘 (요약 숨김, 원문 링크만 표시):</div>
+        <ul style="margin:4px 0;">${demoted
+          .map(
+            (it) =>
+              `<li><a href="${escapeAttr(it.url)}">${escapeHtml(it.title)}</a> → 원문 보기</li>`,
+          )
+          .join('')}</ul>
+      </div>`
+          : '';
+
+      return `<section><h2 style="font-size:18px;margin:24px 0 8px 0;">${escapeHtml(r.firm.name)}</h2>${normalItems}${demotedBlock}</section>`;
     })
     .join('');
 
   const failedFooter = renderFailedFirmsFooter(failed);
   const stalenessBanner = renderStalenessBanner(warnings);
+  const dataQualityFooter = renderDataQualityFooter(deriveMarkersFromFirms(firms));
 
   return `<!doctype html><html><body style="font-family:sans-serif;max-width:680px;margin:0 auto;padding:16px;">
     <h1 style="font-size:22px;">법률 다이제스트 ${escapeHtml(dateKst)}</h1>
     ${stalenessBanner}
     ${sections}
     ${failedFooter}
+    ${dataQualityFooter}
     <footer style="margin-top:32px;color:#888;font-size:12px;">AI 요약 — 원문 확인 필수</footer>
   </body></html>`;
 }
@@ -137,6 +169,53 @@ function renderFailedFirmsFooter(failed: FirmResult[]): string {
   <div>⚠ 이번 실행에서 수집 실패 — 다음 실행에서 재시도됩니다:</div>
   <ul style="margin:4px 0;">${items}</ul>
 </footer>`;
+}
+
+/**
+ * Render the Phase 8 data-quality warning footer (D-14). Mirrors the
+ * renderFailedFirmsFooter shape exactly — same <footer> outer styles,
+ * same margin:4px 0; <ul>, same ⚠-prefixed Korean heading. Returns ''
+ * on clean runs so visually unchanged without clusters detected.
+ *
+ * The signature field from ClusterMarker is intentionally NOT rendered
+ * in the footer (debug-only). Only firmName + firmId + count surface to
+ * the recipient.
+ */
+function renderDataQualityFooter(markers: ClusterMarker[]): string {
+  if (markers.length === 0) return '';
+
+  const items = markers
+    .map(
+      (m) =>
+        `<li>${escapeHtml(m.firmName)} (${escapeHtml(m.firmId)}): HALLUCINATION_CLUSTER_DETECTED (${m.count} items, 요약 숨김)</li>`,
+    )
+    .join('');
+
+  return `<footer style="margin-top:32px;color:#999;font-size:12px;">
+  <div>⚠ 데이터 품질 경고 — 요약 신뢰도 의심:</div>
+  <ul style="margin:4px 0;">${items}</ul>
+</footer>`;
+}
+
+/**
+ * Derive ClusterMarker[] from FirmResult[] by scanning each firm's
+ * summarized items for isClusterMember flags. Phase 8 threading
+ * Option 2 (per 08-04-PLAN.md decisions) — composeDigest signature
+ * stays unchanged; markers are reconstructed here.
+ */
+function deriveMarkersFromFirms(firms: FirmResult[]): ClusterMarker[] {
+  const markers: ClusterMarker[] = [];
+  for (const r of firms) {
+    const demoted = r.summarized.filter((it) => it.isClusterMember === true);
+    if (demoted.length === 0) continue;
+    markers.push({
+      firmId: r.firm.id,
+      firmName: r.firm.name,
+      count: demoted.length,
+      signature: demoted[0].summary_ko?.slice(0, 50) ?? '',
+    });
+  }
+  return markers;
 }
 
 /**
