@@ -318,7 +318,23 @@ describe('composeDigest', () => {
       })),
       durationMs: 100,
     };
-    const payload = composeDigest([clusteredFirm], 'u@e.com', 'u@e.com', undefined, fixedDate);
+    // WR-01: markers are now threaded explicitly through composeDigest (Option A).
+    const markers = [
+      {
+        firmId: 'cooley',
+        firmName: 'Cooley',
+        count: 5,
+        signature: '법무법인 태평양은 1980년에 설립된...',
+      },
+    ];
+    const payload = composeDigest(
+      [clusteredFirm],
+      'u@e.com',
+      'u@e.com',
+      undefined,
+      fixedDate,
+      markers,
+    );
     expect(payload.html).toContain('⚠ 데이터 품질 경고 — 요약 신뢰도 의심');
     expect(payload.html).toContain('HALLUCINATION_CLUSTER_DETECTED (5 items, 요약 숨김)');
     // Footer ordering: failed-firms (if any) → data-quality → disclaimer.
@@ -347,7 +363,23 @@ describe('composeDigest', () => {
       })),
       durationMs: 100,
     };
-    const payload = composeDigest([clusteredFirm], 'u@e.com', 'u@e.com', undefined, fixedDate);
+    // WR-01: markers are now threaded explicitly through composeDigest (Option A).
+    const markers = [
+      {
+        firmId: 'cooley',
+        firmName: '<script>alert(1)</script>',
+        count: 3,
+        signature: '동일한 prefix 50자...',
+      },
+    ];
+    const payload = composeDigest(
+      [clusteredFirm],
+      'u@e.com',
+      'u@e.com',
+      undefined,
+      fixedDate,
+      markers,
+    );
     expect(payload.html).not.toContain('<script>alert(1)</script>');
     expect(payload.html).toContain('&lt;script&gt;alert(1)&lt;/script&gt;');
   });

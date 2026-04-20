@@ -52,6 +52,7 @@ export function renderHtml(
   dateKst: string,
   failed: FirmResult[] = [],
   warnings?: StalenessWarnings,
+  markers: ClusterMarker[] = [],
 ): string {
   const sections = firms
     .map((r) => {
@@ -102,7 +103,7 @@ export function renderHtml(
 
   const failedFooter = renderFailedFirmsFooter(failed);
   const stalenessBanner = renderStalenessBanner(warnings);
-  const dataQualityFooter = renderDataQualityFooter(deriveMarkersFromFirms(firms));
+  const dataQualityFooter = renderDataQualityFooter(markers);
 
   return `<!doctype html><html><body style="font-family:sans-serif;max-width:680px;margin:0 auto;padding:16px;">
     <h1 style="font-size:22px;">법률 다이제스트 ${escapeHtml(dateKst)}</h1>
@@ -195,27 +196,6 @@ function renderDataQualityFooter(markers: ClusterMarker[]): string {
   <div>⚠ 데이터 품질 경고 — 요약 신뢰도 의심:</div>
   <ul style="margin:4px 0;">${items}</ul>
 </footer>`;
-}
-
-/**
- * Derive ClusterMarker[] from FirmResult[] by scanning each firm's
- * summarized items for isClusterMember flags. Phase 8 threading
- * Option 2 (per 08-04-PLAN.md decisions) — composeDigest signature
- * stays unchanged; markers are reconstructed here.
- */
-function deriveMarkersFromFirms(firms: FirmResult[]): ClusterMarker[] {
-  const markers: ClusterMarker[] = [];
-  for (const r of firms) {
-    const demoted = r.summarized.filter((it) => it.isClusterMember === true);
-    if (demoted.length === 0) continue;
-    markers.push({
-      firmId: r.firm.id,
-      firmName: r.firm.name,
-      count: demoted.length,
-      signature: demoted[0].summary_ko?.slice(0, 50) ?? '',
-    });
-  }
-  return markers;
 }
 
 /**

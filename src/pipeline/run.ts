@@ -298,7 +298,14 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
 
     try {
       if (newTotal > 0) {
-        const payload = composeDigest(clusterAdjusted, recipient, fromAddr, warnings, now);
+        const payload = composeDigest(
+          clusterAdjusted,
+          recipient,
+          fromAddr,
+          warnings,
+          now,
+          markers,
+        );
 
         // Step 11 — optional HTML preview (D-07).
         if (saveHtmlPath) {
