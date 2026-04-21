@@ -26,6 +26,7 @@ import { fetchRobots, isAllowed } from '../scrapers/robots.js';
 import { scrapeRss } from '../scrapers/rss.js';
 import { scrapeHtml } from '../scrapers/html.js';
 import { scrapeJsRender } from '../scrapers/jsRender.js';
+import { scrapeSitemap } from '../scrapers/sitemap.js';
 import {
   decodeCharsetAwareFetch,
   extractBody,
@@ -200,6 +201,49 @@ async function probeJsRenderFirm(
   }
 }
 
+async function probeSitemapFirm(
+  firm: FirmConfig,
+  browser: Browser,
+): Promise<AuditRow> {
+  let items: RawItem[];
+  try {
+    items = await scrapeSitemap(firm, browser);
+  } catch (err) {
+    return makeRow(firm, 'list-fail', 0, scrubSecrets((err as Error).message));
+  }
+  if (items.length === 0) {
+    return makeRow(firm, 'selector-empty', 0, 'sitemap OK; 0 items extracted');
+  }
+
+  // Detail probe — per-item context discipline matches probeJsRenderFirm.
+  const context = await browser.newContext({ userAgent: USER_AGENT });
+  try {
+    const bodies: { url: string; title: string; body: string }[] = [];
+    for (const item of items.slice(0, DETAIL_SAMPLE_N)) {
+      const detailPage = await context.newPage();
+      try {
+        await detailPage.goto(item.url, {
+          timeout: PLAYWRIGHT_GOTO_TIMEOUT_MS,
+          waitUntil: 'domcontentloaded',
+        });
+        const detailHtml = await detailPage.content();
+        // sitemap firms have no selectors block — use undefined to trigger
+        // the generic extractBody chain (hits .post-content for Cooley).
+        const body = extractBody(detailHtml, undefined);
+        bodies.push({ url: item.url, title: item.title, body });
+      } catch {
+        // per-detail isolation
+      } finally {
+        await detailPage.close();
+      }
+    }
+    const result = classifyDetailIdentity(bodies);
+    return makeRow(firm, result.status, items.length, result.evidence);
+  } finally {
+    await context.close();
+  }
+}
+
 export async function runAudit(options: RunOptions): Promise<AuditReport> {
   const firms = await loadFirms({ includeDisabled: options.includeDisabled });
   const startedAt = new Date();
@@ -207,7 +251,10 @@ export async function runAudit(options: RunOptions): Promise<AuditReport> {
   reporter.section('audit', `${firms.length} firm(s) in scope`);
 
   // D-05 / Phase 4 — launch chromium IFF any js-render firm in scope.
-  const hasJsRender = firms.some((f) => f.type === 'js-render');
+  // Phase 9: sitemap tier also requires chromium (mirror of run.ts).
+  const hasJsRender = firms.some(
+    (f) => f.type === 'js-render' || f.type === 'sitemap',
+  );
   let browser: Browser | undefined;
   if (hasJsRender) {
     browser = await chromium.launch({ headless: true });
@@ -235,18 +282,7 @@ export async function runAudit(options: RunOptions): Promise<AuditReport> {
               case 'rss':       return await probeRssFirm(firm);
               case 'html':      return await probeHtmlFirm(firm);
               case 'js-render': return await probeJsRenderFirm(firm, browser!);
-              case 'sitemap':
-                // Phase 9 Plan 09-01: FirmType union now includes 'sitemap';
-                // the real probeSitemapFirm lands in Plan 09-03 Task 4. Until
-                // then, sitemap firms report list-fail so `pnpm audit:firms`
-                // does not crash on "Unknown tier" during the interim between
-                // plan 01 (types+schema) and plan 03 (audit wiring).
-                return makeRow(
-                  firm,
-                  'list-fail',
-                  0,
-                  'sitemap tier audit wiring lands in Phase 9 Plan 09-03 Task 4',
-                );
+              case 'sitemap':   return await probeSitemapFirm(firm, browser!);
               default: {
                 const _exhaustive: never = firm.type;
                 throw new Error(`Unknown tier: ${_exhaustive as string}`);
