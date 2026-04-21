@@ -41,6 +41,17 @@
 // scrapeJsRender (Phase 4 plan 03) share identical extraction semantics. The
 // fetch + charset-aware decode path remains here because scrapeJsRender's
 // Playwright browser owns its own network stack.
+//
+// Debug session shin-kim-fetch-failed (2026-04-20): shinkim.com's server
+// returns an incomplete TLS chain (leaf cert only, missing the Thawte TLS
+// RSA CA G1 intermediate that chains to DigiCert Global Root G2). Node 22
+// undici fetch throws TypeError('fetch failed') with err.cause.code =
+// 'UNABLE_TO_VERIFY_LEAF_SIGNATURE'. The cause code carries the actionable
+// diagnostic signal but is hidden from the classifier because classifyError
+// only sees err.message. Re-wrap TLS causes below so the footer shows
+// `tls-cert-fail: TLS UNABLE_TO_VERIFY_LEAF_SIGNATURE` instead of
+// `unknown: fetch failed` — loud + diagnosable for the next firm that hits
+// a chain / self-signed / expired cert.
 
 import { decodeCharsetAwareFetch, parseListItemsFromHtml } from './util.js';
 import type { FirmConfig, RawItem } from '../types.js';
@@ -76,6 +87,20 @@ export async function scrapeHtml(firm: FirmConfig): Promise<RawItem[]> {
     const httpMatch = /HTTP (\d{3})/.exec(msg);
     if (httpMatch) {
       throw new Error(`scrapeHtml ${firm.id}: HTTP ${httpMatch[1]}`);
+    }
+    // TLS failures surface as TypeError('fetch failed') from undici; the
+    // actionable code (UNABLE_TO_VERIFY_LEAF_SIGNATURE, CERT_HAS_EXPIRED,
+    // SELF_SIGNED_CERT_IN_CHAIN, ERR_TLS_CERT_ALTNAME_INVALID, etc.) is
+    // on err.cause.code and invisible to classifyError. Hoist it into the
+    // message so the footer reads `tls-cert-fail: TLS {CODE}` — coupled
+    // to compose/templates.ts classifyError regex `/TLS [A-Z_]+/` (debug
+    // session shin-kim-fetch-failed, 2026-04-20).
+    const causeCode =
+      typeof (err as { cause?: { code?: unknown } }).cause?.code === 'string'
+        ? (err as { cause: { code: string } }).cause.code
+        : undefined;
+    if (causeCode && /^(UNABLE_TO_|CERT_|ERR_TLS_|SELF_SIGNED|DEPTH_ZERO)/.test(causeCode)) {
+      throw new Error(`scrapeHtml ${firm.id}: TLS ${causeCode}`);
     }
     // Non-HTTP errors (timeout, DNS, abort) propagate verbatim — the
     // footer classifier handles timeout/ENOTFOUND patterns by keyword.

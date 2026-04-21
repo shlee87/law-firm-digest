@@ -121,7 +121,33 @@ firms:
     type: html
     url: https://www.shinkim.com/kor/media/newsletter
     timezone: Asia/Seoul
-    enabled: true
+    # Debug session shin-kim-fetch-failed (2026-04-20): disabled because
+    # shinkim.com's TLS server returns an INCOMPLETE certificate chain.
+    # The leaf `CN=*.shinkim.com` is issued by `Thawte TLS RSA CA G1`
+    # (chaining to DigiCert Global Root G2), but the server omits the
+    # intermediate from its ServerHello. Node 22 undici rejects with
+    # TypeError('fetch failed'), err.cause.code = UNABLE_TO_VERIFY_LEAF_SIGNATURE.
+    # Reproduction:
+    #   openssl s_client -connect www.shinkim.com:443 -showcerts 2>&1 \
+    #     | grep "verify error"
+    #     → verify error:num=21:unable to verify the first certificate
+    #   curl https://www.shinkim.com/... → HTTP 200 (curl's bundled CA list is
+    #     more lenient); Node fetch → UNABLE_TO_VERIFY_LEAF_SIGNATURE.
+    #   NODE_TLS_REJECT_UNAUTHORIZED=0 node -e 'await fetch(...)'
+    #     → HTTP 200, 65KB body with .post-prime selectors intact.
+    # Both `www.shinkim.com` and apex `shinkim.com` fail identically —
+    # this is NOT the canonicalizeUrl+www-strip TLS-CN mismatch that
+    # affects kim-chang (07-05) and bkl (07-06). This is a distinct
+    # server-side chain misconfiguration.
+    # Fix scope options (deferred to follow-up):
+    #   (a) Supply the Thawte intermediate via NODE_EXTRA_CA_CERTS in
+    #       .github/workflows/daily.yml (trust-anchor injection, scoped
+    #       to the one workflow), OR
+    #   (b) Custom undici.Agent with the intermediate bundled + used only
+    #       for shinkim.com (per-firm, no global trust expansion).
+    # Selectors preserved so re-enablement is a one-line `enabled: true`
+    # flip once (a) or (b) lands.
+    enabled: false  # disabled 2026-04-20 (debug session shin-kim-fetch-failed) — TLS chain missing intermediate (UNABLE_TO_VERIFY_LEAF_SIGNATURE). Distinct from kim-chang/bkl.
     selectors:
       list_item: ".post-prime"
       title: "a.text"

@@ -539,3 +539,46 @@ describe('classifyError (Phase 4 additions)', () => {
     expect(classifyError(msg, 'fetch')).toBe('playwright-timeout');
   });
 });
+
+describe('classifyError (debug session shin-kim-fetch-failed 2026-04-20)', () => {
+  it('returns "tls-cert-fail" for the scrapeHtml TLS re-wrap shape', async () => {
+    const { classifyError } = await import('../../src/compose/templates.js');
+    expect(
+      classifyError('scrapeHtml shin-kim: TLS UNABLE_TO_VERIFY_LEAF_SIGNATURE', 'fetch'),
+    ).toBe('tls-cert-fail');
+  });
+
+  it('returns "tls-cert-fail" for CERT_HAS_EXPIRED', async () => {
+    const { classifyError } = await import('../../src/compose/templates.js');
+    expect(
+      classifyError('scrapeHtml example: TLS CERT_HAS_EXPIRED', 'fetch'),
+    ).toBe('tls-cert-fail');
+  });
+
+  it('returns "tls-cert-fail" for ERR_TLS_CERT_ALTNAME_INVALID (kim-chang CN-mismatch shape)', async () => {
+    const { classifyError } = await import('../../src/compose/templates.js');
+    expect(
+      classifyError('scrapeHtml kim-chang: TLS ERR_TLS_CERT_ALTNAME_INVALID', 'fetch'),
+    ).toBe('tls-cert-fail');
+  });
+
+  it('returns "tls-cert-fail" for SELF_SIGNED_CERT_IN_CHAIN', async () => {
+    const { classifyError } = await import('../../src/compose/templates.js');
+    expect(
+      classifyError('scrapeHtml foo: TLS SELF_SIGNED_CERT_IN_CHAIN', 'fetch'),
+    ).toBe('tls-cert-fail');
+  });
+
+  it('does NOT mis-classify plain "fetch failed" as tls-cert-fail (regression guard)', async () => {
+    const { classifyError } = await import('../../src/compose/templates.js');
+    // The undici TypeError.message without the html.ts cause-hoist stays "unknown".
+    expect(classifyError('fetch failed', 'fetch')).toBe('unknown');
+  });
+
+  it('does NOT mis-classify an HTTP error as tls-cert-fail (ordering check)', async () => {
+    const { classifyError } = await import('../../src/compose/templates.js');
+    // A firm-name like "TLS Services" in a log path must not confuse the regex —
+    // anchor "\bTLS [A-Z_]+" only fires on the post-re-wrap shape.
+    expect(classifyError('scrapeHtml foo: HTTP 503', 'fetch')).toBe('http-503');
+  });
+});

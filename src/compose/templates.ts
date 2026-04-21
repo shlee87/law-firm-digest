@@ -21,7 +21,7 @@
 // compact errorClass tag and renderFailedFirmsFooter composes a Korean-header
 // <ul> of failed firms.
 //
-// Error class taxonomy (Phase 2 + Phase 4):
+// Error class taxonomy (Phase 2 + Phase 4 + debug session shin-kim 2026-04-20):
 //   - robots-blocked       (robots.txt disallows ...)
 //   - fetch-timeout        (timeout / ETIMEDOUT / aborted — non-Playwright)
 //   - browser-launch-fail  (Phase 4 — chromium launch / install / executable)
@@ -29,6 +29,12 @@
 //   - selector-miss        (Phase 2 html OR Phase 4 js-render zero-items throw)
 //   - http-{status}        (message matches /HTTP (\d{3})/ — coupled to
 //                           scrapers/rss.ts L68 and scrapers/html.ts error shapes)
+//   - tls-cert-fail        (TLS chain / cert mismatch — coupled to
+//                           scrapers/html.ts "TLS {CAUSE_CODE}" re-wrap. Matches
+//                           UNABLE_TO_VERIFY_LEAF_SIGNATURE, CERT_HAS_EXPIRED,
+//                           SELF_SIGNED_CERT_IN_CHAIN, ERR_TLS_CERT_ALTNAME_INVALID,
+//                           DEPTH_ZERO_SELF_SIGNED_CERT, etc. Added by debug
+//                           session shin-kim-fetch-failed 2026-04-20.)
 //   - dns-fail             (ENOTFOUND / DNS)
 //   - parse-error          (stage='parse' OR keywords parse/selector)
 //   - unknown              (none of the above)
@@ -125,6 +131,13 @@ export function renderHtml(
  * function` so the Phase 3 `Recorder` (src/observability/recorder.ts) can
  * reuse the same taxonomy for the step-summary `Errors` column (D-11).
  * No semantic change.
+ *
+ * Debug session shin-kim-fetch-failed (2026-04-20): added `tls-cert-fail`
+ * branch. Coupled to scrapers/html.ts re-wrap which hoists err.cause.code
+ * from undici TypeError('fetch failed') into the message as `TLS {CODE}`.
+ * Check BEFORE http-{status} — a TLS cause code like CERT_HAS_EXPIRED is
+ * unrelated to any HTTP response and should not accidentally get classed
+ * as http-expired via some future regex bleed.
  */
 export function classifyError(msg: string, stage: string): string {
   if (msg.includes('robots.txt disallows')) return 'robots-blocked';
@@ -139,6 +152,15 @@ export function classifyError(msg: string, stage: string): string {
     return 'browser-launch-fail';
   if (/zero items extracted \(selector-miss\)|jsRender.*no items extracted/i.test(msg))
     return 'selector-miss';
+  // TLS chain / cert-mismatch branch (debug session shin-kim, 2026-04-20).
+  // Match the `TLS {CAUSE_CODE}` shape emitted by scrapers/html.ts's catch
+  // re-wrap. Codes follow Node's OpenSSL-bound cause.code namespace:
+  // UNABLE_TO_VERIFY_LEAF_SIGNATURE, CERT_HAS_EXPIRED, SELF_SIGNED_CERT_IN_CHAIN,
+  // DEPTH_ZERO_SELF_SIGNED_CERT, ERR_TLS_CERT_ALTNAME_INVALID, plus the
+  // prefixes UNABLE_TO_*, CERT_*, SELF_SIGNED*, DEPTH_*, ERR_TLS_* that
+  // scrapers/html.ts filters on. Anchor on the literal `TLS ` token to
+  // avoid matching firm-name or URL-bound substrings.
+  if (/\bTLS [A-Z_]+/.test(msg)) return 'tls-cert-fail';
   // Generic (Phase 1/2) — UNCHANGED
   if (/timeout|timed out|ETIMEDOUT|aborted/i.test(msg)) return 'fetch-timeout';
   const http = /HTTP (\d{3})/.exec(msg);

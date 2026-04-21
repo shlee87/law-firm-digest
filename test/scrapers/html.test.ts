@@ -14,6 +14,11 @@
 //   4. Error shape `scrapeHtml {firm.id}: HTTP {status}` on non-OK fetch.
 //   5. Per-item isolation: one bad row does NOT tank the firm.
 //   6. Missing selectors → throws with locked message.
+//   7. TLS cause-code hoisting — debug session shin-kim-fetch-failed
+//      (2026-04-20): undici TypeError('fetch failed') with err.cause.code
+//      matching the TLS prefix set is re-wrapped as
+//      `scrapeHtml {id}: TLS {CODE}` so compose/templates.ts classifyError
+//      can tag the footer entry as `tls-cert-fail`.
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { readFile } from 'node:fs/promises';
@@ -239,5 +244,66 @@ describe('scrapeHtml', () => {
     for (const i of items) {
       expect(i.description).toBeUndefined();
     }
+  });
+
+  // Debug session shin-kim-fetch-failed (2026-04-20). Locks the TLS
+  // cause-code re-wrap contract. shinkim.com's real failure mode is
+  // `UNABLE_TO_VERIFY_LEAF_SIGNATURE` (missing intermediate in server
+  // chain); we mock the undici TypeError('fetch failed') + nested cause
+  // shape here so the test is offline-deterministic.
+  it('re-wraps undici TLS cause into "scrapeHtml {id}: TLS {CODE}" (UNABLE_TO_VERIFY_LEAF_SIGNATURE)', async () => {
+    const tlsErr = new TypeError('fetch failed');
+    (tlsErr as unknown as { cause: { code: string; message: string } }).cause = {
+      code: 'UNABLE_TO_VERIFY_LEAF_SIGNATURE',
+      message: 'unable to verify the first certificate',
+    };
+    globalThis.fetch = vi.fn().mockRejectedValue(tlsErr) as typeof fetch;
+    await expect(scrapeHtml(shinKim)).rejects.toThrow(
+      /scrapeHtml shin-kim: TLS UNABLE_TO_VERIFY_LEAF_SIGNATURE/,
+    );
+  });
+
+  it('re-wraps CERT_HAS_EXPIRED into the TLS shape (covers expired-cert firms)', async () => {
+    const tlsErr = new TypeError('fetch failed');
+    (tlsErr as unknown as { cause: { code: string } }).cause = {
+      code: 'CERT_HAS_EXPIRED',
+    };
+    globalThis.fetch = vi.fn().mockRejectedValue(tlsErr) as typeof fetch;
+    await expect(scrapeHtml(shinKim)).rejects.toThrow(
+      /scrapeHtml shin-kim: TLS CERT_HAS_EXPIRED/,
+    );
+  });
+
+  it('re-wraps ERR_TLS_CERT_ALTNAME_INVALID into the TLS shape (covers kim-chang-style CN mismatch)', async () => {
+    const tlsErr = new TypeError('fetch failed');
+    (tlsErr as unknown as { cause: { code: string } }).cause = {
+      code: 'ERR_TLS_CERT_ALTNAME_INVALID',
+    };
+    globalThis.fetch = vi.fn().mockRejectedValue(tlsErr) as typeof fetch;
+    await expect(scrapeHtml(shinKim)).rejects.toThrow(
+      /scrapeHtml shin-kim: TLS ERR_TLS_CERT_ALTNAME_INVALID/,
+    );
+  });
+
+  it('does NOT re-wrap non-TLS cause codes — they propagate verbatim', async () => {
+    // ECONNRESET / ENOTFOUND / AbortError / etc. must NOT get a TLS prefix;
+    // they propagate through the existing keyword classifier (fetch-timeout,
+    // dns-fail, etc.) unchanged.
+    const netErr = new TypeError('fetch failed');
+    (netErr as unknown as { cause: { code: string } }).cause = {
+      code: 'ECONNRESET',
+    };
+    globalThis.fetch = vi.fn().mockRejectedValue(netErr) as typeof fetch;
+    // Whatever the caller sees must NOT match the TLS shape — the original
+    // TypeError propagates verbatim.
+    let thrown: Error | undefined;
+    try {
+      await scrapeHtml(shinKim);
+    } catch (e) {
+      thrown = e as Error;
+    }
+    expect(thrown).toBeDefined();
+    expect(thrown!.message).toBe('fetch failed');
+    expect(thrown!.message).not.toMatch(/TLS /);
   });
 });
