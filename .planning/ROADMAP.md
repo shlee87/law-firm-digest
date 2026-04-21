@@ -26,7 +26,7 @@ LegalNewsletter ships as a vertical slice first (one firm end-to-end through fet
 - [x] **Phase 7: SPA-Aware Detail Tier** - `detail_tier` config flag lets html-tier firms route their detail fetch through Playwright when their detail pages are JS-rendered (CLOSED WITH EXCEPTIONS — SC-1/4 PASSED, SC-2/3 DEFERRED for bkl+kim-chang shared URL-handling follow-up)
 - [ ] **Phase 8: Hallucination Guard** - Gemini prompt and post-summarize detector prevent title-only hallucinations when body is empty, short, or generic-boilerplate
 - [x] **Phase 9: Cooley Sitemap Tier** - New `type: sitemap` scraper parses WordPress sitemap XML, restoring Cooley with CF-safe article fetch
-- [ ] **Phase 10: Data-Quality Observability** - GHA step-summary and email footer expose per-firm body-quality metrics so degradation is visible without reading logs
+- [x] **Phase 10: Data-Quality Observability** - GHA step-summary and email footer expose per-firm body-quality metrics so degradation is visible without reading logs
 - [ ] **Phase 11: Cron Resumption Gate** - Manual dispatch + visual inspection confirms zero hallucination regressions before cron schedule is uncommented
 
 ## Phase Details
@@ -193,10 +193,10 @@ Plans:
   1. Each GHA run's step-summary table includes per-firm columns for average body length, number of generic-body guard triggers, and confidence distribution (high / medium / low counts).
   2. A simulated run where a firm produces 4 out of 6 items with `confidence: 'low'` causes both the step-summary and the email footer to flag that firm as a data-quality concern.
   3. Running with `DRY_RUN=1` prints the full DQOBS metrics table to stdout without writing state or sending email — usable for pre-cron sanity check.
-**Plans**: 3 plans
-  - [ ] 10-01-PLAN.md — Recorder extension (FirmMetrics widening + 9-column toMarkdownTable + three new write-sites in run.ts)
-  - [ ] 10-02-PLAN.md — DataQualityMarker discriminated union + detectLowConfidence detector + shared renderMarkersMarkdown helper + D-05 Korean wording
-  - [ ] 10-03-PLAN.md — RunReport expose markers + firms + main.ts DRY_RUN stdout emission (fourth sanctioned DRY_RUN site)
+**Plans**: 3/3 complete (10-01 Recorder extension, 10-02 DataQualityMarker union, 10-03 DRY_RUN emission) — Phase 10 CLOSED 2026-04-21
+  - [x] 10-01-PLAN.md — Recorder extension (FirmMetrics widening + 9-column toMarkdownTable + three new write-sites in run.ts)
+  - [x] 10-02-PLAN.md — DataQualityMarker discriminated union + detectLowConfidence detector + shared renderMarkersMarkdown helper + D-05 Korean wording
+  - [x] 10-03-PLAN.md — RunReport expose markers + firms + main.ts DRY_RUN stdout emission (fourth sanctioned DRY_RUN site)
 
 ### Phase 11: Cron Resumption Gate
 **Goal**: The daily cron schedule is restored only after a manual end-to-end run confirms zero hallucination regressions across all enabled firms, and that acceptance is recorded with a date in STATE.md.

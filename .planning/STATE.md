@@ -4,14 +4,14 @@ milestone: v1.1
 milestone_name: — Data-Quality Hardening
 status: planning
 stopped_at: Phase 11 context gathered
-last_updated: "2026-04-21T21:16:42.135Z"
+last_updated: "2026-04-21T21:24:55.705Z"
 last_activity: 2026-04-21
 progress:
   total_phases: 6
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 23
-  completed_plans: 20
-  percent: 87
+  completed_plans: 23
+  percent: 100
 ---
 
 # Project State
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-19)
 
 **Core value:** 사용자가 직접 로펌 웹사이트를 돌지 않아도, 추적 대상 로펌들의 신규 뉴스레터를 원문 링크와 함께 한국어 요약으로 받아볼 수 있어야 한다.
-**Current focus:** Phase 09 — cooley-sitemap-tier
+**Current focus:** Phase 10 — data-quality-observability (COMPLETE)
 
 ## Current Position
 
 Phase: 10
-Plan: Not started
-Status: Ready to plan
+Plan: 3/3 COMPLETE
+Status: Phase complete — ready for Phase 11
 Last activity: 2026-04-21
 
 **v1.0 regressions status (all originally discovered 2026-04-19 Phase 02 UAT):**
@@ -125,6 +125,9 @@ Last activity: 2026-04-21
 | Phase Phase 09-cooley-sitemap-tier P01 P~12min | 4 tasks | 5 files tasks | - files |
 | Phase Phase 09-cooley-sitemap-tier PP02 | ~4 min | 4 tasks tasks | 3 files files |
 | Phase 09 P03 | ~9 min | 8 tasks tasks | 11 files files |
+| Phase 10-data-quality-observability P01 | ~2h | 2 tasks | 4 files |
+| Phase 10-data-quality-observability P02 | ~3h | 3 tasks | 9 files |
+| Phase 10-data-quality-observability P03 | ~1h | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -262,6 +265,13 @@ Recent decisions affecting current work:
 - 09-03: Rule 1 fix — loader.test.ts DISABLED_FIRM_ID constant replaces hardcoded cooley=disabled assumption after Phase 9 migration; tests decoupled from specific firm enable state
 - 09-03: probeSitemapFirm calls extractBody with undefined selector — sitemap firms have no selectors block (schema-rejected); generic chain handles Cooley .post-content (verified 10/10 bodies via SITEMAP-05 live smoke)
 - 09-03: enrichBody OR-gate lifted to named boolean needsPlaywrightDetail (Pattern B) — self-documenting over inline OR for multi-tier Playwright routing; matches PATTERNS.md 398-405 guidance
+- 10-01: isEmptyFirm gate (fetched===0 AND bodyLengths.length===0) renders em-dash in AvgBody/GUARD/H-M-L columns — firms that errored before any items arrive show clean dashes not 0/0/0
+- 10-01: AvgBody column uses integer Math.round — float formatting adds noise for operational monitoring; integer is sufficient signal
+- 10-02: LOW_CONF_THRESHOLD=0.5, MIN_TOTAL_FLOOR=3 inclusive — firms with exactly 3 items are checked; floor prevents false positives from one-item fetches
+- 10-02: DataQualityMarker discriminated union (kind:'cluster' | kind:'low-confidence') — TS exhaustiveness narrowing eliminates runtime string-match for kind-specific fields
+- 10-02: renderMarkersMarkdown shared between main.ts DRY_RUN stdout and GHA step-summary (D-07 byte-parity) — single source of truth prevents wording drift
+- 10-03: Approach C NODE_ENV !== 'test' guard — Vitest sets NODE_ENV=test (1.x+ contract) so importing main.ts from tests does not trigger process.exit transitively
+- 10-03: emitDryRunStepSummary is the fourth and final sanctioned DRY_RUN site (Pattern 2 containment) — listed in Pattern 2 header comment in main.ts alongside the other three
 
 ### Pending Todos
 
@@ -282,10 +292,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: --stopped-at
-Stopped at: Phase 11 context gathered
-Resume file: --resume-file
+Last session: 2026-04-21T21:23:42Z
+Stopped at: Phase 10 all 3 plans complete (10-01, 10-02, 10-03 — 443 tests passing)
+Resume file: None
 
-**Next action:** `/gsd:plan-phase 6` — plan Phase 6: Firm Audit + Probe
-
-**Planned Phase:** 10 (data-quality-observability) — 3 plans — 2026-04-21T17:54:20.514Z
+**Next action:** `/gsd:plan-phase 11` — plan Phase 11: Cron Resumption Gate
