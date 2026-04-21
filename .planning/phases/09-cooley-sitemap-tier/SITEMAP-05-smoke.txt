@@ -1,0 +1,13 @@
+
+> legalnewsletter@ check:firm /Users/seonghoonyi/Documents/projects/legalnewsletter
+> tsx src/cli/checkFirm.ts "cooley"
+
+[check:firm] id=cooley
+  target            : firm=cooley
+  fetch             : 1 firm(s)
+  fetch             : cooley: 10 items (636ms)
+  enrich            : cooley: 10/10 bodies
+  filter            : cooley: 10 after filter
+  dedup             : cooley: 6 new
+  would-summarize   : 6 item(s)
+  would-render      : 6 item(s) in digest
