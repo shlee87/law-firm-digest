@@ -18,6 +18,20 @@
 // p-retry v8 API note: onFailedAttempt receives a RetryContext object
 // ({ error, attemptNumber, retriesLeft, retriesConsumed, retryDelay }), not the
 // error directly as in v6. See `./{onFailedAttempt}` usage below.
+//
+// Missing-API-key fail-loud (debug session gemini-403-access-token-scope,
+// 2026-04-21): when process.env.GEMINI_API_KEY is unset, @google/genai's
+// NodeAuth silently falls back to Application Default Credentials (ADC) with
+// cloud-platform scope only. That scope does NOT cover
+// generativelanguage.googleapis.com → every call returns 403
+// ACCESS_TOKEN_SCOPE_INSUFFICIENT. The SDK's own console.warn ("API key
+// should be set when using the Gemini API.") signals this, but is easy to
+// miss in a noisy pipeline log. We now abort BEFORE constructing the SDK
+// client so the cause surfaces as a clean, single error message per item
+// rather than an ADC 403 chain. The throw lives inside the pRetry-wrapped
+// call so the existing "Never throws" contract (see docstring) is preserved:
+// the catch at the bottom logs + returns the title-verbatim fallback, matching
+// every other per-item failure path.
 
 import { GoogleGenAI } from '@google/genai';
 import pRetry, { AbortError } from 'p-retry';
@@ -57,10 +71,23 @@ const SummaryZ = z.object({
  *     schema-violating model response.
  */
 export async function summarize(item: NewItem, body: string): Promise<SummarizedItem> {
-  const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
   let model: 'gemini-2.5-flash' | 'gemini-2.5-flash-lite' = 'gemini-2.5-flash';
 
   const call = async (): Promise<SummarizedItem> => {
+    // Fail loud on missing API key BEFORE SDK construction, so we never reach
+    // @google/genai's ADC fallback path. AbortError halts pRetry immediately —
+    // no quota / wall-clock is wasted retrying a setup bug that only a human
+    // fix (populate .env or GHA secret) can resolve. The surrounding catch
+    // block converts this into the standard `[summarize] ... FAILED: ...`
+    // log + title-verbatim SummarizedItem, preserving the "Never throws"
+    // contract documented above.
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      throw new AbortError(
+        'GEMINI_API_KEY is not set — refusing to fall back to ADC (generativelanguage.googleapis.com requires explicit API key)',
+      );
+    }
+    const ai = new GoogleGenAI({ apiKey });
     const res = await ai.models.generateContent({
       model,
       contents: buildPrompt(item, body),

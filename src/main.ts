@@ -59,6 +59,15 @@
 // state/writer.ts. Any DRY_RUN branch here would be a Pattern 2 regression.
 // (Header comment deliberately avoids the literal identifier so a grep gate
 // for "env dry-run helper" import in main.ts stays at zero.)
+//
+// Local-dev dotenv loader: `import 'dotenv/config'` MUST be the first import
+// so `.env` values land in process.env before any downstream module reads
+// them (notably src/summarize/gemini.ts which fail-louds when
+// GEMINI_API_KEY is unset — see debug session gemini-403-access-token-scope).
+// On GHA no `.env` exists, so dotenv silently no-ops and secrets arrive via
+// the workflow's env: block as before. Safe on both paths.
+
+import 'dotenv/config';
 
 import { runPipeline } from './pipeline/run.js';
 import { scrubSecrets } from './util/logging.js';
