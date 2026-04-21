@@ -4,14 +4,14 @@ milestone: v1.1
 milestone_name: — Data-Quality Hardening
 status: planning
 stopped_at: Phase 9 context gathered
-last_updated: "2026-04-20T21:50:29.068Z"
+last_updated: "2026-04-20T23:59:49.625Z"
 last_activity: 2026-04-20
 progress:
   total_phases: 6
   completed_phases: 3
-  total_plans: 17
+  total_plans: 20
   completed_plans: 17
-  percent: 100
+  percent: 85
 ---
 
 # Project State
@@ -263,4 +263,4 @@ Resume file: --resume-file
 
 **Next action:** `/gsd:plan-phase 6` — plan Phase 6: Firm Audit + Probe
 
-**Planned Phase:** 8 (Hallucination Guard) — 6 plans — 2026-04-20T19:29:00.027Z
+**Planned Phase:** 9 (Cooley Sitemap Tier) — 3 plans — 2026-04-20T23:59:49.620Z
