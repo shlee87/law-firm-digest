@@ -40,39 +40,46 @@ describe('loadRecipient', () => {
 });
 
 describe('loadFirms', () => {
+  // Phase 9 (2026-04-20): cooley flipped to enabled=true under sitemap tier.
+  // The disabled-firm fixtures in this suite now use bkl (disabled since
+  // Phase 7-06 pending the canonicalize/www URL-handling follow-up). If
+  // bkl is re-enabled in a future phase, pick whichever firm in config/
+  // firms.yaml has enabled:false at that time.
+  const DISABLED_FIRM_ID = 'bkl';
+
   it('Test 1: no-args returns only enabled firms (backwards compat)', async () => {
     const firms = await loadFirms();
     expect(firms.every((f) => f.enabled)).toBe(true);
-    // cooley is disabled — must not appear
-    expect(firms.find((f) => f.id === 'cooley')).toBeUndefined();
+    // Disabled firm must not appear
+    expect(firms.find((f) => f.id === DISABLED_FIRM_ID)).toBeUndefined();
   });
 
   it('Test 2: empty options object returns only enabled firms (default-init contract)', async () => {
     const firms = await loadFirms({});
     expect(firms.every((f) => f.enabled)).toBe(true);
-    expect(firms.find((f) => f.id === 'cooley')).toBeUndefined();
+    expect(firms.find((f) => f.id === DISABLED_FIRM_ID)).toBeUndefined();
   });
 
   it('Test 3: explicit includeDisabled:false returns only enabled firms', async () => {
     const firms = await loadFirms({ includeDisabled: false });
     expect(firms.every((f) => f.enabled)).toBe(true);
-    expect(firms.find((f) => f.id === 'cooley')).toBeUndefined();
+    expect(firms.find((f) => f.id === DISABLED_FIRM_ID)).toBeUndefined();
   });
 
-  it('Test 4: includeDisabled:true returns ALL firms including cooley', async () => {
+  it('Test 4: includeDisabled:true returns ALL firms including disabled', async () => {
     const firms = await loadFirms({ includeDisabled: true });
-    const cooley = firms.find((f) => f.id === 'cooley');
-    expect(cooley).toBeDefined();
+    const disabled = firms.find((f) => f.id === DISABLED_FIRM_ID);
+    expect(disabled).toBeDefined();
     // total must be greater than the enabled-only count
     const enabledFirms = await loadFirms();
     expect(firms.length).toBeGreaterThan(enabledFirms.length);
   });
 
-  it('Test 5: cooley present in includeDisabled:true result has enabled===false (flag preserved)', async () => {
+  it('Test 5: disabled firm present in includeDisabled:true result has enabled===false (flag preserved)', async () => {
     const firms = await loadFirms({ includeDisabled: true });
-    const cooley = firms.find((f) => f.id === 'cooley');
-    expect(cooley).toBeDefined();
-    expect(cooley!.enabled).toBe(false);
+    const disabled = firms.find((f) => f.id === DISABLED_FIRM_ID);
+    expect(disabled).toBeDefined();
+    expect(disabled!.enabled).toBe(false);
   });
 
   it('Test 6: regression — invalid YAML still throws "Invalid firms.yaml"', async () => {

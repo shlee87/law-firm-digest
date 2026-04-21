@@ -14,6 +14,7 @@
 #                 - Phase 1: 'rss' 만 지원
 #                 - Phase 2: 'html' 추가 (HTML 스크래핑)
 #                 - Phase 4: 'js-render' 조건부 추가 (JS 렌더링 필요 시)
+#                 - Phase 9: 'sitemap' 추가 (WordPress post-sitemap.xml → top-N)
 #   url         : RSS 피드의 절대 URL (https:// 포함, type: rss 인 경우)
 #   timezone    : 사이트가 사용하는 IANA 표준 시간대
 #                 예) America/Los_Angeles, Asia/Seoul, Europe/London
@@ -24,6 +25,8 @@
 #                 - 'js-render' 시 enrichBody 가 Playwright 로 detail 페이지를 가져옵니다.
 #                   list 페이지는 static HTML 인데 detail 페이지만 SPA 인 경우(bkl, kim-chang).
 #                 - type: 'js-render' 인 firm 도 명시적으로 선언 권장 (Phase 7 migration).
+#   latest_n    : (type: sitemap 전용) sitemap XML 에서 가져올 최신 article 수.
+#                 생략 시 기본값 10 (src/scrapers/sitemap.ts DEFAULT_LATEST_N).
 # -------------------------------------------------------------
 # Phase 1 seed firm 주석 (01-02 probe, W4):
 #   Cooley 의 메인 사이트 www.cooley.com 은 2026-04-17 probe 시점에
@@ -51,13 +54,24 @@
 # =============================================================
 
 firms:
+  # ----- Sitemap-tier firm (1) — WordPress Cooley GO via post-sitemap.xml -----
+  # Phase 9 migration (2026-04-20): Cooley RSS endpoint (/feed/) was
+  # Cloudflare-challenge-blocked starting 2026-04-19. Phase 9 pivots to
+  # WordPress sitemap discovery: GET post-sitemap.xml via Playwright
+  # context.request.get → parse <url><lastmod> → top-N recent article URLs
+  # → Playwright detail fetch (enrichBody js-render branch) for
+  # .post-content body via the generic extractBody chain. state key slug
+  # 'cooley' preserved (SeenState continuity — Phase 2 firms.yaml comment
+  # requirement). See .planning/backlog/resolved/cooley-cf-bypass.md for
+  # probe evidence.
   - id: cooley
     name: Cooley
     language: en
-    type: rss
-    url: https://cooleygo.com/feed/
+    type: sitemap
+    url: https://www.cooleygo.com/post-sitemap.xml
     timezone: America/Los_Angeles
-    enabled: false  # disabled 2026-04-19 — cooleygo.com /feed/ CF-blocked (403). Restore after v1.1 sitemap tier lands. See .planning/backlog/cooley-cf-bypass.md
+    enabled: true
+    latest_n: 10  # top-N most-recent articles by <lastmod> (explicit per D-06)
 
   # ----- UK RSS firms (2) -----
   - id: clifford-chance
