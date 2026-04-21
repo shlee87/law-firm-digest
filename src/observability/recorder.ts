@@ -39,6 +39,12 @@ export interface FirmMetrics {
   summarized: number;
   errorClass: string | null;
   durationMs: number;
+  // Phase 10 DQOBS-01 additions (replace-not-accumulate at stage boundary):
+  bodyLengths: number[];  // REPLACE with full array per firm per stage; render-time average
+  guardCount: number;     // Union Layer 1 + Layer 2 + Layer 3 scalar
+  confidenceH: number;    // post-cluster-detect tally (H)
+  confidenceM: number;
+  confidenceL: number;
 }
 
 export interface FirmRecorder {
@@ -47,6 +53,10 @@ export interface FirmRecorder {
   summarized(n: number): FirmRecorder;
   errorClass(cls: string): FirmRecorder;
   durationMs(ms: number): FirmRecorder;
+  // Phase 10 DQOBS-01:
+  bodyLengths(lengths: number[]): FirmRecorder;  // REPLACE (not accumulate)
+  guardCount(n: number): FirmRecorder;
+  confidence(h: number, m: number, l: number): FirmRecorder;
 }
 
 function defaultMetrics(): FirmMetrics {
@@ -56,6 +66,11 @@ function defaultMetrics(): FirmMetrics {
     summarized: 0,
     errorClass: null,
     durationMs: 0,
+    bodyLengths: [],  // empty array = no-data sentinel (AvgBody renders '—')
+    guardCount: 0,
+    confidenceH: 0,
+    confidenceM: 0,
+    confidenceL: 0,
   };
 }
 
@@ -89,6 +104,20 @@ export class Recorder {
         existing!.durationMs = ms;
         return handle;
       },
+      bodyLengths: (lengths) => {
+        existing!.bodyLengths = lengths;  // REPLACE — never push(); per Invariant 2
+        return handle;
+      },
+      guardCount: (n) => {
+        existing!.guardCount = n;
+        return handle;
+      },
+      confidence: (h, m, l) => {
+        existing!.confidenceH = h;
+        existing!.confidenceM = m;
+        existing!.confidenceL = l;
+        return handle;
+      },
     };
     return handle;
   }
@@ -98,23 +127,40 @@ export class Recorder {
   }
 
   /**
-   * Emit a GitHub-Flavored Markdown table in the shape locked by D-10:
-   *   | Firm | Fetched | New | Summarized | Errors | Duration |
+   * Emit a GitHub-Flavored Markdown table in the shape locked by Phase 10 D-01:
+   *   | Firm | Fetched | New | Summ | Errors | Duration | AvgBody | GUARD | H/M/L |
    *
    * Iterates the input `firms` array to drive row order and disabled filter.
-   * Firms present in the recorder but absent from `firms` (e.g., a stale
-   * firm id that was removed from YAML between runs) are NOT rendered —
-   * step summary mirrors the live firm set, not historical state.
+   * AvgBody, GUARD, and H/M/L render as em-dash ('—') when a firm was never
+   * fetched (preserves Phase 3 Pitfall 6 mid-stage-throw honesty).
    */
   toMarkdownTable(firms: FirmConfig[]): string {
-    const header = '| Firm | Fetched | New | Summarized | Errors | Duration |';
-    const separator = '|------|--------:|----:|-----------:|--------|---------:|';
+    const header = '| Firm | Fetched | New | Summ | Errors | Duration | AvgBody | GUARD | H/M/L |';
+    const separator = '|------|--------:|----:|-----:|--------|---------:|--------:|------:|------:|';
     const rows = firms
       .filter((f) => f.enabled)
       .map((f) => {
         const m = this.metrics.get(f.id) ?? defaultMetrics();
         const err = m.errorClass ?? '—';
-        return `| ${f.name} | ${m.fetched} | ${m.new} | ${m.summarized} | ${err} | ${m.durationMs}ms |`;
+
+        // AvgBody: integer average of bodyLengths, or '—' when empty.
+        // Empty array is the load-bearing no-data sentinel (Pitfall 4).
+        const avgBody =
+          m.bodyLengths.length === 0
+            ? '—'
+            : Math.round(
+                m.bodyLengths.reduce((s, x) => s + x, 0) / m.bodyLengths.length,
+              ).toString();
+
+        // GUARD / H/M/L: '—' when firm was never fetched (Fetched=0 AND empty bodyLengths).
+        // Preserves Phase 3 Pitfall 6 mid-stage-throw honesty.
+        const isEmptyFirm = m.fetched === 0 && m.bodyLengths.length === 0;
+        const guard = isEmptyFirm ? '—' : m.guardCount.toString();
+        const hml = isEmptyFirm
+          ? '—'
+          : `${m.confidenceH}/${m.confidenceM}/${m.confidenceL}`;
+
+        return `| ${f.name} | ${m.fetched} | ${m.new} | ${m.summarized} | ${err} | ${m.durationMs}ms | ${avgBody} | ${guard} | ${hml} |`;
       });
     return [header, separator, ...rows].join('\n');
   }

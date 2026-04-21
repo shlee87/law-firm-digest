@@ -66,15 +66,18 @@ describe('Recorder — per-firm metrics accumulator', () => {
   });
 
   describe('toMarkdownTable — D-10 output contract', () => {
-    it('renders the exact 5-column header + alignment separator', () => {
+    it('renders the exact 9-column header + alignment separator', () => {
       const r = new Recorder();
       const firms = [makeFirm('cooley', 'Cooley')];
       r.firm('cooley').fetched(12).newCount(3).summarized(3).durationMs(1247);
       const table = r.toMarkdownTable(firms);
       const lines = table.split('\n');
-      expect(lines[0]).toBe('| Firm | Fetched | New | Summarized | Errors | Duration |');
-      expect(lines[1]).toBe('|------|--------:|----:|-----------:|--------|---------:|');
-      expect(lines[2]).toBe('| Cooley | 12 | 3 | 3 | — | 1247ms |');
+      expect(lines[0]).toBe('| Firm | Fetched | New | Summ | Errors | Duration | AvgBody | GUARD | H/M/L |');
+      expect(lines[1]).toBe('|------|--------:|----:|-----:|--------|---------:|--------:|------:|------:|');
+      // fetched=12, bodyLengths empty → isEmptyFirm? No: fetched=12 AND bodyLengths=[].
+      // isEmptyFirm = fetched===0 AND bodyLengths.length===0.
+      // So GUARD=0, H/M/L=0/0/0 (not '—'). AvgBody='—' because bodyLengths empty.
+      expect(lines[2]).toBe('| Cooley | 12 | 3 | 3 | — | 1247ms | — | 0 | 0/0/0 |');
     });
 
     it('renders em-dash when errorClass is null, firm display name from FirmConfig.name', () => {
@@ -82,7 +85,8 @@ describe('Recorder — per-firm metrics accumulator', () => {
       const firms = [makeFirm('cooley', 'Cooley')];
       r.firm('cooley').fetched(0).newCount(0);
       const table = r.toMarkdownTable(firms);
-      expect(table).toContain('| Cooley | 0 | 0 | 0 | — | 0ms |');
+      // fetched=0 AND bodyLengths empty → isEmptyFirm=true → GUARD='—', H/M/L='—'
+      expect(table).toContain('| Cooley | 0 | 0 | 0 | — | 0ms | — | — | — |');
     });
 
     it('renders the errorClass string in Errors column when set', () => {
@@ -90,7 +94,8 @@ describe('Recorder — per-firm metrics accumulator', () => {
       const firms = [makeFirm('kim-chang', '김앤장')];
       r.firm('kim-chang').fetched(0).errorClass('http-503').durationMs(3211);
       const table = r.toMarkdownTable(firms);
-      expect(table).toContain('| 김앤장 | 0 | 0 | 0 | http-503 | 3211ms |');
+      // fetched=0 AND bodyLengths empty → isEmptyFirm=true → GUARD='—', H/M/L='—'
+      expect(table).toContain('| 김앤장 | 0 | 0 | 0 | http-503 | 3211ms | — | — | — |');
     });
 
     it('skips firms where enabled: false', () => {
@@ -130,8 +135,10 @@ describe('Recorder — per-firm metrics accumulator', () => {
       r.firm('cooley').fetched(12).newCount(3).summarized(3).durationMs(1247);
       // 'unused' was never touched
       const table = r.toMarkdownTable(firms);
-      expect(table).toContain('| Cooley | 12 | 3 | 3 | — | 1247ms |');
-      expect(table).toContain('| Unused | 0 | 0 | 0 | — | 0ms |');
+      // cooley: fetched=12, bodyLengths empty → AvgBody='—', GUARD=0, H/M/L=0/0/0
+      expect(table).toContain('| Cooley | 12 | 3 | 3 | — | 1247ms | — | 0 | 0/0/0 |');
+      // unused: never touched → isEmptyFirm=true → AvgBody='—', GUARD='—', H/M/L='—'
+      expect(table).toContain('| Unused | 0 | 0 | 0 | — | 0ms | — | — | — |');
     });
 
     it('returns header + separator only when firms array is empty', () => {
@@ -141,6 +148,93 @@ describe('Recorder — per-firm metrics accumulator', () => {
       expect(lines.length).toBe(2);
       expect(lines[0]).toContain('Firm');
       expect(lines[1]).toContain('---');
+    });
+  });
+
+  describe('Phase 10 DQOBS-01 extensions', () => {
+    it('bodyLengths REPLACE semantics: second call overrides first', () => {
+      const r = new Recorder();
+      r.firm('cooley').bodyLengths([100]);
+      r.firm('cooley').bodyLengths([500, 500, 500]);
+      expect(r.get('cooley')?.bodyLengths).toEqual([500, 500, 500]);
+    });
+
+    it('guardCount REPLACE semantics', () => {
+      const r = new Recorder();
+      r.firm('cooley').guardCount(1);
+      r.firm('cooley').guardCount(5);
+      expect(r.get('cooley')?.guardCount).toBe(5);
+    });
+
+    it('confidence triple REPLACE', () => {
+      const r = new Recorder();
+      r.firm('cooley').confidence(3, 2, 1);
+      r.firm('cooley').confidence(0, 0, 5);
+      const m = r.get('cooley')!;
+      expect(m.confidenceH).toBe(0);
+      expect(m.confidenceM).toBe(0);
+      expect(m.confidenceL).toBe(5);
+    });
+
+    it('AvgBody integer rounding: [100, 200, 301] → 200', () => {
+      const r = new Recorder();
+      r.firm('cooley').fetched(3).bodyLengths([100, 200, 301]);
+      const table = r.toMarkdownTable([
+        { id: 'cooley', name: 'Cooley', enabled: true, type: 'rss', url: 'x', language: 'en', timezone: 'UTC' } as FirmConfig,
+      ]);
+      expect(table).toContain('| Cooley | 3 | 0 | 0 | — | 0ms | 200 | 0 | 0/0/0 |');
+    });
+
+    it('AvgBody renders — (em-dash) when bodyLengths empty', () => {
+      const r = new Recorder();
+      r.firm('cooley').fetched(5);  // fetched but bodyLengths never set
+      const table = r.toMarkdownTable([
+        { id: 'cooley', name: 'Cooley', enabled: true, type: 'rss', url: 'x', language: 'en', timezone: 'UTC' } as FirmConfig,
+      ]);
+      // Fetched=5 AND empty bodyLengths → AvgBody='—'; isEmptyFirm requires fetched===0,
+      // so fetched=5 with empty bodyLengths shows: AvgBody='—' but GUARD=0 and H/M/L=0/0/0.
+      expect(table).toContain('| Cooley | 5 | 0 | 0 | — | 0ms | — | 0 | 0/0/0 |');
+    });
+
+    it('Fetched=0 firm (never touched) → AvgBody/GUARD/H-M-L all em-dash', () => {
+      const r = new Recorder();
+      // Do NOT call firm('cooley') at all.
+      const table = r.toMarkdownTable([
+        { id: 'cooley', name: 'Cooley', enabled: true, type: 'rss', url: 'x', language: 'en', timezone: 'UTC' } as FirmConfig,
+      ]);
+      expect(table).toContain('| Cooley | 0 | 0 | 0 | — | 0ms | — | — | — |');
+    });
+
+    it('H/M/L plain slash format: confidence(5, 1, 0) → 5/1/0', () => {
+      const r = new Recorder();
+      r.firm('cooley').fetched(6).bodyLengths([1000, 1000, 1000, 1000, 1000, 1000]).confidence(5, 1, 0);
+      const table = r.toMarkdownTable([
+        { id: 'cooley', name: 'Cooley', enabled: true, type: 'rss', url: 'x', language: 'en', timezone: 'UTC' } as FirmConfig,
+      ]);
+      expect(table).toContain('5/1/0');
+    });
+
+    it('Mid-stage throw honesty: firm A recorded, firm B never touched', () => {
+      const r = new Recorder();
+      r.firm('a').fetched(3).bodyLengths([500, 600, 700]);
+      // Do NOT touch firm 'b'.
+      const table = r.toMarkdownTable([
+        { id: 'a', name: 'FirmA', enabled: true, type: 'rss', url: 'x', language: 'en', timezone: 'UTC' } as FirmConfig,
+        { id: 'b', name: 'FirmB', enabled: true, type: 'rss', url: 'x', language: 'en', timezone: 'UTC' } as FirmConfig,
+      ]);
+      expect(table).toContain('| FirmA | 3 | 0 | 0 | — | 0ms | 600 | 0 | 0/0/0 |');
+      expect(table).toContain('| FirmB | 0 | 0 | 0 | — | 0ms | — | — | — |');
+    });
+
+    it('disabled-firm filter covers new columns: no AvgBody/GUARD/H-M-L leak for disabled firm', () => {
+      const r = new Recorder();
+      r.firm('disabled-firm').fetched(99).bodyLengths([9999]).guardCount(77).confidence(77, 77, 77);
+      const table = r.toMarkdownTable([
+        { id: 'disabled-firm', name: '광장', enabled: false, type: 'rss', url: 'x', language: 'en', timezone: 'UTC' } as FirmConfig,
+      ]);
+      expect(table).not.toContain('광장');
+      expect(table).not.toContain('9999');
+      expect(table).not.toContain('77');
     });
   });
 });
