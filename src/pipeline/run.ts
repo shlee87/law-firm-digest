@@ -74,6 +74,7 @@ import { enrichWithBody } from './enrichBody.js';
 import { applyKeywordFilter } from './filter.js';
 import { dedupAll } from './dedup.js';
 import { detectHallucinationClusters, type ClusterMarker, type DataQualityMarker } from './detectClusters.js';
+import { detectLowConfidence } from './detectLowConfidence.js';
 import { summarize } from '../summarize/gemini.js';
 import { composeDigest } from '../compose/digest.js';
 import { sendMail } from '../mailer/gmail.js';
@@ -321,6 +322,12 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
       const l = r.summarized.filter((it) => it.summaryConfidence === 'low').length;
       recorder.firm(r.firm.id).confidence(h, m, l);
     }
+
+    // Phase 10 DQOBS-02 — merge low-confidence markers into existing
+    // cluster markers. No suppression on cluster overlap (D-04 / Pitfall 8):
+    // a firm can fire BOTH cluster AND low-confidence markers by design.
+    const lowConfMarkers = detectLowConfidence(clusterAdjusted);
+    markers = [...markers, ...lowConfMarkers];
 
     const newTotal = clusterAdjusted.reduce((n, r) => n + r.summarized.length, 0);
     reporter.section(
