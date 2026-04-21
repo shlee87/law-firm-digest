@@ -25,7 +25,7 @@ LegalNewsletter ships as a vertical slice first (one firm end-to-end through fet
 - [ ] **Phase 6: Firm Audit + Probe** - Per-firm list/detail probe diagnoses every enabled firm's actual extraction quality and documents remediation paths
 - [x] **Phase 7: SPA-Aware Detail Tier** - `detail_tier` config flag lets html-tier firms route their detail fetch through Playwright when their detail pages are JS-rendered (CLOSED WITH EXCEPTIONS — SC-1/4 PASSED, SC-2/3 DEFERRED for bkl+kim-chang shared URL-handling follow-up)
 - [ ] **Phase 8: Hallucination Guard** - Gemini prompt and post-summarize detector prevent title-only hallucinations when body is empty, short, or generic-boilerplate
-- [ ] **Phase 9: Cooley Sitemap Tier** - New `type: sitemap` scraper parses WordPress sitemap XML, restoring Cooley with CF-safe article fetch
+- [x] **Phase 9: Cooley Sitemap Tier** - New `type: sitemap` scraper parses WordPress sitemap XML, restoring Cooley with CF-safe article fetch
 - [ ] **Phase 10: Data-Quality Observability** - GHA step-summary and email footer expose per-firm body-quality metrics so degradation is visible without reading logs
 - [ ] **Phase 11: Cron Resumption Gate** - Manual dispatch + visual inspection confirms zero hallucination regressions before cron schedule is uncommented
 
@@ -183,7 +183,7 @@ Plans:
   2. A firm configured with `type: sitemap` and pointing at `https://www.cooleygo.com/post-sitemap.xml` produces items in the digest; Cooley is no longer listed in the email footer as a failed firm.
   3. `pnpm check:firm cooley` reports N > 0 items with non-empty extracted body text for each sampled item.
   4. Firms with existing `type: rss`, `type: html`, or `type: js-render` config are unaffected — no regressions in their fetch behavior (180+ existing tests still pass).
-**Plans**: TBD
+**Plans**: 3/3 complete (09-01 schema, 09-02 scraper, 09-03 pipeline-wiring + Cooley restoration) — Phase 9 CLOSED 2026-04-21
 
 ### Phase 10: Data-Quality Observability
 **Goal**: Per-firm body-quality metrics (average body length, generic-body guard trigger count, confidence distribution) are visible in the GHA step-summary and email footer so quality degradation surfaces without requiring log inspection.
