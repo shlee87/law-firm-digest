@@ -13,6 +13,9 @@ vi.mock('../../src/scrapers/html.js', () => ({
 vi.mock('../../src/scrapers/jsRender.js', () => ({
   scrapeJsRender: vi.fn(),
 }));
+vi.mock('../../src/scrapers/sitemap.js', () => ({
+  scrapeSitemap: vi.fn(),
+}));
 vi.mock('../../src/scrapers/robots.js', () => ({
   fetchRobots: vi.fn(async () => [] as string[]),
   isAllowed: vi.fn(() => true),
@@ -22,6 +25,7 @@ import { fetchAll } from '../../src/pipeline/fetch.js';
 import { scrapeRss } from '../../src/scrapers/rss.js';
 import { scrapeHtml } from '../../src/scrapers/html.js';
 import { scrapeJsRender } from '../../src/scrapers/jsRender.js';
+import { scrapeSitemap } from '../../src/scrapers/sitemap.js';
 import { isAllowed, fetchRobots } from '../../src/scrapers/robots.js';
 import { Recorder } from '../../src/observability/recorder.js';
 import type { FirmConfig } from '../../src/types.js';
@@ -324,5 +328,57 @@ describe('fetchAll (Phase 4 js-render dispatch)', () => {
     expect(vi.mocked(scrapeJsRender)).not.toHaveBeenCalled();
     expect(results[0].error).toBeDefined();
     expect(results[0].error?.message).toMatch(/js-render requires a launched Browser/);
+  });
+});
+
+describe('fetchAll (Phase 9 sitemap dispatch)', () => {
+  beforeEach(() => {
+    vi.mocked(scrapeRss).mockReset();
+    vi.mocked(scrapeHtml).mockReset();
+    vi.mocked(scrapeJsRender).mockReset();
+    vi.mocked(scrapeSitemap).mockReset();
+    vi.mocked(fetchRobots)
+      .mockReset()
+      .mockImplementation(async () => [] as string[]);
+    vi.mocked(isAllowed)
+      .mockReset()
+      .mockImplementation(() => true);
+  });
+
+  const sitemapFirm: FirmConfig = {
+    id: 'cooley',
+    name: 'Cooley',
+    language: 'en',
+    type: 'sitemap',
+    url: 'https://www.cooleygo.com/post-sitemap.xml',
+    timezone: 'America/Los_Angeles',
+    enabled: true,
+    latest_n: 10,
+  };
+
+  it('sitemap tier dispatches to scrapeSitemap with browser threaded', async () => {
+    vi.mocked(scrapeSitemap).mockResolvedValueOnce([
+      {
+        firmId: 'cooley',
+        title: 'Test',
+        url: 'https://www.cooleygo.com/x/',
+        publishedAt: '2025-01-01T00:00:00.000Z',
+        language: 'en',
+      },
+    ]);
+    const fakeBrowser = {} as never;
+    const out = await fetchAll([sitemapFirm], undefined, fakeBrowser);
+    expect(vi.mocked(scrapeSitemap)).toHaveBeenCalledTimes(1);
+    expect(vi.mocked(scrapeSitemap)).toHaveBeenCalledWith(sitemapFirm, fakeBrowser);
+    expect(out).toHaveLength(1);
+    expect(out[0].error).toBeUndefined();
+    expect(out[0].raw).toHaveLength(1);
+  });
+
+  it('sitemap tier without browser → caught into error result', async () => {
+    const out = await fetchAll([sitemapFirm]);
+    expect(vi.mocked(scrapeSitemap)).not.toHaveBeenCalled();
+    expect(out[0].error).toBeDefined();
+    expect(out[0].error!.message).toMatch(/sitemap tier requires a launched Browser/);
   });
 });

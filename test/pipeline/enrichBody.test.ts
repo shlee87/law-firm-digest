@@ -426,4 +426,62 @@ describe('enrichWithBody (Phase 7 detail_tier-gated Playwright)', () => {
     // falls through to the static path.
     expect(out[0].raw[0].description).toContain('STATIC-FALLTHROUGH hydrated');
   });
+
+  it('sitemap tier routes to Playwright detail path even without explicit detail_tier', async () => {
+    // Plan 09-03 Task 2: OR-gate fix — sitemap firms MUST reach the
+    // Playwright branch. Regression for Pitfall 6.
+    const sitemapFirm: FirmConfig = {
+      id: 'cooley',
+      name: 'Cooley',
+      language: 'en',
+      type: 'sitemap',
+      url: 'https://www.cooleygo.com/post-sitemap.xml',
+      timezone: 'America/Los_Angeles',
+      enabled: true,
+      latest_n: 10,
+      // NO detail_tier — zod would default to 'static' but OR-gate
+      // should short-circuit that.
+    };
+    const rawItem = {
+      firmId: 'cooley',
+      title: 'X',
+      url: 'https://www.cooleygo.com/article/',
+      publishedAt: '2025-01-01T00:00:00.000Z',
+      language: 'en' as const,
+    };
+    // Mock browser: context.newPage().goto → content returns HTML with
+    // '.post-content' body text.
+    const pageContent = vi.fn().mockResolvedValue(
+      '<html><body><div class="post-content">Article body text, long enough to clear the 120-char generic chain threshold. Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor.</div></body></html>',
+    );
+    const pageGoto = vi.fn().mockResolvedValue(undefined);
+    const page = { goto: pageGoto, content: pageContent };
+    const contextClose = vi.fn().mockResolvedValue(undefined);
+    const context = {
+      newPage: vi.fn().mockResolvedValue(page),
+      close: contextClose,
+    };
+    const browser = {
+      newContext: vi.fn().mockResolvedValue(context),
+    };
+
+    const staticFetchSpy = vi.fn();
+    globalThis.fetch = staticFetchSpy as unknown as typeof fetch;
+
+    const out = await enrichWithBody(
+      [
+        {
+          firm: sitemapFirm,
+          raw: [rawItem],
+          new: [],
+          summarized: [],
+          durationMs: 0,
+        },
+      ],
+      browser as never,
+    );
+    expect(out[0].raw[0].description).toMatch(/Article body text/);
+    expect(browser.newContext).toHaveBeenCalled(); // Playwright branch entered
+    expect(staticFetchSpy).not.toHaveBeenCalled(); // static path skipped
+  });
 });
