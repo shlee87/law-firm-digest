@@ -193,7 +193,10 @@ Plans:
   1. Each GHA run's step-summary table includes per-firm columns for average body length, number of generic-body guard triggers, and confidence distribution (high / medium / low counts).
   2. A simulated run where a firm produces 4 out of 6 items with `confidence: 'low'` causes both the step-summary and the email footer to flag that firm as a data-quality concern.
   3. Running with `DRY_RUN=1` prints the full DQOBS metrics table to stdout without writing state or sending email — usable for pre-cron sanity check.
-**Plans**: TBD
+**Plans**: 3 plans
+  - [ ] 10-01-PLAN.md — Recorder extension (FirmMetrics widening + 9-column toMarkdownTable + three new write-sites in run.ts)
+  - [ ] 10-02-PLAN.md — DataQualityMarker discriminated union + detectLowConfidence detector + shared renderMarkersMarkdown helper + D-05 Korean wording
+  - [ ] 10-03-PLAN.md — RunReport expose markers + firms + main.ts DRY_RUN stdout emission (fourth sanctioned DRY_RUN site)
 
 ### Phase 11: Cron Resumption Gate
 **Goal**: The daily cron schedule is restored only after a manual end-to-end run confirms zero hallucination regressions across all enabled firms, and that acceptance is recorded with a date in STATE.md.

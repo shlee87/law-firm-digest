@@ -833,6 +833,8 @@ D-05 locks the new wording to `3개 항목 demote됨` (Korean). This test WILL b
 
 Note: D-05 specifies step-summary row format for cluster markers: `- bkl: HALLUCINATION_CLUSTER_DETECTED — 3개 항목 demote됨`. Verify whether `**bkl**` bold-markdown stays (D-05 shows plain `bkl`) — **this is a minor format nit requiring planner clarification: bold the firmId in markdown or leave plain?** Recommendation: keep **bold** per existing Phase 8 convention at summary.ts:55; D-05 appeared to drop the bold for brevity but the planner should re-assert.
 
+**Resolution (2026-04-21):** RESOLVED. Plans 10-02 Task 3 keep the bold `**firmId**` form. D-05's plain example (`- bkl:`) is illustrative, not prescriptive — the existing Phase 8 convention at `src/observability/summary.ts:55` is preserved for both cluster and low-confidence row kinds, giving readability consistency across the two marker types. The `renderMarkersMarkdown` helper (Plan 10-02 Task 3 Step 1.1) emits `- **${m.firmId}**: ...` for both branches. Open Question #1 below is closed by this resolution.
+
 ### Pitfall 11: Test environment — GEMINI_API_KEY stubbing required if low-confidence test exercises summarize path
 
 **What goes wrong:** Any Phase 10 test that imports `summarize()` from gemini.ts (even transitively) without stubbing `GEMINI_API_KEY` will throw `AbortError('GEMINI_API_KEY is not set …')` per gemini.ts:85-89. This was added in commit `344b65d`.
