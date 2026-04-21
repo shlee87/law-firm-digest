@@ -51,14 +51,14 @@
 import type { FirmResult } from '../types.js';
 import type { StalenessWarnings } from '../observability/staleness.js';
 import { scrubSecrets } from '../util/logging.js';
-import type { ClusterMarker } from '../pipeline/detectClusters.js';
+import type { DataQualityMarker } from '../pipeline/detectClusters.js';
 
 export function renderHtml(
   firms: FirmResult[],
   dateKst: string,
   failed: FirmResult[] = [],
   warnings?: StalenessWarnings,
-  markers: ClusterMarker[] = [],
+  markers: DataQualityMarker[] = [],
 ): string {
   const sections = firms
     .map((r) => {
@@ -204,14 +204,17 @@ function renderFailedFirmsFooter(failed: FirmResult[]): string {
  * in the footer (debug-only). Only firmName + firmId + count surface to
  * the recipient.
  */
-function renderDataQualityFooter(markers: ClusterMarker[]): string {
+function renderDataQualityFooter(markers: DataQualityMarker[]): string {
   if (markers.length === 0) return '';
 
   const items = markers
-    .map(
-      (m) =>
-        `<li>${escapeHtml(m.firmName)} (${escapeHtml(m.firmId)}): HALLUCINATION_CLUSTER_DETECTED (${m.count} items, 요약 숨김)</li>`,
-    )
+    .map((m) => {
+      if (m.kind === 'cluster') {
+        return `<li>${escapeHtml(m.firmName)} (${escapeHtml(m.firmId)}): HALLUCINATION_CLUSTER_DETECTED (${m.count} items, 요약 숨김)</li>`;
+      }
+      // m.kind === 'low-confidence' — Phase 10 D-05 Korean form
+      return `<li>${escapeHtml(m.firmName)} (${escapeHtml(m.firmId)}): ${m.lowCount}/${m.totalCount} items 품질 의심 (confidence=low 과반)</li>`;
+    })
     .join('');
 
   return `<footer style="margin-top:32px;color:#999;font-size:12px;">

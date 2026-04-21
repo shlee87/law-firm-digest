@@ -321,6 +321,7 @@ describe('composeDigest', () => {
     // WR-01: markers are now threaded explicitly through composeDigest (Option A).
     const markers = [
       {
+        kind: 'cluster' as const,
         firmId: 'cooley',
         firmName: 'Cooley',
         count: 5,
@@ -366,6 +367,7 @@ describe('composeDigest', () => {
     // WR-01: markers are now threaded explicitly through composeDigest (Option A).
     const markers = [
       {
+        kind: 'cluster' as const,
         firmId: 'cooley',
         firmName: '<script>alert(1)</script>',
         count: 3,
@@ -382,6 +384,71 @@ describe('composeDigest', () => {
     );
     expect(payload.html).not.toContain('<script>alert(1)</script>');
     expect(payload.html).toContain('&lt;script&gt;alert(1)&lt;/script&gt;');
+  });
+
+  it('Phase 10 DQOBS-02: low-confidence marker renders in Data Quality footer', () => {
+    const lowConfMarkers = [
+      {
+        kind: 'low-confidence' as const,
+        firmId: 'cooley',
+        firmName: 'Cooley',
+        lowCount: 4,
+        totalCount: 6,
+      },
+    ];
+    const payload = composeDigest(
+      fixture(),
+      'u@e.com',
+      'u@e.com',
+      undefined,
+      fixedDate,
+      lowConfMarkers,
+    );
+    expect(payload.html).toContain('⚠ 데이터 품질 경고 — 요약 신뢰도 의심');
+    expect(payload.html).toContain('4/6 items 품질 의심 (confidence=low 과반)');
+    expect(payload.html).toContain('Cooley');
+    expect(payload.html).toContain('cooley');
+  });
+
+  it('Phase 10 DQOBS-02: mixed markers — both cluster and low-confidence render in footer', () => {
+    const mixedMarkers = [
+      {
+        kind: 'cluster' as const,
+        firmId: 'bkl',
+        firmName: '태평양',
+        count: 3,
+        signature: 'sig',
+      },
+      {
+        kind: 'low-confidence' as const,
+        firmId: 'cooley',
+        firmName: 'Cooley',
+        lowCount: 4,
+        totalCount: 6,
+      },
+    ];
+    const payload = composeDigest(
+      fixture(),
+      'u@e.com',
+      'u@e.com',
+      undefined,
+      fixedDate,
+      mixedMarkers,
+    );
+    expect(payload.html).toContain('HALLUCINATION_CLUSTER_DETECTED (3 items, 요약 숨김)');
+    expect(payload.html).toContain('4/6 items 품질 의심 (confidence=low 과반)');
+  });
+
+  it('Phase 10 D-15: empty markers → footer block omitted', () => {
+    const payload = composeDigest(
+      fixture(),
+      'u@e.com',
+      'u@e.com',
+      undefined,
+      fixedDate,
+      [],
+    );
+    expect(payload.html).not.toContain('⚠ 데이터 품질 경고');
   });
 });
 

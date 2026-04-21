@@ -73,7 +73,7 @@ import { fetchAll } from './fetch.js';
 import { enrichWithBody } from './enrichBody.js';
 import { applyKeywordFilter } from './filter.js';
 import { dedupAll } from './dedup.js';
-import { detectHallucinationClusters, type ClusterMarker } from './detectClusters.js';
+import { detectHallucinationClusters, type ClusterMarker, type DataQualityMarker } from './detectClusters.js';
 import { summarize } from '../summarize/gemini.js';
 import { composeDigest } from '../compose/digest.js';
 import { sendMail } from '../mailer/gmail.js';
@@ -174,7 +174,7 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
 
   // Phase 8 D-06 / Pitfall 5 — hoist markers above try so the finally-block
   // writeStepSummary call at the end can see them even on early throw.
-  let markers: ClusterMarker[] = [];
+  let markers: DataQualityMarker[] = [];
 
   try {
     const seen = await readState();

@@ -32,15 +32,41 @@
 import type { FirmResult, SummarizedItem } from '../types.js';
 
 /**
- * One per detected cluster. firmId + signature uniquely identify the
- * cluster within a single run.
+ * Phase 10 D-03 — widened to a discriminated union via `kind`. Two kinds
+ * live here (ClusterMarker, LowConfidenceMarker). The DataQualityMarker
+ * union alias is the rendering surface for every consumer (email footer,
+ * step-summary, DRY_RUN emission). Exhaustive narrowing on `marker.kind`
+ * is the only sanctioned access pattern — property-probing (e.g.
+ * `'signature' in marker`) is an anti-pattern per 10-RESEARCH §Don't
+ * Hand-Roll.
+ *
+ * ClusterMarker shape (signature field remains — unique to cluster).
  */
 export interface ClusterMarker {
+  kind: 'cluster';     // Phase 10 D-03 discriminator
   firmId: string;
   firmName: string;
   count: number;
   signature: string;
 }
+
+/**
+ * Phase 10 D-03 — low-confidence marker. Emitted by detectLowConfidence
+ * when a firm's summarized items cross the D-04 threshold
+ * (totalCount >= 3 AND lowCount / totalCount >= 0.5).
+ *
+ * firmName mirrors ClusterMarker so rendering code can access
+ * `marker.firmName` without branching on kind.
+ */
+export interface LowConfidenceMarker {
+  kind: 'low-confidence';   // Phase 10 D-03 discriminator
+  firmId: string;
+  firmName: string;
+  lowCount: number;
+  totalCount: number;
+}
+
+export type DataQualityMarker = ClusterMarker | LowConfidenceMarker;
 
 /**
  * Detector return shape. `firms` is a NEW array — never the input reference.
@@ -95,6 +121,7 @@ export function detectHallucinationClusters(
     for (const [sig, group] of groups) {
       if (group.length >= CLUSTER_THRESHOLD) {
         markers.push({
+          kind: 'cluster',  // Phase 10 D-03 discriminator
           firmId: r.firm.id,
           firmName: r.firm.name,
           count: group.length,

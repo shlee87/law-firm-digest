@@ -31,12 +31,36 @@ import { appendFile } from 'node:fs/promises';
 import type { FirmConfig } from '../types.js';
 import type { Recorder } from './recorder.js';
 import { scrubSecrets } from '../util/logging.js';
-import type { ClusterMarker } from '../pipeline/detectClusters.js';
+import type { DataQualityMarker } from '../pipeline/detectClusters.js';
+
+/**
+ * Phase 10 D-07 — shared renderer so DRY_RUN stdout output at main.ts and
+ * $GITHUB_STEP_SUMMARY append at writeStepSummary are byte-for-byte
+ * identical. Returns an empty string when markers is empty (D-15 clean-run
+ * invisibility).
+ *
+ * Cluster marker wording uses Korean "개 항목 demote됨" per D-05 (shifted
+ * from the Phase 8 English "items demoted"). Low-confidence marker uses
+ * the Korean "품질 의심 (confidence=low 과반)" form verbatim from D-05.
+ */
+export function renderMarkersMarkdown(markers: DataQualityMarker[]): string {
+  if (markers.length === 0) return '';
+  const lines = markers
+    .map((m) => {
+      if (m.kind === 'cluster') {
+        return `- **${m.firmId}**: HALLUCINATION_CLUSTER_DETECTED — ${m.count}개 항목 demote됨`;
+      }
+      // m.kind === 'low-confidence' — TS exhaustiveness narrowing
+      return `- **${m.firmId}**: ${m.lowCount}/${m.totalCount} items 품질 의심 (confidence=low 과반)`;
+    })
+    .join('\n');
+  return `\n## ⚠ Data Quality Warnings\n\n${lines}\n`;
+}
 
 export async function writeStepSummary(
   recorder: Recorder,
   firms: FirmConfig[],
-  markers: ClusterMarker[] = [],
+  markers: DataQualityMarker[] = [],
 ): Promise<void> {
   // D-12: no-op when the env var is unset (local runs, check:firm runs).
   const path = process.env.GITHUB_STEP_SUMMARY;
@@ -48,15 +72,11 @@ export async function writeStepSummary(
   // (Pitfall 5).
   const table = recorder.toMarkdownTable(firms);
   let payload = table + '\n';
-  if (markers.length > 0) {
-    const lines = markers
-      .map(
-        (m) =>
-          `- **${m.firmId}**: HALLUCINATION_CLUSTER_DETECTED — ${m.count} items demoted`,
-      )
-      .join('\n');
-    payload += `\n## ⚠ Data Quality Warnings\n\n${lines}\n`;
-  }
+  // Phase 10 D-07 — delegate to shared helper for byte-for-byte parity
+  // with main.ts DRY_RUN emission path. Pitfall 3 / Pitfall 5 preserved
+  // by concatenating the helper's output into the existing single `payload`
+  // string — DO NOT call appendFile twice.
+  payload += renderMarkersMarkdown(markers);
 
   try {
     await appendFile(path, payload, 'utf8');

@@ -5,7 +5,8 @@ import { join } from 'node:path';
 import { Recorder } from '../../src/observability/recorder.js';
 import { writeStepSummary } from '../../src/observability/summary.js';
 import type { FirmConfig } from '../../src/types.js';
-import type { ClusterMarker } from '../../src/pipeline/detectClusters.js';
+import { renderMarkersMarkdown } from '../../src/observability/summary.js';
+import type { DataQualityMarker } from '../../src/pipeline/detectClusters.js';
 
 function makeFirm(id: string, name: string): FirmConfig {
   return {
@@ -93,15 +94,15 @@ describe('writeStepSummary — $GITHUB_STEP_SUMMARY writer', () => {
       r.firm('bkl').fetched(5).newCount(5).summarized(5).durationMs(800);
       r.firm('kim-chang').fetched(3).newCount(3).summarized(3).durationMs(400);
       const firms = [makeFirm('bkl', 'BKL'), makeFirm('kim-chang', 'Kim & Chang')];
-      const markers: ClusterMarker[] = [
-        { firmId: 'bkl', firmName: '법무법인 태평양', count: 5, signature: 'sig1' },
-        { firmId: 'kim-chang', firmName: '김앤장', count: 3, signature: 'sig2' },
+      const markers: DataQualityMarker[] = [
+        { kind: 'cluster', firmId: 'bkl', firmName: '법무법인 태평양', count: 5, signature: 'sig1' },
+        { kind: 'cluster', firmId: 'kim-chang', firmName: '김앤장', count: 3, signature: 'sig2' },
       ];
       await writeStepSummary(r, firms, markers);
       const content = await readFile(path, 'utf8');
       expect(content).toContain('## ⚠ Data Quality Warnings');
-      expect(content).toContain('- **bkl**: HALLUCINATION_CLUSTER_DETECTED — 5 items demoted');
-      expect(content).toContain('- **kim-chang**: HALLUCINATION_CLUSTER_DETECTED — 3 items demoted');
+      expect(content).toContain('- **bkl**: HALLUCINATION_CLUSTER_DETECTED — 5개 항목 demote됨');
+      expect(content).toContain('- **kim-chang**: HALLUCINATION_CLUSTER_DETECTED — 3개 항목 demote됨');
       // Section appears AFTER the per-firm table
       const tableIdx = content.indexOf('|');
       const sectionIdx = content.indexOf('## ⚠ Data Quality Warnings');
@@ -124,8 +125,8 @@ describe('writeStepSummary — $GITHUB_STEP_SUMMARY writer', () => {
       const r = new Recorder();
       r.firm('bkl').fetched(5);
       const firms = [makeFirm('bkl', 'BKL')];
-      const markers: ClusterMarker[] = [
-        { firmId: 'bkl', firmName: '법무법인 태평양', count: 5, signature: 'sig1' },
+      const markers: DataQualityMarker[] = [
+        { kind: 'cluster', firmId: 'bkl', firmName: '법무법인 태평양', count: 5, signature: 'sig1' },
       ];
       // Should return without writing anything
       await expect(writeStepSummary(r, firms, markers)).resolves.toBeUndefined();
@@ -146,8 +147,8 @@ describe('writeStepSummary — $GITHUB_STEP_SUMMARY writer', () => {
       const r = new Recorder();
       r.firm('bkl').fetched(5).newCount(5).summarized(5).durationMs(800);
       const firms = [makeFirm('bkl', 'BKL')];
-      const markers: ClusterMarker[] = [
-        { firmId: 'bkl', firmName: '법무법인 태평양', count: 5, signature: 'sig1' },
+      const markers: DataQualityMarker[] = [
+        { kind: 'cluster', firmId: 'bkl', firmName: '법무법인 태평양', count: 5, signature: 'sig1' },
       ];
       await writeStepSummary(r, firms, markers);
       const content = await readFile(path, 'utf8');
@@ -156,6 +157,61 @@ describe('writeStepSummary — $GITHUB_STEP_SUMMARY writer', () => {
       expect(content).toContain('## ⚠ Data Quality Warnings');
       // The source file must only contain one await appendFile call (static invariant)
       // Verified in acceptance criteria: grep -c "await appendFile" src/observability/summary.ts === 1
+    });
+  });
+
+  describe('Phase 10 DQOBS-02 low-confidence marker rendering', () => {
+    const firms = [makeFirm('cooley', 'Cooley')];
+
+    it('low-confidence marker renders with Korean D-05 wording', async () => {
+      const path = join(tempDir, 'summary-lc.md');
+      vi.stubEnv('GITHUB_STEP_SUMMARY', path);
+      const r = new Recorder();
+      const markers: DataQualityMarker[] = [
+        { kind: 'low-confidence', firmId: 'yulchon', firmName: '율촌', lowCount: 4, totalCount: 6 },
+      ];
+      await writeStepSummary(r, firms, markers);
+      const content = await readFile(path, 'utf8');
+      expect(content).toContain('## ⚠ Data Quality Warnings');
+      expect(content).toContain('- **yulchon**: 4/6 items 품질 의심 (confidence=low 과반)');
+    });
+
+    it('mixed markers: both cluster and low-confidence render', async () => {
+      const path = join(tempDir, 'summary-mixed.md');
+      vi.stubEnv('GITHUB_STEP_SUMMARY', path);
+      const r = new Recorder();
+      const markers: DataQualityMarker[] = [
+        { kind: 'cluster', firmId: 'bkl', firmName: '태평양', count: 3, signature: 'sig' },
+        { kind: 'low-confidence', firmId: 'yulchon', firmName: '율촌', lowCount: 4, totalCount: 6 },
+      ];
+      await writeStepSummary(r, firms, markers);
+      const content = await readFile(path, 'utf8');
+      expect(content).toContain('- **bkl**: HALLUCINATION_CLUSTER_DETECTED — 3개 항목 demote됨');
+      expect(content).toContain('- **yulchon**: 4/6 items 품질 의심 (confidence=low 과반)');
+    });
+
+    it('renderMarkersMarkdown: empty markers returns empty string', () => {
+      expect(renderMarkersMarkdown([])).toBe('');
+    });
+
+    it('renderMarkersMarkdown: non-empty markers returns block starting with \\n## ⚠ Data Quality Warnings', () => {
+      const block = renderMarkersMarkdown([
+        { kind: 'cluster', firmId: 'x', firmName: 'X', count: 3, signature: 's' },
+      ]);
+      expect(block.startsWith('\n## ⚠ Data Quality Warnings')).toBe(true);
+    });
+
+    it('byte-for-byte helper reuse: writeStepSummary payload suffix matches renderMarkersMarkdown output', async () => {
+      const path = join(tempDir, 'summary-byteparity.md');
+      vi.stubEnv('GITHUB_STEP_SUMMARY', path);
+      const r = new Recorder();
+      const markers: DataQualityMarker[] = [
+        { kind: 'low-confidence', firmId: 'z', firmName: 'Z', lowCount: 3, totalCount: 5 },
+      ];
+      await writeStepSummary(r, firms, markers);
+      const content = await readFile(path, 'utf8');
+      const expectedBlock = renderMarkersMarkdown(markers);
+      expect(content.endsWith(expectedBlock)).toBe(true);
     });
   });
 });

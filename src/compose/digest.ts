@@ -24,7 +24,7 @@ import { formatInTimeZone } from 'date-fns-tz';
 import { renderHtml } from './templates.js';
 import type { FirmResult, EmailPayload } from '../types.js';
 import type { StalenessWarnings } from '../observability/staleness.js';
-import type { ClusterMarker } from '../pipeline/detectClusters.js';
+import type { DataQualityMarker } from '../pipeline/detectClusters.js';
 
 export function composeDigest(
   results: FirmResult[],
@@ -32,7 +32,7 @@ export function composeDigest(
   fromAddr: string,
   warnings?: StalenessWarnings,
   now: Date = new Date(),
-  markers: ClusterMarker[] = [],
+  markers: DataQualityMarker[] = [],
 ): EmailPayload {
   const firmsWithNew = results.filter((r) => r.summarized.length > 0);
   const firmsWithErrors = results.filter((r) => !!r.error);
