@@ -1,9 +1,9 @@
 ---
-status: complete
+status: resolved
 phase: 09-cooley-sitemap-tier
 source: [09-01-SUMMARY.md, 09-02-SUMMARY.md, 09-03-SUMMARY.md]
 started: 2026-04-20T22:32:00Z
-updated: 2026-04-20T22:52:00Z
+updated: 2026-04-20T23:20:00Z
 ---
 
 ## Current Test
@@ -43,12 +43,22 @@ skipped: 0
 ## Gaps
 
 - truth: "pnpm dry-run 전체 파이프라인 실행 시 Cooley 항목들이 fetch·enrich·digest 렌더링 단계 모두 통과하고 AI 요약 단계까지 정상 완료되어, 최종 digest 이메일 본문에 Korean 요약문이 포함되어야 함"
-  status: failed
+  status: resolved
   reason: "User reported: Gemini API summarization failed for ALL 6 Cooley items with HTTP 403 PERMISSION_DENIED / ACCESS_TOKEN_SCOPE_INSUFFICIENT (reason=ACCESS_TOKEN_SCOPE_INSUFFICIENT, service=generativelanguage.googleapis.com). Also 'API key should be set when using the Gemini API' warning appeared repeatedly, suggesting GEMINI_API_KEY not being picked up — possibly overridden by ambient Google Cloud ADC with wrong OAuth scopes. Phase 9 sitemap scope (fetch/enrich/render) worked correctly; the failure is in the Gemini auth/env layer but affects end-to-end digest quality."
   severity: major
   test: 2
-  scope_note: "Likely outside Phase 9 scope (auth/env config, not sitemap tier). May belong in a separate debug phase rather than Phase 9 gap_closure."
-  root_cause: ""
-  artifacts: []
-  missing: []
-  debug_session: ""
+  scope_note: "Outside Phase 9 scope (auth/env config, not sitemap tier). Resolved via separate /gsd:debug session, not Phase 9 gap_closure."
+  root_cause: "Local repo had no `.env` file and no dotenv loader imported anywhere in source. `src/summarize/gemini.ts:60` called `new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })` with apiKey=undefined, which made @google/genai's NodeAuth silently fall back to GoogleAuth (ADC, cloud-platform scope) via the user's ambient `gcloud auth application-default` session. ADC token does not grant generativelanguage.googleapis.com scope → every Gemini call returned 403 ACCESS_TOKEN_SCOPE_INSUFFICIENT."
+  artifacts:
+    - path: "src/main.ts"
+      issue: "No dotenv loader — local .env would not be read even if present"
+    - path: "src/summarize/gemini.ts"
+      issue: "Silent ADC fallback when GEMINI_API_KEY is missing"
+  missing:
+    - "import 'dotenv/config' at the top of src/main.ts (runs before any SDK instantiation)"
+    - "Explicit fail-loud guard in gemini.ts that throws AbortError when GEMINI_API_KEY is absent (prevents future silent regressions)"
+    - "Local .env file (user-created, gitignored) with GEMINI_API_KEY, GMAIL_APP_PASSWORD, RECIPIENT_EMAIL populated"
+  debug_session: ".planning/debug/gemini-403-access-token-scope.md"
+  fix_commit: "344b65d (fix(env): load dotenv locally + fail loud when GEMINI_API_KEY missing)"
+  verified_at: "2026-04-20T23:20:00Z"
+  verification: "User ran `pnpm dry-run` post-fix. Result: all 6 Cooley items rendered with real Korean Gemini summaries (not URL-slug fallback). No 403 errors, no 'API key should be set' warnings. Pipeline exit 0. Unrelated `shin-kim: fetch failed` footer entry pre-exists Phase 9 and is tracked separately."

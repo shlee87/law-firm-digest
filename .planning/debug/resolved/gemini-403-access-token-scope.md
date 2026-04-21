@@ -1,9 +1,12 @@
 ---
 slug: gemini-403-access-token-scope
-status: fix_applied_pending_user_verification
+status: resolved
 trigger: gemini-403-access-token-scope-insufficient
 created: 2026-04-20T22:55:00Z
-updated: 2026-04-21T04:10:00Z
+updated: 2026-04-20T23:20:00Z
+resolved_at: 2026-04-20T23:20:00Z
+fix_commit: 344b65d
+verification: "User ran `pnpm dry-run` post-fix — all 6 Cooley items rendered with real Korean Gemini summaries, no 403 errors, no 'API key should be set' warnings, pipeline exit 0."
 ---
 
 # Debug Session: gemini-403-access-token-scope
