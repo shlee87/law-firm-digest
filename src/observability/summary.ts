@@ -39,8 +39,8 @@ import type { DataQualityMarker } from '../pipeline/detectClusters.js';
  * identical. Returns an empty string when markers is empty (D-15 clean-run
  * invisibility).
  *
- * Cluster marker wording uses Korean "개 항목 demote됨" per D-05 (shifted
- * from the Phase 8 English "items demoted"). Low-confidence marker uses
+ * Cluster marker wording uses Korean "개 항목 demote됨" per D-05 (Phase 8
+ * used an English form; this is the D-05 Korean replacement). Low-confidence marker uses
  * the Korean "품질 의심 (confidence=low 과반)" form verbatim from D-05.
  */
 export function renderMarkersMarkdown(markers: DataQualityMarker[]): string {
