@@ -21,7 +21,7 @@
 //     state entries, which get implicit backwards-compat treatment in the
 //     staleness detector (Phase 3 Pitfall 9 — no silent retrofit).
 
-export type FirmType = 'rss' | 'html' | 'js-render';
+export type FirmType = 'rss' | 'html' | 'js-render' | 'sitemap';
 export type Language = 'ko' | 'en';
 
 /**
@@ -50,6 +50,12 @@ export interface FirmConfig {
   enabled: boolean;
   wait_for?: string;  // required when type === 'js-render' (enforced by schema superRefine)
   detail_tier?: 'js-render' | 'static';  // Phase 7 DETAIL-01: orthogonal to `type`; governs detail-page fetch path only.
+  /**
+   * Phase 9 SITEMAP-03: top-N most-recent articles to pull from a sitemap
+   * XML feed. Only valid when type === 'sitemap' (schema superRefine enforces
+   * exclusivity). Default applied at scraper layer (sitemap.ts DEFAULT_LATEST_N).
+   */
+  latest_n?: number;
   selectors?: {
     list_item: string;
     title: string;

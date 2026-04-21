@@ -5,7 +5,10 @@
 //   - Remediation is one of 5 literal strings (D-10 vocab)
 //   - remediation === null IFF status === 'OK' (TS cannot enforce; documented)
 //   - targetPhase === null IFF remediation === null
-//   - tier mirrors FirmType from src/types.ts (rss / html / js-render)
+//   - tier mirrors FirmType from src/types.ts (rss / html / js-render / sitemap).
+//     Phase 9 (SITEMAP-03): FirmType extended with 'sitemap'; this union widens
+//     in lockstep so AuditRow.tier remains assignable from firm.type. The
+//     sitemap-specific probe path lands in Plan 09-03 Task 4 (probeSitemapFirm).
 //
 // The Status and Remediation unions are CLOSED — adding a new value here
 // requires updating src/audit/writer.ts switch(remediation) which uses
@@ -30,7 +33,7 @@ export type Remediation =
 export interface AuditRow {
   firmId: string;
   firmName: string;
-  tier: 'rss' | 'html' | 'js-render';
+  tier: 'rss' | 'html' | 'js-render' | 'sitemap';
   status: Status;
   items: number;
   remediation: Remediation | null; // null only when status='OK'

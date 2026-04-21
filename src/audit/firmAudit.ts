@@ -40,7 +40,7 @@ import type {
   Remediation,
   RunOptions,
 } from './types.js';
-import type { FirmConfig, RawItem } from '../types.js';
+import type { FirmConfig, FirmType, RawItem } from '../types.js';
 
 export const AUDIT_OUTPUT_PATH =
   '.planning/phases/06-firm-audit-probe/06-AUDIT.md';
@@ -59,7 +59,7 @@ const PLAYWRIGHT_GOTO_TIMEOUT_MS = 15_000;
  */
 function defaultRemediation(
   status: Status,
-  tier: 'rss' | 'html' | 'js-render',
+  tier: FirmType,
 ): Remediation | null {
   switch (status) {
     case 'OK':
@@ -235,6 +235,18 @@ export async function runAudit(options: RunOptions): Promise<AuditReport> {
               case 'rss':       return await probeRssFirm(firm);
               case 'html':      return await probeHtmlFirm(firm);
               case 'js-render': return await probeJsRenderFirm(firm, browser!);
+              case 'sitemap':
+                // Phase 9 Plan 09-01: FirmType union now includes 'sitemap';
+                // the real probeSitemapFirm lands in Plan 09-03 Task 4. Until
+                // then, sitemap firms report list-fail so `pnpm audit:firms`
+                // does not crash on "Unknown tier" during the interim between
+                // plan 01 (types+schema) and plan 03 (audit wiring).
+                return makeRow(
+                  firm,
+                  'list-fail',
+                  0,
+                  'sitemap tier audit wiring lands in Phase 9 Plan 09-03 Task 4',
+                );
               default: {
                 const _exhaustive: never = firm.type;
                 throw new Error(`Unknown tier: ${_exhaustive as string}`);
