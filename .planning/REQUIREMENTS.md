@@ -117,7 +117,8 @@ Derived from `.planning/research/FEATURES.md` categorization (T1–T17 table sta
 
 ### Sitemap Tier (SITEMAP)
 
-- [ ] **SITEMAP-01**: A new `src/scrapers/sitemap.ts` parses `<url><loc><lastmod>` from an XML sitemap URL and returns the top-N most recent URLs (sorted by lastmod desc)
+- [x] **SITEMAP-01
+**: A new `src/scrapers/sitemap.ts` parses `<url><loc><lastmod>` from an XML sitemap URL and returns the top-N most recent URLs (sorted by lastmod desc)
 - [ ] **SITEMAP-02**: Sitemap-tier firms reuse the js-render detail path (Playwright + `.post-content` or firm-configured body selector) for article body extraction
 - [x] **SITEMAP-03
 **: `config/firms.yaml` schema accepts `type: sitemap` with required `url` (sitemap URL) and optional `latest_n` (default 10)

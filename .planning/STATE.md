@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
 status: executing
-stopped_at: Completed 09-01-PLAN.md
-last_updated: "2026-04-21T02:39:52.859Z"
+stopped_at: Completed 09-02-PLAN.md
+last_updated: "2026-04-21T02:47:33.655Z"
 last_activity: 2026-04-21
 progress:
   total_phases: 6
   completed_phases: 3
   total_plans: 20
-  completed_plans: 18
-  percent: 90
+  completed_plans: 19
+  percent: 95
 ---
 
 # Project State
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-19)
 ## Current Position
 
 Phase: 09 (cooley-sitemap-tier) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 Status: Ready to execute
 Last activity: 2026-04-21
 
@@ -111,6 +111,7 @@ Last activity: 2026-04-21
 | Phase 08-hallucination-guard P05 | 5min | 1 tasks | 1 files |
 | Phase 08-hallucination-guard P06 | 7min | 2 tasks | 2 files |
 | Phase Phase 09-cooley-sitemap-tier P01 P~12min | 4 tasks | 5 files tasks | - files |
+| Phase Phase 09-cooley-sitemap-tier PP02 | ~4 min | 4 tasks tasks | 3 files files |
 
 ## Accumulated Context
 
@@ -242,6 +243,9 @@ Recent decisions affecting current work:
 - 09-01: superRefine detail_tier gate narrowed from '!== undefined' to '=== js-render' (Rule 1) — zod's .default(static) injects detail_tier on every parse so the undefined check rejected every legal sitemap firm; narrowing keeps real intent (sitemap always Playwright, js-render is redundant)
 - 09-01: latest_n default (10) deliberately NOT baked into schema — lives at scraper layer (sitemap.ts DEFAULT_LATEST_N per plan 09-02) so the 'latest_n: 10' YAML line stays explicit per CONTEXT D-06
 - 09-01: toThrow regex literals use '\\?"sitemap\\?"' tolerance to match both raw and JSON-escaped double-quote forms since ZodError.message is the JSON-stringified issues array
+- 09-02: scrapeSitemap clones jsRender.ts browser-injection discipline verbatim — try/finally context.close + USER_AGENT via newContext; sitemap-specific diff is context.request.get (not page.goto) + cheerio xml-mode parsing
+- 09-02: Header comment D-16 narrative reworded (Rule 1 fix) to remove literal 'decodeCharsetAwareFetch' token from sitemap.ts — plan acceptance criterion required grep==0 but plan-supplied template had the literal in a historical-context comment; reworded to 'undici-based charset-aware HTML helper (from util.js)' with pointer to cooley-cf-bypass.md backlog
+- 09-02: DEFAULT_LATEST_N=10 exported from sitemap.ts module top — plan 09-03 firms.yaml Cooley entry per CONTEXT D-06 should explicitly set latest_n: 10 to keep the cap visible to non-developer config editors rather than relying on the scraper-layer default
 
 ### Pending Todos
 
@@ -262,8 +266,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-21T02:39:52.856Z
-Stopped at: Completed 09-01-PLAN.md
+Last session: 2026-04-21T02:47:33.652Z
+Stopped at: Completed 09-02-PLAN.md
 Resume file: None
 
 **Next action:** `/gsd:plan-phase 6` — plan Phase 6: Firm Audit + Probe
