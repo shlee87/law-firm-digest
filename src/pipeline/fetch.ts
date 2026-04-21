@@ -37,6 +37,7 @@ import type { Browser } from 'playwright';
 import { scrapeRss } from '../scrapers/rss.js';
 import { scrapeHtml } from '../scrapers/html.js';
 import { scrapeJsRender } from '../scrapers/jsRender.js';
+import { scrapeSitemap } from '../scrapers/sitemap.js';
 import { fetchRobots, isAllowed } from '../scrapers/robots.js';
 import { scrubSecrets } from '../util/logging.js';
 import { classifyError } from '../compose/templates.js';
@@ -82,10 +83,20 @@ export async function fetchAll(
               }
               raw = await scrapeJsRender(firm, browser);
               break;
-            default:
+            case 'sitemap':
+              if (!browser) {
+                throw new Error(
+                  `firm ${firm.id}: sitemap tier requires a launched Browser but none was provided — pipeline/run.ts should have passed one`,
+                );
+              }
+              raw = await scrapeSitemap(firm, browser);
+              break;
+            default: {
+              const _exhaustive: never = firm.type;
               throw new Error(
-                `firm ${firm.id}: unknown tier ${String(firm.type)}`,
+                `firm ${firm.id}: unknown tier ${_exhaustive as string}`,
               );
+            }
           }
 
           const duration = Date.now() - started;
