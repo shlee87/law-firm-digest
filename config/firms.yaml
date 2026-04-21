@@ -25,6 +25,14 @@
 #                 - 'js-render' 시 enrichBody 가 Playwright 로 detail 페이지를 가져옵니다.
 #                   list 페이지는 static HTML 인데 detail 페이지만 SPA 인 경우(bkl, kim-chang).
 #                 - type: 'js-render' 인 firm 도 명시적으로 선언 권장 (Phase 7 migration).
+#                 - ⚠ type: 'sitemap' firm 에는 detail_tier 필드를 사용하지 마세요 (WR-03):
+#                   sitemap 티어는 항상 Playwright 로 detail 을 가져오도록
+#                   enrichBody 가 OR-gate 로 강제합니다 (Phase 9 D-05).
+#                   'detail_tier: js-render' 는 zod superRefine 이 거부하고,
+#                   'detail_tier: static' 은 zod 기본값과 구별할 수 없어
+#                   스키마 단계에서 통과하지만 runtime 에서는 무시됩니다.
+#                   즉 sitemap firm 에서 'detail_tier: static' 을 적어도
+#                   그 값은 아무 동작도 하지 않습니다 — 필드를 생략하세요.
 #   latest_n    : (type: sitemap 전용) sitemap XML 에서 가져올 최신 article 수.
 #                 생략 시 기본값 10 (src/scrapers/sitemap.ts DEFAULT_LATEST_N).
 # -------------------------------------------------------------

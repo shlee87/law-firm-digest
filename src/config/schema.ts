@@ -151,6 +151,15 @@ export const FirmSchema = z
       // from the zod-injected default. The implicit-js-render contract for
       // sitemap tier still holds: enrichBody routes sitemap through
       // Playwright unconditionally (plan 09-03 D-05).
+      //
+      // KNOWN SOFT-VIOLATION (WR-03): a user who explicitly writes
+      // `detail_tier: 'static'` on a sitemap firm passes schema but is
+      // silently ignored by enrichBody's OR-gate. Documented in
+      // config/firms.yaml `detail_tier` field comment so non-developer
+      // operators do not waste time setting it. Proper fix requires
+      // distinguishing supplied vs injected default (zod v4 `.catch()`
+      // or loader post-parse normalization); deferred as a follow-up
+      // because it touches FirmSchema backwards compat across all tiers.
       if (firm.detail_tier === 'js-render') {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
