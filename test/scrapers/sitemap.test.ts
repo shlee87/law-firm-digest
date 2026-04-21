@@ -122,6 +122,32 @@ describe('scrapeSitemap (Phase 9)', () => {
     expect(contextClose).toHaveBeenCalledTimes(1);
   });
 
+  it('re-wraps network-level throws (WR-01) with scrapeSitemap {id}: fetch failed — … prefix', async () => {
+    // Network-level failures (DNS, connection reset, TLS, Playwright request
+    // timeout) throw BEFORE a response object arrives. The module must
+    // preserve the classifier-coupled 'scrapeSitemap {firm.id}:' prefix so
+    // compose/templates.ts#classifyError keeps a consistent anchor across
+    // response-level (HTTP xxx) and transport-level failure modes.
+    const contextClose = vi.fn().mockResolvedValue(undefined);
+    const requestGet = vi
+      .fn()
+      .mockRejectedValue(
+        new Error(
+          'net::ERR_NAME_NOT_RESOLVED at https://www.cooleygo.com/post-sitemap.xml',
+        ),
+      );
+    const context = { request: { get: requestGet }, close: contextClose };
+    const browser = { newContext: vi.fn().mockResolvedValue(context) };
+
+    await expect(
+      scrapeSitemap(makeFirm(), browser as never),
+    ).rejects.toThrow(
+      /scrapeSitemap cooley: fetch failed — net::ERR_NAME_NOT_RESOLVED/,
+    );
+    // finally still closes the context on transport-level throw.
+    expect(contextClose).toHaveBeenCalledTimes(1);
+  });
+
   it('passes firm.url VERBATIM to context.request.get (www. preserved, no canonicalize)', async () => {
     const { browser, request } = makeMockBrowser({ xmlBody: FIXTURE_XML });
     await scrapeSitemap(makeFirm(), browser as never);

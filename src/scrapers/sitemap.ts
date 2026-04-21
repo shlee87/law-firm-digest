@@ -21,6 +21,12 @@
 // Error message shapes (COUPLED to classifyError regex in
 // src/compose/templates.ts; DO NOT modify without updating classifier in lockstep):
 //   - 'scrapeSitemap {firm.id}: HTTP {status}' — XML fetch non-OK.
+//   - 'scrapeSitemap {firm.id}: fetch failed — {cause}' — network-level throw
+//     (DNS failure, connection reset, TLS error, Playwright request timeout)
+//     before a response object arrived. Wraps the Playwright-native error so
+//     the classifier sees a consistent 'scrapeSitemap {firm.id}:' anchor
+//     regardless of whether the failure was transport- or response-level
+//     (WR-01 fix — preserves debuggability if Cloudflare re-tightens its gate).
 //   - 'scrapeSitemap {firm.id}: malformed XML (no <urlset> root)' — cheerio
 //     loaded but root tag absent; likely HTML error page returned with 200.
 //   - 'scrapeSitemap {firm.id}: zero items extracted' — XML parsed OK but
@@ -58,9 +64,23 @@ export async function scrapeSitemap(
   const context = await browser.newContext({ userAgent: USER_AGENT });
   let xml: string;
   try {
-    const res = await context.request.get(firm.url, {
-      timeout: FETCH_TIMEOUT_MS,
-    });
+    // WR-01: separate inner try so network-level throws (DNS, connection
+    // reset, TLS, Playwright request timeout) get re-wrapped with the
+    // classifier-coupled 'scrapeSitemap {firm.id}:' prefix. Without this
+    // wrap, the raw Playwright error ("net::ERR_NAME_NOT_RESOLVED at https://…")
+    // bypasses compose/templates.ts#classifyError's scrapeSitemap-shape matchers
+    // and falls into the 'unknown' bucket. HTTP-status errors keep their
+    // original shape since they are only reachable once a response arrived.
+    let res;
+    try {
+      res = await context.request.get(firm.url, {
+        timeout: FETCH_TIMEOUT_MS,
+      });
+    } catch (err) {
+      throw new Error(
+        `scrapeSitemap ${firm.id}: fetch failed — ${(err as Error).message}`,
+      );
+    }
     const status = res.status();
     if (!res.ok()) {
       throw new Error(`scrapeSitemap ${firm.id}: HTTP ${status}`);
