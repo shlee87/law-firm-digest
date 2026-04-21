@@ -30,14 +30,25 @@ Plan: Not started
 Status: Ready to plan
 Last activity: 2026-04-21
 
-**⚠ Known production regressions (discovered 2026-04-19 via Phase 02 UAT demo):**
+**v1.0 regressions status (all originally discovered 2026-04-19 Phase 02 UAT):**
 
-- bkl detail URLs are SPA — all items receive identical landing-page body → hallucinated summaries
-- kim-chang detail fetches fail — empty body → hallucinated summaries
-- shin-kim list fetches fail; logos/skadden zero-item selector bitrot
-- Gemini prompt lacks generic-body hallucination guard (defense-in-depth missing)
-- cooley RSS CF-blocked (separate backlog: .planning/backlog/cooley-cf-bypass.md)
-- Full audit: .planning/backlog/v1.0-data-quality-audit.md
+- ~~bkl detail URLs are SPA — hallucinated summaries~~ — **PARKED via disable** (Phase 7-06 `enabled: false` w/ evidence). Forward-fix blocked on shared `restoreFetchHost(itemUrl, firmUrl)` helper in enrichBody + firmAudit (same fix unblocks kim-chang).
+- ~~kim-chang detail fetches fail — hallucinated summaries~~ — **PARKED via disable** (Phase 7-05 `enabled: false` w/ evidence). Same helper as bkl.
+- ~~shin-kim list fetches fail~~ — **PARKED via disable** (2026-04-20 debug `3bc05f3`, `enabled: false` w/ full evidence). Distinct root cause: shinkim.com server sends incomplete TLS chain (missing Thawte intermediate); Node 22 undici rejects with `UNABLE_TO_VERIFY_LEAF_SIGNATURE`. Forward-fix: inject Thawte intermediate via `NODE_EXTRA_CA_CERTS` in GHA workflow OR per-firm `undici.Agent`. Classifier extended with `tls-cert-fail` taxonomy in same commit.
+- ~~logos/skadden zero-item selector bitrot~~ — **RESOLVED** in Phase 7-04 (live-probed selectors replaced Phase 2 audit hints).
+- ~~Gemini prompt lacks generic-body hallucination guard~~ — **RESOLVED** in Phase 8 GUARD (three-layer defense: pre-summarize body-shape guard + Gemini prompt rule + post-summarize cluster detector).
+- ~~cooley RSS CF-blocked~~ — **RESOLVED** in Phase 9 (sitemap tier migration, backlog moved to `.planning/backlog/resolved/cooley-cf-bypass.md`).
+
+**New regressions discovered 2026-04-20 during Phase 09 UAT / cleanup (all resolved same day):**
+
+- ~~Local dev `pnpm dry-run` hits Gemini 403 `ACCESS_TOKEN_SCOPE_INSUFFICIENT`~~ — **RESOLVED** via `344b65d` (added `dotenv/config` import in main.ts + fail-loud guard in gemini.ts). Root cause: no `.env` + no dotenv loader → SDK silent-fallback to gcloud ADC. Debug session `.planning/debug/resolved/gemini-403-access-token-scope.md`.
+- ~~`test/summarize/gemini.test.ts` 3 failing tests post-fix~~ — **RESOLVED** via `0493c5a` (stub `GEMINI_API_KEY` in beforeEach/afterEach so mock path works).
+
+**Active follow-up backlog:**
+
+- Shared `restoreFetchHost` helper for bkl + kim-chang (enrichBody + firmAudit scope, dedup canonicalization untouched). Blocks re-enablement of 2 firms.
+- Thawte CA intermediate injection for shin-kim (GHA NODE_EXTRA_CA_CERTS or per-firm undici.Agent). Blocks re-enablement of 1 firm.
+- Full v1.0 audit archive: `.planning/backlog/v1.0-data-quality-audit.md`
 
 **Note on plan counter:** Phase 5 was pre-planned (1 governance plan) before Phase 4 execution began. Phase 4 is now executing; Phase 5 remains planned but unexecuted pending Phase 4 completion. The `state.advance-plan` call against this Current Position ran at a moment when it still pointed at Phase 5, incrementing that phase's plan-1-of-1 counter — the real advancement this session was Phase 4 plan 0→1.
 
