@@ -232,6 +232,97 @@ describe('FirmSchema (Phase 7 detail_tier extension)', () => {
 });
 
 // --------------------------------------------------------------------------
+// Phase 9 — sitemap tier (SITEMAP-03): FirmType += 'sitemap', latest_n field
+// --------------------------------------------------------------------------
+
+describe('FirmSchema (Phase 9 sitemap extensions)', () => {
+  const sitemapBase = {
+    id: 'cooley',
+    name: 'Cooley',
+    language: 'en' as const,
+    type: 'sitemap' as const,
+    url: 'https://www.cooleygo.com/post-sitemap.xml',
+    timezone: 'America/Los_Angeles',
+    enabled: true,
+  };
+
+  it('accepts type: sitemap with url and optional latest_n', () => {
+    const parsed = FirmsConfigSchema.parse({
+      firms: [{ ...sitemapBase, latest_n: 10 }],
+    });
+    expect(parsed.firms[0].type).toBe('sitemap');
+    expect(parsed.firms[0].latest_n).toBe(10);
+  });
+
+  it('accepts type: sitemap with latest_n absent (scraper applies default)', () => {
+    const parsed = FirmsConfigSchema.parse({ firms: [sitemapBase] });
+    expect(parsed.firms[0].type).toBe('sitemap');
+    expect(parsed.firms[0].latest_n).toBeUndefined();
+  });
+
+  // NOTE: zod throws a ZodError whose `message` field is the JSON-stringified
+  // issues array, so embedded double-quotes appear escaped as \". The regexes
+  // below use `\\?"` to match either the raw or JSON-escaped form — same
+  // tolerance pattern as toThrow() assertions against zod elsewhere in the
+  // suite (Rule 1 fix for Phase 9 Plan 09-01 Task 3 regex literal escaping).
+  it('rejects sitemap firm with wait_for', () => {
+    expect(() =>
+      FirmsConfigSchema.parse({
+        firms: [{ ...sitemapBase, wait_for: 'article' }],
+      }),
+    ).toThrow(/wait_for is only valid when type === \\?"js-render\\?"/);
+  });
+
+  it('rejects sitemap firm with selectors block', () => {
+    expect(() =>
+      FirmsConfigSchema.parse({
+        firms: [
+          {
+            ...sitemapBase,
+            selectors: { list_item: 'a', title: 'b', link: 'c' },
+          },
+        ],
+      }),
+    ).toThrow(/selectors is not valid for type === \\?"sitemap\\?"/);
+  });
+
+  it('rejects sitemap firm with explicit detail_tier', () => {
+    expect(() =>
+      FirmsConfigSchema.parse({
+        firms: [{ ...sitemapBase, detail_tier: 'js-render' }],
+      }),
+    ).toThrow(/detail_tier is implicit for type === \\?"sitemap\\?"/);
+  });
+
+  it('rejects rss firm carrying latest_n', () => {
+    expect(() =>
+      FirmsConfigSchema.parse({
+        firms: [
+          {
+            id: 'test',
+            name: 'Test',
+            language: 'en' as const,
+            type: 'rss' as const,
+            url: 'https://example.com/feed',
+            timezone: 'America/Los_Angeles',
+            enabled: true,
+            latest_n: 5,
+          },
+        ],
+      }),
+    ).toThrow(/latest_n is only valid when type === \\?"sitemap\\?"/);
+  });
+
+  it('enforces .strict() regression — unknown top-level field rejected on sitemap firm', () => {
+    expect(() =>
+      FirmsConfigSchema.parse({
+        firms: [{ ...sitemapBase, bogus_field: 'x' }],
+      }),
+    ).toThrow();
+  });
+});
+
+// --------------------------------------------------------------------------
 // Phase 4.1 — selectors.link union (string | LinkExtractorSchema)
 // --------------------------------------------------------------------------
 

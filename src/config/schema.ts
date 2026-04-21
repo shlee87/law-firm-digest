@@ -141,7 +141,17 @@ export const FirmSchema = z
           path: ['selectors'],
         });
       }
-      if (firm.detail_tier !== undefined) {
+      // NOTE: zod applies `.default('static')` to detail_tier on every
+      // parse regardless of whether the YAML author wrote the field, so a
+      // raw `firm.detail_tier !== undefined` check would reject every
+      // legal sitemap firm that omits the field (Rule 1 bug surfaced by
+      // schema-test 'accepts type: sitemap with url and optional latest_n').
+      // Narrow the check to the only value a user can meaningfully assert
+      // on a sitemap firm — 'js-render' — since 'static' is indistinguishable
+      // from the zod-injected default. The implicit-js-render contract for
+      // sitemap tier still holds: enrichBody routes sitemap through
+      // Playwright unconditionally (plan 09-03 D-05).
+      if (firm.detail_tier === 'js-render') {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message:
