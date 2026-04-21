@@ -49,8 +49,9 @@ describe('writeStepSummary — $GITHUB_STEP_SUMMARY writer', () => {
     const firms = [makeFirm('cooley', 'Cooley')];
     await writeStepSummary(r, firms);
     const contents = await readFile(path, 'utf8');
-    expect(contents).toContain('| Firm | Fetched | New | Summarized | Errors | Duration |');
-    expect(contents).toContain('| Cooley | 12 | 3 | 3 | — | 1247ms |');
+    expect(contents).toContain('| Firm | Fetched | New | Summ | Errors | Duration | AvgBody | GUARD | H/M/L |');
+    // fetched=12, bodyLengths not set → AvgBody='—'; isEmptyFirm? No (fetched=12≠0) → GUARD=0, H/M/L=0/0/0
+    expect(contents).toContain('| Cooley | 12 | 3 | 3 | — | 1247ms | — | 0 | 0/0/0 |');
     expect(contents.endsWith('\n')).toBe(true);
   });
 

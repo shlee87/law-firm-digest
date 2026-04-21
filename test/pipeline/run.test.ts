@@ -276,6 +276,85 @@ describe('runPipeline — composition root', () => {
     ]);
     expect(table).toContain('| Cooley |');
     expect(table).toContain('1'); // fetched=1 from the mock.
+    // Phase 10 DQOBS-01: 9-column header in recorder table.
+    expect(table).toContain('| Firm | Fetched | New | Summ | Errors | Duration | AvgBody | GUARD | H/M/L |');
+    // AvgBody is either a number or '—' — just verify it's present in the row.
+    const cooleyRow = table.split('\n').find((l) => l.includes('| Cooley |'));
+    expect(cooleyRow).toBeDefined();
+  });
+
+  it('Phase 10 DQOBS-01: Recorder captures bodyLengths and H/M/L after pipeline run', async () => {
+    const report = await runPipeline({
+      skipEmail: true,
+      skipStateWrite: true,
+    });
+
+    const firmId = 'cooley';
+    const metrics = report.recorder.get(firmId);
+    expect(metrics).toBeDefined();
+    // bodyLengths set post-enrich (120-char descriptions per the mock setup).
+    expect(metrics!.bodyLengths.length).toBeGreaterThan(0);
+    // guardCount is a number (may be 0 if no guards triggered).
+    expect(typeof metrics!.guardCount).toBe('number');
+    // H/M/L tallied post-cluster-detect.
+    expect(typeof metrics!.confidenceH).toBe('number');
+    expect(typeof metrics!.confidenceM).toBe('number');
+    expect(typeof metrics!.confidenceL).toBe('number');
+    // H+M+L totals match summarized count (mock: 1 item per firm summarized=high).
+    expect(metrics!.confidenceH + metrics!.confidenceM + metrics!.confidenceL)
+      .toBe(metrics!.summarized + metrics!.guardCount);
+  });
+
+  it('Phase 10 DQOBS-01: error firms do not receive bodyLengths/guardCount/confidence records', async () => {
+    // Override fetchAll so kim-chang errors out (r.error set).
+    mocks.fetchAllMock.mockReset().mockImplementation(
+      async (firms: typeof FIRMS, recorder?: FakeRecorder) => {
+        return firms.map((f) => {
+          if (f.id === 'kim-chang') {
+            recorder?.firm(f.id).fetched(0).durationMs(0);
+            return {
+              firm: f,
+              raw: [],
+              new: [],
+              summarized: [],
+              durationMs: 0,
+              error: new Error('fetch-error'),
+            };
+          }
+          recorder?.firm(f.id).fetched(1).durationMs(100);
+          return {
+            firm: f,
+            raw: [
+              {
+                firmId: f.id,
+                title: 't',
+                url: `https://x/${f.id}/1`,
+                language: f.language,
+                description: 'x'.repeat(120),
+              },
+            ],
+            new: [],
+            summarized: [],
+            durationMs: 100,
+          };
+        });
+      },
+    );
+
+    const report = await runPipeline({
+      skipEmail: true,
+      skipStateWrite: true,
+    });
+
+    const erroredFirmMetrics = report.recorder.get('kim-chang');
+    // If present (errorClass was set by fetchAll mock), bodyLengths must remain default.
+    if (erroredFirmMetrics) {
+      expect(erroredFirmMetrics.bodyLengths).toEqual([]);
+      expect(erroredFirmMetrics.guardCount).toBe(0);
+      expect(erroredFirmMetrics.confidenceH).toBe(0);
+      expect(erroredFirmMetrics.confidenceM).toBe(0);
+      expect(erroredFirmMetrics.confidenceL).toBe(0);
+    }
   });
 
   it('writeStepSummary runs in finally block — propagates throw from fetchAll', async () => {

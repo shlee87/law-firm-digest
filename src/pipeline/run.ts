@@ -209,6 +209,21 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
         .join(' | '),
     );
 
+    // Phase 10 DQOBS-01 Site 1 — body lengths recorded at stage boundary
+    // post-enrich. REPLACE-NOT-ACCUMULATE: pass full array per firm per stage.
+    // Error firms skip — defaultMetrics bodyLengths=[] stays, rendering as '—'.
+    //
+    // D-02 field-name reconciliation: CONTEXT.md D-02 uses the term
+    // "item.body.length". The actual codebase field is NewItem.description
+    // (post-enrich body lives there per src/pipeline/enrichBody.ts:136,159
+    // and src/types.ts:80). `selectors.body` in FirmConfig is a YAML
+    // selector KEY, not a RawItem/NewItem property — different axis.
+    for (const r of enriched) {
+      if (r.error) continue;
+      const lengths = r.raw.map((item) => (item.description ?? '').length);
+      recorder.firm(r.firm.id).bodyLengths(lengths);
+    }
+
     const filtered = applyKeywordFilter(enriched);
     reporter.section(
       'filter',
@@ -279,6 +294,33 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
     const clusterResult = detectHallucinationClusters(summarized);
     const clusterAdjusted = clusterResult.firms;
     markers = clusterResult.markers;
+
+    // Phase 10 DQOBS-01 Site 2 — GUARD union + H/M/L AFTER cluster-detect
+    // so Layer-3 demotes (confidence='low') are counted in L (Pitfall 2).
+    for (const r of clusterAdjusted) {
+      if (r.error) continue;
+      // Layer 1: summaryModel === 'skipped' (body empty/short → Gemini bypassed)
+      const layer1 = r.summarized.filter((it) => it.summaryModel === 'skipped').length;
+      // Layer 2: Gemini returned '' → title-verbatim substituted (gemini.ts).
+      // Discriminator heuristic (Research Pitfall 1 Option A): summary_ko===title
+      // AND summaryModel is NOT a sentinel (not 'skipped'/'failed'/'cli-skipped').
+      const layer2 = r.summarized.filter(
+        (it) =>
+          it.summary_ko === it.title &&
+          it.summaryModel !== 'skipped' &&
+          it.summaryModel !== 'failed' &&
+          it.summaryModel !== 'cli-skipped',
+      ).length;
+      // Layer 3: cluster-demoted (detectClusters.ts sets isClusterMember=true)
+      const layer3 = r.summarized.filter((it) => it.isClusterMember === true).length;
+      recorder.firm(r.firm.id).guardCount(layer1 + layer2 + layer3);
+
+      // H/M/L tally over clusterAdjusted (post-demote) so Layer-3 items land in L.
+      const h = r.summarized.filter((it) => it.summaryConfidence === 'high').length;
+      const m = r.summarized.filter((it) => it.summaryConfidence === 'medium').length;
+      const l = r.summarized.filter((it) => it.summaryConfidence === 'low').length;
+      recorder.firm(r.firm.id).confidence(h, m, l);
+    }
 
     const newTotal = clusterAdjusted.reduce((n, r) => n + r.summarized.length, 0);
     reporter.section(
