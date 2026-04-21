@@ -366,7 +366,7 @@ describe('runPipeline — composition root', () => {
     // The assertion is that the finally block did not swallow the throw.
   });
 
-  it('RunReport shape — results, digestSent, warnings, recorder populated', async () => {
+  it('RunReport shape — results, digestSent, warnings, recorder, markers, firms populated', async () => {
     const report = await runPipeline({
       skipEmail: true,
       skipStateWrite: true,
@@ -381,6 +381,18 @@ describe('runPipeline — composition root', () => {
     // Phase 4 D-08 — jsRenderFailures populated on every run (0 when no
     // js-render firms are enabled or all succeeded).
     expect(report.jsRenderFailures).toBe(0);
+    // Phase 10 DQOBS-03 additions:
+    expect(Array.isArray(report.markers)).toBe(true);  // always an array, may be empty
+    expect(Array.isArray(report.firms)).toBe(true);
+    expect(report.firms.length).toBeGreaterThan(0);     // at least the mocked firms
+  });
+
+  it('Phase 10 DQOBS-03: report.markers is a DataQualityMarker[] with valid kind values', async () => {
+    const report = await runPipeline({ skipEmail: true, skipStateWrite: true });
+    // markers is always a DataQualityMarker[] (possibly empty on clean runs)
+    report.markers.forEach((m) => {
+      expect(['cluster', 'low-confidence']).toContain(m.kind);
+    });
   });
 });
 

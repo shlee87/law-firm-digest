@@ -84,7 +84,7 @@ import { detectStaleness } from '../observability/staleness.js';
 import type { StalenessWarnings } from '../observability/staleness.js';
 import { Recorder } from '../observability/recorder.js';
 import { writeStepSummary } from '../observability/summary.js';
-import type { FirmResult, SummarizedItem } from '../types.js';
+import type { FirmResult, SummarizedItem, FirmConfig } from '../types.js';
 
 export interface Reporter {
   section(name: string, detail: string): void;
@@ -109,6 +109,11 @@ export interface RunReport {
   warnings: StalenessWarnings;
   recorder: Recorder;
   jsRenderFailures: number; // Phase 4 D-08 — count of type==='js-render' firms that errored
+  // Phase 10 DQOBS-03 — exposed for main.ts DRY_RUN emission (fourth
+  // sanctioned site). Both are REQUIRED because every code path produces
+  // them (Pitfall 9: verified only 1 prod consumer + 1 test).
+  markers: DataQualityMarker[];
+  firms: FirmConfig[];
 }
 
 export async function runPipeline(options: RunOptions = {}): Promise<RunReport> {
@@ -349,6 +354,9 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
       warnings,
       recorder,
       jsRenderFailures: jsRenderFailures,
+      // Phase 10 DQOBS-03 — main.ts reads these for DRY_RUN stdout emission.
+      markers,           // already contains cluster + low-confidence (Plan 10-02)
+      firms: allFirms,   // full YAML firm list; toMarkdownTable filters disabled
     };
 
     try {
