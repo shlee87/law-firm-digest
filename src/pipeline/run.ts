@@ -157,9 +157,15 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
   // ~1.2s on days when all js-render firms are disabled.
   // Phase 7 DETAIL-02 extension (D-06): an html-tier firm with
   // detail_tier='js-render' (bkl, kim-chang) also requires the browser for
-  // per-item detail fetches in enrichBody.ts, so include them in the gate.
+  // per-item detail fetches in enrichBody.ts.
+  // Phase 9 D-05 extension: sitemap tier also requires chromium for (a) the
+  // sitemap XML fetch via context.request.get (CF bypass — D-16 revision)
+  // and (b) implicit js-render detail fetch in enrichBody (OR-gated).
   const hasJsRender = firms.some(
-    (f) => f.type === 'js-render' || f.detail_tier === 'js-render',
+    (f) =>
+      f.type === 'js-render' ||
+      f.detail_tier === 'js-render' ||
+      f.type === 'sitemap',
   );
   let browser: Browser | undefined;
   if (hasJsRender) {
