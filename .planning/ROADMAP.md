@@ -205,7 +205,11 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. A manual `workflow_dispatch` run completes successfully and the resulting digest email is visually inspected — every item's Korean summary reflects content specific to that article (not a generic firm description or title verbatim without cause).
   2. `.github/workflows/daily.yml` has its `schedule:` block uncommented and a dated acceptance note is present in STATE.md recording the inspection result and confirming cron resumption.
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+- [ ] 11-01-PLAN.md — restoreFetchHost helper + bkl/kim-chang re-enable (RESUME-01)
+- [ ] 11-02-PLAN.md — shin-kim TLS fix + all 3 firms smoke-tested (RESUME-01)
+- [ ] 11-03-PLAN.md — workflow_dispatch inspection + schedule uncomment + STATE.md acceptance note (RESUME-01, RESUME-02)
 
 ## Progress
 
@@ -224,7 +228,7 @@ Phases execute in numeric order. Phase 4 is conditional — skipped if Phase 2 a
 | 8. Hallucination Guard | 0/0 | Pending | — |
 | 9. Cooley Sitemap Tier | 1/3 | Executing | — |
 | 10. Data-Quality Observability | 0/0 | Pending | — |
-| 11. Cron Resumption Gate | 0/0 | Pending | — |
+| 11. Cron Resumption Gate | 0/3 | Planning | — |
 
 ## ⚠ v1.0 Milestone — Production Readiness Caveat
 
