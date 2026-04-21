@@ -101,12 +101,17 @@ export async function enrichWithBody(
                 setTimeout(res, INTER_FETCH_DELAY_MS),
               );
             }
-            // Phase 7 D-07: detail_tier === 'js-render' → Playwright ONLY,
-            // no static attempt. Browser presence is guaranteed by run.ts
-            // hasJsRender check (D-06) whenever any firm needs it; but we
-            // still defensively check `browser` to handle test harness calls
-            // that pass results without a browser.
-            if (r.firm.detail_tier === 'js-render' && browser) {
+            // Phase 7 D-07 + Phase 9 D-05: Playwright-ONLY detail path, no static attempt.
+            //   - detail_tier === 'js-render' (Phase 7): bkl, kim-chang explicitly opt in.
+            //   - type === 'sitemap' (Phase 9): implicit — sitemap tier ALWAYS uses
+            //     Playwright detail fetch per D-05. OR-gate short-circuits zod's
+            //     detail_tier='static' default firing on sitemap firms (Pitfall 6).
+            // Browser presence is guaranteed by run.ts hasJsRender check whenever any
+            // firm needs it; we defensively check `browser` to handle test-harness
+            // calls that pass results without a browser.
+            const needsPlaywrightDetail =
+              r.firm.detail_tier === 'js-render' || r.firm.type === 'sitemap';
+            if (needsPlaywrightDetail && browser) {
               try {
                 const ctx = await browser.newContext({ userAgent: USER_AGENT });
                 try {
