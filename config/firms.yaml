@@ -64,6 +64,22 @@ firms:
   # 'cooley' preserved (SeenState continuity — Phase 2 firms.yaml comment
   # requirement). See .planning/backlog/resolved/cooley-cf-bypass.md for
   # probe evidence.
+  #
+  # WR-02 risk (2026-04-20 code review): canonicalizeUrl
+  # (src/scrapers/util.ts:96) strips leading 'www.' from every URL during
+  # dedup normalization, so each sitemap <loc>
+  # 'https://www.cooleygo.com/<slug>/' becomes
+  # 'https://cooleygo.com/<slug>' on RawItem.url. enrichBody passes that
+  # URL verbatim to Playwright page.goto(). This is the exact pattern
+  # that broke bkl (07-06) and kim-chang (07-05) — their apex TLS cert
+  # didn't cover the bare domain. cooleygo.com apex currently serves
+  # detail pages identically to www.cooleygo.com (empirically verified
+  # at time of Phase 9 UAT), but this is fragile — if Cloudflare or
+  # Cooley ever tighten apex handling, detail bodies will regress.
+  # Planned fix: 'restoreFetchHost(itemUrl, firmUrl)' in enrichBody +
+  # firmAudit, scoped to fetch only (dedup canonicalization unchanged),
+  # will fix bkl/kim-chang and close this risk in one change. See
+  # .planning/phases/07-spa-aware-detail-tier/07-05-SUMMARY.md.
   - id: cooley
     name: Cooley
     language: en

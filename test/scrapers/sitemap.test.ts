@@ -179,4 +179,26 @@ describe('scrapeSitemap (Phase 9)', () => {
     const items = await scrapeSitemap(makeFirm(), browser as never);
     expect(items[0].title).toBe('Share Incentives Employees Uk');
   });
+
+  it('emits canonicalized detail URL (www. stripped, trailing slash dropped) — WR-02 regression pin', async () => {
+    // WR-02: canonicalizeUrl applied to each <loc> strips leading 'www.'
+    // and drops trailing slash (non-root path). This test PINS that
+    // behavior so a future accidental change to canonicalizeUrl is
+    // caught — not an endorsement of the behavior. Follow-up (planned
+    // alongside bkl/kim-chang 07-05 'restoreFetchHost') will switch to
+    // host-preserving fetch URLs at which point this assertion updates
+    // to the preserved-www form. See config/firms.yaml L219-222.
+    const fixedXml = `<?xml version="1.0"?>
+      <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+        <url>
+          <loc>https://www.cooleygo.com/share-incentives-employees-uk/</loc>
+          <lastmod>2025-01-15T10:00:00+00:00</lastmod>
+        </url>
+      </urlset>`;
+    const { browser } = makeMockBrowser({ xmlBody: fixedXml });
+    const items = await scrapeSitemap(makeFirm(), browser as never);
+    expect(items[0].url).toBe(
+      'https://cooleygo.com/share-incentives-employees-uk',
+    );
+  });
 });
