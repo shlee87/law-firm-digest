@@ -57,7 +57,7 @@ export const FirmSchema = z
       .regex(/^[a-z0-9-]+$/, 'id must be lowercase slug'),
     name: z.string().min(1),
     language: z.enum(['ko', 'en']),
-    type: z.enum(['rss', 'html', 'js-render']),
+    type: z.enum(['rss', 'html', 'js-render', 'sitemap']),
     url: z.string().url(),
     timezone: z
       .string()
@@ -105,9 +105,15 @@ export const FirmSchema = z
     // attempt). Defaults to 'static' so unmodified firms keep exact
     // Phase 1-6 semantics (DETAIL-03 backwards compat literal).
     detail_tier: z.enum(['js-render', 'static']).default('static').optional(),
+    // Phase 9 SITEMAP-03: top-N most-recent articles for sitemap tier.
+    // Only valid when type === 'sitemap' (enforced by superRefine below).
+    // Default (10) lives at scrapers/sitemap.ts#DEFAULT_LATEST_N, NOT here —
+    // keeps the `latest_n: 10` YAML line explicit per CONTEXT D-06.
+    latest_n: z.number().int().positive().optional(),
   })
   .strict()
   .superRefine((firm, ctx) => {
+    // Phase 4 rule — wait_for required iff type === 'js-render'.
     if (firm.type === 'js-render') {
       if (!firm.wait_for || firm.wait_for.length === 0) {
         ctx.addIssue({
@@ -116,14 +122,39 @@ export const FirmSchema = z
           path: ['wait_for'],
         });
       }
-    } else {
-      if (firm.wait_for !== undefined) {
+    } else if (firm.wait_for !== undefined) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'firms[].wait_for is only valid when type === "js-render"',
+        path: ['wait_for'],
+      });
+    }
+
+    // Phase 9 rules — sitemap tier forbids selectors / detail_tier;
+    // latest_n is exclusive to sitemap tier.
+    if (firm.type === 'sitemap') {
+      if (firm.selectors !== undefined) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: 'firms[].wait_for is only valid when type === "js-render"',
-          path: ['wait_for'],
+          message:
+            'firms[].selectors is not valid for type === "sitemap" (body selector is hardcoded via the generic extractBody chain — see Phase 9 D-11)',
+          path: ['selectors'],
         });
       }
+      if (firm.detail_tier !== undefined) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message:
+            'firms[].detail_tier is implicit for type === "sitemap" — remove the field (sitemap tier always routes through Playwright detail fetch per Phase 9 D-05)',
+          path: ['detail_tier'],
+        });
+      }
+    } else if (firm.latest_n !== undefined) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'firms[].latest_n is only valid when type === "sitemap"',
+        path: ['latest_n'],
+      });
     }
   });
 
