@@ -42,8 +42,18 @@
 //     zod defaults to 'static') run the existing Phase 1-6 static path.
 //   - Per-item try/catch discipline preserved — one failed Playwright
 //     detail fetch does NOT poison sibling items (D-P2-03 mirror).
-//   - Per-firm BrowserContext (newContext → newPage → content → ctx.close
-//     in finally) preserves cookie/session isolation between items (D-09).
+//   - Per-ITEM BrowserContext (newContext → newPage → content → ctx.close
+//     in finally) ensures each detail fetch has a fresh cookie jar, so
+//     session cookies from one article (login walls, consent banners) do
+//     not leak into the next. WR-04 (2026-04-20 code review) flags this
+//     as a performance-vs-correctness tradeoff candidate for future work:
+//     hoisting newContext/close out of the inner loop would save
+//     ~50-200ms per item on sitemap firms (10× on latest_n=10), at the
+//     cost of per-firm session-sharing. Mirror of probeSitemapFirm in
+//     src/audit/firmAudit.ts which already uses per-firm context. Kept
+//     per-item here until the cookie-leak analysis for Phase 1-8 firms
+//     concludes — deferred by reviewer as "future optimization, not v1
+//     blocker."
 //   - browser.close() is owned exclusively by run.ts outer finally — this
 //     module MUST NEVER call browser.close().
 //
