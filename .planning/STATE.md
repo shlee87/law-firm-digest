@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
-status: planning
-stopped_at: Phase 9 context gathered
-last_updated: "2026-04-20T23:59:49.625Z"
-last_activity: 2026-04-20
+status: executing
+stopped_at: Completed 09-01-PLAN.md
+last_updated: "2026-04-21T02:39:52.859Z"
+last_activity: 2026-04-21
 progress:
   total_phases: 6
   completed_phases: 3
   total_plans: 20
-  completed_plans: 17
-  percent: 85
+  completed_plans: 18
+  percent: 90
 ---
 
 # Project State
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-19)
 
 **Core value:** 사용자가 직접 로펌 웹사이트를 돌지 않아도, 추적 대상 로펌들의 신규 뉴스레터를 원문 링크와 함께 한국어 요약으로 받아볼 수 있어야 한다.
-**Current focus:** Phase 08 — hallucination-guard
+**Current focus:** Phase 09 — cooley-sitemap-tier
 
 ## Current Position
 
-Phase: 9
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-04-20
+Phase: 09 (cooley-sitemap-tier) — EXECUTING
+Plan: 2 of 3
+Status: Ready to execute
+Last activity: 2026-04-21
 
 **⚠ Known production regressions (discovered 2026-04-19 via Phase 02 UAT demo):**
 
@@ -110,6 +110,7 @@ Last activity: 2026-04-20
 | Phase 08-hallucination-guard P04 | 8min | 2 tasks | 3 files |
 | Phase 08-hallucination-guard P05 | 5min | 1 tasks | 1 files |
 | Phase 08-hallucination-guard P06 | 7min | 2 tasks | 2 files |
+| Phase Phase 09-cooley-sitemap-tier P01 P~12min | 4 tasks | 5 files tasks | - files |
 
 ## Accumulated Context
 
@@ -237,6 +238,10 @@ Recent decisions affecting current work:
 - 08-05: Test 9 toContain uses Korean prefix in signature field — D-16 marker format is firm=id only, not firm=name
 - 08-06: Pitfall 5 single-appendFile — table + markers concatenated into one payload string before write; half-success impossible
 - 08-06: ESM vi.spyOn limitation for fsPromises — Pitfall 5 test uses file-content assertion instead; static grep gate (await appendFile count=1) is authoritative call-count invariant
+- 09-01: FirmType widened to 4-value union + audit subsystem widened in lockstep (Rule 3) to keep tsc clean; interim sitemap switch case returns list-fail pending Plan 09-03 Task 4 replacement
+- 09-01: superRefine detail_tier gate narrowed from '!== undefined' to '=== js-render' (Rule 1) — zod's .default(static) injects detail_tier on every parse so the undefined check rejected every legal sitemap firm; narrowing keeps real intent (sitemap always Playwright, js-render is redundant)
+- 09-01: latest_n default (10) deliberately NOT baked into schema — lives at scraper layer (sitemap.ts DEFAULT_LATEST_N per plan 09-02) so the 'latest_n: 10' YAML line stays explicit per CONTEXT D-06
+- 09-01: toThrow regex literals use '\\?"sitemap\\?"' tolerance to match both raw and JSON-escaped double-quote forms since ZodError.message is the JSON-stringified issues array
 
 ### Pending Todos
 
@@ -257,9 +262,9 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: --stopped-at
-Stopped at: Phase 9 context gathered
-Resume file: --resume-file
+Last session: 2026-04-21T02:39:52.856Z
+Stopped at: Completed 09-01-PLAN.md
+Resume file: None
 
 **Next action:** `/gsd:plan-phase 6` — plan Phase 6: Firm Audit + Probe
 

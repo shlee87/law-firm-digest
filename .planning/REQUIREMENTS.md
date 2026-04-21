@@ -119,7 +119,8 @@ Derived from `.planning/research/FEATURES.md` categorization (T1–T17 table sta
 
 - [ ] **SITEMAP-01**: A new `src/scrapers/sitemap.ts` parses `<url><loc><lastmod>` from an XML sitemap URL and returns the top-N most recent URLs (sorted by lastmod desc)
 - [ ] **SITEMAP-02**: Sitemap-tier firms reuse the js-render detail path (Playwright + `.post-content` or firm-configured body selector) for article body extraction
-- [ ] **SITEMAP-03**: `config/firms.yaml` schema accepts `type: sitemap` with required `url` (sitemap URL) and optional `latest_n` (default 10)
+- [x] **SITEMAP-03
+**: `config/firms.yaml` schema accepts `type: sitemap` with required `url` (sitemap URL) and optional `latest_n` (default 10)
 - [ ] **SITEMAP-04**: Cooley is migrated to `type: sitemap` pointing at `https://www.cooleygo.com/post-sitemap.xml` with `enabled: true` restored; CF-blocked RSS configuration is removed
 - [ ] **SITEMAP-05**: `pnpm check:firm cooley` reports N>0 items and non-empty extracted body for each sampled item
 

@@ -219,7 +219,7 @@ Phases execute in numeric order. Phase 4 is conditional — skipped if Phase 2 a
 | 6. Firm Audit + Probe | 5/5 | Complete | 2026-04-20 |
 | 7. SPA-Aware Detail Tier | 6/6 | Complete (with exceptions) | 2026-04-20 |
 | 8. Hallucination Guard | 0/0 | Pending | — |
-| 9. Cooley Sitemap Tier | 0/0 | Pending | — |
+| 9. Cooley Sitemap Tier | 1/3 | Executing | — |
 | 10. Data-Quality Observability | 0/0 | Pending | — |
 | 11. Cron Resumption Gate | 0/0 | Pending | — |
 
