@@ -7,7 +7,7 @@
 // Mock pattern: vi.hoisted + vi.mock('@google/genai', factory) — matches
 // test/pipeline/run.test.ts:14-30 verbatim for consistency.
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 const mocks = vi.hoisted(() => ({
   generateContentMock: vi.fn(),
@@ -45,6 +45,16 @@ const realArticleBody =
 
 beforeEach(() => {
   mocks.generateContentMock.mockReset();
+  // Stub GEMINI_API_KEY so src/summarize/gemini.ts's fail-loud guard
+  // (added in commit 344b65d to catch missing env in local dev) does not
+  // throw before the SDK mock is invoked. Value is a placeholder —
+  // @google/genai is mocked at module level, so the real key never leaves
+  // the test process.
+  vi.stubEnv('GEMINI_API_KEY', 'test-stub-key-not-real');
+});
+
+afterEach(() => {
+  vi.unstubAllEnvs();
 });
 
 describe('summarize — GUARD-02 body-shape fixtures', () => {
