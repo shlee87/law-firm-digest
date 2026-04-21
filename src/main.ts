@@ -54,11 +54,13 @@
 // Reversing would lose state on js-render failures or suppress today's digest
 // entirely; both are worse than the current "partial digest + red run" trade.
 //
-// Pattern 2 (DRY_RUN containment): this file does NOT import the env dry-run
-// helper. The two sanctioned DRY_RUN check sites are mailer/gmail.ts and
-// state/writer.ts. Any DRY_RUN branch here would be a Pattern 2 regression.
-// (Header comment deliberately avoids the literal identifier so a grep gate
-// for "env dry-run helper" import in main.ts stays at zero.)
+// Pattern 2 (DRY_RUN containment): sanctioned DRY_RUN check sites are:
+//   1. src/mailer/gmail.ts   — skip SMTP send (EMAIL-06)
+//   2. src/state/writer.ts   — skip disk write (OPS-06)
+//   3. src/archive/writer.ts — skip archive write (Phase 3 OPS-09 R-02)
+//   4. src/main.ts           — Phase 10 DQOBS-03 step-summary stdout
+//                              preview; stdout only, no file writes (D-07/D-08)
+// Any DRY_RUN branch OUTSIDE these four sites is a Pattern 2 regression.
 //
 // Local-dev dotenv loader: `import 'dotenv/config'` MUST be the first import
 // so `.env` values land in process.env before any downstream module reads
@@ -70,7 +72,28 @@
 import 'dotenv/config';
 
 import { runPipeline } from './pipeline/run.js';
+import type { RunReport } from './pipeline/run.js';
 import { scrubSecrets } from './util/logging.js';
+import { isDryRun } from './env.js';
+import { renderMarkersMarkdown } from './observability/summary.js';
+
+/**
+ * Phase 10 DQOBS-03 — exported for unit testing of the fourth sanctioned
+ * DRY_RUN stdout emission. Shape: (report) → console side-effects only.
+ * Pure w.r.t. return value (void); side-effect-only on console.log.
+ */
+export function emitDryRunStepSummary(report: RunReport): void {
+  if (!isDryRun()) return;
+  const table = report.recorder.toMarkdownTable(report.firms);
+  console.log('[DRY_RUN] Step-summary (would-write to $GITHUB_STEP_SUMMARY):');
+  console.log(table);
+  const markersBlock = renderMarkersMarkdown(report.markers);
+  if (markersBlock.length > 0) {
+    // Trim the single trailing newline the helper appends — console.log
+    // adds its own; avoids an ugly double blank line in stdout preview.
+    console.log(markersBlock.trimEnd());
+  }
+}
 
 async function main(): Promise<number> {
   try {
@@ -85,6 +108,16 @@ async function main(): Promise<number> {
     // locked in. The failing js-render firm still surfaces in the email's
     // failed-firm footer via Phase 2 EMAIL-05 mechanism.
     const report = await runPipeline({});
+
+    // Phase 10 DQOBS-03 — fourth sanctioned DRY_RUN site. Emits the SAME
+    // markdown table + markers block that writeStepSummary would append to
+    // $GITHUB_STEP_SUMMARY, to stdout instead. Byte-for-byte parity enforced
+    // by sharing the toMarkdownTable + renderMarkersMarkdown helpers with
+    // the GHA path (src/observability/summary.ts). D-08: stdout only — no
+    // file writes here. The existing writeState/writeArchive/sendMail
+    // DRY_RUN gates skip their own side-effects via their own check sites.
+    emitDryRunStepSummary(report);
+
     if (report.jsRenderFailures > 0) {
       console.error(
         `FATAL: ${report.jsRenderFailures} js-render firm(s) failed — see email footer; state + archive have already been committed`,
@@ -98,4 +131,11 @@ async function main(): Promise<number> {
   }
 }
 
-main().then((code) => process.exit(code));
+// Phase 10 Approach C — NODE_ENV=test guard. Run main() only when invoked
+// as the cron entry point (normal pnpm/tsx/node execution). Vitest sets
+// NODE_ENV=test by default (Vitest 1.x+ contract), so importing main.ts
+// from test/main.test.ts to exercise `emitDryRunStepSummary` does NOT
+// invoke main() transitively → no premature process.exit during testing.
+if (process.env.NODE_ENV !== 'test') {
+  main().then((code) => process.exit(code));
+}
