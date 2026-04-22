@@ -14,7 +14,7 @@ describe('loadRecipient', () => {
 
   it('returns the YAML value when no env var is set', async () => {
     const result = await loadRecipient();
-    expect(result).toBe('nks4860@gmail.com');
+    expect(result).toBe('your.email@example.com');
   });
 
   it('returns a single env-override string when RECIPIENT_EMAIL has no comma', async () => {
