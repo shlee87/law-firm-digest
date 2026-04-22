@@ -15,11 +15,13 @@ const mocks = vi.hoisted(() => {
   return {
     loadFirmsMock: vi.fn(),
     loadRecipientMock: vi.fn(),
+    loadTopicsMock: vi.fn(),
     readStateMock: vi.fn(),
     writeStateMock: vi.fn(),
     fetchAllMock: vi.fn(),
     enrichWithBodyMock: vi.fn(),
     applyKeywordFilterMock: vi.fn(),
+    applyTopicFilterMock: vi.fn(),
     dedupAllMock: vi.fn(),
     summarizeMock: vi.fn(),
     sendMailMock: vi.fn(),
@@ -32,6 +34,7 @@ const mocks = vi.hoisted(() => {
 vi.mock('../../src/config/loader.js', () => ({
   loadFirms: mocks.loadFirmsMock,
   loadRecipient: mocks.loadRecipientMock,
+  loadTopics: mocks.loadTopicsMock,
 }));
 vi.mock('../../src/state/reader.js', () => ({
   readState: mocks.readStateMock,
@@ -47,6 +50,7 @@ vi.mock('../../src/pipeline/enrichBody.js', () => ({
 }));
 vi.mock('../../src/pipeline/filter.js', () => ({
   applyKeywordFilter: mocks.applyKeywordFilterMock,
+  applyTopicFilter: mocks.applyTopicFilterMock,
 }));
 vi.mock('../../src/pipeline/dedup.js', () => ({
   dedupAll: mocks.dedupAllMock,
@@ -104,6 +108,10 @@ describe('runPipeline — composition root', () => {
     // Default implementations — tests override as needed.
     mocks.loadFirmsMock.mockReset().mockResolvedValue(FIRMS);
     mocks.loadRecipientMock.mockReset().mockResolvedValue('user@example.com');
+    mocks.loadTopicsMock.mockReset().mockResolvedValue({});
+    mocks.applyTopicFilterMock
+      .mockReset()
+      .mockImplementation((results: unknown) => results);
     mocks.readStateMock.mockReset().mockResolvedValue({
       version: 1,
       lastUpdated: null,

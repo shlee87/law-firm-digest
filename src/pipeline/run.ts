@@ -67,11 +67,11 @@
 import pLimit from 'p-limit';
 import { writeFile } from 'node:fs/promises';
 import { chromium, type Browser } from 'playwright';
-import { loadFirms, loadRecipient } from '../config/loader.js';
+import { loadFirms, loadRecipient, loadTopics } from '../config/loader.js';
 import { readState } from '../state/reader.js';
 import { fetchAll } from './fetch.js';
 import { enrichWithBody } from './enrichBody.js';
-import { applyKeywordFilter } from './filter.js';
+import { applyKeywordFilter, applyTopicFilter } from './filter.js';
 import { dedupAll } from './dedup.js';
 import { detectHallucinationClusters, type ClusterMarker, type DataQualityMarker } from './detectClusters.js';
 import { detectLowConfidence } from './detectLowConfidence.js';
@@ -138,6 +138,7 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
   const recorder = new Recorder();
   const allFirms = await loadFirms();
   const recipient = await loadRecipient();
+  const topics = await loadTopics();
   // D-05 override chain: env wins over YAML. fromAddr defaults to the
   // first recipient (when a list is configured) so the single-user
   // self-send path still works with zero extra configuration.
@@ -236,7 +237,17 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
       filtered.map((r) => `${r.firm.id}: ${r.raw.length} after filter`).join(' | '),
     );
 
-    const deduped = dedupAll(filtered, seen);
+    // Phase 12 D-08: topic filter runs AFTER applyKeywordFilter, BEFORE dedupAll.
+    const topicFiltered = applyTopicFilter(filtered, topics);
+    // D-10: log per-item skip lines for every topic-filtered item.
+    for (const r of topicFiltered) {
+      if (r.error || !r.topicFiltered?.length) continue;
+      for (const item of r.topicFiltered) {
+        console.log(`[filter] skipped — no topic match: ${item.title}`);
+      }
+    }
+
+    const deduped = dedupAll(topicFiltered, seen);
     for (const r of deduped) {
       recorder.firm(r.firm.id).newCount(r.new.length);
     }

@@ -103,6 +103,13 @@ export interface FirmResult {
   raw: RawItem[];
   new: NewItem[];
   summarized: SummarizedItem[];
+  /**
+   * Phase 12 D-09: items excluded by the global topic filter (applyTopicFilter).
+   * These URLs are merged into seen.json by writeState alongside summarized URLs
+   * so they are not re-fetched and re-evaluated on future runs (SPEC req 5).
+   * Runtime-only — MUST NOT be confused with r.raw or r.new.
+   */
+  topicFiltered?: RawItem[];
   error?: {
     stage: 'fetch' | 'parse' | 'dedup' | 'summarize';
     message: string;

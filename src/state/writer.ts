@@ -100,13 +100,21 @@ export async function writeState(
     // Subsequent runs: merge newly-summarized URLs on top of prior urls.
     // newest-first ordering is load-bearing for the 500-cap slice: we
     // want to drop the OLDEST entries, not the newest.
+    // D-09 / SPEC-12-REQ-5: also merge topic-filtered URLs alongside summarized
+    // URLs so they are recorded as seen and not re-evaluated on future runs.
     const existing = new Set(priorFirm.urls);
-    const newUrls = r.summarized
+    const summarizedUrls = r.summarized
       .map((it) => it.url)
       .filter((u) => !existing.has(u));
+    const topicFilteredUrls = (r.topicFiltered ?? [])
+      .map((it) => it.url)
+      .filter((u) => !existing.has(u) && !summarizedUrls.includes(u));
+    const newUrls = [...summarizedUrls, ...topicFilteredUrls];
     const merged = [...newUrls, ...priorFirm.urls].slice(0, MAX_PER_FIRM);
+    // lastNewAt advances only when summarized items are delivered — topic-filtered
+    // URLs are recorded as seen but do not represent "new content delivered".
     const lastNewAt =
-      newUrls.length > 0
+      summarizedUrls.length > 0
         ? r.summarized[0]?.publishedAt ?? new Date().toISOString()
         : priorFirm.lastNewAt ?? null;
     nextFirms[r.firm.id] = {

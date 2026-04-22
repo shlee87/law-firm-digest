@@ -33,7 +33,7 @@
 // negative around Korean particles is acceptable for v1; see the deferred
 // mecab-ko revisit in CONTEXT.md.
 
-import type { FirmResult, TopicConfig } from '../types.js';
+import type { FirmResult, RawItem, TopicConfig } from '../types.js';
 
 export function applyKeywordFilter(results: FirmResult[]): FirmResult[] {
   return results.map((r) => {
@@ -63,25 +63,79 @@ export function applyKeywordFilter(results: FirmResult[]): FirmResult[] {
 }
 
 // ---------------------------------------------------------------------------
-// Phase 12 stubs — implemented in Plan 02.
-// Exported here so the TDD RED test suite (Plan 01 Task 3) compiles cleanly
-// under the tsconfig that includes test/**/*. Both functions throw at runtime
-// so the 8 isTopicRelevant tests fail as expected RED state.
+// Phase 12: Topic relevance filter
 // ---------------------------------------------------------------------------
+// Design invariants (same as applyKeywordFilter above):
+//   PURE — no I/O, no env reads. Logging is the caller's responsibility (run.ts).
+//   ERROR PASS-THROUGH — FirmResult with .error returned by reference.
+//   NO MUTATION — return new objects via spread.
+//   QUOTA GUARD — runs BEFORE dedupAll/summarize (D-08 pipeline order).
+//
+// D-11 permissive bias: empty body always returns true.
+// False negatives (missing a relevant item) are worse than false positives.
+// An item whose body extraction failed must not be silently discarded.
 
-/** @throws Plan 02 not yet implemented */
+/**
+ * Pure function — no I/O, no env. Same inputs → same outputs.
+ * Returns true if title OR body (first 500 chars) contains at least one keyword
+ * from any topic area (case-insensitive substring match).
+ *
+ * D-11: if body is empty or whitespace-only, returns true immediately (permissive
+ * bias — body fetch failure must never silently discard a potentially relevant item).
+ *
+ * SPEC-12-REQ-2 / SPEC-12-REQ-3
+ */
 export function isTopicRelevant(
-  _title: string,
-  _body: string,
-  _topics: TopicConfig,
+  title: string,
+  body: string,
+  topics: TopicConfig,
 ): boolean {
-  throw new Error('isTopicRelevant: not implemented — ships in Plan 02');
+  // D-11 permissive on empty body.
+  if (!body.trim()) return true;
+
+  const descWindow = body.slice(0, 500);
+  const haystack = (title + ' ' + descWindow).toLowerCase();
+
+  // ANY keyword from ANY topic area is sufficient to pass.
+  return Object.values(topics).some((keywords) =>
+    keywords.some((k) => haystack.includes(k.toLowerCase())),
+  );
 }
 
-/** @throws Plan 02 not yet implemented */
+/**
+ * Wraps isTopicRelevant for a full results array.
+ * Items failing the topic filter are moved from r.raw to r.topicFiltered so
+ * writeState can merge their URLs into seen.json (SPEC req 5 / D-09).
+ * Logging of skipped items is the caller's responsibility (run.ts D-10).
+ *
+ * Fast path: if topics is empty ({}), returns all results unchanged — every item
+ * passes when no keywords are configured (filter effectively disabled).
+ *
+ * D-08: must run AFTER applyKeywordFilter, BEFORE dedupAll.
+ */
 export function applyTopicFilter(
-  _results: FirmResult[],
-  _topics: TopicConfig,
+  results: FirmResult[],
+  topics: TopicConfig,
 ): FirmResult[] {
-  throw new Error('applyTopicFilter: not implemented — ships in Plan 02');
+  // Fast path — no topic keywords configured → pass all through unchanged.
+  const allKeywords = Object.values(topics).flat();
+  if (allKeywords.length === 0) return results;
+
+  return results.map((r) => {
+    // Error pass-through — same reference, unchanged.
+    if (r.error) return r;
+
+    const passed: RawItem[] = [];
+    const topicFiltered: RawItem[] = [];
+
+    for (const item of r.raw) {
+      if (isTopicRelevant(item.title, item.description ?? '', topics)) {
+        passed.push(item);
+      } else {
+        topicFiltered.push(item);
+      }
+    }
+
+    return { ...r, raw: passed, topicFiltered };
+  });
 }
