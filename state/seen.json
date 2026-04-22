@@ -1,9 +1,15 @@
 {
   "version": 1,
-  "lastUpdated": "2026-04-22T01:57:22.240Z",
+  "lastUpdated": "2026-04-22T02:00:49.321Z",
   "firms": {
     "cooley": {
       "urls": [
+        "https://cooleygo.com/share-incentives-employees-private-uk-companies",
+        "https://cooleygo.com/maximizing-qsbs-for-entrepreneurs",
+        "https://cooleygo.com/what-is-qualified-small-business-stock-and-why-does-it-matter-for-you-and-your-startup",
+        "https://cooleygo.com/you-cant-afford-to-be-disorganized",
+        "https://cooleygo.com/director-fiduciary-duties",
+        "https://cooleygo.com/founder-basics-founders-stock",
         "https://cooleygo.com/delaware-versus-nevada-versus-texas-a-comparison-of-corporate-laws",
         "https://cooleygo.com/basics-of-qualifying-as-a-small-business-for-united-states-federal-government-contracts",
         "https://cooleygo.com/intercompany-agreements-what-you-need-to-know",
@@ -20,7 +26,251 @@
         "https://cooleygo.com/q2-2025-venture-financing-report-interview-with-lily-lyman",
         "https://cooleygo.com/incentive-stock-option-modifications-key-considerations-and-traps-for-the-unwary"
       ],
-      "lastNewAt": "2025-07-30T15:26:51.000Z"
+      "lastNewAt": "2026-04-07T19:29:04.000Z"
+    },
+    "clifford-chance": {
+      "urls": [
+        "https://cliffordchance.com/briefings/2026/04/what-mythos-means-for-your-business--action-to-take-now.html",
+        "https://cliffordchance.com/briefings/2026/04/international-regulatory-update-13---17-april-2026.html",
+        "https://cliffordchance.com/briefings/2026/04/international-regulatory-update-6---10-april-2026.html",
+        "https://cliffordchance.com/briefings/2026/04/-international-regulatory-update-30-march---3-april-2026.html",
+        "https://cliffordchance.com/briefings/2026/03/international-regulatory-update-23---27-march-2026.html",
+        "https://cliffordchance.com/briefings/2026/03/through-the-strait-safe-harbour--force-majeure-and-related-issue.html",
+        "https://cliffordchance.com/briefings/2026/03/international-regulatory-update-16---20-march-2026.html",
+        "https://cliffordchance.com/briefings/2026/03/isda-and-emta-publish-the-2026-fx-definitions--what-you-need-to-.html",
+        "https://cliffordchance.com/briefings/2026/03/international-regulatory-update-09---13-march-2026.html",
+        "https://cliffordchance.com/briefings/2026/03/the-race-to-mine-the-seabed--opportunities-and-risks.html",
+        "https://cliffordchance.com/briefings/2026/03/international-regulatory-update-02---06-march-2026.html",
+        "https://cliffordchance.com/briefings/2026/03/international-regulatory-update-23---27-february-2026.html",
+        "https://cliffordchance.com/briefings/2026/02/-international-regulatory-update-16---20-february-2026.html",
+        "https://cliffordchance.com/briefings/2026/02/international-regulatory-update-09---13-february-2026.html",
+        "https://cliffordchance.com/briefings/2026/02/international-regulatory-update-02---06-february-2026.html",
+        "https://cliffordchance.com/briefings/2026/02/workplace-investigations---quarterly-review---edition-5.html",
+        "https://cliffordchance.com/briefings/2026/02/international-regulatory-update-26---30-january-2026.html",
+        "https://cliffordchance.com/briefings/2026/01/maritime-and-offshore-update-summer-2025.html",
+        "https://cliffordchance.com/briefings/2026/01/international-regulatory-update-19---23-january-2026.html",
+        "https://cliffordchance.com/briefings/2026/01/international-regulatory-update-12---16-january-2026.html",
+        "https://cliffordchance.com/briefings/2026/01/international-regulatory-update-5---9-january-2026.html",
+        "https://cliffordchance.com/briefings/2026/01/cyber-survival-strategies-for-boards.html",
+        "https://cliffordchance.com/briefings/2026/01/international-regulatory-update-22-december-2025---2-january-202.html",
+        "https://cliffordchance.com/briefings/2025/12/international-regulatory-update-15---19-december-2025.html",
+        "https://cliffordchance.com/briefings/2025/12/international-regulatory-update-8---12-december-2025.html",
+        "https://cliffordchance.com/briefings/2025/12/international-regulatory-update-1---5-december-2025.html",
+        "https://cliffordchance.com/briefings/2025/12/what-happened-at-cop30-.html",
+        "https://cliffordchance.com/briefings/2025/12/international-regulatory-update-24---28-november-2025.html",
+        "https://cliffordchance.com/briefings/2025/12/new-investors-and-sector-changes-drive-growth-in-fleet-securitisation.html",
+        "https://cliffordchance.com/briefings/2025/11/international-regulatory-update-17---21-november-2025.html",
+        "https://cliffordchance.com/briefings/2025/11/overview-of-the-eu-digital-simplification-package.html",
+        "https://cliffordchance.com/briefings/2025/11/international-regulatory-update-10---14-november-2025.html",
+        "https://cliffordchance.com/briefings/2025/11/international-regulatory-update-3---7-november-2025.html",
+        "https://cliffordchance.com/briefings/2025/11/international-regulatory-update-27---31-october-2025.html",
+        "https://cliffordchance.com/briefings/2025/10/international-regulatory-update-20---24-october-2025.html",
+        "https://cliffordchance.com/briefings/2025/10/ukraine-the-latest-global-sanctions-and-export-controls-24-oct.html",
+        "https://cliffordchance.com/briefings/2025/10/international-regulatory-update-13---17-october-2025.html",
+        "https://cliffordchance.com/briefings/2025/10/international-regulatory-update-6---10-october-2025.html",
+        "https://cliffordchance.com/briefings/2025/10/international-regulatory-update-29-september---3-october-2025.html",
+        "https://cliffordchance.com/briefings/2025/09/international-regulatory-update-22---26-september-2025.html",
+        "https://cliffordchance.com/briefings/2025/09/international-regulatory-update-15--18-september-2025.html",
+        "https://cliffordchance.com/briefings/2025/09/international-regulatory-update-8-to-12-september-2025.html",
+        "https://cliffordchance.com/briefings/2025/09/international-regulatory-update-1---5-september-2025.html",
+        "https://cliffordchance.com/briefings/2025/09/international-regulatory-update-25---29-august-2025.html",
+        "https://cliffordchance.com/briefings/2025/08/energy-transition-perspectives--solar-and-wind.html",
+        "https://cliffordchance.com/briefings/2025/08/international-regulatory-update-18---22-august-2025.html",
+        "https://cliffordchance.com/briefings/2025/08/international-regulatory-update-11---15-august-2025.html",
+        "https://cliffordchance.com/briefings/2025/08/international-regulatory-update-4---8-august-2025.html",
+        "https://cliffordchance.com/briefings/2025/08/international-regulatory-update-28-july---1-august-2025.html",
+        "https://cliffordchance.com/briefings/2025/08/global-quarterly-antitrust-briefing---q2-2025.html"
+      ],
+      "lastNewAt": "2026-04-21T13:18:00.000Z",
+      "enabledAt": "2026-04-22T02:00:49.321Z"
+    },
+    "freshfields": {
+      "urls": [
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/04/freshfields-launches-the-ai-drop--a-new-podcast-on-artificial-intelligence-in-business-and-law",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/04/amit-trehan-joins-freshfields-as-restructuring-partner-in-new-york",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/04/freshfields-announces-20-new-counsel-promotions",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/04/freshfields-advises-on-the-us$2.6-billion-listing-of-victory-giant-technology-on-hkse",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/04/freshfields-advises-morgan-stanley-on-achieve-life-sciences-$354m-private-placement",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/04/freshfields-advises-janus-henderson-mena-private-credit-fund-on-a-usd-sharia-compliant-facility-for-the-kimshealth-group",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/04/freshfields-advises-ontario-teachers-on-german-residential-real-estate-joint-venture-with-dw-real-estate",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/04/freshfields-advises-standard-life-on-2bn-acquisition-of-aegon-uk",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/04/freshfields-welcomes-47-new-partners",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/04/freshfields-advises-compass-group-japan-on-its-acquisition-of-morinaga-shokken",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/04/freshfields-reports-google-cloud-collaboration-delivering-transformation-at-scale",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/04/freshfields-advises-maersks-apm-terminals-on-jv-and-planned-1bn-investment-in-bremerhaven",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/04/freshfields-conseille-le-groupe-jott-sur-sa-reprise-en-plan-de-cession",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/04/freshfields-advises-dongfang-precision-on-the-sale-of-its-corrugated-cardboard-packaging-production-business-to-brookfield",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/04/freshfields-advises-nemetschek-on-acquisition-of-hcss",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/04/freshfields-appoints-charles-hayes-and-patrick-cichy-as-co-heads-of-global-transactions",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/04/freshfields-advises-blackstone-on-recommended-cash-acquisition-of-senior-plc",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/04/freshfields-advises-marubeni-on-its-acquisition-of-the-remaining-interests-in-dasi",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/04/freshfields-advises-on-ipo-of-apogee-acquisition-corp",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/04/seven-freshfields-partners-selected-for-law360s-2026-editorial-boards",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/04/freshfields-conseille-goldman-sachs-alternatives-sur-son-investissement-strategique-dans-urban-campus-group",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/03/freshfields-advises-northumbrian-water-group-on-400m-shareholder-equity-investment",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/03/freshfields-advises-the-brussels-capital-region-on-its-13bn-treasury-notes-programme",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/03/freshfields-advises-on-institutional-term-loan-refinancing-for-median-group",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/03/freshfields-advises-gategroup-on-its-strategic-partnership-with-klm-for-the-future-of-klm-catering-services",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/03/freshfields-cfius-team-members-named-to-foreign-investment-watchs-2026-top-advisors-list",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/03/freshfields-is-advising-gic-on-its-acquisition-of-a-strategic-minority-stake-in-envu",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/03/freshfields-advises-nippon-sheet-glass-on-its-privatisation",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/03/freshfields-advises-bae-systems-on-completion-of-sale-of-its-stake-in-air-astana",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/03/freshfields-advises-terns-pharmaceuticals-in-$6.7bn-acquisition-by-merck",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/03/freshfields-advises-apg-on-investment-in-northc",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/03/freshfields-advises-ses-on-issuance-of-650-million-guaranteed-subordinated-perpetual-with-automatic-conversion-events-space-hybrid-bond",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/03/freshfields-advises-igneo-infrastructure-partners-on-its-acquisition-of-macquaries-smart-metering-business",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/03/freshfields-advises-danone-on-its-acquisition-of-huel",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/03/freshfields-advises-mandated-lead-arrangers-on-financing-for-sgb-smit-group",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/03/freshfields-advises-lady-lynn-forester-de-rothschild-and-selling-shareholders-on-sale-of-26.9-stake-in-the-economist",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/03/freshfields-partners-author-two-chapters-for-chambers-cybersecurity-2026",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/03/three-freshfields-partners-selected-to-2026-lawdragon-500-leading-global-bankruptcy--restructuring-lawyers-guide",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/03/freshfields-securities-litigation-team-secures-top-honors-at-2026-benchmark-litigation-u.s.-awards",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/03/freshfields-advises-adia-on-its-investment-in-a-new-crc-managed-fund-focused-on-srt-transactions-and-on-its-acquisition-of-a-participation-interest-in-crc"
+      ],
+      "lastNewAt": "2026-04-21T15:09:41.000Z",
+      "enabledAt": "2026-04-22T02:00:49.321Z"
+    },
+    "shin-kim": {
+      "urls": [
+        "https://shinkim.com/kor/media/newsletter/3239?code=&keyword=",
+        "https://shinkim.com/kor/media/newsletter/3236?code=&keyword=",
+        "https://shinkim.com/kor/media/newsletter/3237?code=&keyword=",
+        "https://shinkim.com/kor/media/newsletter/3235?code=&keyword=",
+        "https://shinkim.com/kor/media/newsletter/3232?code=&keyword=",
+        "https://shinkim.com/kor/media/newsletter/3233?code=&keyword=",
+        "https://shinkim.com/kor/media/newsletter/3234?code=&keyword=",
+        "https://shinkim.com/kor/media/newsletter/3230?code=&keyword=",
+        "https://shinkim.com/kor/media/newsletter/3229?code=&keyword=",
+        "https://shinkim.com/kor/media/newsletter/3231?code=&keyword="
+      ],
+      "lastNewAt": "2026-04-20T15:00:00.000Z",
+      "enabledAt": "2026-04-22T02:00:49.321Z"
+    },
+    "yulchon": {
+      "urls": [
+        "https://yulchon.com/ko/resources/publications/periodicals-view/42768/page.do"
+      ],
+      "lastNewAt": "2026-01-27T15:00:00.000Z",
+      "enabledAt": "2026-04-22T02:00:49.321Z"
+    },
+    "logos": {
+      "urls": [
+        "https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=1951",
+        "https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=1950",
+        "https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=1949",
+        "https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=1762",
+        "https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=1761",
+        "https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=1509",
+        "https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=1508",
+        "https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=1445",
+        "https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=1444",
+        "https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=1443"
+      ],
+      "lastNewAt": "2026-03-15T15:00:00.000Z",
+      "enabledAt": "2026-04-22T02:00:49.321Z"
+    },
+    "skadden": {
+      "urls": [
+        "https://skadden.com/insights/publications/2026/04/iais-publishes-report-on-second-targeted-jurisdictional",
+        "https://skadden.com/insights/publications/2026/04/federal-ai-policy-threatens-state-ai-laws",
+        "https://skadden.com/insights/publications/2026/04/should-boards-be-wary-of-informal-settlements"
+      ],
+      "lastNewAt": "2026-04-21T04:00:00.000Z",
+      "enabledAt": "2026-04-22T02:00:49.321Z"
+    },
+    "kim-chang": {
+      "urls": [
+        "https://kimchang.com/ko/insights/detail.kc?idx=34505&sch_section=4",
+        "https://kimchang.com/ko/insights/detail.kc?idx=34432&sch_section=4",
+        "https://kimchang.com/ko/insights/detail.kc?idx=34400&sch_section=4",
+        "https://kimchang.com/ko/insights/detail.kc?idx=34489&sch_section=4",
+        "https://kimchang.com/ko/insights/detail.kc?idx=34401&sch_section=4"
+      ],
+      "lastNewAt": "2026-03-30T15:00:00.000Z",
+      "enabledAt": "2026-04-22T02:00:49.321Z"
+    },
+    "bkl": {
+      "urls": [
+        "https://bkl.co.kr/law/insight/informationView.do?infoNo=6542&lang=ko",
+        "https://bkl.co.kr/law/insight/informationView.do?infoNo=6541&lang=ko",
+        "https://bkl.co.kr/law/insight/informationView.do?infoNo=6540&lang=ko",
+        "https://bkl.co.kr/law/insight/informationView.do?infoNo=6538&lang=ko",
+        "https://bkl.co.kr/law/insight/informationView.do?infoNo=6537&lang=ko",
+        "https://bkl.co.kr/law/insight/informationView.do?infoNo=6534&lang=ko",
+        "https://bkl.co.kr/law/insight/informationView.do?infoNo=6530&lang=ko",
+        "https://bkl.co.kr/law/insight/informationView.do?infoNo=6529&lang=ko",
+        "https://bkl.co.kr/law/insight/informationView.do?infoNo=6526&lang=ko"
+      ],
+      "lastNewAt": "2026-04-08T15:00:00.000Z",
+      "enabledAt": "2026-04-22T02:00:49.321Z"
+    },
+    "lee-ko": {
+      "urls": [
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2269",
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2268",
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2267",
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2266",
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2265",
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2264"
+      ],
+      "lastNewAt": "2026-04-13T15:00:00.000Z",
+      "enabledAt": "2026-04-22T02:00:49.321Z"
+    },
+    "yoon-yang": {
+      "urls": [
+        "https://yoonyang.com/kor/insights/newsletter/14741",
+        "https://yoonyang.com/kor/insights/newsletter/14740",
+        "https://yoonyang.com/kor/insights/newsletter/14736",
+        "https://yoonyang.com/kor/insights/newsletter/14735",
+        "https://yoonyang.com/kor/insights/newsletter/14727",
+        "https://yoonyang.com/kor/insights/newsletter/14725",
+        "https://yoonyang.com/kor/insights/newsletter/14722",
+        "https://yoonyang.com/kor/insights/newsletter/14721",
+        "https://yoonyang.com/kor/insights/newsletter/14720",
+        "https://yoonyang.com/kor/insights/newsletter/14712",
+        "https://yoonyang.com/kor/insights/newsletter/14711",
+        "https://yoonyang.com/kor/insights/newsletter/14709"
+      ],
+      "lastNewAt": "2026-04-22T02:00:49.321Z",
+      "enabledAt": "2026-04-22T02:00:49.321Z"
+    },
+    "barun": {
+      "urls": [
+        "https://barunlaw.com/letter/55845",
+        "https://barunlaw.com/letter/55437",
+        "https://barunlaw.com/letter/55181",
+        "https://barunlaw.com/letter/55149",
+        "https://barunlaw.com/letter/54845",
+        "https://barunlaw.com/letter/54697",
+        "https://barunlaw.com/letter/54441",
+        "https://barunlaw.com/letter/54125",
+        "https://barunlaw.com/letter/53793",
+        "https://barunlaw.com/letter/53473"
+      ],
+      "lastNewAt": "2026-04-14T15:00:00.000Z",
+      "enabledAt": "2026-04-22T02:00:49.321Z"
+    },
+    "latham": {
+      "urls": [
+        "https://lw.com/en/insights/trump-administration-takes-major-steps-toward-comprehensive-federal-ai-regulation",
+        "https://lw.com/en/insights/data-center-insights-navigating-data-center-power-supply",
+        "https://lw.com/en/insights/data-center-insights-the-complex-landscape-of-data-center-permits",
+        "https://lw.com/en/insights/what-the-remote-access-security-act-means-for-export-controls-compliance-programs",
+        "https://lw.com/en/insights/italy-passes-new-data-center-regulations",
+        "https://lw.com/en/insights/helping-holocaust-survivors",
+        "https://lw.com/en/insights/india-insights-april-2026",
+        "https://globalfinregblog.com/2026/04/us-banking-regulators-finalize-rule-eliminating-use-of-reputation-risk",
+        "https://globalfinregblog.com/2026/04/fca-publishes-final-rules-for-the-revised-uk-short-selling-regime",
+        "https://globalfinregblog.com/2026/04/sec-proposes-to-narrow-exchange-act-rule-15c2-11-to-equity-securities-only",
+        "https://fintechanddigitalassets.com/2026/04/sec-clarifies-the-application-of-the-securities-laws-to-cryptoassets",
+        "https://globalfinregblog.com/2026/03/fca-confirms-approach-to-motor-finance-redress",
+        "https://globalelr.com/2026/03/fda-publishes-study-on-pfas-in-cosmetics",
+        "https://fintechanddigitalassets.com/2026/03/sec-and-cftc-sign-landmark-memorandum-of-understanding-on-regulatory-harmonization",
+        "https://lathamreg.com/2026/03/ftc-reverts-to-old-hsr-form-after-fifth-circuit-denial-of-ftc-stay-motion",
+        "https://globalfinregblog.com/2026/03/financial-ombudsman-service-reset-key-reforms-on-the-horizon"
+      ],
+      "lastNewAt": "2026-04-22T02:00:49.321Z",
+      "enabledAt": "2026-04-22T02:00:49.321Z"
     }
   }
 }
