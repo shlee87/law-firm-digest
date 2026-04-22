@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
-status: planning
-stopped_at: Phase 11 context gathered
-last_updated: "2026-04-21T21:24:55.705Z"
+status: completed
+stopped_at: "Completed 11-01: restoreFetchHost + bkl/kim-chang re-enable"
+last_updated: "2026-04-22T01:05:25.598Z"
 last_activity: 2026-04-21
 progress:
   total_phases: 6
   completed_phases: 5
-  total_plans: 23
-  completed_plans: 23
-  percent: 100
+  total_plans: 26
+  completed_plans: 24
+  percent: 92
 ---
 
 # Project State
@@ -128,6 +128,7 @@ Last activity: 2026-04-21
 | Phase 10-data-quality-observability P01 | ~2h | 2 tasks | 4 files |
 | Phase 10-data-quality-observability P02 | ~3h | 3 tasks | 9 files |
 | Phase 10-data-quality-observability P03 | ~1h | 2 tasks | 3 files |
+| Phase 11 P01 | 5min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -272,6 +273,8 @@ Recent decisions affecting current work:
 - 10-02: renderMarkersMarkdown shared between main.ts DRY_RUN stdout and GHA step-summary (D-07 byte-parity) — single source of truth prevents wording drift
 - 10-03: Approach C NODE_ENV !== 'test' guard — Vitest sets NODE_ENV=test (1.x+ contract) so importing main.ts from tests does not trigger process.exit transitively
 - 10-03: emitDryRunStepSummary is the fourth and final sanctioned DRY_RUN site (Pattern 2 containment) — listed in Pattern 2 header comment in main.ts alongside the other three
+- restoreFetchHost operates only on the fetch URL — canonical item.url (www-stripped by canonicalizeUrl) is never modified, preserving dedup semantics
+- loader.test.ts DISABLED_FIRM_ID switched from bkl to shin-kim after bkl re-enable (Phase 11-01 Rule 1 fix)
 
 ### Pending Todos
 
@@ -292,8 +295,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-04-21T21:23:42Z
-Stopped at: Phase 10 all 3 plans complete (10-01, 10-02, 10-03 — 443 tests passing)
+Last session: 2026-04-22T01:05:25.593Z
+Stopped at: Completed 11-01: restoreFetchHost + bkl/kim-chang re-enable
 Resume file: None
 
 **Next action:** `/gsd:plan-phase 11` — plan Phase 11: Cron Resumption Gate
