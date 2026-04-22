@@ -19,14 +19,11 @@
 
 import { parse } from 'yaml';
 import { readFile } from 'node:fs/promises';
-import { FirmsConfigSchema, RecipientSchema } from './schema.js';
+import { FirmsConfigSchema, RecipientSchema, SettingsSchema } from './schema.js';
 import type { FirmConfig, TopicConfig } from '../types.js';
+import type { Settings } from './schema.js';
 
 export async function loadRecipient(): Promise<string | string[]> {
-  const text = await readFile('config/recipient.yaml', 'utf8');
-  const yaml = parse(text);
-  const parsed = RecipientSchema.parse(yaml);
-
   const envVal = process.env.RECIPIENT_EMAIL;
   if (envVal) {
     const candidate: string | string[] = envVal.includes(',')
@@ -35,12 +32,11 @@ export async function loadRecipient(): Promise<string | string[]> {
           .map((s) => s.trim())
           .filter(Boolean)
       : envVal;
-    // Re-validate env input through the same schema — catches "a@x.com,"
-    // trailing-comma artifacts, malformed emails, or single-element lists.
     const envParsed = RecipientSchema.parse({ recipient: candidate });
     return envParsed.recipient;
   }
-  return parsed.recipient;
+  const settings = await loadSettings();
+  return settings.recipient.email;
 }
 
 export interface LoadFirmsOptions {
@@ -58,8 +54,50 @@ export async function loadFirms(
     console.error(JSON.stringify(result.error.format(), null, 2));
     throw new Error('Invalid firms.yaml');
   }
-  const all = result.data.firms as FirmConfig[];
+  const globalExc = result.data.global_exclude_keywords ?? [];
+  const all = result.data.firms.map((f) => ({
+    ...f,
+    exclude_keywords: [...(f.exclude_keywords ?? []), ...globalExc],
+  })) as FirmConfig[];
   return options.includeDisabled ? all : all.filter((f) => f.enabled);
+}
+
+// loadSettings: reads config/settings.yaml with full defaults so a missing
+// or partial file never hard-fails. Unknown keys still throw (strict mode).
+export async function loadSettings(): Promise<Settings> {
+  let text: string;
+  try {
+    text = await readFile('config/settings.yaml', 'utf8');
+  } catch {
+    // File absent → all defaults apply (first-run / no settings.yaml).
+    return SettingsSchema.parse({});
+  }
+  const yaml = parse(text);
+  const result = SettingsSchema.safeParse(yaml);
+  if (!result.success) {
+    console.error('config/settings.yaml validation failed:');
+    console.error(JSON.stringify(result.error.format(), null, 2));
+    throw new Error('Invalid settings.yaml');
+  }
+  return result.data;
+}
+
+// toCron: converts human-readable schedule fields to a GitHub Actions cron string.
+// Called by scripts/sync-schedule.ts to update .github/workflows/daily.yml.
+export function toCron(schedule: { time_utc: string; days: string }): string {
+  const [hoursStr, minutesStr] = schedule.time_utc.split(':');
+  const hours = parseInt(hoursStr, 10);
+  const minutes = parseInt(minutesStr, 10);
+  if (schedule.days === 'biweekly') {
+    // 매달 1일·15일 실행 (격주 근사 — cron에 정확한 격주 지원 없음)
+    return `${minutes} ${hours} 1,15 * *`;
+  }
+  const daysPart =
+    schedule.days === 'weekdays' ? '1-5' :
+    schedule.days === 'weekends' ? '0,6' :
+    schedule.days === 'weekly' ? '1' : // 매주 월요일
+    '*';
+  return `${minutes} ${hours} * * ${daysPart}`;
 }
 
 // Phase 12 D-06: load the topics: block from config/firms.yaml.

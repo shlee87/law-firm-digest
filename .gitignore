@@ -27,3 +27,4 @@ yarn-error.log*
 # Project state backups
 state/seen.json.tmp
 state/seen.json.backup
+state/seen.json.bak

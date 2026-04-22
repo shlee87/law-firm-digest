@@ -105,7 +105,7 @@ describe('composeDigest', () => {
     expect(payload.html).not.toContain('요약 없음 — 본문 부족');
   });
 
-  it('Phase 8 D-13: B3 title-verbatim singleton (summaryModel==="skipped") shows ⚠ 본문 확보 실패 badge', () => {
+  it('Phase 8 D-13: B3 title-verbatim singleton (summaryModel==="skipped") shows ⚠ 본문 없음 badge', () => {
     const payload = composeDigest(
       fixture(),
       'user@example.com',
@@ -116,13 +116,14 @@ describe('composeDigest', () => {
     // Fixture third item is summaryModel:'failed' (title-verbatim from catch block)
     // Fixture fourth item is summaryModel:'skipped' (title-verbatim from Layer 1)
     // Only the 'skipped' item triggers D-13 badge.
-    expect(payload.html).toContain('⚠ 본문 확보 실패');
+    expect(payload.html).toContain('⚠ 본문 없음');
     // The title appears in the summary slot for the skipped item.
     expect(payload.html).toContain('Title-only Article (B3 skipped)');
-    // The 'failed' item's title-verbatim summary renders WITHOUT the badge
-    // (summaryModel !== 'skipped'). Confirm the badge appears exactly once.
-    const badgeCount = (payload.html.match(/⚠ 본문 확보 실패/g) ?? []).length;
-    expect(badgeCount).toBe(1);
+    // The 'failed' item gets its own badge (⚠ AI 요약 실패).
+    expect(payload.html).toContain('⚠ AI 요약 실패');
+    // Confirm each badge appears exactly once.
+    const skippedBadge = (payload.html.match(/⚠ 본문 없음/g) ?? []).length;
+    expect(skippedBadge).toBe(1);
   });
 
   it('HTML snapshot is stable', () => {

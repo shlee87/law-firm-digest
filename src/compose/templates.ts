@@ -76,7 +76,9 @@ export function renderHtml(
           // debugging path produces null, and it never reaches templates).
           const badge =
             it.summaryModel === 'skipped'
-              ? ` <span style="color:#f57f17;font-size:11px;">⚠ 본문 확보 실패</span>`
+              ? ` <span style="color:#f57f17;font-size:11px;">⚠ 본문 없음 (PDF 또는 메타데이터만 추출됨)</span>`
+              : it.summaryModel === 'failed'
+              ? ` <span style="color:#c62828;font-size:11px;">⚠ AI 요약 실패${it.summaryError ? ` — ${escapeHtml(it.summaryError.slice(0, 80))}` : ''}</span>`
               : '';
           const summaryText = it.summary_ko ?? it.title;
           return `

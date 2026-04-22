@@ -37,6 +37,7 @@ import { GoogleGenAI } from '@google/genai';
 import pRetry, { AbortError } from 'p-retry';
 import { z } from 'zod';
 import { buildPrompt, summarySchema } from './prompt.js';
+import type { PromptConfig } from './prompt.js';
 import { scrubSecrets } from '../util/logging.js';
 import type { NewItem, SummarizedItem } from '../types.js';
 
@@ -70,8 +71,13 @@ const SummaryZ = z.object({
  *   - ZodError: escalated to AbortError — don't waste quota retrying a
  *     schema-violating model response.
  */
-export async function summarize(item: NewItem, body: string): Promise<SummarizedItem> {
-  let model: 'gemini-2.5-flash' | 'gemini-2.5-flash-lite' = 'gemini-2.5-flash';
+export async function summarize(
+  item: NewItem,
+  body: string,
+  models?: { primary: string; fallback: string },
+  promptConfig?: PromptConfig,
+): Promise<SummarizedItem> {
+  let model = (models?.primary ?? 'gemini-2.5-flash') as string;
 
   const call = async (): Promise<SummarizedItem> => {
     // Fail loud on missing API key BEFORE SDK construction, so we never reach
@@ -90,7 +96,7 @@ export async function summarize(item: NewItem, body: string): Promise<Summarized
     const ai = new GoogleGenAI({ apiKey });
     const res = await ai.models.generateContent({
       model,
-      contents: buildPrompt(item, body),
+      contents: buildPrompt(item, body, promptConfig),
       config: {
         responseMimeType: 'application/json',
         responseSchema: summarySchema,
@@ -124,8 +130,8 @@ export async function summarize(item: NewItem, body: string): Promise<Summarized
       retries: 3,
       onFailedAttempt: ({ error }) => {
         const anyErr = error as unknown as { status?: number; name?: string; message: string };
-        if (anyErr.status === 429 && model === 'gemini-2.5-flash') {
-          model = 'gemini-2.5-flash-lite';
+        if (anyErr.status === 429 && model === (models?.primary ?? 'gemini-2.5-flash')) {
+          model = models?.fallback ?? 'gemini-2.5-flash-lite';
         }
         if (anyErr.name === 'ZodError') throw new AbortError(anyErr.message);
       },

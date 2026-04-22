@@ -12,9 +12,9 @@ describe('loadRecipient', () => {
     else process.env.RECIPIENT_EMAIL = ORIGINAL_ENV;
   });
 
-  it('returns the YAML placeholder string when no env var is set', async () => {
+  it('returns the YAML value when no env var is set', async () => {
     const result = await loadRecipient();
-    expect(result).toBe('your.email@example.com');
+    expect(result).toBe('nks4860@gmail.com');
   });
 
   it('returns a single env-override string when RECIPIENT_EMAIL has no comma', async () => {

@@ -9,6 +9,7 @@
     "check:firm": "tsx src/cli/checkFirm.ts",
     "audit:firms": "tsx src/cli/auditFirms.ts",
     "test": "vitest run",
+    "sync-schedule": "tsx scripts/sync-schedule.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

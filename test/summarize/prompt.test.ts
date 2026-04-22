@@ -21,16 +21,16 @@ const enItem: NewItem = {
 };
 
 describe('buildPrompt (D-P2-13 language routing)', () => {
-  it('(1) Korean firm → Korean-source instruction, NO translation wording', () => {
+  it('(1) Korean firm → Korean-audience legal instruction', () => {
     const p = buildPrompt(krItem, 'BODY-MARKER');
-    expect(p).toContain('원문');
-    expect(p).toContain('번역하지 말고');
+    expect(p).toContain('변호사');
+    expect(p).toContain('실무 시사점');
   });
 
-  it('(2) English firm → English-to-Korean translation instruction', () => {
+  it('(2) English firm → English-to-Korean legal instruction', () => {
     const p = buildPrompt(enItem, 'BODY-MARKER');
-    expect(p).toContain('한국어 2~5줄 요약');
-    expect(p).toContain('Korean summary');
+    expect(p).toContain('Korean lawyers');
+    expect(p).toContain('한국어');
   });
 
   it('(3) SUMM-06 preserved — item.title absent from Korean prompt', () => {

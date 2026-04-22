@@ -24,8 +24,8 @@ const runTs = readFileSync(runTsPath, 'utf8');
 const geminiTs = readFileSync(geminTsPath, 'utf8');
 
 describe('GUARD-01 Layer 1 short-circuit (Phase 8 D-01/D-02/D-03)', () => {
-  it('(L1-01) run.ts contains body.trim().length < 100 gate (D-02 exact threshold)', () => {
-    expect(runTs).toContain('body.trim().length < 100');
+  it('(L1-01) run.ts contains body.trim().length < settings.digest.min_body_chars gate (D-02)', () => {
+    expect(runTs).toContain('body.trim().length < settings.digest.min_body_chars');
   });
 
   it('(L1-02) run.ts short-circuit returns summary_ko: item.title (title-verbatim, D-03)', () => {

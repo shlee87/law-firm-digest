@@ -67,7 +67,7 @@
 import pLimit from 'p-limit';
 import { writeFile } from 'node:fs/promises';
 import { chromium, type Browser } from 'playwright';
-import { loadFirms, loadRecipient, loadTopics } from '../config/loader.js';
+import { loadFirms, loadRecipient, loadTopics, loadSettings } from '../config/loader.js';
 import { readState } from '../state/reader.js';
 import { fetchAll } from './fetch.js';
 import { enrichWithBody } from './enrichBody.js';
@@ -136,6 +136,7 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
   const now = new Date();
 
   const recorder = new Recorder();
+  const settings = await loadSettings();
   const allFirms = await loadFirms();
   const recipient = await loadRecipient();
   const topics = await loadTopics();
@@ -256,9 +257,9 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
       deduped.map((r) => `${r.firm.id}: ${r.new.length} new`).join(' | '),
     );
 
-    // Step 9 — summarize with skipGemini shortcut. FETCH-03 spirit: cap
-    // parallel Gemini calls at 3 globally per run.
-    const summarizeLimit = pLimit(3);
+    // Step 9 — summarize with skipGemini shortcut.
+    // Concurrency and model names read from config/settings.yaml.
+    const summarizeLimit = pLimit(settings.gemini.concurrency);
     const summarized: FirmResult[] = await Promise.all(
       deduped.map(async (r) => {
         if (r.error || r.new.length === 0) return r;
@@ -282,7 +283,7 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
               // contract preserved — Gemini never sees the title. 'skipped'
               // sentinel reused (CONTEXT discretion; Phase 10 may refine).
               const body = item.description ?? '';
-              if (body.trim().length < 100) {
+              if (body.trim().length < settings.digest.min_body_chars) {
                 return {
                   ...item,
                   summary_ko: item.title,
@@ -290,7 +291,12 @@ export async function runPipeline(options: RunOptions = {}): Promise<RunReport> 
                   summaryModel: 'skipped',
                 };
               }
-              return summarize(item, body);
+              return summarize(
+                item,
+                body,
+                { primary: settings.gemini.primary_model, fallback: settings.gemini.fallback_model },
+                settings.prompt,
+              );
             }),
           ),
         );

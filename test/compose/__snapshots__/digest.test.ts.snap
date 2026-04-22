@@ -11,11 +11,11 @@ exports[`composeDigest > EMAIL-05 — snapshot with failed firm included (footer
       </div>
       <div style="margin:0 0 16px 0;">
         <div><a href="https://cooley.com/news/insight/2026/2026-04-10-ma">Second &lt;Article&gt; with HTML-ish Title</a></div>
-        <p style="margin:4px 0 0 0;color:#333;">Second &lt;Article&gt; with HTML-ish Title</p>
+        <p style="margin:4px 0 0 0;color:#333;">Second &lt;Article&gt; with HTML-ish Title <span style="color:#c62828;font-size:11px;">⚠ AI 요약 실패 — quota exceeded</span></p>
       </div>
       <div style="margin:0 0 16px 0;">
         <div><a href="https://cooley.com/news/insight/2026/2026-04-05-privacy">Title-only Article (B3 skipped)</a></div>
-        <p style="margin:4px 0 0 0;color:#333;">Title-only Article (B3 skipped) <span style="color:#f57f17;font-size:11px;">⚠ 본문 확보 실패</span></p>
+        <p style="margin:4px 0 0 0;color:#333;">Title-only Article (B3 skipped) <span style="color:#f57f17;font-size:11px;">⚠ 본문 없음 (PDF 또는 메타데이터만 추출됨)</span></p>
       </div></section>
     <footer style="margin-top:32px;color:#999;font-size:12px;">
   <div>⚠ 이번 실행에서 수집 실패 — 다음 실행에서 재시도됩니다:</div>
@@ -37,11 +37,11 @@ exports[`composeDigest > HTML snapshot is stable 1`] = `
       </div>
       <div style="margin:0 0 16px 0;">
         <div><a href="https://cooley.com/news/insight/2026/2026-04-10-ma">Second &lt;Article&gt; with HTML-ish Title</a></div>
-        <p style="margin:4px 0 0 0;color:#333;">Second &lt;Article&gt; with HTML-ish Title</p>
+        <p style="margin:4px 0 0 0;color:#333;">Second &lt;Article&gt; with HTML-ish Title <span style="color:#c62828;font-size:11px;">⚠ AI 요약 실패 — quota exceeded</span></p>
       </div>
       <div style="margin:0 0 16px 0;">
         <div><a href="https://cooley.com/news/insight/2026/2026-04-05-privacy">Title-only Article (B3 skipped)</a></div>
-        <p style="margin:4px 0 0 0;color:#333;">Title-only Article (B3 skipped) <span style="color:#f57f17;font-size:11px;">⚠ 본문 확보 실패</span></p>
+        <p style="margin:4px 0 0 0;color:#333;">Title-only Article (B3 skipped) <span style="color:#f57f17;font-size:11px;">⚠ 본문 없음 (PDF 또는 메타데이터만 추출됨)</span></p>
       </div></section>
     
     

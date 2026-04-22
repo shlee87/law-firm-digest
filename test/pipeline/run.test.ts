@@ -16,6 +16,7 @@ const mocks = vi.hoisted(() => {
     loadFirmsMock: vi.fn(),
     loadRecipientMock: vi.fn(),
     loadTopicsMock: vi.fn(),
+    loadSettingsMock: vi.fn(),
     readStateMock: vi.fn(),
     writeStateMock: vi.fn(),
     fetchAllMock: vi.fn(),
@@ -35,6 +36,7 @@ vi.mock('../../src/config/loader.js', () => ({
   loadFirms: mocks.loadFirmsMock,
   loadRecipient: mocks.loadRecipientMock,
   loadTopics: mocks.loadTopicsMock,
+  loadSettings: mocks.loadSettingsMock,
 }));
 vi.mock('../../src/state/reader.js', () => ({
   readState: mocks.readStateMock,
@@ -109,6 +111,13 @@ describe('runPipeline — composition root', () => {
     mocks.loadFirmsMock.mockReset().mockResolvedValue(FIRMS);
     mocks.loadRecipientMock.mockReset().mockResolvedValue('user@example.com');
     mocks.loadTopicsMock.mockReset().mockResolvedValue({});
+    mocks.loadSettingsMock.mockReset().mockResolvedValue({
+      recipient: { email: 'user@example.com' },
+      schedule: { time_utc: '00:00', days: 'daily' },
+      gemini: { primary_model: 'gemini-2.5-flash', fallback_model: 'gemini-2.5-flash-lite', concurrency: 3 },
+      digest: { min_body_chars: 100 },
+      prompt: { instruction_ko: '한국어 요약', instruction_en: 'Korean summary' },
+    });
     mocks.applyTopicFilterMock
       .mockReset()
       .mockImplementation((results: unknown) => results);
@@ -408,6 +417,13 @@ describe('runPipeline (Phase 4 browser lifecycle)', () => {
   beforeEach(() => {
     mocks.loadFirmsMock.mockReset().mockResolvedValue(FIRMS); // only rss + html
     mocks.loadRecipientMock.mockReset().mockResolvedValue('user@example.com');
+    mocks.loadSettingsMock.mockReset().mockResolvedValue({
+      recipient: { email: 'user@example.com' },
+      schedule: { time_utc: '00:00', days: 'daily' },
+      gemini: { primary_model: 'gemini-2.5-flash', fallback_model: 'gemini-2.5-flash-lite', concurrency: 3 },
+      digest: { min_body_chars: 100 },
+      prompt: { instruction_ko: '한국어 요약', instruction_en: 'Korean summary' },
+    });
     mocks.readStateMock.mockReset().mockResolvedValue({
       version: 1,
       lastUpdated: null,
@@ -511,6 +527,13 @@ describe('Phase 8 GUARD-01 Layer 1 short-circuit', () => {
     // Reset from outer suite defaults; override only what this block needs.
     mocks.loadFirmsMock.mockReset().mockResolvedValue(FIRMS);
     mocks.loadRecipientMock.mockReset().mockResolvedValue('user@example.com');
+    mocks.loadSettingsMock.mockReset().mockResolvedValue({
+      recipient: { email: 'user@example.com' },
+      schedule: { time_utc: '00:00', days: 'daily' },
+      gemini: { primary_model: 'gemini-2.5-flash', fallback_model: 'gemini-2.5-flash-lite', concurrency: 3 },
+      digest: { min_body_chars: 100 },
+      prompt: { instruction_ko: '한국어 요약', instruction_en: 'Korean summary' },
+    });
     mocks.readStateMock.mockReset().mockResolvedValue({
       version: 1,
       lastUpdated: null,

@@ -183,9 +183,74 @@ export const FirmsConfigSchema = z
     // files without the block still parse. Default {} passes an empty-topics
     // fast-path in applyTopicFilter (all items pass when no topics configured).
     topics: z.record(z.string(), z.array(z.string())).optional().default({}),
+    // Global exclude keywords — applied to ALL firms before Gemini summarization.
+    // Merged into each firm's exclude_keywords by loadFirms() so applyKeywordFilter
+    // sees them transparently.
+    global_exclude_keywords: z.array(z.string()).optional().default([]),
     firms: z.array(FirmSchema).min(1),
   })
   .strict();
+
+// Default prompt instruction strings — single source of truth.
+// Imported by src/summarize/prompt.ts as fallback when promptConfig is absent.
+export const DEFAULT_INSTRUCTION_KO =
+  '독자는 바쁜 변호사 및 법률 전문가입니다. 아래 순서로 2~4줄 요약을 작성하세요.\n1. 핵심 법적 사안 (규제·판례·거래·입법 중 무엇인지, 구체적으로)\n2. 영향받는 대상 (기업·업종·투자자 등)\n3. 실무 시사점 (대응 방향 또는 주의할 점)\n법률 용어는 그대로 보존하고, 일반적 설명 없이 핵심만 기술하세요.';
+export const DEFAULT_INSTRUCTION_EN =
+  'Readers are Korean lawyers and legal professionals who need to quickly grasp\nindustry trends. Summarize in Korean (한국어), 2~4 sentences:\n1. The core legal development (regulation, ruling, deal, or legislation — be specific)\n2. Who is affected (companies, sectors, investors)\n3. Practical implication (what to watch or do)\nPreserve legal terms. Be precise, not general.';
+
+// settings.yaml — runtime toggles readable by non-developers.
+// All fields have safe defaults so a partial or missing settings.yaml
+// never hard-fails; only unknown keys (strict) and bad types fail-fast.
+export const SettingsSchema = z
+  .object({
+    recipient: z
+      .object({
+        email: z.union([z.string().email(), z.array(z.string().email()).min(1)]),
+      })
+      .strict()
+      .default({ email: 'your.email@example.com' }),
+    schedule: z
+      .object({
+        time_utc: z
+          .string()
+          .regex(/^\d{2}:\d{2}$/, 'HH:MM 형식으로 입력하세요 (예: 00:00)')
+          .default('00:00'),
+        days: z.enum(['daily', 'weekdays', 'weekends', 'weekly', 'biweekly']).default('daily'),
+      })
+      .strict()
+      .default({ time_utc: '00:00', days: 'daily' }),
+    gemini: z
+      .object({
+        primary_model: z.string().default('gemini-2.5-flash'),
+        fallback_model: z.string().default('gemini-2.5-flash-lite'),
+        concurrency: z.number().int().min(1).max(10).default(3),
+      })
+      .strict()
+      .default({ primary_model: 'gemini-2.5-flash', fallback_model: 'gemini-2.5-flash-lite', concurrency: 3 }),
+    digest: z
+      .object({
+        min_body_chars: z.number().int().min(0).default(100),
+      })
+      .strict()
+      .default({ min_body_chars: 100 }),
+    prompt: z
+      .object({
+        instruction_ko: z.string().min(1).default(DEFAULT_INSTRUCTION_KO),
+        instruction_en: z.string().min(1).default(DEFAULT_INSTRUCTION_EN),
+      })
+      .strict()
+      .default({ instruction_ko: DEFAULT_INSTRUCTION_KO, instruction_en: DEFAULT_INSTRUCTION_EN }),
+  })
+  .strict()
+  .default({
+    recipient: { email: 'your.email@example.com' },
+    schedule: { time_utc: '00:00', days: 'daily' },
+    gemini: { primary_model: 'gemini-2.5-flash', fallback_model: 'gemini-2.5-flash-lite', concurrency: 3 },
+    digest: { min_body_chars: 100 },
+    prompt: { instruction_ko: DEFAULT_INSTRUCTION_KO, instruction_en: DEFAULT_INSTRUCTION_EN },
+  });
+
+export type Settings = z.infer<typeof SettingsSchema>;
 
 // recipient accepts either a single email or a non-empty list of emails —
 // enables single-user self-send AND multi-user fan-out without a schema fork.

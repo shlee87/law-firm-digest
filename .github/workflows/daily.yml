@@ -26,16 +26,11 @@
 name: Daily Digest
 
 on:
-  # PAUSED 2026-04-19 — v1.0 data-quality audit in progress.
-  # Multiple firms produce hallucinated Gemini summaries due to:
-  #   - bkl detail URLs all return the same landing-page HTML (SPA)
-  #   - kim-chang detail fetches fail, leaving body empty
-  #   - shin-kim list fetches fail
-  #   - logos / skadden list selectors return 0 items
-  #   - Gemini prompt lacks a generic-body hallucination guard
-  # Re-enable after .planning/backlog/v1.0-data-quality-audit.md is closed.
-  # schedule:
-  #   - cron: '0 9 * * *' # 09:00 UTC = 18:00 KST (OPS-01)
+  # 발송 일정 — config/settings.yaml의 schedule.cron과 동일하게 유지하세요.
+  # 변경 방법: 아래 cron 값을 수정한 뒤 config/settings.yaml도 동일하게 맞춰주세요.
+  # 형식: '분 시(UTC) 일 월 요일' (KST = UTC+9)
+  schedule:
+    - cron: '0 12 * * *'  # 매일 09:00 KST (config/settings.yaml schedule.cron 참고)
   workflow_dispatch: {} # manual trigger for smoke tests / gap closure
 
 concurrency: # OPS-02 — serialize overlapping runs (Pitfall #5)
