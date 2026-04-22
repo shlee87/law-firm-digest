@@ -134,7 +134,7 @@ jobs:
           commit_message: 'chore(state): update seen items and archive [skip ci]'
           # Phase 3 OPS-09 addition: archive/**/*.html rides the same commit as
           # state/seen.json. Space-separated multi-pattern accepted by action v7.
-          file_pattern: 'state/seen.json archive/**/*.html'
+          file_pattern: 'state/seen.json'
       - name: Open issue on failure
         if: failure()
         env:
