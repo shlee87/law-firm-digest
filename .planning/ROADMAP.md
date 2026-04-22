@@ -211,6 +211,13 @@ Plans:
 - [ ] 11-02-PLAN.md — shin-kim TLS fix + all 3 firms smoke-tested (RESUME-01)
 - [ ] 11-03-PLAN.md — workflow_dispatch inspection + schedule uncomment + STATE.md acceptance note (RESUME-01, RESUME-02)
 
+### Phase 12: Topic-Based Filter
+**Goal**: The pipeline filters each newsletter item by topic relevance before body fetch and summarization, so only items related to VC/securities, 공정거래, 개인정보, 노동법, or IP are delivered in the digest.
+**Depends on**: Phase 11 (cron must be active before topic filter goes live)
+**Requirements**: (to be defined via spec-phase)
+**Success Criteria**: (to be defined via spec-phase)
+**Plans**: TBD
+
 ## Progress
 
 **Execution Order:**
@@ -229,6 +236,7 @@ Phases execute in numeric order. Phase 4 is conditional — skipped if Phase 2 a
 | 9. Cooley Sitemap Tier | 1/3 | Executing | — |
 | 10. Data-Quality Observability | 0/0 | Pending | — |
 | 11. Cron Resumption Gate | 0/3 | Planning | — |
+| 12. Topic-Based Filter | 0/0 | Spec | — |
 
 ## ⚠ v1.0 Milestone — Production Readiness Caveat
 
