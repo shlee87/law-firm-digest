@@ -147,7 +147,7 @@ firms:
     #       for shinkim.com (per-firm, no global trust expansion).
     # Selectors preserved so re-enablement is a one-line `enabled: true`
     # flip once (a) or (b) lands.
-    enabled: false  # disabled 2026-04-20 (debug session shin-kim-fetch-failed) — TLS chain missing intermediate (UNABLE_TO_VERIFY_LEAF_SIGNATURE). Distinct from kim-chang/bkl.
+    enabled: true  # re-enabled 2026-04-21 (Phase 11-02) — NODE_EXTRA_CA_CERTS Thawte intermediate fix
     selectors:
       list_item: ".post-prime"
       title: "a.text"
