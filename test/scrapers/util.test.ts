@@ -14,6 +14,7 @@ import {
   extractBody,
   parseListItemsFromHtml,
   normalizeDateString,
+  restoreFetchHost,
 } from '../../src/scrapers/util.js';
 import type { FirmConfig } from '../../src/types.js';
 
@@ -574,5 +575,61 @@ describe('parseListItemsFromHtml link extraction (Phase 4.1 unified extractor)',
     };
     const items = parseListItemsFromHtml(html, firm);
     expect(items).toHaveLength(0);
+  });
+});
+
+// --------------------------------------------------------------------------
+// Phase 11-01 — restoreFetchHost (URL www-restoration for detail fetches)
+// --------------------------------------------------------------------------
+
+describe('restoreFetchHost', () => {
+  it('restores www when firm URL has www and item URL was stripped (kim-chang pattern)', () => {
+    // canonicalizeUrl strips www from the item URL; but firm.url has www.
+    // restoreFetchHost must restore www on the fetch URL so TLS works.
+    expect(
+      restoreFetchHost(
+        'https://kimchang.com/ko/insights/detail.kc?sch_section=1&idx=2',
+        'https://www.kimchang.com/ko/newsletter.kc',
+      ),
+    ).toBe('https://www.kimchang.com/ko/insights/detail.kc?sch_section=1&idx=2');
+  });
+
+  it('pass-through when both item and firm already have www', () => {
+    expect(
+      restoreFetchHost(
+        'https://www.firm.com/page',
+        'https://www.firm.com/list',
+      ),
+    ).toBe('https://www.firm.com/page');
+  });
+
+  it('pass-through when neither item nor firm has www', () => {
+    expect(
+      restoreFetchHost(
+        'https://firm.com/page',
+        'https://firm.com/list',
+      ),
+    ).toBe('https://firm.com/page');
+  });
+
+  it('pass-through when firm and item are on different domains (no mutation)', () => {
+    expect(
+      restoreFetchHost(
+        'https://www.a.com/page',
+        'https://www.b.com/list',
+      ),
+    ).toBe('https://www.a.com/page');
+  });
+
+  it('restores www for bkl pattern (apex-redirect root cause)', () => {
+    // bkl.co.kr apex redirects to homepage; www.bkl.co.kr serves the article.
+    expect(
+      restoreFetchHost(
+        'https://bkl.co.kr/law/insight/informationView.do?infoNo=6542&lang=ko',
+        'https://www.bkl.co.kr/law/insight/informationList.do?lang=ko',
+      ),
+    ).toBe(
+      'https://www.bkl.co.kr/law/insight/informationView.do?infoNo=6542&lang=ko',
+    );
   });
 });
