@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
 status: completed
-stopped_at: "Completed 11-01: restoreFetchHost + bkl/kim-chang re-enable"
-last_updated: "2026-04-22T01:05:25.598Z"
+stopped_at: "Completed 12-02: topic filter pipeline wiring + seen.json extension"
+last_updated: "2026-04-21T22:30:00.000Z"
 last_activity: 2026-04-21
 progress:
   total_phases: 6
-  completed_phases: 5
-  total_plans: 26
-  completed_plans: 24
-  percent: 92
+  completed_phases: 6
+  total_plans: 28
+  completed_plans: 28
+  percent: 100
 ---
 
 # Project State
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-19)
 
 **Core value:** 사용자가 직접 로펌 웹사이트를 돌지 않아도, 추적 대상 로펌들의 신규 뉴스레터를 원문 링크와 함께 한국어 요약으로 받아볼 수 있어야 한다.
-**Current focus:** Phase 10 — data-quality-observability (COMPLETE)
+**Current focus:** Phase 12 — topic-based-filter (COMPLETE)
 
 ## Current Position
 
-Phase: 10
-Plan: 3/3 COMPLETE
-Status: Phase complete — ready for Phase 11
+Phase: 12
+Plan: 2/2 COMPLETE
+Status: Phase complete — milestone v1.1 complete
 Last activity: 2026-04-21
 
 **v1.0 regressions status (all originally discovered 2026-04-19 Phase 02 UAT):**

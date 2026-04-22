@@ -224,8 +224,8 @@ Plans:
   6. No genai or summarize calls exist in src/pipeline/filter.ts (zero additional Gemini RPD).
 **Plans**: 2 plans
 Plans:
-- [ ] 12-01-PLAN.md — TopicConfig type + FirmsConfigSchema topics extension + loadTopics() + firms.yaml keywords (D-01..D-05) + isTopicRelevant unit tests RED (SPEC-12-REQ-1, SPEC-12-REQ-2, SPEC-12-REQ-3, SPEC-12-REQ-6)
-- [ ] 12-02-PLAN.md — isTopicRelevant + applyTopicFilter implementation + run.ts wiring + writer.ts seen.json extension (SPEC-12-REQ-2, SPEC-12-REQ-3, SPEC-12-REQ-4, SPEC-12-REQ-5, SPEC-12-REQ-6)
+- [x] 12-01-PLAN.md — TopicConfig type + FirmsConfigSchema topics extension + loadTopics() + firms.yaml keywords (D-01..D-05) + isTopicRelevant unit tests RED (SPEC-12-REQ-1, SPEC-12-REQ-2, SPEC-12-REQ-3, SPEC-12-REQ-6)
+- [x] 12-02-PLAN.md — isTopicRelevant + applyTopicFilter implementation + run.ts wiring + writer.ts seen.json extension (SPEC-12-REQ-2, SPEC-12-REQ-3, SPEC-12-REQ-4, SPEC-12-REQ-5, SPEC-12-REQ-6)
 
 ## Progress
 
@@ -245,7 +245,7 @@ Phases execute in numeric order. Phase 4 is conditional — skipped if Phase 2 a
 | 9. Cooley Sitemap Tier | 1/3 | Executing | — |
 | 10. Data-Quality Observability | 0/0 | Pending | — |
 | 11. Cron Resumption Gate | 0/3 | Planning | — |
-| 12. Topic-Based Filter | 0/2 | Planning | — |
+| 12. Topic-Based Filter | 2/2 | Complete | 2026-04-21 |
 
 ## ⚠ v1.0 Milestone — Production Readiness Caveat
 
