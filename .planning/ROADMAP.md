@@ -214,9 +214,18 @@ Plans:
 ### Phase 12: Topic-Based Filter
 **Goal**: The pipeline filters each newsletter item by topic relevance before body fetch and summarization, so only items related to VC/securities, 공정거래, 개인정보, 노동법, or IP are delivered in the digest.
 **Depends on**: Phase 11 (cron must be active before topic filter goes live)
-**Requirements**: (to be defined via spec-phase)
-**Success Criteria**: (to be defined via spec-phase)
-**Plans**: TBD
+**Requirements**: SPEC-12-REQ-1, SPEC-12-REQ-2, SPEC-12-REQ-3, SPEC-12-REQ-4, SPEC-12-REQ-5, SPEC-12-REQ-6
+**Success Criteria** (what must be TRUE):
+  1. config/firms.yaml contains a topics: block with keyword lists for all 5 practice areas (vc_securities, fair_trade, privacy, labor, ip) — editing the list changes filter behavior with no code change.
+  2. isTopicRelevant(title, body, topics) returns true when title OR body (first 500 chars) contains any keyword; false when neither does; and true unconditionally when body is empty (permissive bias).
+  3. pnpm dry-run prints [filter] skipped — no topic match: <title> for each non-matching item, and those items do not appear in the digest HTML.
+  4. Filtered-out items appear in seen.json after a run — running twice on the same data shows dedup: 0 new for previously-filtered items.
+  5. pnpm vitest run passes with 448+ tests (all new filter tests included).
+  6. No genai or summarize calls exist in src/pipeline/filter.ts (zero additional Gemini RPD).
+**Plans**: 2 plans
+Plans:
+- [ ] 12-01-PLAN.md — TopicConfig type + FirmsConfigSchema topics extension + loadTopics() + firms.yaml keywords (D-01..D-05) + isTopicRelevant unit tests RED (SPEC-12-REQ-1, SPEC-12-REQ-2, SPEC-12-REQ-3, SPEC-12-REQ-6)
+- [ ] 12-02-PLAN.md — isTopicRelevant + applyTopicFilter implementation + run.ts wiring + writer.ts seen.json extension (SPEC-12-REQ-2, SPEC-12-REQ-3, SPEC-12-REQ-4, SPEC-12-REQ-5, SPEC-12-REQ-6)
 
 ## Progress
 
@@ -236,7 +245,7 @@ Phases execute in numeric order. Phase 4 is conditional — skipped if Phase 2 a
 | 9. Cooley Sitemap Tier | 1/3 | Executing | — |
 | 10. Data-Quality Observability | 0/0 | Pending | — |
 | 11. Cron Resumption Gate | 0/3 | Planning | — |
-| 12. Topic-Based Filter | 0/0 | Spec | — |
+| 12. Topic-Based Filter | 0/2 | Planning | — |
 
 ## ⚠ v1.0 Milestone — Production Readiness Caveat
 
