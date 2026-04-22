@@ -33,7 +33,7 @@
 // negative around Korean particles is acceptable for v1; see the deferred
 // mecab-ko revisit in CONTEXT.md.
 
-import type { FirmResult } from '../types.js';
+import type { FirmResult, TopicConfig } from '../types.js';
 
 export function applyKeywordFilter(results: FirmResult[]): FirmResult[] {
   return results.map((r) => {
@@ -60,4 +60,28 @@ export function applyKeywordFilter(results: FirmResult[]): FirmResult[] {
 
     return { ...r, raw: filtered };
   });
+}
+
+// ---------------------------------------------------------------------------
+// Phase 12 stubs — implemented in Plan 02.
+// Exported here so the TDD RED test suite (Plan 01 Task 3) compiles cleanly
+// under the tsconfig that includes test/**/*. Both functions throw at runtime
+// so the 8 isTopicRelevant tests fail as expected RED state.
+// ---------------------------------------------------------------------------
+
+/** @throws Plan 02 not yet implemented */
+export function isTopicRelevant(
+  _title: string,
+  _body: string,
+  _topics: TopicConfig,
+): boolean {
+  throw new Error('isTopicRelevant: not implemented — ships in Plan 02');
+}
+
+/** @throws Plan 02 not yet implemented */
+export function applyTopicFilter(
+  _results: FirmResult[],
+  _topics: TopicConfig,
+): FirmResult[] {
+  throw new Error('applyTopicFilter: not implemented — ships in Plan 02');
 }

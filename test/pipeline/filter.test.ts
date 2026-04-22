@@ -15,8 +15,8 @@
 //   9. Empty r.raw — returns empty r.raw, no crash, same-length output.
 
 import { describe, it, expect } from 'vitest';
-import { applyKeywordFilter } from '../../src/pipeline/filter.js';
-import type { FirmConfig, FirmResult } from '../../src/types.js';
+import { applyKeywordFilter, isTopicRelevant } from '../../src/pipeline/filter.js';
+import type { FirmConfig, FirmResult, TopicConfig } from '../../src/types.js';
 
 function makeFirm(overrides: Partial<FirmConfig> = {}): FirmConfig {
   return {
@@ -179,5 +179,72 @@ describe('applyKeywordFilter', () => {
     const out = applyKeywordFilter([r]);
     expect(out).toHaveLength(1);
     expect(out[0].raw).toEqual([]);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// isTopicRelevant — Phase 12 SPEC-12-REQ-2 / SPEC-12-REQ-3
+// ---------------------------------------------------------------------------
+// Contract (8 behaviors):
+//   a. Title match with empty body → true (permissive: empty body always passes)
+//   b. Body match only (generic title, keyword only in body) → true
+//   c. Both title and body match → true
+//   d. No keyword in title or body → false
+//   e. Empty body regardless of title content → true (D-11 permissive bias)
+//   f. Case-insensitive match → true
+//   g. 500-char body window: keyword beyond char 500 is invisible → false
+//   h. Empty topics config {} with non-empty body → false (no keywords to match)
+
+function makeTopics(overrides: Partial<TopicConfig> = {}): TopicConfig {
+  return {
+    vc_securities: ['VC', '벤처', 'startup', 'securities'],
+    fair_trade: ['공정거래', 'antitrust'],
+    privacy: ['개인정보', 'privacy', 'GDPR'],
+    labor: ['노동', 'employment'],
+    ip: ['특허', 'patent', 'trademark'],
+    ...overrides,
+  };
+}
+
+describe('isTopicRelevant', () => {
+  it('(a) title match with empty body → true (permissive — empty body always passes, D-11)', () => {
+    const topics = makeTopics();
+    expect(isTopicRelevant('VC 투자 규제', '', topics)).toBe(true);
+  });
+
+  it('(b) body match only — generic title with no topic keyword → true', () => {
+    const topics = makeTopics();
+    expect(isTopicRelevant('법무법인 소식', '특허 분쟁 사례 분석 보고서', topics)).toBe(true);
+  });
+
+  it('(c) both title and body match → true', () => {
+    const topics = makeTopics();
+    expect(isTopicRelevant('공정거래 이슈', '개인정보 침해 사례', topics)).toBe(true);
+  });
+
+  it('(d) no keyword in title or body → false', () => {
+    const topics = makeTopics();
+    expect(isTopicRelevant('오늘의 날씨 예보', '내일은 맑고 기온이 높겠습니다.', topics)).toBe(false);
+  });
+
+  it('(e) empty body — title has NO topic keyword → true (SPEC req 3 / D-11 permissive)', () => {
+    const topics = makeTopics();
+    expect(isTopicRelevant('오늘의 날씨 예보', '', topics)).toBe(true);
+  });
+
+  it('(f) case-insensitive match — uppercase keyword in title → true', () => {
+    const topics = makeTopics();
+    expect(isTopicRelevant('PATENT Dispute Ruling', '법원 판결문 전문', topics)).toBe(true);
+  });
+
+  it('(g) 500-char body window — keyword beyond char 500 is invisible', () => {
+    const topics = makeTopics();
+    const filler = 'A'.repeat(501);
+    const bodyWithLateKeyword = filler + '특허';
+    expect(isTopicRelevant('법무법인 공지', bodyWithLateKeyword, topics)).toBe(false);
+  });
+
+  it('(h) empty topics config {} with non-empty body → false (no keywords to match)', () => {
+    expect(isTopicRelevant('공정거래 이슈', '이 글은 공정거래에 관한 내용입니다.', {})).toBe(false);
   });
 });

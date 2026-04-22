@@ -179,6 +179,10 @@ export const FirmSchema = z
 
 export const FirmsConfigSchema = z
   .object({
+    // Phase 12 D-06: global topic keyword config. Optional so existing firms.yaml
+    // files without the block still parse. Default {} passes an empty-topics
+    // fast-path in applyTopicFilter (all items pass when no topics configured).
+    topics: z.record(z.string(), z.array(z.string())).optional().default({}),
     firms: z.array(FirmSchema).min(1),
   })
   .strict();

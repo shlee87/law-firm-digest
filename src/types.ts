@@ -111,6 +111,12 @@ export interface FirmResult {
   durationMs: number;
 }
 
+// Phase 12 D-09: mapping of topic area name → keyword list (e.g. vc_securities → [...]).
+// Populated from config/firms.yaml `topics:` block via loadTopics().
+// Record<string, string[]> keeps the schema open to arbitrary topic names added by
+// the non-developer config editor without requiring a code change.
+export type TopicConfig = Record<string, string[]>;
+
 export interface RunReport {
   startedAt: string;
   finishedAt: string;

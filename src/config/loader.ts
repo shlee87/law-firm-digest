@@ -20,7 +20,7 @@
 import { parse } from 'yaml';
 import { readFile } from 'node:fs/promises';
 import { FirmsConfigSchema, RecipientSchema } from './schema.js';
-import type { FirmConfig } from '../types.js';
+import type { FirmConfig, TopicConfig } from '../types.js';
 
 export async function loadRecipient(): Promise<string | string[]> {
   const text = await readFile('config/recipient.yaml', 'utf8');
@@ -60,4 +60,20 @@ export async function loadFirms(
   }
   const all = result.data.firms as FirmConfig[];
   return options.includeDisabled ? all : all.filter((f) => f.enabled);
+}
+
+// Phase 12 D-06: load the topics: block from config/firms.yaml.
+// Reuses the same FirmsConfigSchema parse path as loadFirms so validation
+// errors surface with the same formatted output. Returns TopicConfig (which
+// defaults to {} when the topics: key is absent from the YAML).
+export async function loadTopics(): Promise<TopicConfig> {
+  const text = await readFile('config/firms.yaml', 'utf8');
+  const yaml = parse(text);
+  const result = FirmsConfigSchema.safeParse(yaml);
+  if (!result.success) {
+    console.error('config/firms.yaml validation failed:');
+    console.error(JSON.stringify(result.error.format(), null, 2));
+    throw new Error('Invalid firms.yaml');
+  }
+  return result.data.topics as TopicConfig;
 }
