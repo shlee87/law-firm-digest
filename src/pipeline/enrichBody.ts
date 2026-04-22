@@ -68,7 +68,7 @@
 
 import pLimit from 'p-limit';
 import type { Browser } from 'playwright';
-import { decodeCharsetAwareFetch, extractBody } from '../scrapers/util.js';
+import { decodeCharsetAwareFetch, extractBody, restoreFetchHost } from '../scrapers/util.js';
 import { USER_AGENT } from '../util/logging.js';
 import type { FirmResult } from '../types.js';
 
@@ -126,7 +126,12 @@ export async function enrichWithBody(
                 const ctx = await browser.newContext({ userAgent: USER_AGENT });
                 try {
                   const page = await ctx.newPage();
-                  await page.goto(item.url, {
+                  // Phase 11-01: restore www. on the fetch URL for firms whose
+                  // TLS cert requires it (bkl, kim-chang). The canonical item.url
+                  // (www-stripped by canonicalizeUrl) is preserved in the result
+                  // spread — only the goto target uses the restored host.
+                  const fetchUrl = restoreFetchHost(item.url, r.firm.url);
+                  await page.goto(fetchUrl, {
                     timeout: DETAIL_PAGE_TIMEOUT_MS,
                     waitUntil: 'domcontentloaded',
                   });

@@ -122,6 +122,44 @@ export function canonicalizeUrl(input: string, base?: string): string {
 }
 
 /**
+ * Restore the `www.` prefix on a detail-fetch URL when the firm's own URL
+ * uses `www.` but the item URL has had it stripped by canonicalizeUrl.
+ *
+ * Background: canonicalizeUrl (DEDUP-02) unconditionally strips `www.` so
+ * every URL stored in SeenState is in apex form. This is correct for dedup,
+ * but two firms (bkl and kim-chang) require `www.` for TLS:
+ *   - kim-chang: TLS cert CN=www.kimchang.com — apex fetch fails with
+ *     ERR_CERT_COMMON_NAME_INVALID (Phase 7-05).
+ *   - bkl: apex bkl.co.kr issues HTTP 302 → www.bkl.co.kr/ (path-stripped
+ *     homepage redirect) — Playwright follows and lands on wrong page (Phase 7-06).
+ *
+ * This helper is called ONLY on the fetch URL — the RawItem.url (canonical,
+ * www-stripped) is left untouched so dedup semantics are preserved.
+ *
+ * Rule: restore `www.` on the item URL IFF firm.url hostname starts with
+ * `www.` AND the item URL hostname equals firm.url hostname WITHOUT the `www.`
+ * prefix (i.e., the item was already canonicalized from the same domain).
+ * Any other case (both already have www, neither has www, different domain)
+ * returns itemUrl unchanged.
+ *
+ * @param itemUrl  Canonical item URL (www-stripped by canonicalizeUrl).
+ * @param firmUrl  The firm's own list URL (from config — used as-is, not canonicalized).
+ * @returns fetchUrl — itemUrl with www restored if applicable, else itemUrl unchanged.
+ */
+export function restoreFetchHost(itemUrl: string, firmUrl: string): string {
+  const item = new URL(itemUrl);
+  const firm = new URL(firmUrl);
+  if (
+    firm.hostname.startsWith('www.') &&
+    firm.hostname.slice(4) === item.hostname
+  ) {
+    item.hostname = firm.hostname;
+    return item.toString();
+  }
+  return itemUrl;
+}
+
+/**
  * Convert a firm-local date string in a named IANA timezone to a UTC ISO
  * string. Wraps date-fns-tz's `fromZonedTime` so the rest of the pipeline
  * depends on this helper (single point of upgrade if date-fns-tz ever

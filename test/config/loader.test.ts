@@ -41,11 +41,12 @@ describe('loadRecipient', () => {
 
 describe('loadFirms', () => {
   // Phase 9 (2026-04-20): cooley flipped to enabled=true under sitemap tier.
-  // The disabled-firm fixtures in this suite now use bkl (disabled since
-  // Phase 7-06 pending the canonicalize/www URL-handling follow-up). If
-  // bkl is re-enabled in a future phase, pick whichever firm in config/
-  // firms.yaml has enabled:false at that time.
-  const DISABLED_FIRM_ID = 'bkl';
+  // Phase 11-01 (2026-04-21): bkl re-enabled (restoreFetchHost fix). Switched
+  // to shin-kim which remains disabled (Thawte TLS intermediate chain issue,
+  // distinct from the www-canonicalize root cause — see firms.yaml comment).
+  // If shin-kim is re-enabled in a future phase, pick whichever firm in
+  // config/firms.yaml has enabled:false at that time.
+  const DISABLED_FIRM_ID = 'shin-kim';
 
   it('Test 1: no-args returns only enabled firms (backwards compat)', async () => {
     const firms = await loadFirms();

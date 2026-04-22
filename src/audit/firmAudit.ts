@@ -30,6 +30,7 @@ import { scrapeSitemap } from '../scrapers/sitemap.js';
 import {
   decodeCharsetAwareFetch,
   extractBody,
+  restoreFetchHost,
 } from '../scrapers/util.js';
 import { scrubSecrets, USER_AGENT } from '../util/logging.js';
 import { classifyDetailIdentity } from './signals.js';
@@ -144,10 +145,15 @@ async function probeHtmlFirm(firm: FirmConfig): Promise<AuditRow> {
   }
 
   // N=2 detail fetch — port from scripts/detail-page-audit.ts:21-32 (then DELETED in Plan 05).
+  // Phase 11-01: restoreFetchHost restores www. on the fetch URL for firms whose
+  // TLS cert requires it (e.g. kim-chang CN=www.kimchang.com). The canonical
+  // item.url (www-stripped by canonicalizeUrl) is kept in bodies[].url — only
+  // the actual HTTP request uses the restored host.
   const bodies: { url: string; title: string; body: string }[] = [];
   for (const item of items.slice(0, DETAIL_SAMPLE_N)) {
     try {
-      const { html } = await decodeCharsetAwareFetch(item.url);
+      const fetchUrl = restoreFetchHost(item.url, firm.url);
+      const { html } = await decodeCharsetAwareFetch(fetchUrl);
       const body = extractBody(html, firm.selectors?.body);
       bodies.push({ url: item.url, title: item.title, body });
     } catch {
@@ -181,7 +187,11 @@ async function probeJsRenderFirm(
       const detailPage = await context.newPage();
       try {
         // Phase 4 D-14 — detail-page wait is domcontentloaded ONLY (no firm.wait_for).
-        await detailPage.goto(item.url, {
+        // Phase 11-01: restoreFetchHost restores www. for firms whose TLS cert
+        // requires it (bkl apex-redirect, kim-chang CN mismatch). Canonical
+        // item.url preserved in bodies[].url.
+        const fetchUrl = restoreFetchHost(item.url, firm.url);
+        await detailPage.goto(fetchUrl, {
           timeout: PLAYWRIGHT_GOTO_TIMEOUT_MS,
           waitUntil: 'domcontentloaded',
         });
@@ -222,7 +232,10 @@ async function probeSitemapFirm(
     for (const item of items.slice(0, DETAIL_SAMPLE_N)) {
       const detailPage = await context.newPage();
       try {
-        await detailPage.goto(item.url, {
+        // Phase 11-01: restoreFetchHost is a no-op for sitemap firms whose
+        // firm.url has no www. (cooleygo.com) — safe to call universally.
+        const fetchUrl = restoreFetchHost(item.url, firm.url);
+        await detailPage.goto(fetchUrl, {
           timeout: PLAYWRIGHT_GOTO_TIMEOUT_MS,
           waitUntil: 'domcontentloaded',
         });

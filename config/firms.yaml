@@ -227,7 +227,7 @@ firms:
     # (scoped to enrichBody + firmAudit — does not touch dedup canonicalization).
     # Selectors + detail_tier preserved so re-enablement is a one-line
     # 'enabled: true' flip.
-    enabled: false  # disabled 2026-04-20 (Phase 7-05) — TLS cert CN mismatch after canonicalizeUrl strips 'www.'. See 07-05-SUMMARY.md.
+    enabled: true  # re-enabled 2026-04-21 (Phase 11-01) — restoreFetchHost fix landed; see 11-01-SUMMARY.md
     detail_tier: 'js-render'  # Phase 7 DETAIL-04 declared — activation blocked by canonicalize+TLS interaction; preserved for future re-enablement
     selectors:
       list_item: "ul.notice_list > li"
@@ -275,14 +275,15 @@ firms:
     # fix lands.
     #
     # SUMMARY.md reference: 07-06-SUMMARY.md "Deviations from Plan".
-    enabled: false  # disabled 2026-04-20 (Phase 7-06) — same canonicalize+www root cause as kim-chang 07-05; v1.0 hallucination persisted. See 07-06-SUMMARY.md.
-    detail_tier: 'js-render'  # Phase 7 — list is static HTML, detail is SPA (v1.0 UAT hallucination fix); activation blocked by canonicalize+www-redirect; preserved for future re-enablement
+    enabled: true  # re-enabled 2026-04-21 (Phase 11-01) — restoreFetchHost fix landed; see 11-01-SUMMARY.md
+    detail_tier: 'js-render'  # Phase 7 — list is static HTML, detail is SPA; www-restore now handled by restoreFetchHost in enrichBody + firmAudit
     selectors:
       list_item: "ul li.info-item, ul li"
       title: ".info-title, .title"
       link_onclick_regex: "goView\\('(\\d+)'\\)"
       link_template: "/law/insight/informationView.do?infoNo={1}&lang=ko"
       date: ".info-date, .date"
+      body: ".view-type1"  # Phase 7-06 confirmed: 842ch/992ch/894ch distinct content per infoNo across 3 sample items
 
   # ----- KR js-render firms (2) — activated in Phase 4 (probe-verified 2026-04-19) -----
   - id: lee-ko
