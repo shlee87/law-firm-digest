@@ -36,9 +36,10 @@ export function composeDigest(
 ): EmailPayload {
   const firmsWithNew = results.filter((r) => r.summarized.length > 0);
   const firmsWithErrors = results.filter((r) => !!r.error);
+  const silentFirms = results.filter((r) => r.summarized.length === 0 && !r.error);
   const dateKst = formatInTimeZone(now, 'Asia/Seoul', 'yyyy-MM-dd');
   const itemCount = firmsWithNew.reduce((n, r) => n + r.summarized.length, 0);
   const subject = `[법률 다이제스트] ${dateKst} (${firmsWithNew.length} firms, ${itemCount} items)`;
-  const html = renderHtml(firmsWithNew, dateKst, firmsWithErrors, warnings, markers);
+  const html = renderHtml(firmsWithNew, dateKst, firmsWithErrors, warnings, markers, results.length, silentFirms);
   return { subject, html, to: recipient, from: fromAddr };
 }

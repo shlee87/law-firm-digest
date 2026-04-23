@@ -61,16 +61,19 @@ export function renderHtml(
   failed: FirmResult[] = [],
   warnings?: StalenessWarnings,
   markers: DataQualityMarker[] = [],
+  totalFirmCount?: number,
+  silentFirms: FirmResult[] = [],
 ): string {
   const itemCount = firms.reduce((n, r) => n + r.summarized.length, 0);
   const firmCount = firms.length;
 
   const masthead = renderMasthead(dateKst);
-  const glance = renderGlance(itemCount, firmCount);
+  const glance = renderGlance(itemCount, firmCount, totalFirmCount);
   const stalenessBanner = renderStalenessBanner(warnings);
   const sections = firms.map(renderFirmSection).join('');
   const silent = renderSilentFooter(failed);
   const dataQualityFooter = renderDataQualityFooter(markers);
+  const coverageBar = renderCoverageBar(firms, failed, silentFirms);
   const footer = renderFooter(dateKst);
 
   return `<!doctype html>
@@ -93,6 +96,7 @@ export function renderHtml(
         ${sections}
         ${silent}
         ${dataQualityFooter}
+        ${coverageBar}
         ${footer}
       </table>
     </td>
@@ -121,7 +125,10 @@ function renderMasthead(dateKst: string): string {
 /* At-a-glance bar                                                     */
 /* ------------------------------------------------------------------ */
 
-function renderGlance(itemCount: number, firmCount: number): string {
+function renderGlance(itemCount: number, firmCount: number, totalFirmCount?: number): string {
+  const firmsValue = totalFirmCount != null && totalFirmCount > firmCount
+    ? `${firmCount}<span style="font-family:${FONT_SANS};font-size:14px;font-weight:400;color:${COLOR.muted};">/${totalFirmCount}</span>`
+    : String(firmCount);
   const cell = (label: string, value: string, unit: string, borderLeft: boolean) => `
     <td style="padding:0 18px;${borderLeft ? `border-left:1px solid #D9D4C9;` : ''}vertical-align:top;">
       <div style="font-family:${FONT_MONO};font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:${COLOR.muted};margin-bottom:4px;">${label}</div>
@@ -131,7 +138,7 @@ function renderGlance(itemCount: number, firmCount: number): string {
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
       <tr>
         ${cell('New', String(itemCount), 'items', false)}
-        ${cell('Firms', String(firmCount), 'active', true)}
+        ${cell('Firms', firmsValue, 'active', true)}
       </tr>
     </table>
   </td></tr>`;
@@ -267,6 +274,33 @@ function renderDataQualityFooter(markers: DataQualityMarker[]): string {
   return `<tr><td style="padding:22px 32px;background:${COLOR.bgAlt};border-bottom:1px solid ${COLOR.rule};">
     <div style="font-family:${FONT_MONO};font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:${COLOR.muted};margin-bottom:10px;">⚠ 데이터 품질 경고 · Quality flags</div>
     <ul style="margin:0;padding-left:18px;color:${COLOR.body};font-size:13px;">${items}</ul>
+  </td></tr>`;
+}
+
+/* ------------------------------------------------------------------ */
+/* Coverage bar                                                        */
+/* ------------------------------------------------------------------ */
+
+function renderCoverageBar(
+  active: FirmResult[],
+  failed: FirmResult[],
+  silent: FirmResult[],
+): string {
+  if (active.length + failed.length + silent.length === 0) return '';
+
+  const tag = (name: string, dot: string, dotColor: string, textColor: string) =>
+    `<span style="display:inline-block;margin:3px 6px 3px 0;white-space:nowrap;">` +
+    `<span style="color:${dotColor};margin-right:4px;">${dot}</span>` +
+    `<span style="font-family:${FONT_SANS};font-size:12px;color:${textColor};">${escapeHtml(name)}</span>` +
+    `</span>`;
+
+  const activeTags = active.map((r) => tag(r.firm.name, '●', '#4A7C59', COLOR.body)).join('');
+  const silentTags = silent.map((r) => tag(r.firm.name, '○', COLOR.muted, COLOR.muted)).join('');
+  const failedTags = failed.map((r) => tag(r.firm.name, '✕', COLOR.errInk, COLOR.errInk)).join('');
+
+  return `<tr><td style="padding:20px 32px;background:${COLOR.bgAlt};border-top:1px solid ${COLOR.rule};">
+    <div style="font-family:${FONT_MONO};font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:${COLOR.muted};margin-bottom:10px;">오늘의 수집 현황</div>
+    <div style="line-height:1.8;">${activeTags}${silentTags}${failedTags}</div>
   </td></tr>`;
 }
 
