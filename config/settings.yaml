@@ -35,7 +35,7 @@ recipient:
 #   biweekly  = 격주 1회 (매달 1일·15일 기준)
 schedule:
   time_utc: '12:00'   # UTC 기준 발송 시각 (12:00 UTC = 08:00 Chicago CDT / 07:00 CST)
-  days: daily          # daily / weekdays / weekends / weekly / biweekly
+  days: weekly         # daily / weekdays / weekends / weekly / biweekly
 
 # --------------------------------------------------------------
 # Gemini AI 모델 설정

@@ -30,7 +30,7 @@ on:
   # 변경 방법: 아래 cron 값을 수정한 뒤 config/settings.yaml도 동일하게 맞춰주세요.
   # 형식: '분 시(UTC) 일 월 요일' (KST = UTC+9)
   schedule:
-    - cron: '0 12 * * *'  # 매일 09:00 KST (config/settings.yaml schedule.cron 참고)
+    - cron: '0 12 * * 1'  # 매일 09:00 KST (config/settings.yaml schedule.cron 참고)
   workflow_dispatch: {} # manual trigger for smoke tests / gap closure
 
 concurrency: # OPS-02 — serialize overlapping runs (Pitfall #5)
