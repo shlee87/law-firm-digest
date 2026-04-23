@@ -17,6 +17,7 @@
  */
 
 import 'dotenv/config';
+import { writeFile } from 'node:fs/promises';
 import pLimit from 'p-limit';
 import { chromium, type Browser } from 'playwright';
 import { loadFirms, loadRecipient, loadTopics } from '../src/config/loader.js';
@@ -53,6 +54,9 @@ function pickBestItem(raw: RawItem[], topics: TopicConfig): RawItem | null {
     return allKeywords.some((k) => haystack.includes(k.toLowerCase()));
   }) ?? null;
 }
+
+const saveHtmlIdx = process.argv.indexOf('--save-html');
+const saveHtmlPath = saveHtmlIdx !== -1 ? process.argv[saveHtmlIdx + 1] : undefined;
 
 async function main() {
   const allFirms = await loadFirms();
@@ -147,9 +151,14 @@ async function main() {
     }
 
     const payload = composeDigest(allResults, recipient, fromAddr, warnings, now, markers);
-    console.log(`[test] 발송: ${payload.subject}`);
-    await sendMail(payload);
-    console.log('[test] 메일 발송 완료 (seen.json 변경 없음)');
+    if (saveHtmlPath) {
+      await writeFile(saveHtmlPath, payload.html, 'utf8');
+      console.log(`[test] HTML 저장 완료: ${saveHtmlPath}`);
+    } else {
+      console.log(`[test] 발송: ${payload.subject}`);
+      await sendMail(payload);
+      console.log('[test] 메일 발송 완료 (seen.json 변경 없음)');
+    }
   } finally {
     if (browser) await browser.close();
   }

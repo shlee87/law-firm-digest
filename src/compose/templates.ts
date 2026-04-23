@@ -1,57 +1,59 @@
-// Email digest HTML renderer (D-07 minimal inline-CSS style).
+// Email digest HTML renderer — minimal modern Korean editorial redesign.
 //
-// Pure function: takes FirmResult[] (already filtered to firms with summarized items)
-// plus a KST date string, optional failed-firms array, returns a single
-// <!doctype html>...</html> string ready for EmailPayload.html.
+// Signature unchanged from prior version; callers in digest.ts are unaffected.
 //
-// XSS defense (threat model T-08-01/02/03, and T-02-05-01 for the new footer):
-// EVERY user-controlled string crossing into HTML or attribute context passes
-// through escapeHtml or escapeAttr before interpolation. User-controlled =
-// scraped title, Gemini summary_ko, scraped URL, firm.name (config-sourced but
-// escaped defensively), firm.id (ditto), error.message (scrubSecrets + escapeHtml).
+// XSS posture preserved: escapeHtml / escapeAttr remain file-local and every
+// user-controlled string (scraped title, summary_ko, URL, firm.name, firm.id,
+// scrubbed error.message) passes through one of them before interpolation.
 //
-// Phase 8 D-04 (2026-04-20): null-branch placeholder removed. All real-run paths
-// now produce title-verbatim via Plan 01 Layer 1 / catch-block. summaryModel === 'skipped'
-// items show ⚠ 본문 확보 실패 badge (D-13). isClusterMember === true items are
-// partitioned into a fold-UI block (D-11/D-12). renderDataQualityFooter (D-14) appears
-// between failed-firms footer and disclaimer when clusters are detected.
-//
-// EMAIL-05 failed-firm footer (Phase 2 addition, D-P2-04):
-// When a FirmResult carries an .error, classifyError() maps the message to a
-// compact errorClass tag and renderFailedFirmsFooter composes a Korean-header
-// <ul> of failed firms.
-//
-// Error class taxonomy (Phase 2 + Phase 4 + debug session shin-kim 2026-04-20):
-//   - robots-blocked       (robots.txt disallows ...)
-//   - fetch-timeout        (timeout / ETIMEDOUT / aborted — non-Playwright)
-//   - browser-launch-fail  (Phase 4 — chromium launch / install / executable)
-//   - playwright-timeout   (Phase 4 — waitForSelector exceeded 15s)
-//   - selector-miss        (Phase 2 html OR Phase 4 js-render zero-items throw)
-//   - http-{status}        (message matches /HTTP (\d{3})/ — coupled to
-//                           scrapers/rss.ts L68 and scrapers/html.ts error shapes)
-//   - tls-cert-fail        (TLS chain / cert mismatch — coupled to
-//                           scrapers/html.ts "TLS {CAUSE_CODE}" re-wrap. Matches
-//                           UNABLE_TO_VERIFY_LEAF_SIGNATURE, CERT_HAS_EXPIRED,
-//                           SELF_SIGNED_CERT_IN_CHAIN, ERR_TLS_CERT_ALTNAME_INVALID,
-//                           DEPTH_ZERO_SELF_SIGNED_CERT, etc. Added by debug
-//                           session shin-kim-fetch-failed 2026-04-20.)
-//   - dns-fail             (ENOTFOUND / DNS)
-//   - parse-error          (stage='parse' OR keywords parse/selector)
-//   - unknown              (none of the above)
-//
-// Error messages are scrubSecrets'd then escapeHtml'd before output. Only
-// the FIRST LINE is rendered and it is hard-truncated at 140 chars — no
-// ellipsis, no stack traces in email (stack traces stay in GHA logs for
-// operator triage).
-//
-// Phase 1 01-08 LOCKED: escapeHtml stays LOCAL to this file. It is NOT
-// exported and MUST NOT be duplicated into a sibling file — the single
-// XSS-escape boundary of the renderer lives here and only here.
+// Email-client compatibility notes:
+// - All layout uses <table> for Outlook on Windows (uses Word rendering engine).
+// - Google Fonts <link> is intentionally NOT included — Gmail strips it.
+//   Instead we supply a wide fallback stack on every font-family declaration.
+// - Every style is inline. <style> blocks survive Gmail web but not all clients;
+//   inline is the safe baseline.
+// - Colors, spacing, and copy mirror the "Daily Legal Digest" redesign.
 
 import type { FirmResult } from '../types.js';
 import type { StalenessWarnings } from '../observability/staleness.js';
 import { scrubSecrets } from '../util/logging.js';
 import type { DataQualityMarker } from '../pipeline/detectClusters.js';
+
+/* ------------------------------------------------------------------ */
+/* Design tokens                                                       */
+/* ------------------------------------------------------------------ */
+
+const COLOR = {
+  bg: '#FAF8F4',
+  bgAlt: '#F4F1EA',
+  ink: '#1A1917',
+  inkDeep: '#0F0E0C',
+  body: '#2A2824',
+  muted: '#6B6A66',
+  rule: '#E2DDD3',
+  ruleSoft: '#EFEBE2',
+  ruleStrong: '#1A1917',
+  tagBorder: '#D9D4C9',
+  link: '#234C7A',
+  linkUnder: '#B7C4D7',
+  warnBg: '#FFF8E1',
+  warnBorder: '#F57F17',
+  warnInk: '#6F5300',
+  errInk: '#8A4438',
+  footerBg: '#1A1917',
+  footerInk: '#A8A49B',
+  footerRule: '#2E2C28',
+  footerMuted: '#7A766D',
+  footerBrand: '#FAF8F4',
+};
+
+const FONT_SERIF = `'Noto Serif KR', 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif`;
+const FONT_SANS = `'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif`;
+const FONT_MONO = `'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`;
+
+/* ------------------------------------------------------------------ */
+/* Main renderer                                                       */
+/* ------------------------------------------------------------------ */
 
 export function renderHtml(
   firms: FirmResult[],
@@ -60,110 +62,252 @@ export function renderHtml(
   warnings?: StalenessWarnings,
   markers: DataQualityMarker[] = [],
 ): string {
-  const sections = firms
-    .map((r) => {
-      // Phase 8 D-11/D-12: partition by cluster membership so demoted
-      // items render in a separate fold-UI block below normal items.
-      const normal = r.summarized.filter((it) => !it.isClusterMember);
-      const demoted = r.summarized.filter((it) => it.isClusterMember === true);
+  const itemCount = firms.reduce((n, r) => n + r.summarized.length, 0);
+  const firmCount = firms.length;
 
-      const normalItems = normal
-        .map((it) => {
-          // D-13: B3 title-verbatim singleton (summaryModel === 'skipped')
-          // → add ⚠ 본문 확보 실패 badge next to the title-in-summary slot.
-          // NOTE: summary_ko is never null here (Plan 01 invariant —
-          // all real-run paths produce a string; only cli-skipped
-          // debugging path produces null, and it never reaches templates).
-          const badge =
-            it.summaryModel === 'skipped'
-              ? ` <span style="color:#f57f17;font-size:11px;">⚠ 본문 없음 (PDF 또는 메타데이터만 추출됨)</span>`
-              : it.summaryModel === 'failed'
-              ? ` <span style="color:#c62828;font-size:11px;">⚠ AI 요약 실패${it.summaryError ? ` — ${escapeHtml(it.summaryError.slice(0, 80))}` : ''}</span>`
-              : '';
-          const summaryText = it.summary_ko ?? it.title;
-          return `
-      <div style="margin:0 0 16px 0;">
-        <div><a href="${escapeAttr(it.url)}">${escapeHtml(it.title)}</a></div>
-        <p style="margin:4px 0 0 0;color:#333;">${escapeHtml(summaryText)}${badge}</p>
-      </div>`;
-        })
-        .join('');
+  const masthead = renderMasthead(dateKst);
+  const glance = renderGlance(itemCount, firmCount);
+  const stalenessBanner = renderStalenessBanner(warnings);
+  const sections = firms.map(renderFirmSection).join('');
+  const silent = renderSilentFooter(failed);
+  const dataQualityFooter = renderDataQualityFooter(markers);
+  const footer = renderFooter(dateKst);
 
-      // D-11/D-12: fold-UI for cluster-demoted items. Gmail-compat <ul>,
-      // not <details>. Summary text hidden; title + 원문 보기 only.
-      const demotedBlock =
-        demoted.length > 0
-          ? `
-      <div style="margin-top:12px;color:#999;font-size:12px;">
-        <div>⚠ 품질 의심 — 접힘 (요약 숨김, 원문 링크만 표시):</div>
-        <ul style="margin:4px 0;">${demoted
-          .map(
-            (it) =>
-              `<li><a href="${escapeAttr(it.url)}">${escapeHtml(it.title)}</a> → 원문 보기</li>`,
-          )
-          .join('')}</ul>
-      </div>`
-          : '';
+  return `<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light only" />
+<meta name="supported-color-schemes" content="light" />
+<title>Daily Legal Digest — ${escapeHtml(dateKst)}</title>
+</head>
+<body style="margin:0;padding:0;background:#E8E4DC;font-family:${FONT_SANS};">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#E8E4DC;">
+  <tr>
+    <td align="center" style="padding:32px 12px 64px;">
+      <table role="presentation" width="640" cellpadding="0" cellspacing="0" border="0" style="width:640px;max-width:640px;background:${COLOR.bg};color:${COLOR.ink};font-family:${FONT_SANS};font-size:15px;line-height:1.65;">
+        ${masthead}
+        ${glance}
+        ${stalenessBanner}
+        ${sections}
+        ${silent}
+        ${dataQualityFooter}
+        ${footer}
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>`;
+}
 
-      return `<section><h2 style="font-size:18px;margin:24px 0 8px 0;">${escapeHtml(r.firm.name)}</h2>${normalItems}${demotedBlock}</section>`;
+/* ------------------------------------------------------------------ */
+/* Masthead                                                            */
+/* ------------------------------------------------------------------ */
+
+function renderMasthead(dateKst: string): string {
+  return `<tr><td style="padding:40px 56px 28px;border-bottom:1px solid ${COLOR.ruleStrong};">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        <td style="font-family:${FONT_MONO};font-size:10.5px;letter-spacing:0.14em;color:${COLOR.muted};text-transform:uppercase;padding-bottom:20px;">DAILY LEGAL DIGEST</td>
+        <td align="right" style="font-family:${FONT_MONO};font-size:10.5px;letter-spacing:0.14em;color:${COLOR.muted};text-transform:uppercase;padding-bottom:20px;">${escapeHtml(dateKst)}</td>
+      </tr>
+    </table>
+    <h1 style="font-family:${FONT_SERIF};font-weight:500;font-size:34px;letter-spacing:-0.01em;line-height:1.1;margin:0;color:${COLOR.inkDeep};">
+      Daily Legal Digest
+      <span style="display:block;font-size:22px;font-weight:400;color:#3A3834;margin-top:6px;letter-spacing:0.01em;">오늘의 로펌 뉴스레터</span>
+    </h1>
+  </td></tr>`;
+}
+
+/* ------------------------------------------------------------------ */
+/* At-a-glance bar                                                     */
+/* ------------------------------------------------------------------ */
+
+function renderGlance(itemCount: number, firmCount: number): string {
+  const cell = (label: string, value: string, unit: string, borderLeft: boolean) => `
+    <td style="padding:0 18px;${borderLeft ? `border-left:1px solid #D9D4C9;` : ''}vertical-align:top;">
+      <div style="font-family:${FONT_MONO};font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:${COLOR.muted};margin-bottom:4px;">${label}</div>
+      <div style="font-family:${FONT_SERIF};font-size:22px;font-weight:500;color:${COLOR.inkDeep};line-height:1;">${value}<span style="font-family:${FONT_SANS};font-size:12px;font-weight:400;color:${COLOR.muted};margin-left:3px;">${unit}</span></div>
+    </td>`;
+  return `<tr><td style="padding:22px 56px;background:${COLOR.bgAlt};border-bottom:1px solid ${COLOR.rule};">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        ${cell('New', String(itemCount), 'items', false)}
+        ${cell('Firms', String(firmCount), 'active', true)}
+      </tr>
+    </table>
+  </td></tr>`;
+}
+
+/* ------------------------------------------------------------------ */
+/* Firm section                                                        */
+/* ------------------------------------------------------------------ */
+
+function renderFirmSection(r: FirmResult): string {
+  const normal = r.summarized.filter((it) => !it.isClusterMember);
+  const demoted = r.summarized.filter((it) => it.isClusterMember === true);
+
+  if (normal.length === 0 && demoted.length === 0) return '';
+
+  const firmHead = `
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;border-bottom:1px solid ${COLOR.ruleStrong};">
+      <tr>
+        <td style="padding-bottom:12px;font-family:${FONT_SERIF};font-size:19px;font-weight:600;color:${COLOR.inkDeep};letter-spacing:-0.005em;">${escapeHtml(r.firm.name)}</td>
+      </tr>
+    </table>`;
+
+  const normalHtml = normal.map((it, i) => renderArticle(it, i === 0)).join('');
+  const demotedHtml = demoted.length > 0 ? renderDemotedBlock(demoted) : '';
+
+  return `<tr><td style="padding:36px 56px 28px;border-bottom:1px solid ${COLOR.rule};">
+    ${firmHead}
+    ${normalHtml}
+    ${demotedHtml}
+  </td></tr>`;
+}
+
+function renderArticle(it: FirmResult['summarized'][number], isFirst: boolean): string {
+  const badge =
+    it.summaryModel === 'skipped'
+      ? ` <span style="font-family:${FONT_MONO};color:${COLOR.warnBorder};font-size:11px;letter-spacing:0.04em;">⚠ 본문 없음</span>`
+      : it.summaryModel === 'failed'
+      ? ` <span style="font-family:${FONT_MONO};color:${COLOR.errInk};font-size:11px;letter-spacing:0.04em;">⚠ 요약 실패${it.summaryError ? ` — ${escapeHtml(it.summaryError.slice(0, 80))}` : ''}</span>`
+      : '';
+  const summaryText = it.summary_ko ?? it.title;
+  const published = it.publishedAt ? formatDate(it.publishedAt) : '';
+  const meta = [published].filter(Boolean);
+  const metaLine = meta
+    .map(
+      (m) =>
+        `<span style="font-family:${FONT_MONO};font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:${COLOR.muted};">${escapeHtml(m)}</span>`,
+    )
+    .join(`<span style="display:inline-block;width:2px;height:2px;background:#B5B0A5;border-radius:50%;vertical-align:middle;margin:0 10px;"></span>`);
+
+  const topPad = isFirst ? '6px' : '22px';
+  const topBorder = isFirst ? '' : `border-top:1px solid ${COLOR.ruleSoft};`;
+
+  return `
+    <div style="padding:${topPad} 0 22px;${topBorder}">
+      ${metaLine ? `<div style="margin-bottom:8px;">${metaLine}</div>` : ''}
+      <div style="font-family:${FONT_SERIF};font-size:20px;font-weight:500;line-height:1.3;color:${COLOR.inkDeep};margin:0 0 10px;letter-spacing:-0.005em;">
+        <a href="${escapeAttr(it.url)}" style="color:${COLOR.inkDeep};text-decoration:none;border-bottom:1px solid transparent;">${escapeHtml(it.title)}</a>
+      </div>
+      <p style="font-size:14.5px;line-height:1.7;color:${COLOR.body};margin:0 0 12px;font-weight:400;">${escapeHtml(summaryText)}${badge}</p>
+      <a href="${escapeAttr(it.url)}" style="font-family:${FONT_MONO};font-size:10.5px;letter-spacing:0.08em;color:${COLOR.link};text-transform:uppercase;text-decoration:none;border-bottom:1px solid ${COLOR.linkUnder};padding-bottom:1px;">원문 읽기 &nbsp;→</a>
+    </div>`;
+}
+
+function renderDemotedBlock(items: FirmResult['summarized']): string {
+  const lis = items
+    .map(
+      (it) =>
+        `<li style="margin:4px 0;"><a href="${escapeAttr(it.url)}" style="color:${COLOR.muted};text-decoration:underline;">${escapeHtml(it.title)}</a> → 원문 보기</li>`,
+    )
+    .join('');
+  return `
+    <div style="margin-top:12px;padding:14px 16px;background:${COLOR.bgAlt};border-left:2px solid #C5BFB2;font-size:13px;color:${COLOR.muted};">
+      <div style="font-family:${FONT_MONO};font-size:10px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px;">⚠ 품질 의심 — 요약 숨김</div>
+      <ul style="margin:0;padding-left:18px;">${lis}</ul>
+    </div>`;
+}
+
+/* ------------------------------------------------------------------ */
+/* Silent / failed firms footer                                        */
+/* ------------------------------------------------------------------ */
+
+function renderSilentFooter(failed: FirmResult[]): string {
+  const filtered = failed.filter((f) => !!f.error);
+  if (filtered.length === 0) return '';
+
+  const items = filtered
+    .map((f) => {
+      const scrubbed = scrubSecrets(f.error!.message);
+      const firstLine = scrubbed.split('\n')[0].slice(0, 140);
+      const errClass = classifyError(scrubbed, f.error!.stage);
+      return `<div style="margin-top:6px;"><span style="font-family:${FONT_MONO};color:${COLOR.errInk};font-size:11px;">[${escapeHtml(errClass)}]</span> <span style="color:${COLOR.body};font-size:13px;">${escapeHtml(f.firm.name)}</span> <span style="color:${COLOR.muted};font-size:12px;">(${escapeHtml(f.firm.id)})</span> <span style="color:${COLOR.muted};font-size:12px;">— ${escapeHtml(firstLine)}</span></div>`;
     })
     .join('');
 
-  const failedFooter = renderFailedFirmsFooter(failed);
-  const stalenessBanner = renderStalenessBanner(warnings);
-  const dataQualityFooter = renderDataQualityFooter(markers);
-
-  return `<!doctype html><html><body style="font-family:sans-serif;max-width:680px;margin:0 auto;padding:16px;">
-    <h1 style="font-size:22px;">법률 다이제스트 ${escapeHtml(dateKst)}</h1>
-    ${stalenessBanner}
-    ${sections}
-    ${failedFooter}
-    ${dataQualityFooter}
-    <footer style="margin-top:32px;color:#888;font-size:12px;">AI 요약 — 원문 확인 필수</footer>
-  </body></html>`;
+  return `<tr><td style="padding:28px 56px;background:${COLOR.bgAlt};border-bottom:1px solid ${COLOR.rule};">
+    <div style="font-family:${FONT_MONO};font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:${COLOR.muted};margin-bottom:10px;">수집 실패 · Fetch failed</div>
+    <div>${items}</div>
+    <div style="margin-top:10px;font-size:12px;color:${COLOR.muted};">다음 실행에서 자동으로 재시도됩니다.</div>
+  </td></tr>`;
 }
 
-/**
- * Classify an error.message + stage into a compact errorClass tag.
- * Order of checks matters — robots precedes HTTP-code match because a
- * disallows message might incidentally include a status code; parse/timeout
- * are keyword-based and mutually exclusive with HTTP codes in practice.
- *
- * Phase 3 (2026-04-18): promoted from file-local `function` to `export
- * function` so the Phase 3 `Recorder` (src/observability/recorder.ts) can
- * reuse the same taxonomy for the step-summary `Errors` column (D-11).
- * No semantic change.
- *
- * Debug session shin-kim-fetch-failed (2026-04-20): added `tls-cert-fail`
- * branch. Coupled to scrapers/html.ts re-wrap which hoists err.cause.code
- * from undici TypeError('fetch failed') into the message as `TLS {CODE}`.
- * Check BEFORE http-{status} — a TLS cause code like CERT_HAS_EXPIRED is
- * unrelated to any HTTP response and should not accidentally get classed
- * as http-expired via some future regex bleed.
- */
+/* ------------------------------------------------------------------ */
+/* Staleness banner                                                    */
+/* ------------------------------------------------------------------ */
+
+function renderStalenessBanner(warnings?: StalenessWarnings): string {
+  if (!warnings) return '';
+  const parts: string[] = [];
+  if (warnings.staleFirms.length > 0) {
+    const names = warnings.staleFirms.map(escapeHtml).join(', ');
+    parts.push(`⚠ 30일 이상 새 글 없음: ${names}`);
+  }
+  if (warnings.lastRunStale) {
+    parts.push(`⚠ 이전 실행 누락 — ${warnings.lastRunStale.hoursAgo}시간 전 마지막 성공 실행`);
+  }
+  if (parts.length === 0) return '';
+  const inner = parts.map((p) => `<div style="margin:2px 0;">${p}</div>`).join('');
+  return `<tr><td style="padding:16px 56px;background:${COLOR.warnBg};border-left:3px solid ${COLOR.warnBorder};border-bottom:1px solid ${COLOR.rule};color:${COLOR.warnInk};font-size:13px;line-height:1.6;">${inner}</td></tr>`;
+}
+
+/* ------------------------------------------------------------------ */
+/* Data quality footer                                                 */
+/* ------------------------------------------------------------------ */
+
+function renderDataQualityFooter(markers: DataQualityMarker[]): string {
+  if (markers.length === 0) return '';
+
+  const items = markers
+    .map((m) => {
+      if (m.kind === 'cluster') {
+        return `<li style="margin:4px 0;">${escapeHtml(m.firmName)} (${escapeHtml(m.firmId)}): HALLUCINATION_CLUSTER_DETECTED (${m.count} items, 요약 숨김)</li>`;
+      }
+      return `<li style="margin:4px 0;">${escapeHtml(m.firmName)} (${escapeHtml(m.firmId)}): ${m.lowCount}/${m.totalCount} items 품질 의심 (confidence=low 과반)</li>`;
+    })
+    .join('');
+
+  return `<tr><td style="padding:22px 56px;background:${COLOR.bgAlt};border-bottom:1px solid ${COLOR.rule};">
+    <div style="font-family:${FONT_MONO};font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:${COLOR.muted};margin-bottom:10px;">⚠ 데이터 품질 경고 · Quality flags</div>
+    <ul style="margin:0;padding-left:18px;color:${COLOR.body};font-size:13px;">${items}</ul>
+  </td></tr>`;
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+function renderFooter(dateKst: string): string {
+  return `<tr><td style="padding:28px 56px 40px;background:${COLOR.footerBg};color:${COLOR.footerInk};font-family:${FONT_SANS};font-size:12px;line-height:1.65;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-bottom:1px solid ${COLOR.footerRule};">
+      <tr>
+        <td style="padding-bottom:16px;font-family:${FONT_SERIF};font-size:14px;color:${COLOR.footerBrand};font-weight:500;">Daily Legal Digest</td>
+        <td align="right" style="padding-bottom:16px;font-family:${FONT_MONO};font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:${COLOR.footerMuted};">${escapeHtml(dateKst)} · 18:00 KST</td>
+      </tr>
+    </table>
+    <p style="margin:16px 0 8px;">이 메일은 LegalNewsletter 자동화 파이프라인이 수집한 각 로펌의 공개 뉴스레터/Legal Update 페이지를 한국어로 요약한 것입니다. 원문의 저작권은 각 로펌에 있으며, 전문은 반드시 원문 링크를 통해 확인하시기 바랍니다.</p>
+    <div style="font-size:11px;color:${COLOR.footerMuted};margin-top:14px;line-height:1.6;">본 다이제스트는 정보 제공 목적의 개인 열람용 요약이며 법률 자문이 아닙니다. 구체적 사안에 대한 판단은 반드시 해당 로펌 원문 또는 별도 자문을 참고하시기 바랍니다.</div>
+  </td></tr>`;
+}
+
+/* ------------------------------------------------------------------ */
+/* Error classification (unchanged)                                    */
+/* ------------------------------------------------------------------ */
+
 export function classifyError(msg: string, stage: string): string {
   if (msg.includes('robots.txt disallows')) return 'robots-blocked';
-  // Phase 4 additions — check BEFORE generic timeout/fetch-timeout patterns
-  // because Playwright's TimeoutError also matches /timeout/ (generic check
-  // below would mis-classify it as 'fetch-timeout'). The 'playwright-timeout'
-  // token is emitted verbatim by scrapers/jsRender.ts; the wider regex covers
-  // Playwright's own TimeoutError.message text shape plus the literal token.
   if (/playwright-timeout|waitForSelector|TimeoutError\.?.*Playwright/i.test(msg))
     return 'playwright-timeout';
   if (/browser-launch-fail|chromium|playwright.*(launch|install|executable)/i.test(msg))
     return 'browser-launch-fail';
   if (/zero items extracted \(selector-miss\)|jsRender.*no items extracted/i.test(msg))
     return 'selector-miss';
-  // TLS chain / cert-mismatch branch (debug session shin-kim, 2026-04-20).
-  // Match the `TLS {CAUSE_CODE}` shape emitted by scrapers/html.ts's catch
-  // re-wrap. Codes follow Node's OpenSSL-bound cause.code namespace:
-  // UNABLE_TO_VERIFY_LEAF_SIGNATURE, CERT_HAS_EXPIRED, SELF_SIGNED_CERT_IN_CHAIN,
-  // DEPTH_ZERO_SELF_SIGNED_CERT, ERR_TLS_CERT_ALTNAME_INVALID, plus the
-  // prefixes UNABLE_TO_*, CERT_*, SELF_SIGNED*, DEPTH_*, ERR_TLS_* that
-  // scrapers/html.ts filters on. Anchor on the literal `TLS ` token to
-  // avoid matching firm-name or URL-bound substrings.
   if (/\bTLS [A-Z_]+/.test(msg)) return 'tls-cert-fail';
-  // Generic (Phase 1/2) — UNCHANGED
   if (/timeout|timed out|ETIMEDOUT|aborted/i.test(msg)) return 'fetch-timeout';
   const http = /HTTP (\d{3})/.exec(msg);
   if (http) return `http-${http[1]}`;
@@ -173,88 +317,22 @@ export function classifyError(msg: string, stage: string): string {
   return 'unknown';
 }
 
-/**
- * Render the Korean-header failed-firm footer <footer>...</footer>.
- * Empty string if no failed firms (keeps clean runs visually unchanged).
- */
-function renderFailedFirmsFooter(failed: FirmResult[]): string {
-  const filtered = failed.filter((f) => !!f.error);
-  if (filtered.length === 0) return '';
+/* ------------------------------------------------------------------ */
+/* Helpers                                                             */
+/* ------------------------------------------------------------------ */
 
-  const items = filtered
-    .map((f) => {
-      const scrubbed = scrubSecrets(f.error!.message);
-      const firstLine = scrubbed.split('\n')[0].slice(0, 140);
-      const errClass = classifyError(scrubbed, f.error!.stage);
-      return `<li>${escapeHtml(f.firm.name)} (${escapeHtml(f.firm.id)}) — ${escapeHtml(errClass)}: ${escapeHtml(firstLine)}</li>`;
-    })
-    .join('');
-
-  return `<footer style="margin-top:32px;color:#999;font-size:12px;">
-  <div>⚠ 이번 실행에서 수집 실패 — 다음 실행에서 재시도됩니다:</div>
-  <ul style="margin:4px 0;">${items}</ul>
-</footer>`;
-}
-
-/**
- * Render the Phase 8 data-quality warning footer (D-14). Mirrors the
- * renderFailedFirmsFooter shape exactly — same <footer> outer styles,
- * same margin:4px 0; <ul>, same ⚠-prefixed Korean heading. Returns ''
- * on clean runs so visually unchanged without clusters detected.
- *
- * The signature field from ClusterMarker is intentionally NOT rendered
- * in the footer (debug-only). Only firmName + firmId + count surface to
- * the recipient.
- */
-function renderDataQualityFooter(markers: DataQualityMarker[]): string {
-  if (markers.length === 0) return '';
-
-  const items = markers
-    .map((m) => {
-      if (m.kind === 'cluster') {
-        return `<li>${escapeHtml(m.firmName)} (${escapeHtml(m.firmId)}): HALLUCINATION_CLUSTER_DETECTED (${m.count} items, 요약 숨김)</li>`;
-      }
-      // m.kind === 'low-confidence' — Phase 10 D-05 Korean form
-      return `<li>${escapeHtml(m.firmName)} (${escapeHtml(m.firmId)}): ${m.lowCount}/${m.totalCount} items 품질 의심 (confidence=low 과반)</li>`;
-    })
-    .join('');
-
-  return `<footer style="margin-top:32px;color:#999;font-size:12px;">
-  <div>⚠ 데이터 품질 경고 — 요약 신뢰도 의심:</div>
-  <ul style="margin:4px 0;">${items}</ul>
-</footer>`;
-}
-
-/**
- * Render the Phase 3 staleness banner (OPS-04 + OPS-05) as a single
- * consolidated block (D-04) between the <h1> and the firm sections.
- *
- * Returns '' when warnings is undefined or contains no active warnings —
- * mirroring the renderFailedFirmsFooter "clean-run invisible" pattern.
- *
- * Korean banner wording (from CONTEXT.md specifics):
- *   "⚠ 30일 이상 새 글 없음: 김앤장, 태평양"
- *   "⚠ 이전 실행 누락 — 48시간 전 마지막 성공 실행"
- *
- * Firm names flow from FirmConfig.name (developer-controlled via
- * config/firms.yaml, already zod-validated). escapeHtml is applied
- * defensively to preserve the Phase 1 renderFailedFirmsFooter posture.
- */
-function renderStalenessBanner(warnings?: StalenessWarnings): string {
-  if (!warnings) return '';
-  const parts: string[] = [];
-  if (warnings.staleFirms.length > 0) {
-    const names = warnings.staleFirms.map(escapeHtml).join(', ');
-    parts.push(`⚠ 30일 이상 새 글 없음: ${names}`);
+function formatDate(iso: string): string {
+  // Defensive: accept anything; fall back to raw substring if not parseable.
+  try {
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return iso.slice(0, 10);
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}.${m}.${day}`;
+  } catch {
+    return iso.slice(0, 10);
   }
-  if (warnings.lastRunStale) {
-    parts.push(
-      `⚠ 이전 실행 누락 — ${warnings.lastRunStale.hoursAgo}시간 전 마지막 성공 실행`,
-    );
-  }
-  if (parts.length === 0) return '';
-  const innerDivs = parts.map((p) => `<div>${p}</div>`).join('');
-  return `<div style="margin:0 0 16px 0;padding:12px;background:#fff8e1;border-left:4px solid #f57f17;color:#6f5300;font-size:13px;">${innerDivs}</div>`;
 }
 
 function escapeHtml(s: string): string {

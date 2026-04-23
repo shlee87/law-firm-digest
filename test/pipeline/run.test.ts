@@ -271,7 +271,7 @@ describe('runPipeline — composition root', () => {
     });
     expect(report.saveHtmlWritten).toBe(htmlPath);
     const contents = await readFile(htmlPath, 'utf8');
-    expect(contents).toContain('법률 다이제스트');
+    expect(contents).toContain('Daily Legal Digest');
   });
 
   it('Recorder is threaded and toMarkdownTable reflects metrics', async () => {

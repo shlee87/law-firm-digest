@@ -90,7 +90,6 @@ describe('composeDigest', () => {
       'href="https://cooley.com/news/insight/2026/2026-04-15-ai-reg"',
     );
     expect(payload.html).toContain('<h1');
-    expect(payload.html).toContain('<h2');
     expect(payload.html).not.toContain('<script');
   });
 
@@ -119,8 +118,8 @@ describe('composeDigest', () => {
     expect(payload.html).toContain('⚠ 본문 없음');
     // The title appears in the summary slot for the skipped item.
     expect(payload.html).toContain('Title-only Article (B3 skipped)');
-    // The 'failed' item gets its own badge (⚠ AI 요약 실패).
-    expect(payload.html).toContain('⚠ AI 요약 실패');
+    // The 'failed' item gets its own badge (⚠ 요약 실패).
+    expect(payload.html).toContain('⚠ 요약 실패');
     // Confirm each badge appears exactly once.
     const skippedBadge = (payload.html.match(/⚠ 본문 없음/g) ?? []).length;
     expect(skippedBadge).toBe(1);
@@ -161,7 +160,7 @@ describe('composeDigest', () => {
       failedFirmResult('RSS fetch clifford-chance: HTTP 503'),
     ];
     const payload = composeDigest(results, 'u@e.com', 'u@e.com', undefined, fixedDate);
-    expect(payload.html).toContain('이번 실행에서 수집 실패');
+    expect(payload.html).toContain('수집 실패 · Fetch failed');
     expect(payload.html).toContain('http-503');
     expect(payload.html).toContain('Clifford Chance');
     expect(payload.html).toContain('(clifford-chance)');
@@ -219,17 +218,17 @@ describe('composeDigest', () => {
 
   it('EMAIL-05 — no failed firms → NO footer block rendered (visual no-op on clean runs)', () => {
     const payload = composeDigest(fixture(), 'u@e.com', 'u@e.com', undefined, fixedDate);
-    expect(payload.html).not.toContain('이번 실행에서 수집 실패');
-    expect(payload.html).toContain('AI 요약 — 원문 확인 필수');
+    expect(payload.html).not.toContain('수집 실패 · Fetch failed');
+    expect(payload.html).toContain('원문의 저작권은 각 로펌에 있으며');
   });
 
   it('EMAIL-05 — message longer than 140 chars is truncated in footer', () => {
     const longMsg = 'HTTP 503 ' + 'A'.repeat(200);
     const results: FirmResult[] = [...fixture(), failedFirmResult(longMsg)];
     const payload = composeDigest(results, 'u@e.com', 'u@e.com', undefined, fixedDate);
-    const m = /<li>[^<]*Clifford Chance[^<]*<\/li>/.exec(payload.html);
+    const m = /Clifford Chance/.exec(payload.html);
     expect(m).not.toBeNull();
-    const aRun = /A+/.exec(m?.[0] ?? '');
+    const aRun = /A+/.exec(payload.html.slice(m!.index));
     expect(aRun).not.toBeNull();
     expect(aRun![0].length).toBeLessThanOrEqual(140);
   });
@@ -296,8 +295,7 @@ describe('composeDigest', () => {
       durationMs: 100,
     };
     const payload = composeDigest([clusteredFirm], 'u@e.com', 'u@e.com', undefined, fixedDate);
-    expect(payload.html).toContain('⚠ 품질 의심 — 접힘');
-    expect(payload.html).toContain('요약 숨김, 원문 링크만 표시');
+    expect(payload.html).toContain('⚠ 품질 의심 — 요약 숨김');
     // All three titles appear (inside the fold <li>).
     expect(payload.html).toContain('Cluster Item 1');
     expect(payload.html).toContain('Cluster Item 2');
@@ -337,10 +335,10 @@ describe('composeDigest', () => {
       fixedDate,
       markers,
     );
-    expect(payload.html).toContain('⚠ 데이터 품질 경고 — 요약 신뢰도 의심');
+    expect(payload.html).toContain('⚠ 데이터 품질 경고 · Quality flags');
     expect(payload.html).toContain('HALLUCINATION_CLUSTER_DETECTED (5 items, 요약 숨김)');
-    // Footer ordering: failed-firms (if any) → data-quality → disclaimer.
-    const disclaimerIdx = payload.html.indexOf('AI 요약 — 원문 확인 필수');
+    // Footer ordering: data-quality → footer disclaimer.
+    const disclaimerIdx = payload.html.indexOf('원문의 저작권은 각 로펌에 있으며');
     const dqIdx = payload.html.indexOf('데이터 품질 경고');
     expect(dqIdx).toBeLessThan(disclaimerIdx);
     expect(dqIdx).toBeGreaterThan(0);
@@ -405,7 +403,7 @@ describe('composeDigest', () => {
       fixedDate,
       lowConfMarkers,
     );
-    expect(payload.html).toContain('⚠ 데이터 품질 경고 — 요약 신뢰도 의심');
+    expect(payload.html).toContain('⚠ 데이터 품질 경고 · Quality flags');
     expect(payload.html).toContain('4/6 items 품질 의심 (confidence=low 과반)');
     expect(payload.html).toContain('Cooley');
     expect(payload.html).toContain('cooley');
@@ -519,7 +517,7 @@ describe('Phase 3 staleness banner (OPS-04 + OPS-05)', () => {
     expect(payload.html).toContain('⚠ 30일 이상 새 글 없음: 김앤장, 태평양');
     const h1Idx = payload.html.indexOf('</h1>');
     const bannerIdx = payload.html.indexOf('⚠');
-    const firstSectionIdx = payload.html.indexOf('<section>');
+    const firstSectionIdx = payload.html.indexOf('padding:36px');
     expect(h1Idx).toBeLessThan(bannerIdx);
     expect(bannerIdx).toBeLessThan(firstSectionIdx);
   });
@@ -537,7 +535,7 @@ describe('Phase 3 staleness banner (OPS-04 + OPS-05)', () => {
       [baseResult], 'a@b.com', 'a@b.com',
       { staleFirms: ['A'], lastRunStale: { hoursAgo: 72 } }, NOW,
     );
-    const bannerMatches = payload.html.match(/background:#fff8e1/g);
+    const bannerMatches = payload.html.match(/background:#fff8e1/gi);
     expect(bannerMatches?.length).toBe(1);
     expect(payload.html).toContain('⚠ 30일 이상 새 글 없음: A');
     expect(payload.html).toContain('⚠ 이전 실행 누락 — 72시간 전 마지막 성공 실행');
