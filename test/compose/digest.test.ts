@@ -89,7 +89,7 @@ describe('composeDigest', () => {
     expect(payload.html).toContain(
       'href="https://cooley.com/news/insight/2026/2026-04-15-ai-reg"',
     );
-    expect(payload.html).toContain('<h1');
+    expect(payload.html).toContain('Daily Legal Digest');
     expect(payload.html).not.toContain('<script');
   });
 
@@ -515,10 +515,10 @@ describe('Phase 3 staleness banner (OPS-04 + OPS-05)', () => {
       { staleFirms: ['김앤장', '태평양'], lastRunStale: null }, NOW,
     );
     expect(payload.html).toContain('⚠ 30일 이상 새 글 없음: 김앤장, 태평양');
-    const h1Idx = payload.html.indexOf('</h1>');
+    const mastheadIdx = payload.html.indexOf('Daily Legal Digest');
     const bannerIdx = payload.html.indexOf('⚠');
-    const firstSectionIdx = payload.html.indexOf('padding:36px');
-    expect(h1Idx).toBeLessThan(bannerIdx);
+    const firstSectionIdx = payload.html.indexOf('padding:28px');
+    expect(mastheadIdx).toBeLessThan(bannerIdx);
     expect(bannerIdx).toBeLessThan(firstSectionIdx);
   });
 

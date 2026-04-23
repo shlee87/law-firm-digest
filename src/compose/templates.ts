@@ -107,17 +107,13 @@ export function renderHtml(
 /* ------------------------------------------------------------------ */
 
 function renderMasthead(dateKst: string): string {
-  return `<tr><td style="padding:40px 32px 28px;border-bottom:1px solid ${COLOR.ruleStrong};">
+  return `<tr><td style="padding:16px 32px;border-bottom:3px solid ${COLOR.ruleStrong};">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
       <tr>
-        <td style="font-family:${FONT_MONO};font-size:10.5px;letter-spacing:0.14em;color:${COLOR.muted};text-transform:uppercase;padding-bottom:20px;">DAILY LEGAL DIGEST</td>
-        <td align="right" style="font-family:${FONT_MONO};font-size:10.5px;letter-spacing:0.14em;color:${COLOR.muted};text-transform:uppercase;padding-bottom:20px;">${escapeHtml(dateKst)}</td>
+        <td style="font-family:${FONT_MONO};font-size:11px;letter-spacing:0.14em;color:${COLOR.inkDeep};text-transform:uppercase;font-weight:500;">Daily Legal Digest</td>
+        <td align="right" style="font-family:${FONT_MONO};font-size:11px;letter-spacing:0.1em;color:${COLOR.muted};text-transform:uppercase;">${escapeHtml(dateKst)}</td>
       </tr>
     </table>
-    <h1 style="font-family:${FONT_SERIF};font-weight:500;font-size:34px;letter-spacing:-0.01em;line-height:1.1;margin:0;color:${COLOR.inkDeep};">
-      Daily Legal Digest
-      <span style="display:block;font-size:22px;font-weight:400;color:#3A3834;margin-top:6px;letter-spacing:0.01em;">오늘의 로펌 뉴스레터</span>
-    </h1>
   </td></tr>`;
 }
 
@@ -152,16 +148,12 @@ function renderFirmSection(r: FirmResult): string {
   if (normal.length === 0 && demoted.length === 0) return '';
 
   const firmHead = `
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;border-bottom:1px solid ${COLOR.ruleStrong};">
-      <tr>
-        <td style="padding-bottom:12px;font-family:${FONT_SERIF};font-size:19px;font-weight:600;color:${COLOR.inkDeep};letter-spacing:-0.005em;">${escapeHtml(r.firm.name)}</td>
-      </tr>
-    </table>`;
+    <div style="font-family:${FONT_MONO};font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:${COLOR.muted};padding-bottom:12px;border-bottom:2px solid ${COLOR.ruleStrong};margin-bottom:20px;">${escapeHtml(r.firm.name)}</div>`;
 
   const normalHtml = normal.map((it, i) => renderArticle(it, i === 0)).join('');
   const demotedHtml = demoted.length > 0 ? renderDemotedBlock(demoted) : '';
 
-  return `<tr><td style="padding:36px 32px 28px;border-bottom:1px solid ${COLOR.rule};">
+  return `<tr><td style="padding:28px 32px 24px;border-top:3px solid ${COLOR.ruleStrong};border-bottom:1px solid ${COLOR.rule};">
     ${firmHead}
     ${normalHtml}
     ${demotedHtml}
@@ -191,8 +183,8 @@ function renderArticle(it: FirmResult['summarized'][number], isFirst: boolean): 
   return `
     <div style="padding:${topPad} 0 22px;${topBorder}">
       ${metaLine ? `<div style="margin-bottom:8px;">${metaLine}</div>` : ''}
-      <div style="font-family:${FONT_SERIF};font-size:20px;font-weight:500;line-height:1.3;color:${COLOR.inkDeep};margin:0 0 10px;letter-spacing:-0.005em;">
-        <a href="${escapeAttr(it.url)}" style="color:${COLOR.inkDeep};text-decoration:none;border-bottom:1px solid transparent;">${escapeHtml(it.title)}</a>
+      <div style="font-family:${FONT_SERIF};font-size:20px;font-weight:500;line-height:1.3;margin:0 0 10px;letter-spacing:-0.005em;">
+        <a href="${escapeAttr(it.url)}" style="color:${COLOR.link};text-decoration:underline;text-decoration-color:${COLOR.linkUnder};">${escapeHtml(it.title)}</a>
       </div>
       <p style="font-size:14.5px;line-height:1.7;color:${COLOR.body};margin:0 0 12px;font-weight:400;">${escapeHtml(summaryText)}${badge}</p>
       <a href="${escapeAttr(it.url)}" style="display:inline-block;font-family:${FONT_MONO};font-size:10.5px;letter-spacing:0.08em;color:${COLOR.link};text-transform:uppercase;text-decoration:none;border-bottom:1px solid ${COLOR.linkUnder};padding:8px 0 7px;">원문 읽기 &nbsp;→</a>

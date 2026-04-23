@@ -15,17 +15,13 @@ exports[`composeDigest > EMAIL-05 — snapshot with failed firm included (footer
   <tr>
     <td align="center" style="padding:32px 12px 64px;">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:640px;width:100%;background:#FAF8F4;color:#1A1917;font-family:'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;font-size:15px;line-height:1.65;">
-        <tr><td style="padding:40px 32px 28px;border-bottom:1px solid #1A1917;">
+        <tr><td style="padding:16px 32px;border-bottom:3px solid #1A1917;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
       <tr>
-        <td style="font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;font-size:10.5px;letter-spacing:0.14em;color:#6B6A66;text-transform:uppercase;padding-bottom:20px;">DAILY LEGAL DIGEST</td>
-        <td align="right" style="font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;font-size:10.5px;letter-spacing:0.14em;color:#6B6A66;text-transform:uppercase;padding-bottom:20px;">2026-04-17</td>
+        <td style="font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;font-size:11px;letter-spacing:0.14em;color:#0F0E0C;text-transform:uppercase;font-weight:500;">Daily Legal Digest</td>
+        <td align="right" style="font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;font-size:11px;letter-spacing:0.1em;color:#6B6A66;text-transform:uppercase;">2026-04-17</td>
       </tr>
     </table>
-    <h1 style="font-family:'Noto Serif KR', 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif;font-weight:500;font-size:34px;letter-spacing:-0.01em;line-height:1.1;margin:0;color:#0F0E0C;">
-      Daily Legal Digest
-      <span style="display:block;font-size:22px;font-weight:400;color:#3A3834;margin-top:6px;letter-spacing:0.01em;">오늘의 로펌 뉴스레터</span>
-    </h1>
   </td></tr>
         <tr><td style="padding:22px 32px;background:#F4F1EA;border-bottom:1px solid #E2DDD3;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -44,34 +40,30 @@ exports[`composeDigest > EMAIL-05 — snapshot with failed firm included (footer
     </table>
   </td></tr>
         
-        <tr><td style="padding:36px 32px 28px;border-bottom:1px solid #E2DDD3;">
+        <tr><td style="padding:28px 32px 24px;border-top:3px solid #1A1917;border-bottom:1px solid #E2DDD3;">
     
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;border-bottom:1px solid #1A1917;">
-      <tr>
-        <td style="padding-bottom:12px;font-family:'Noto Serif KR', 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif;font-size:19px;font-weight:600;color:#0F0E0C;letter-spacing:-0.005em;">Cooley</td>
-      </tr>
-    </table>
+    <div style="font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#6B6A66;padding-bottom:12px;border-bottom:2px solid #1A1917;margin-bottom:20px;">Cooley</div>
     
     <div style="padding:6px 0 22px;">
       <div style="margin-bottom:8px;"><span style="font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#6B6A66;">2026.04.15</span></div>
-      <div style="font-family:'Noto Serif KR', 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif;font-size:20px;font-weight:500;line-height:1.3;color:#0F0E0C;margin:0 0 10px;letter-spacing:-0.005em;">
-        <a href="https://cooley.com/news/insight/2026/2026-04-15-ai-reg" style="color:#0F0E0C;text-decoration:none;border-bottom:1px solid transparent;">AI Regulation Update April 2026</a>
+      <div style="font-family:'Noto Serif KR', 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif;font-size:20px;font-weight:500;line-height:1.3;margin:0 0 10px;letter-spacing:-0.005em;">
+        <a href="https://cooley.com/news/insight/2026/2026-04-15-ai-reg" style="color:#234C7A;text-decoration:underline;text-decoration-color:#B7C4D7;">AI Regulation Update April 2026</a>
       </div>
       <p style="font-size:14.5px;line-height:1.7;color:#2A2824;margin:0 0 12px;font-weight:400;">4월 AI 규제 동향을 정리한 요약입니다. 핵심 3가지 변경사항을 다룹니다.</p>
       <a href="https://cooley.com/news/insight/2026/2026-04-15-ai-reg" style="display:inline-block;font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;font-size:10.5px;letter-spacing:0.08em;color:#234C7A;text-transform:uppercase;text-decoration:none;border-bottom:1px solid #B7C4D7;padding:8px 0 7px;">원문 읽기 &nbsp;→</a>
     </div>
     <div style="padding:22px 0 22px;border-top:1px solid #EFEBE2;">
       
-      <div style="font-family:'Noto Serif KR', 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif;font-size:20px;font-weight:500;line-height:1.3;color:#0F0E0C;margin:0 0 10px;letter-spacing:-0.005em;">
-        <a href="https://cooley.com/news/insight/2026/2026-04-10-ma" style="color:#0F0E0C;text-decoration:none;border-bottom:1px solid transparent;">Second &lt;Article&gt; with HTML-ish Title</a>
+      <div style="font-family:'Noto Serif KR', 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif;font-size:20px;font-weight:500;line-height:1.3;margin:0 0 10px;letter-spacing:-0.005em;">
+        <a href="https://cooley.com/news/insight/2026/2026-04-10-ma" style="color:#234C7A;text-decoration:underline;text-decoration-color:#B7C4D7;">Second &lt;Article&gt; with HTML-ish Title</a>
       </div>
       <p style="font-size:14.5px;line-height:1.7;color:#2A2824;margin:0 0 12px;font-weight:400;">Second &lt;Article&gt; with HTML-ish Title <span style="font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;color:#8A4438;font-size:11px;letter-spacing:0.04em;">⚠ 요약 실패 — quota exceeded</span></p>
       <a href="https://cooley.com/news/insight/2026/2026-04-10-ma" style="display:inline-block;font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;font-size:10.5px;letter-spacing:0.08em;color:#234C7A;text-transform:uppercase;text-decoration:none;border-bottom:1px solid #B7C4D7;padding:8px 0 7px;">원문 읽기 &nbsp;→</a>
     </div>
     <div style="padding:22px 0 22px;border-top:1px solid #EFEBE2;">
       
-      <div style="font-family:'Noto Serif KR', 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif;font-size:20px;font-weight:500;line-height:1.3;color:#0F0E0C;margin:0 0 10px;letter-spacing:-0.005em;">
-        <a href="https://cooley.com/news/insight/2026/2026-04-05-privacy" style="color:#0F0E0C;text-decoration:none;border-bottom:1px solid transparent;">Title-only Article (B3 skipped)</a>
+      <div style="font-family:'Noto Serif KR', 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif;font-size:20px;font-weight:500;line-height:1.3;margin:0 0 10px;letter-spacing:-0.005em;">
+        <a href="https://cooley.com/news/insight/2026/2026-04-05-privacy" style="color:#234C7A;text-decoration:underline;text-decoration-color:#B7C4D7;">Title-only Article (B3 skipped)</a>
       </div>
       <p style="font-size:14.5px;line-height:1.7;color:#2A2824;margin:0 0 12px;font-weight:400;">Title-only Article (B3 skipped) <span style="font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;color:#F57F17;font-size:11px;letter-spacing:0.04em;">⚠ 본문 없음</span></p>
       <a href="https://cooley.com/news/insight/2026/2026-04-05-privacy" style="display:inline-block;font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;font-size:10.5px;letter-spacing:0.08em;color:#234C7A;text-transform:uppercase;text-decoration:none;border-bottom:1px solid #B7C4D7;padding:8px 0 7px;">원문 읽기 &nbsp;→</a>
@@ -117,17 +109,13 @@ exports[`composeDigest > HTML snapshot is stable 1`] = `
   <tr>
     <td align="center" style="padding:32px 12px 64px;">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:640px;width:100%;background:#FAF8F4;color:#1A1917;font-family:'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;font-size:15px;line-height:1.65;">
-        <tr><td style="padding:40px 32px 28px;border-bottom:1px solid #1A1917;">
+        <tr><td style="padding:16px 32px;border-bottom:3px solid #1A1917;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
       <tr>
-        <td style="font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;font-size:10.5px;letter-spacing:0.14em;color:#6B6A66;text-transform:uppercase;padding-bottom:20px;">DAILY LEGAL DIGEST</td>
-        <td align="right" style="font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;font-size:10.5px;letter-spacing:0.14em;color:#6B6A66;text-transform:uppercase;padding-bottom:20px;">2026-04-17</td>
+        <td style="font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;font-size:11px;letter-spacing:0.14em;color:#0F0E0C;text-transform:uppercase;font-weight:500;">Daily Legal Digest</td>
+        <td align="right" style="font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;font-size:11px;letter-spacing:0.1em;color:#6B6A66;text-transform:uppercase;">2026-04-17</td>
       </tr>
     </table>
-    <h1 style="font-family:'Noto Serif KR', 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif;font-weight:500;font-size:34px;letter-spacing:-0.01em;line-height:1.1;margin:0;color:#0F0E0C;">
-      Daily Legal Digest
-      <span style="display:block;font-size:22px;font-weight:400;color:#3A3834;margin-top:6px;letter-spacing:0.01em;">오늘의 로펌 뉴스레터</span>
-    </h1>
   </td></tr>
         <tr><td style="padding:22px 32px;background:#F4F1EA;border-bottom:1px solid #E2DDD3;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -146,34 +134,30 @@ exports[`composeDigest > HTML snapshot is stable 1`] = `
     </table>
   </td></tr>
         
-        <tr><td style="padding:36px 32px 28px;border-bottom:1px solid #E2DDD3;">
+        <tr><td style="padding:28px 32px 24px;border-top:3px solid #1A1917;border-bottom:1px solid #E2DDD3;">
     
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;border-bottom:1px solid #1A1917;">
-      <tr>
-        <td style="padding-bottom:12px;font-family:'Noto Serif KR', 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif;font-size:19px;font-weight:600;color:#0F0E0C;letter-spacing:-0.005em;">Cooley</td>
-      </tr>
-    </table>
+    <div style="font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#6B6A66;padding-bottom:12px;border-bottom:2px solid #1A1917;margin-bottom:20px;">Cooley</div>
     
     <div style="padding:6px 0 22px;">
       <div style="margin-bottom:8px;"><span style="font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#6B6A66;">2026.04.15</span></div>
-      <div style="font-family:'Noto Serif KR', 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif;font-size:20px;font-weight:500;line-height:1.3;color:#0F0E0C;margin:0 0 10px;letter-spacing:-0.005em;">
-        <a href="https://cooley.com/news/insight/2026/2026-04-15-ai-reg" style="color:#0F0E0C;text-decoration:none;border-bottom:1px solid transparent;">AI Regulation Update April 2026</a>
+      <div style="font-family:'Noto Serif KR', 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif;font-size:20px;font-weight:500;line-height:1.3;margin:0 0 10px;letter-spacing:-0.005em;">
+        <a href="https://cooley.com/news/insight/2026/2026-04-15-ai-reg" style="color:#234C7A;text-decoration:underline;text-decoration-color:#B7C4D7;">AI Regulation Update April 2026</a>
       </div>
       <p style="font-size:14.5px;line-height:1.7;color:#2A2824;margin:0 0 12px;font-weight:400;">4월 AI 규제 동향을 정리한 요약입니다. 핵심 3가지 변경사항을 다룹니다.</p>
       <a href="https://cooley.com/news/insight/2026/2026-04-15-ai-reg" style="display:inline-block;font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;font-size:10.5px;letter-spacing:0.08em;color:#234C7A;text-transform:uppercase;text-decoration:none;border-bottom:1px solid #B7C4D7;padding:8px 0 7px;">원문 읽기 &nbsp;→</a>
     </div>
     <div style="padding:22px 0 22px;border-top:1px solid #EFEBE2;">
       
-      <div style="font-family:'Noto Serif KR', 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif;font-size:20px;font-weight:500;line-height:1.3;color:#0F0E0C;margin:0 0 10px;letter-spacing:-0.005em;">
-        <a href="https://cooley.com/news/insight/2026/2026-04-10-ma" style="color:#0F0E0C;text-decoration:none;border-bottom:1px solid transparent;">Second &lt;Article&gt; with HTML-ish Title</a>
+      <div style="font-family:'Noto Serif KR', 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif;font-size:20px;font-weight:500;line-height:1.3;margin:0 0 10px;letter-spacing:-0.005em;">
+        <a href="https://cooley.com/news/insight/2026/2026-04-10-ma" style="color:#234C7A;text-decoration:underline;text-decoration-color:#B7C4D7;">Second &lt;Article&gt; with HTML-ish Title</a>
       </div>
       <p style="font-size:14.5px;line-height:1.7;color:#2A2824;margin:0 0 12px;font-weight:400;">Second &lt;Article&gt; with HTML-ish Title <span style="font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;color:#8A4438;font-size:11px;letter-spacing:0.04em;">⚠ 요약 실패 — quota exceeded</span></p>
       <a href="https://cooley.com/news/insight/2026/2026-04-10-ma" style="display:inline-block;font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;font-size:10.5px;letter-spacing:0.08em;color:#234C7A;text-transform:uppercase;text-decoration:none;border-bottom:1px solid #B7C4D7;padding:8px 0 7px;">원문 읽기 &nbsp;→</a>
     </div>
     <div style="padding:22px 0 22px;border-top:1px solid #EFEBE2;">
       
-      <div style="font-family:'Noto Serif KR', 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif;font-size:20px;font-weight:500;line-height:1.3;color:#0F0E0C;margin:0 0 10px;letter-spacing:-0.005em;">
-        <a href="https://cooley.com/news/insight/2026/2026-04-05-privacy" style="color:#0F0E0C;text-decoration:none;border-bottom:1px solid transparent;">Title-only Article (B3 skipped)</a>
+      <div style="font-family:'Noto Serif KR', 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif;font-size:20px;font-weight:500;line-height:1.3;margin:0 0 10px;letter-spacing:-0.005em;">
+        <a href="https://cooley.com/news/insight/2026/2026-04-05-privacy" style="color:#234C7A;text-decoration:underline;text-decoration-color:#B7C4D7;">Title-only Article (B3 skipped)</a>
       </div>
       <p style="font-size:14.5px;line-height:1.7;color:#2A2824;margin:0 0 12px;font-weight:400;">Title-only Article (B3 skipped) <span style="font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;color:#F57F17;font-size:11px;letter-spacing:0.04em;">⚠ 본문 없음</span></p>
       <a href="https://cooley.com/news/insight/2026/2026-04-05-privacy" style="display:inline-block;font-family:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;font-size:10.5px;letter-spacing:0.08em;color:#234C7A;text-transform:uppercase;text-decoration:none;border-bottom:1px solid #B7C4D7;padding:8px 0 7px;">원문 읽기 &nbsp;→</a>
