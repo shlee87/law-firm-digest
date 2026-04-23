@@ -86,7 +86,7 @@ export function renderHtml(
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#E8E4DC;">
   <tr>
     <td align="center" style="padding:32px 12px 64px;">
-      <table role="presentation" width="640" cellpadding="0" cellspacing="0" border="0" style="width:640px;max-width:640px;background:${COLOR.bg};color:${COLOR.ink};font-family:${FONT_SANS};font-size:15px;line-height:1.65;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:640px;width:100%;background:${COLOR.bg};color:${COLOR.ink};font-family:${FONT_SANS};font-size:15px;line-height:1.65;">
         ${masthead}
         ${glance}
         ${stalenessBanner}
@@ -107,7 +107,7 @@ export function renderHtml(
 /* ------------------------------------------------------------------ */
 
 function renderMasthead(dateKst: string): string {
-  return `<tr><td style="padding:40px 56px 28px;border-bottom:1px solid ${COLOR.ruleStrong};">
+  return `<tr><td style="padding:40px 32px 28px;border-bottom:1px solid ${COLOR.ruleStrong};">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
       <tr>
         <td style="font-family:${FONT_MONO};font-size:10.5px;letter-spacing:0.14em;color:${COLOR.muted};text-transform:uppercase;padding-bottom:20px;">DAILY LEGAL DIGEST</td>
@@ -131,7 +131,7 @@ function renderGlance(itemCount: number, firmCount: number): string {
       <div style="font-family:${FONT_MONO};font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:${COLOR.muted};margin-bottom:4px;">${label}</div>
       <div style="font-family:${FONT_SERIF};font-size:22px;font-weight:500;color:${COLOR.inkDeep};line-height:1;">${value}<span style="font-family:${FONT_SANS};font-size:12px;font-weight:400;color:${COLOR.muted};margin-left:3px;">${unit}</span></div>
     </td>`;
-  return `<tr><td style="padding:22px 56px;background:${COLOR.bgAlt};border-bottom:1px solid ${COLOR.rule};">
+  return `<tr><td style="padding:22px 32px;background:${COLOR.bgAlt};border-bottom:1px solid ${COLOR.rule};">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
       <tr>
         ${cell('New', String(itemCount), 'items', false)}
@@ -161,7 +161,7 @@ function renderFirmSection(r: FirmResult): string {
   const normalHtml = normal.map((it, i) => renderArticle(it, i === 0)).join('');
   const demotedHtml = demoted.length > 0 ? renderDemotedBlock(demoted) : '';
 
-  return `<tr><td style="padding:36px 56px 28px;border-bottom:1px solid ${COLOR.rule};">
+  return `<tr><td style="padding:36px 32px 28px;border-bottom:1px solid ${COLOR.rule};">
     ${firmHead}
     ${normalHtml}
     ${demotedHtml}
@@ -195,7 +195,7 @@ function renderArticle(it: FirmResult['summarized'][number], isFirst: boolean): 
         <a href="${escapeAttr(it.url)}" style="color:${COLOR.inkDeep};text-decoration:none;border-bottom:1px solid transparent;">${escapeHtml(it.title)}</a>
       </div>
       <p style="font-size:14.5px;line-height:1.7;color:${COLOR.body};margin:0 0 12px;font-weight:400;">${escapeHtml(summaryText)}${badge}</p>
-      <a href="${escapeAttr(it.url)}" style="font-family:${FONT_MONO};font-size:10.5px;letter-spacing:0.08em;color:${COLOR.link};text-transform:uppercase;text-decoration:none;border-bottom:1px solid ${COLOR.linkUnder};padding-bottom:1px;">원문 읽기 &nbsp;→</a>
+      <a href="${escapeAttr(it.url)}" style="display:inline-block;font-family:${FONT_MONO};font-size:10.5px;letter-spacing:0.08em;color:${COLOR.link};text-transform:uppercase;text-decoration:none;border-bottom:1px solid ${COLOR.linkUnder};padding:8px 0 7px;">원문 읽기 &nbsp;→</a>
     </div>`;
 }
 
@@ -230,7 +230,7 @@ function renderSilentFooter(failed: FirmResult[]): string {
     })
     .join('');
 
-  return `<tr><td style="padding:28px 56px;background:${COLOR.bgAlt};border-bottom:1px solid ${COLOR.rule};">
+  return `<tr><td style="padding:28px 32px;background:${COLOR.bgAlt};border-bottom:1px solid ${COLOR.rule};">
     <div style="font-family:${FONT_MONO};font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:${COLOR.muted};margin-bottom:10px;">수집 실패 · Fetch failed</div>
     <div>${items}</div>
     <div style="margin-top:10px;font-size:12px;color:${COLOR.muted};">다음 실행에서 자동으로 재시도됩니다.</div>
@@ -253,7 +253,7 @@ function renderStalenessBanner(warnings?: StalenessWarnings): string {
   }
   if (parts.length === 0) return '';
   const inner = parts.map((p) => `<div style="margin:2px 0;">${p}</div>`).join('');
-  return `<tr><td style="padding:16px 56px;background:${COLOR.warnBg};border-left:3px solid ${COLOR.warnBorder};border-bottom:1px solid ${COLOR.rule};color:${COLOR.warnInk};font-size:13px;line-height:1.6;">${inner}</td></tr>`;
+  return `<tr><td style="padding:16px 32px;background:${COLOR.warnBg};border-left:3px solid ${COLOR.warnBorder};border-bottom:1px solid ${COLOR.rule};color:${COLOR.warnInk};font-size:13px;line-height:1.6;">${inner}</td></tr>`;
 }
 
 /* ------------------------------------------------------------------ */
@@ -272,7 +272,7 @@ function renderDataQualityFooter(markers: DataQualityMarker[]): string {
     })
     .join('');
 
-  return `<tr><td style="padding:22px 56px;background:${COLOR.bgAlt};border-bottom:1px solid ${COLOR.rule};">
+  return `<tr><td style="padding:22px 32px;background:${COLOR.bgAlt};border-bottom:1px solid ${COLOR.rule};">
     <div style="font-family:${FONT_MONO};font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:${COLOR.muted};margin-bottom:10px;">⚠ 데이터 품질 경고 · Quality flags</div>
     <ul style="margin:0;padding-left:18px;color:${COLOR.body};font-size:13px;">${items}</ul>
   </td></tr>`;
@@ -283,7 +283,7 @@ function renderDataQualityFooter(markers: DataQualityMarker[]): string {
 /* ------------------------------------------------------------------ */
 
 function renderFooter(dateKst: string): string {
-  return `<tr><td style="padding:28px 56px 40px;background:${COLOR.footerBg};color:${COLOR.footerInk};font-family:${FONT_SANS};font-size:12px;line-height:1.65;">
+  return `<tr><td style="padding:28px 32px 40px;background:${COLOR.footerBg};color:${COLOR.footerInk};font-family:${FONT_SANS};font-size:12px;line-height:1.65;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-bottom:1px solid ${COLOR.footerRule};">
       <tr>
         <td style="padding-bottom:16px;font-family:${FONT_SERIF};font-size:14px;color:${COLOR.footerBrand};font-weight:500;">Daily Legal Digest</td>
