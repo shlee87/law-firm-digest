@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-04-23T12:22:12.249Z",
+  "lastUpdated": "2026-04-27T12:35:00.129Z",
   "firms": {
     "cooley": {
       "urls": [
@@ -86,6 +86,7 @@
     },
     "freshfields": {
       "urls": [
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/04/partners-beth-george-timothy-howard-and-giles-pratt-named-to-cybersecurity-dockets-incident-response-elite-for-2026",
         "https://freshfields.com/en/our-thinking/news/news-search/2026/04/freshfields-and-anthropic-team-up-to-co-build-ai-legal-workflows-deploying-claude-across-the-firm-globally",
         "https://freshfields.com/en/our-thinking/news/news-search/2026/04/rtl-receives-final-approval-for-sky-acquisition-with-the-help-of-freshfields",
         "https://freshfields.com/en/our-thinking/news/news-search/2026/04/freshfields-launches-the-ai-drop--a-new-podcast-on-artificial-intelligence-in-business-and-law",
@@ -129,18 +130,21 @@
         "https://freshfields.com/en/our-thinking/news/news-search/2026/03/freshfields-securities-litigation-team-secures-top-honors-at-2026-benchmark-litigation-u.s.-awards",
         "https://freshfields.com/en/our-thinking/news/news-search/2026/03/freshfields-advises-adia-on-its-investment-in-a-new-crc-managed-fund-focused-on-srt-transactions-and-on-its-acquisition-of-a-participation-interest-in-crc"
       ],
-      "lastNewAt": "2026-04-23T11:03:33.000Z",
+      "lastNewAt": "2026-04-23T18:24:29.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "yulchon": {
       "urls": [
+        "https://webzine.yulchon.com/2604",
         "https://yulchon.com/ko/resources/publications/periodicals-view/42768/page.do"
       ],
-      "lastNewAt": "2026-01-27T15:00:00.000Z",
+      "lastNewAt": "2026-04-26T15:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "logos": {
       "urls": [
+        "https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=2078",
+        "https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=2077",
         "https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=1951",
         "https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=1950",
         "https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=1949",
@@ -152,18 +156,20 @@
         "https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=1444",
         "https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=1443"
       ],
-      "lastNewAt": "2026-03-15T15:00:00.000Z",
+      "lastNewAt": "2026-04-26T15:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "skadden": {
       "urls": [
+        "https://skadden.com/insights/publications/2026/04/englands-new-independent-football-regulator",
+        "https://skadden.com/insights/publications/2026/04/european-commission-proposes-industrial-accelerator-act",
         "https://skadden.com/insights/publications/2026/04/virginias-new-restrictions-on-noncompetition-agreements",
         "https://skadden.com/insights/publications/2026/04/civil-litigation-in-us-courts",
         "https://skadden.com/insights/publications/2026/04/iais-publishes-report-on-second-targeted-jurisdictional",
         "https://skadden.com/insights/publications/2026/04/federal-ai-policy-threatens-state-ai-laws",
         "https://skadden.com/insights/publications/2026/04/should-boards-be-wary-of-informal-settlements"
       ],
-      "lastNewAt": "2026-04-20T04:00:00.000Z",
+      "lastNewAt": "2026-04-23T04:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "lee-ko": {
@@ -180,6 +186,10 @@
     },
     "yoon-yang": {
       "urls": [
+        "https://yoonyang.com/kor/insights/newsletter/14758",
+        "https://yoonyang.com/kor/insights/newsletter/14755",
+        "https://yoonyang.com/kor/insights/newsletter/14756",
+        "https://yoonyang.com/kor/insights/newsletter/14751",
         "https://yoonyang.com/kor/insights/newsletter/14741",
         "https://yoonyang.com/kor/insights/newsletter/14740",
         "https://yoonyang.com/kor/insights/newsletter/14736",
@@ -193,7 +203,7 @@
         "https://yoonyang.com/kor/insights/newsletter/14711",
         "https://yoonyang.com/kor/insights/newsletter/14709"
       ],
-      "lastNewAt": "2026-04-22T02:00:49.321Z",
+      "lastNewAt": "2026-04-27T12:35:00.129Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "barun": {
@@ -215,6 +225,7 @@
     },
     "latham": {
       "urls": [
+        "https://globalfinregblog.com/2026/04/uk-regulators-confirm-first-wave-of-changes-to-the-smcr",
         "https://lw.com/en/insights/five-takeaways-from-the-2026-digital-infrastructure-summit",
         "https://latham.london/2026/04/uk-government-consults-on-shake-up-to-corporate-civil-enforcement-regime",
         "https://lw.com/en/insights/trump-administration-takes-major-steps-toward-comprehensive-federal-ai-regulation",
@@ -239,16 +250,20 @@
     },
     "kim-chang": {
       "urls": [
+        "https://kimchang.com/ko/insights/detail.kc?idx=34527&sch_section=4",
+        "https://kimchang.com/ko/insights/detail.kc?idx=34515&sch_section=4",
+        "https://kimchang.com/ko/insights/detail.kc?idx=34539&sch_section=4",
         "https://kimchang.com/ko/insights/detail.kc?idx=34505&sch_section=4",
         "https://kimchang.com/ko/insights/detail.kc?idx=34432&sch_section=4",
         "https://kimchang.com/ko/insights/detail.kc?idx=34400&sch_section=4",
         "https://kimchang.com/ko/insights/detail.kc?idx=34401&sch_section=4"
       ],
-      "lastNewAt": "2026-03-30T15:00:00.000Z",
+      "lastNewAt": "2026-04-01T15:00:00.000Z",
       "enabledAt": "2026-04-23T12:22:12.249Z"
     },
     "bkl": {
       "urls": [
+        "https://bkl.co.kr/law/insight/informationView.do?infoNo=6534&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6540&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6538&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6537&lang=ko",
