@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-05-11T13:02:35.722Z",
+  "lastUpdated": "2026-05-18T13:17:35.052Z",
   "firms": {
     "cooley": {
       "urls": [
@@ -30,6 +30,8 @@
     },
     "clifford-chance": {
       "urls": [
+        "https://cliffordchance.com/briefings/2026/05/international-regulatory-update-05---08-may-2026.html",
+        "https://cliffordchance.com/briefings/2026/05/eu-prospectus-regulation-disclosure-changes-from-5-june.html",
         "https://cliffordchance.com/briefings/2026/05/international-regulatory-update-27-april---1-may-2026.html",
         "https://cliffordchance.com/briefings/2026/05/consumer-goods---retail-sector--uk-corporate-criminal-liability-.html",
         "https://cliffordchance.com/briefings/2026/04/international-regulatory-update-20---24-april-2026.html",
@@ -84,11 +86,21 @@
         "https://cliffordchance.com/briefings/2025/08/international-regulatory-update-28-july---1-august-2025.html",
         "https://cliffordchance.com/briefings/2025/08/global-quarterly-antitrust-briefing---q2-2025.html"
       ],
-      "lastNewAt": "2026-05-06T08:06:43.000Z",
+      "lastNewAt": "2026-05-12T08:43:16.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "freshfields": {
       "urls": [
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/05/freshfields-advises-buzzfeed-on-proposed-majority-stake-investment-by-byron-allens-family-office",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/05/freshfields-names-mark-sansom-as-global-client-partner-and-appoints-victoria-sigeti-as-uk-managing-partner",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/05/freshfields-advises-carta-on-its-acquisition-of-uk-abs-law-firm-avantia",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/05/four-freshfields-partners-selected-to-2026-lawdragon-500-leading-global-cyber-lawyers-guide",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/05/freshfields-advises-sedex-and-its-shareholders-on-strategic-investment-in-sedex-by-apax-funds",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/05/freshfields-advises-como-1907-on-the-launch-of-luxury-fanwear-platform-rhude-4-fans",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/05/freshfields-advises-midea-group-on-us$-2.2bn-convertible-bond-issuance",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/05/financial-times-names-freshfields-most-innovative-law-firm-in-asia",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/05/freshfields-advises-vossloh-ag-on-its-recommended-acquisition-of-cordel-group-plc",
+        "https://freshfields.com/en/our-thinking/news/news-search/2026/05/freshfields-advises-ams-osram-on-the-sale-of-its-cmos-image-sensor-business-to-indie-semiconductor",
         "https://freshfields.com/en/our-thinking/news/news-search/2026/05/employee-benefits-executive-compensation-partner-kathleen-emberger-joins-freshfields-in-new-york",
         "https://freshfields.com/en/our-thinking/news/news-search/2026/05/freshfields-advises-fresenius-on-investment-in-health-tech-start-up-avelios-medical",
         "https://freshfields.com/en/our-thinking/news/news-search/2026/05/freshfields-advises-the-placing-banks-in-solarias-300m-accelerated-bookbuild-offering",
@@ -150,7 +162,7 @@
         "https://freshfields.com/en/our-thinking/news/news-search/2026/03/freshfields-securities-litigation-team-secures-top-honors-at-2026-benchmark-litigation-u.s.-awards",
         "https://freshfields.com/en/our-thinking/news/news-search/2026/03/freshfields-advises-adia-on-its-investment-in-a-new-crc-managed-fund-focused-on-srt-transactions-and-on-its-acquisition-of-a-participation-interest-in-crc"
       ],
-      "lastNewAt": "2026-05-11T11:55:11.000Z",
+      "lastNewAt": "2026-05-14T13:32:19.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "yulchon": {
@@ -181,6 +193,9 @@
     },
     "skadden": {
       "urls": [
+        "https://skadden.com/insights/publications/2026/05/ai-act-state-of-play",
+        "https://skadden.com/insights/publications/2026/05/independent-football-regulators-investigation",
+        "https://skadden.com/insights/publications/2026/05/five-regulatory-forces-reshaping-the-uk",
         "https://skadden.com/insights/publications/2026/05/maryland-becomes-the-first-state-to-restrict-surveillance-pricing",
         "https://skadden.com/insights/publications/2026/05/japan-proposes-amendments-to-supervisory",
         "https://skadden.com/insights/publications/2026/05/msrb-follows-finra",
@@ -195,11 +210,13 @@
         "https://skadden.com/insights/publications/2026/04/federal-ai-policy-threatens-state-ai-laws",
         "https://skadden.com/insights/publications/2026/04/should-boards-be-wary-of-informal-settlements"
       ],
-      "lastNewAt": "2026-05-08T04:00:00.000Z",
+      "lastNewAt": "2026-05-12T04:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "lee-ko": {
       "urls": [
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2274",
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2273",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2272",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2271",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2270",
@@ -210,11 +227,14 @@
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2265",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2264"
       ],
-      "lastNewAt": "2026-05-06T15:00:00.000Z",
+      "lastNewAt": "2026-05-10T15:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "yoon-yang": {
       "urls": [
+        "https://yoonyang.com/kor/insights/newsletter/14797",
+        "https://yoonyang.com/kor/insights/newsletter/14808",
+        "https://yoonyang.com/kor/insights/newsletter/14799",
         "https://yoonyang.com/kor/insights/newsletter/14796",
         "https://yoonyang.com/kor/insights/newsletter/14789",
         "https://yoonyang.com/kor/insights/newsletter/14782",
@@ -239,11 +259,12 @@
         "https://yoonyang.com/kor/insights/newsletter/14711",
         "https://yoonyang.com/kor/insights/newsletter/14709"
       ],
-      "lastNewAt": "2026-05-11T13:02:35.722Z",
+      "lastNewAt": "2026-05-18T13:17:35.052Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "barun": {
       "urls": [
+        "https://barunlaw.com/letter/56249",
         "https://barunlaw.com/letter/55913",
         "https://barunlaw.com/letter/55845",
         "https://barunlaw.com/letter/55437",
@@ -256,11 +277,16 @@
         "https://barunlaw.com/letter/53793",
         "https://barunlaw.com/letter/53473"
       ],
-      "lastNewAt": "2026-04-22T15:00:00.000Z",
+      "lastNewAt": "2026-05-17T15:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "latham": {
       "urls": [
+        "https://globalprivacyblog.com/2026/05/active-enforcement-of-saudi-arabia-privacy-regime-implications-for-businesses",
+        "https://lw.com/en/insights/dod-proposes-rule-requiring-ownership-and-control-disclosures-for-most-awards-above-5-million",
+        "https://globalprivacyblog.com/2026/05/active-enforcement-of-saudi-arabia-privacy-regime-implications-for-businesses",
+        "https://fintechanddigitalassets.com/2026/05/occ-preempts-illinois-interchange-fee-law",
+        "https://fintechanddigitalassets.com/2026/05/occ-preempts-illinois-interchange-fee-law",
         "https://lw.com/en/insights/latham-texas-private-funds-breakfast-series-spring-market-trends-and-strategies",
         "https://lw.com/en/admin/upload/SiteAttachments/Finance_Sonderbeilage_Transformation_Die-W%C3%A4rmewende-als-Investitionsfeld_Grittmann_Gross_Wagenfuehr.pdf",
         "https://lw.com/en/insights/cms-and-fda-announce-new-rapid-program-for-medicare-coverage-of-breakthrough-medical-devices",
@@ -293,11 +319,15 @@
         "https://lathamreg.com/2026/03/ftc-reverts-to-old-hsr-form-after-fifth-circuit-denial-of-ftc-stay-motion",
         "https://globalfinregblog.com/2026/03/financial-ombudsman-service-reset-key-reforms-on-the-horizon"
       ],
-      "lastNewAt": "2026-05-11T13:02:35.722Z",
+      "lastNewAt": "2026-05-18T13:17:35.052Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "kim-chang": {
       "urls": [
+        "https://kimchang.com/ko/insights/detail.kc?idx=34649&sch_section=4",
+        "https://kimchang.com/ko/insights/detail.kc?idx=34590&sch_section=4",
+        "https://kimchang.com/ko/insights/detail.kc?idx=34593&sch_section=4",
+        "https://kimchang.com/ko/insights/detail.kc?idx=34600&sch_section=4",
         "https://kimchang.com/ko/insights/detail.kc?idx=34527&sch_section=4",
         "https://kimchang.com/ko/insights/detail.kc?idx=34515&sch_section=4",
         "https://kimchang.com/ko/insights/detail.kc?idx=34539&sch_section=4",
@@ -306,11 +336,12 @@
         "https://kimchang.com/ko/insights/detail.kc?idx=34400&sch_section=4",
         "https://kimchang.com/ko/insights/detail.kc?idx=34401&sch_section=4"
       ],
-      "lastNewAt": "2026-04-01T15:00:00.000Z",
+      "lastNewAt": "2026-04-22T15:00:00.000Z",
       "enabledAt": "2026-04-23T12:22:12.249Z"
     },
     "bkl": {
       "urls": [
+        "https://bkl.co.kr/law/insight/informationView.do?infoNo=6543&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6534&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6540&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6538&lang=ko",
