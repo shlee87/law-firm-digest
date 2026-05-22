@@ -4,7 +4,7 @@ milestone: v1.1
 milestone_name: — Data-Quality Hardening
 status: executing
 stopped_at: Completed 13-1-gemini-rpd plan 03 (runDaily + runTypes extraction)
-last_updated: "2026-05-22T17:34:15.667Z"
+last_updated: "2026-05-22T17:43:21.824Z"
 last_activity: 2026-05-22
 progress:
   total_phases: 7
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-19)
 ## Current Position
 
 Phase: 13 (1-gemini-rpd) — EXECUTING
-Plan: 4 of 7
+Plan: 5 of 7
 Status: Ready to execute
 Last activity: 2026-05-22
 
@@ -132,6 +132,7 @@ Last activity: 2026-05-22
 | Phase 13-1-gemini-rpd P01 | 4min | 2 tasks | 2 files |
 | Phase 13-1-gemini-rpd P02 | ~6 min | 3 tasks | 4 files |
 | Phase 13-1-gemini-rpd P03 | ~3min | 2 tasks | 2 files |
+| Phase 13-1-gemini-rpd P04 PP04 | ~4 min | 2 tasks tasks | 3 files files |
 
 ## Accumulated Context
 
@@ -288,6 +289,11 @@ Recent decisions affecting current work:
 - [Phase 13-1-gemini-rpd]: 13-03: runTypes.ts dependency-free w.r.t. run.ts (imports only std types FirmResult/FirmConfig/StalenessWarnings/Recorder/DataQualityMarker) — avoids import cycle and lets Plan 13-05 delete run.ts cleanly
 - [Phase 13-1-gemini-rpd]: 13-03: D-01 cross-mode invariant enforced at 3 levels — header comment FORBIDDEN list + bottom-of-imports comment fence + comment-stripped grep gate (zero matches for mailer/archive/compose/detect imports)
 - [Phase 13-1-gemini-rpd]: 13-03: D-12 layer3 cluster-demoted guard count permanently 0 in daily path — H/M/L tally code structure preserved from run.ts to minimize diff risk; explicit '// D-12: detection runs in weekly' comment at call site prevents future regression
+- [Phase ?]: [Phase 13-1-gemini-rpd]: 13-04: archivePath plumbed into RunReport — runWeekly captures writeArchive return value so plan 13-05/13-07 can assert archive path (parity with runPipeline shape)
+- [Phase ?]: [Phase 13-1-gemini-rpd]: 13-04: payload typed explicitly as let payload: EmailPayload — without annotation TS narrows to heartbeat-vs-digest first-branch type and the second branch fails to typecheck
+- [Phase ?]: [Phase 13-1-gemini-rpd]: 13-04: heartbeat branch passes resultsForReport=[] to writeState — Phase 1 writer results-loop body skipped while lastUpdated still advances (W1 sub-acceptance satisfied)
+- [Phase ?]: [Phase 13-1-gemini-rpd]: 13-04: restoreFirmsFromPending warn+skip on missing firmId — Phase 2 D-P2-03 failure isolation mirror; runWeekly continues processing remaining items if a firm vanished from firms.yaml mid-week
+- [Phase ?]: [Phase 13-1-gemini-rpd]: 13-04: D-22 [METRIC] uniform emission verified — resetGeminiCallCount() at try start + getGeminiCallCount() in finally → writeStepSummary 4th arg; weekly always reads 0 but emission preserves SPEC AC-7 grep marker uniformity
 
 ### Roadmap Evolution
 
@@ -312,7 +318,7 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-22T17:34:15.663Z
+Last session: 2026-05-22T17:42:55.996Z
 Stopped at: Completed 13-1-gemini-rpd plan 03 (runDaily + runTypes extraction)
 Resume file: None
 
