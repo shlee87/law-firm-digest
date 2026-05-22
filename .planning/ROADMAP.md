@@ -281,7 +281,7 @@ proposed phase breakdown:
 Plans:
 - [x] 13-01-PLAN.md — `src/state/pending.ts` (zod schema + PendingItem/PendingState + read/append/truncate + COMP-05 toPendingItem) + tests [SPEC-3, Wave 1]
 - [x] 13-02-PLAN.md — `gemini.ts` module-level geminiCallCount + `summary.ts` [METRIC] line prepend + tests [SPEC-7, Wave 1]
-- [ ] 13-03-PLAN.md — `src/pipeline/runDaily.ts` (9-step daily sequence + appendPending + writeState) + `runTypes.ts` extraction [SPEC-1, Wave 2]
+- [x] 13-03-PLAN.md — `src/pipeline/runDaily.ts` (9-step daily sequence + appendPending + writeState) + `runTypes.ts` extraction [SPEC-1, Wave 2]
 - [ ] 13-04-PLAN.md — `src/pipeline/runWeekly.ts` (pending read → restore → detect → compose/heartbeat → send → truncate) + `src/compose/heartbeat.ts` [SPEC-2, SPEC-5, Wave 2]
 - [ ] 13-05-PLAN.md — `main.ts` parseMode + dispatch + `checkFirm.ts` runDaily swap + package.json scripts + delete `run.ts` [SPEC-1, SPEC-2, SPEC-7, Wave 3]
 - [ ] 13-06-PLAN.md — `.github/workflows/daily.yml` cron Tue-Sun + `weekly.yml` new + atomic commit file_pattern + human-verify checkpoint [SPEC-4, SPEC-6, SPEC-7, Wave 4]

@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
 status: executing
-stopped_at: Completed 13-1-gemini-rpd plan 02 (geminiCallCount observability)
-last_updated: "2026-05-22T17:23:15.143Z"
+stopped_at: Completed 13-1-gemini-rpd plan 03 (runDaily + runTypes extraction)
+last_updated: "2026-05-22T17:34:15.667Z"
 last_activity: 2026-05-22
 progress:
   total_phases: 7
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-19)
 ## Current Position
 
 Phase: 13 (1-gemini-rpd) — EXECUTING
-Plan: 3 of 7
+Plan: 4 of 7
 Status: Ready to execute
 Last activity: 2026-05-22
 
@@ -131,6 +131,7 @@ Last activity: 2026-05-22
 | Phase 11 P01 | 5min | 2 tasks | 6 files |
 | Phase 13-1-gemini-rpd P01 | 4min | 2 tasks | 2 files |
 | Phase 13-1-gemini-rpd P02 | ~6 min | 3 tasks | 4 files |
+| Phase 13-1-gemini-rpd P03 | ~3min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -284,6 +285,9 @@ Recent decisions affecting current work:
 - [Phase 13-1-gemini-rpd]: 13-02: geminiCallCount++ placed BEFORE the await on ai.models.generateContent (D-18, threat T-13-02-01) — network throws still consumed RPD quota; post-await counting would under-report and break SPEC AC-7 daily-avg≤15 ceiling proximity
 - [Phase 13-1-gemini-rpd]: 13-02: writeStepSummary 4th param geminiCallCount: number = 0 default preserves backwards-compat with sole run.ts:425 call site; plans 13-03/04 will pass real getGeminiCallCount() when extracting runDaily/runWeekly
 - [Phase 13-1-gemini-rpd]: 13-02: [METRIC] marker emitted unconditionally (D-22) including N=0 case — weekly runs still produce a grep-able marker so SPEC AC-7 grep gate matches in EVERY workflow log, not just runs that called Gemini
+- [Phase 13-1-gemini-rpd]: 13-03: runTypes.ts dependency-free w.r.t. run.ts (imports only std types FirmResult/FirmConfig/StalenessWarnings/Recorder/DataQualityMarker) — avoids import cycle and lets Plan 13-05 delete run.ts cleanly
+- [Phase 13-1-gemini-rpd]: 13-03: D-01 cross-mode invariant enforced at 3 levels — header comment FORBIDDEN list + bottom-of-imports comment fence + comment-stripped grep gate (zero matches for mailer/archive/compose/detect imports)
+- [Phase 13-1-gemini-rpd]: 13-03: D-12 layer3 cluster-demoted guard count permanently 0 in daily path — H/M/L tally code structure preserved from run.ts to minimize diff risk; explicit '// D-12: detection runs in weekly' comment at call site prevents future regression
 
 ### Roadmap Evolution
 
@@ -308,8 +312,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-22T17:23:15.138Z
-Stopped at: Completed 13-1-gemini-rpd plan 02 (geminiCallCount observability)
+Last session: 2026-05-22T17:34:15.663Z
+Stopped at: Completed 13-1-gemini-rpd plan 03 (runDaily + runTypes extraction)
 Resume file: None
 
 **Next action:** `/gsd:plan-phase 11` — plan Phase 11: Cron Resumption Gate
