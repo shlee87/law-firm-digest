@@ -1,0 +1,144 @@
+{
+  "version": 1,
+  "windowStart": "2026-05-22T20:15:30.824Z",
+  "items": [
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 11 – 15 May 2026",
+      "url": "https://cliffordchance.com/briefings/2026/05/international-regulatory-update-11---15-may-2026.html",
+      "publishedAt": "2026-05-19T08:31:26.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 11 – 15 May 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-05-22T20:13:44.065Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "A New EU Ruling on No-Poach Agreements in Sports Leaves Room for Roster Stability Considerations",
+      "url": "https://skadden.com/insights/publications/2026/05/a-new-eu-ruling-on-no-poach-agreements",
+      "publishedAt": "2026-05-21T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "유럽사법재판소(ECJ)는 포르투갈 프로 축구 클럽 간의 '선수 빼가기 금지(no-poach)' 합의가 EU 경쟁법에 위배되는지 여부에 대한 CD Tondela 사건 판결에서, 선수 영입 제한이 경쟁법에 저촉될 수 있음을 확인했습니다. 그러나 ECJ는 스포츠 맥락에서 선수단 안정성 유지가 클럽 간의 균형과 기회 균등을 위한 정당한 목표가 될 수 있으며, 이는 경쟁 제한 합의의 '목적에 의한 위반(by object)' 분류를 벗어나게 할 수 있다고 보았습니다. 이에 따라 프로 축구 클럽 및 스포츠 협회는 선수 영입 제한 조치를 도입할 때 해당 조치가 정당한 목표에 비례하고 필요한 범위를 넘어서지 않도록 신중하게 조정해야 하며, 특히 클럽이 직접 합의하는 경우보다 협회의 승인을 받는 것이 더 면밀한 심사를 피할 수 있음을 유의해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-05-22T20:13:44.065Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "US Trade Court Strikes Down Section 122 Tariffs, but Ruling’s Fate Is Uncertain and Practical Impact Is Limited",
+      "url": "https://skadden.com/insights/publications/2026/05/us-trade-court-strikes-down-section-122-tariffs",
+      "publishedAt": "2026-05-20T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "미국 국제무역법원(CIT)은 트럼프 행정부의 무역법 122조 관세 부과가 대통령 권한을 초과한다고 판결하며 해당 관세를 무효화했습니다. 이는 대통령이 122조에 명시된 특정 '국제수지 적자' 측정 기준을 사용하지 않았다는 이유입니다. 이 판결은 이전 대법원의 IEEPA 관세 무효화에 이은 것이지만, 현재로서는 워싱턴주 등 3개 수입업체 원고에게만 적용되며, 다른 수입업체들은 여전히 10%의 관세 부과 대상입니다. 미국 정부는 연방항소법원에 항소했으며, 수입업체들은 향후 청구 및 환급 권리를 보존하기 위해 이미 납부했거나 현재 납부 중인 122조 관세를 검토해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-05-22T20:13:44.065Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "‘인공지능 데이터센터 산업 진흥에 관한 특별법’ 제정",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=34754&sch_section=4",
+      "publishedAt": "2026-05-13T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "'인공지능 데이터센터 산업 진흥에 관한 특별법'이 국회 본회의를 통과하여 AI 데이터센터(AIDC) 구축 및 운영을 체계적으로 지원할 법적 기반이 마련되었습니다. AIDC 관련 산업 및 사업자들은 과학기술정보통신부 장관을 통한 인허가 일괄처리, 비수도권 전력계통영향평가 면제, 시설물 설치기준 완화 등의 혜택을 받게 됩니다. 특히 비수도권 AIDC 특구 지정 및 분산에너지 특화지역 연계를 통해 투자 확대 및 신속한 사업 추진이 가능해질 전망입니다. 내년 2월 시행 예정이므로 관련 기업들은 사업 계획에 이를 반영하여 규제 완화 효과를 활용해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-05-22T20:13:44.065Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "공정위, 경제적 제재의 실효성 강화를 위한 과징금고시 개정·시행",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=34707&sch_section=4",
+      "publishedAt": "2026-04-27T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "공정거래위원회는 2026년 4월 30일부터 공정거래법 위반행위에 대한 과징금 부과기준율 하한을 대폭 상향하고 반복 위반사업자에 대한 과징금 가중을 강화하는 내용의 '과징금부과 세부기준 등에 관한 고시'를 시행했습니다. 이는 부당공동행위, 부당지원 등 주요 위반유형별 과징금 부담을 크게 늘리며, 특히 영업이익률이 낮거나 과거 위반 전력이 있는 기업에 막대한 영향을 미칠 것입니다. 기업들은 법 위반 예방을 위한 컴플라이언스 시스템을 강화하고 내부 통제 위반행위에 대한 무관용 원칙을 제도화하여 공정거래 관련 법적 리스크를 적극적으로 관리해야 합니다. 또한, 위반행위 종료 시점에 따라 적용 고시가 달라질 수 있으므로 현재 조사 중인 사건의 경우 심의 시점까지 위반행위가 지속되면 가중된 과징금이 부과될 수 있음에 유의해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-05-22T20:13:44.065Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "Safety Insight (Issue 4)",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=34703&sch_section=4",
+      "publishedAt": "2026-04-27T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "김·장 법률사무소는 중대재해 사고 대응 및 안전보건 컨설팅 경험을 바탕으로 전문가 의견을 담은 매거진을 발간했습니다. 이번 호에서는 중층적 도급관계에서의 도급인 책임, 중대재해 사건의 이원적 수사구조, 산업안전보건법 제63조 단서 관련 검토 등 중대재해 및 산업안전보건법 관련 법적 쟁점과 실무적 대응 방안을 다룹니다. 본 내용은 집필진 개인의 의견이며, 법률사무소의 공식 입장은 아닙니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash-lite",
+      "summarizedAt": "2026-05-22T20:13:44.065Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "『광장 국제통상연구원』 2026 베트남 대전환: 신지도부 경제전략과 우리 기업의 대응 방향 - Issue Brief, 2026",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2275",
+      "publishedAt": "2026-05-13T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "베트남 신정부는 저임금·수출 중심 성장 모델에서 벗어나 과학기술, 디지털 전환, 고품질 FDI를 새로운 성장 동력으로 삼고 있습니다. 이를 위해 연평균 GDP 10% 성장, 총요소생산성(TFP) 기여율 55% 이상을 목표로 설정하고, 반도체·AI·디지털·녹색 산업 육성 및 민간 경제 경쟁력 강화에 집중하고 있습니다. 한국 기업은 이러한 정책 변화를 모니터링하며 현지 파트너십 강화, 공급망 다변화, 정책금융 활용 등 단계적·선별적 진출 전략을 추진해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash-lite",
+      "summarizedAt": "2026-05-22T20:13:44.065Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "대법원, H중공업 “사내하청 노조와 단체교섭 의무 없음” 확인",
+      "url": "https://yoonyang.com/kor/insights/newsletter/14831",
+      "language": "ko",
+      "summary_ko": "대법원은 H중공업 사내하청 근로자 노조와의 단체교섭 의무 사건에서, 구 노동조합법상 사용자는 근로계약 관계자에게 한정된다는 기존 법리를 재확인하며 노조의 상고를 기각했습니다. 이는 구법 적용 시 단체교섭 의무가 있는 사용자의 범위를 명확히 한 판결입니다. 다만, 반대의견은 개정법상 '실질적 지배력' 기준을 제시하며 향후 개정법 해석에 참고될 가능성을 시사했습니다. 기업들은 원청의 각종 관여 행위가 사용자성 판단에 미칠 영향을 검토할 필요가 있습니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash-lite",
+      "summarizedAt": "2026-05-22T20:13:44.065Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "개인정보보호위원회 「생성형 AI 서비스 이용자를 위한 개인정보 보호 가이드」 발간",
+      "url": "https://yoonyang.com/kor/insights/newsletter/14826",
+      "language": "ko",
+      "summary_ko": "개인정보보호위원회가 「생성형 AI 서비스 이용자를 위한 개인정보 보호 가이드」를 발간했습니다. 이 가이드는 일반 이용자를 대상으로 하지만, 생성형 AI 서비스 제공 기업에게는 학습 거부, 대화 기록 삭제 등 규제기관이 기대하는 서비스 설계 방향을 제시합니다. 또한, 임직원이 생성형 AI를 업무에 활용할 때 발생할 수 있는 고객 정보 및 영업 비밀 유출 위험에 대한 통제 이슈를 제기합니다. 가이드 자체는 법적 구속력이 없으나, 향후 개인정보위의 점검 및 집행 시 해석의 기준이 될 수 있어 기업의 선제적 점검이 필요합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash-lite",
+      "summarizedAt": "2026-05-22T20:13:44.065Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "S전자 가처분 결정, 노사관계 판도 달라질까?",
+      "url": "https://yoonyang.com/kor/insights/newsletter/14820",
+      "language": "ko",
+      "summary_ko": "S전자 가처분 결정에서 법원은 안전보호시설 및 보안작업의 정상적 유지·운영을 쟁의행위 기간 중에도 평상시와 동일한 수준으로 보장해야 한다고 판단했습니다. 이는 B사 사건에서 생산 공정 전체를 변질·부패 방지 작업으로 인정하지 않은 것과 대조됩니다. 기업은 쟁의행위 시 보호되어야 할 핵심 시설과 작업을 사전에 특정하고 입증할 수 있도록 준비하는 것이 중요합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash-lite",
+      "summarizedAt": "2026-05-22T20:13:44.065Z"
+    },
+    {
+      "firmId": "barun",
+      "title": "법무법인(유한) 바른 뉴스레터 - 제156호 (2026.05)",
+      "url": "https://barunlaw.com/letter/56045",
+      "publishedAt": "2026-05-19T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "법무법인(유한) 바른 뉴스레터 - 제156호 (2026.05)",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-05-22T20:13:44.065Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "The Growth Rocketship: Using AI to Accelerate Analog Semiconductor Design With Celera",
+      "url": "https://lw.com/en/insights/the-growth-rocketship-using-ai-to-accelerate-analog-semiconductor-design-with-celera",
+      "language": "en",
+      "summary_ko": "Celera Semiconductor는 AI를 활용하여 아날로그 반도체 칩 개발을 가속화하는 기술을 개발했습니다. 이 회사는 데이터 센터, 소비자 전자제품, 산업 부품과 같은 고성장 산업의 고객들과 협력하고 있으며, AI 기반 반도체 설계의 미래를 형성하는 인재, 자본 및 거시적 트렌드에 대해 논의했습니다.",
+      "summaryConfidence": "medium",
+      "summaryModel": "gemini-2.5-flash-lite",
+      "summarizedAt": "2026-05-22T20:13:44.065Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Florida’s HB 1217: Practical Considerations for Private Fund Managers",
+      "url": "https://lw.com/en/insights/floridas-hb-1217-practical-considerations-for-private-fund-managers",
+      "language": "en",
+      "summary_ko": "Latham & Watkins는 Eni의 30억 달러 규모 이중 트렌치 채권 발행 자문을 성공적으로 완료했습니다. 이번 거래는 국경 간 팀의 협력을 통해 이루어졌습니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash-lite",
+      "summarizedAt": "2026-05-22T20:13:44.065Z"
+    }
+  ]
+}
