@@ -175,9 +175,10 @@ topics:
 #   HTML 티어로 들어올 때 'cooley-go' / 'cooley' 로 분리할 수 있도록).
 # =============================================================
 # Phase 2 + Phase 4 firm list (locked 2026-04-18):
-#   Phase 2 live firms (9): 3 RSS (cooley, clifford-chance, freshfields),
+#   Phase 2 live firms (8): 2 RSS (cooley, clifford-chance),
 #                           4 HTML plain-href (shin-kim, yulchon, logos, skadden),
 #                           2 HTML onclick-extract (kim-chang, bkl).
+#   (freshfields removed by user 2026-05-18)
 #   Phase 4 activations (4): lee-ko, yoon-yang, latham (flipped from disabled
 #                            placeholder to type js-render) + barun (new block).
 #                            All four require a wait_for CSS selector — zod
@@ -232,14 +233,6 @@ firms:
     language: en
     type: rss
     url: https://www.cliffordchance.com/rss/rss-feed-briefings.html
-    timezone: Europe/London
-    enabled: true
-
-  - id: freshfields
-    name: Freshfields
-    language: en
-    type: rss
-    url: https://www.freshfields.com/en/rss/news
     timezone: Europe/London
     enabled: true
 
