@@ -3,9 +3,9 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
 status: executing
-stopped_at: Phase 13 context gathered — 23 implementation decisions
-last_updated: "2026-05-22T16:38:43.013Z"
-last_activity: 2026-05-22 -- Phase 13 planning complete
+stopped_at: Completed 13-1-gemini-rpd plan 01 (pending storage module)
+last_updated: "2026-05-22T17:14:54.657Z"
+last_activity: 2026-05-22
 progress:
   total_phases: 7
   completed_phases: 6
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-19)
 
 **Core value:** 사용자가 직접 로펌 웹사이트를 돌지 않아도, 추적 대상 로펌들의 신규 뉴스레터를 원문 링크와 함께 한국어 요약으로 받아볼 수 있어야 한다.
-**Current focus:** Phase 12 — topic-based-filter (COMPLETE)
+**Current focus:** Phase 13 — 1-gemini-rpd
 
 ## Current Position
 
-Phase: 12
-Plan: 2/2 COMPLETE
+Phase: 13 (1-gemini-rpd) — EXECUTING
+Plan: 2 of 7
 Status: Ready to execute
-Last activity: 2026-05-22 -- Phase 13 planning complete
+Last activity: 2026-05-22
 
 **v1.0 regressions status (all originally discovered 2026-04-19 Phase 02 UAT):**
 
@@ -129,6 +129,7 @@ Last activity: 2026-05-22 -- Phase 13 planning complete
 | Phase 10-data-quality-observability P02 | ~3h | 3 tasks | 9 files |
 | Phase 10-data-quality-observability P03 | ~1h | 2 tasks | 3 files |
 | Phase 11 P01 | 5min | 2 tasks | 6 files |
+| Phase 13-1-gemini-rpd P01 | 4min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -275,6 +276,9 @@ Recent decisions affecting current work:
 - 10-03: emitDryRunStepSummary is the fourth and final sanctioned DRY_RUN site (Pattern 2 containment) — listed in Pattern 2 header comment in main.ts alongside the other three
 - restoreFetchHost operates only on the fetch URL — canonical item.url (www-stripped by canonicalizeUrl) is never modified, preserving dedup semantics
 - loader.test.ts DISABLED_FIRM_ID switched from bkl to shin-kim after bkl re-enable (Phase 11-01 Rule 1 fix)
+- [Phase ?]: 13-01: PendingItem.url uses z.string().url() (rejects bare ids + javascript: URLs at read time); defaultPending() is a factory so windowStart reflects call-time; writePendingInternal kept private to make D-09 windowStart immutability enforceable at the module-export boundary
+- [Phase ?]: 13-01: Plan acceptance criteria 'grep -c isDryRun = 1' is plan-authoring imprecision — import+call structurally is 2; spirit (single DRY_RUN call site) preserved. Same self-invalidating-grep mitigation as Phase 1 plan 09 / plan 11 / Phase 7-02 decisions log
+- [Phase ?]: 13-01: DRY_RUN sanctioned call sites are now 5 (gmail.ts, state/writer.ts, archive/writer.ts, main.ts emitDryRunStepSummary, state/pending.ts writePendingInternal). main.ts header Pattern 2 containment annotation update deferred to plan 13-05
 
 ### Roadmap Evolution
 
@@ -299,8 +303,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-22T15:38:10.067Z
-Stopped at: Phase 13 context gathered — 23 implementation decisions
-Resume file: .planning/phases/13-1-gemini-rpd/13-CONTEXT.md
+Last session: 2026-05-22T17:14:54.652Z
+Stopped at: Completed 13-1-gemini-rpd plan 01 (pending storage module)
+Resume file: None
 
 **Next action:** `/gsd:plan-phase 11` — plan Phase 11: Cron Resumption Gate
