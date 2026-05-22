@@ -32,6 +32,10 @@
 // call so the existing "Never throws" contract (see docstring) is preserved:
 // the catch at the bottom logs + returns the title-verbatim fallback, matching
 // every other per-item failure path.
+//
+// Phase 13 observability: module-level geminiCallCount (sanctioned per D-20).
+// resetGeminiCallCount() at runDaily/runWeekly start; getGeminiCallCount()
+// at run end → writeStepSummary [METRIC] line. See plan 13-02 for rationale.
 
 import { GoogleGenAI } from '@google/genai';
 import pRetry, { AbortError } from 'p-retry';
@@ -40,6 +44,31 @@ import { buildPrompt, summarySchema } from './prompt.js';
 import type { PromptConfig } from './prompt.js';
 import { scrubSecrets } from '../util/logging.js';
 import type { NewItem, SummarizedItem } from '../types.js';
+
+// Phase 13 D-18/D-20: module-level counter for Gemini API calls. Tracks
+// EVERY generateContent attempt — including p-retry retries on 429 AND the
+// fallback (flash → flash-lite) swap — because all of them consume RPD
+// quota. The summaryModel post-tally approach (count items whose model ===
+// 'gemini-2.5-flash') is INSUFFICIENT: a single item that fell back is
+// counted as 1, not as 2 (initial + retry). Counter accuracy matters because
+// SPEC AC-7's daily-average ≤ 15 / weekly === 0 sits right at the RPD ceiling.
+//
+// Module-level mutable state is normally an anti-pattern. It is sanctioned
+// here because:
+//   1. Single-process, single-run lifecycle (cron-driven Node 22 invocation).
+//   2. Test isolation via resetGeminiCallCount() in vitest beforeEach.
+//   3. Threading recorder through every summarize() caller would touch the
+//      entire pipeline (runDaily, run.ts variants, checkFirm.ts) for a
+//      counter that has exactly one writer and two readers.
+// If the counter ever grows responsibilities (per-model breakdown,
+// per-attempt timing), migrate to Recorder injection.
+let geminiCallCount = 0;
+export function getGeminiCallCount(): number {
+  return geminiCallCount;
+}
+export function resetGeminiCallCount(): void {
+  geminiCallCount = 0;
+}
 
 const SummaryZ = z.object({
   // GUARD-01 Layer 2 (Phase 8): empty string is the generic-boilerplate
@@ -94,6 +123,12 @@ export async function summarize(
       );
     }
     const ai = new GoogleGenAI({ apiKey });
+    // Phase 13 D-18: count BEFORE the await so a network throw (429, 5xx,
+    // timeout) is still counted — the API call left this process, consumed
+    // RPD/RPM budget, and bounced. p-retry's onFailedAttempt then re-enters
+    // `call` and increments again for the retry. This produces an accurate
+    // RPD denominator even when the API is failing.
+    geminiCallCount++;
     const res = await ai.models.generateContent({
       model,
       contents: buildPrompt(item, body, promptConfig),
