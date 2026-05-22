@@ -214,4 +214,73 @@ describe('writeStepSummary — $GITHUB_STEP_SUMMARY writer', () => {
       expect(content.endsWith(expectedBlock)).toBe(true);
     });
   });
+
+  describe('Phase 13 D-21/D-22 [METRIC] geminiCallCount prepend', () => {
+    const firms = [makeFirm('cooley', 'Cooley')];
+
+    it('D-21: prepends `[METRIC] geminiCallCount=N` as the first line when N > 0', async () => {
+      const path = join(tempDir, 'summary-metric-12.md');
+      vi.stubEnv('GITHUB_STEP_SUMMARY', path);
+      const r = new Recorder();
+      r.firm('cooley').fetched(5).newCount(2).summarized(2).durationMs(900);
+      await writeStepSummary(r, firms, [], 12);
+      const content = await readFile(path, 'utf8');
+      // SPEC AC-7 byte-for-byte: `[METRIC] geminiCallCount=N\n\n` then table.
+      expect(content.startsWith('[METRIC] geminiCallCount=12\n\n')).toBe(true);
+      // Sanity: table follows the marker.
+      expect(content).toContain('| Firm | Fetched |');
+    });
+
+    it('D-22: emits `[METRIC] geminiCallCount=0` when 4th arg omitted (backwards-compat default)', async () => {
+      const path = join(tempDir, 'summary-metric-default.md');
+      vi.stubEnv('GITHUB_STEP_SUMMARY', path);
+      const r = new Recorder();
+      r.firm('cooley').fetched(0);
+      // No 4th arg — existing run.ts call site shape.
+      await writeStepSummary(r, firms);
+      const content = await readFile(path, 'utf8');
+      // Marker is emitted even when count is 0 so weekly runs (which never
+      // call Gemini) still produce a grep-able marker per D-22.
+      expect(content.startsWith('[METRIC] geminiCallCount=0\n\n')).toBe(true);
+    });
+
+    it('D-21: marker ordering — [METRIC] line, table, then ## ⚠ Data Quality Warnings', async () => {
+      const path = join(tempDir, 'summary-metric-ordered.md');
+      vi.stubEnv('GITHUB_STEP_SUMMARY', path);
+      const r = new Recorder();
+      r.firm('cooley').fetched(3).newCount(3).summarized(3).durationMs(500);
+      const markers: DataQualityMarker[] = [
+        { kind: 'cluster', firmId: 'bkl', firmName: '태평양', count: 3, signature: 'sig' },
+      ];
+      await writeStepSummary(r, firms, markers, 7);
+      const content = await readFile(path, 'utf8');
+      const metricIdx = content.indexOf('[METRIC] geminiCallCount=7');
+      const tableIdx = content.indexOf('| Firm | Fetched |');
+      const warningsIdx = content.indexOf('## ⚠ Data Quality Warnings');
+      expect(metricIdx).toBe(0);
+      expect(tableIdx).toBeGreaterThan(metricIdx);
+      expect(warningsIdx).toBeGreaterThan(tableIdx);
+    });
+
+    it('D-21: SPEC AC-7 grep marker matches exact regex `^\\[METRIC\\] geminiCallCount=[0-9]+$`', async () => {
+      const path = join(tempDir, 'summary-metric-grep.md');
+      vi.stubEnv('GITHUB_STEP_SUMMARY', path);
+      const r = new Recorder();
+      r.firm('cooley').fetched(1);
+      await writeStepSummary(r, firms, [], 42);
+      const content = await readFile(path, 'utf8');
+      // First line must match SPEC AC-7 grep marker byte-for-byte.
+      const firstLine = content.split('\n')[0];
+      expect(firstLine).toMatch(/^\[METRIC\] geminiCallCount=[0-9]+$/);
+      expect(firstLine).toBe('[METRIC] geminiCallCount=42');
+    });
+
+    it('no-op when GITHUB_STEP_SUMMARY env unset (even with non-zero count)', async () => {
+      vi.stubEnv('GITHUB_STEP_SUMMARY', '');
+      const r = new Recorder();
+      r.firm('cooley').fetched(1);
+      // Should resolve without throwing and without writing anything.
+      await expect(writeStepSummary(r, firms, [], 5)).resolves.toBeUndefined();
+    });
+  });
 });
