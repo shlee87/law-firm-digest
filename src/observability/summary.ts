@@ -24,6 +24,11 @@
 //      proactive truncation here is necessary. If Phase 5 grows the table,
 //      revisit.
 //
+// Phase 13 D-21 / D-22: payload first line is `[METRIC] geminiCallCount=N`
+// (followed by blank line, then the markdown table). Marker shape matches
+// SPEC AC-7 grep target exactly. Emitted even when N=0 so weekly runs (which
+// never call Gemini) still produce a grep-able marker.
+//
 // Used by src/pipeline/run.ts (Plan 05) in a finally block so partial
 // runs still emit what they have.
 
@@ -61,17 +66,24 @@ export async function writeStepSummary(
   recorder: Recorder,
   firms: FirmConfig[],
   markers: DataQualityMarker[] = [],
+  geminiCallCount: number = 0,
 ): Promise<void> {
   // D-12: no-op when the env var is unset (local runs, check:firm runs).
   const path = process.env.GITHUB_STEP_SUMMARY;
   if (!path) return;
+
+  // Phase 13 D-21: [METRIC] line is the FIRST line so GHA log grep sees it
+  // at top of the per-job summary view. SPEC AC-7 marker shape is exactly
+  // `[METRIC] geminiCallCount=N` (no spaces around `=`, no padding).
+  // D-22: emitted unconditionally — weekly runs read 0, daily runs read N.
+  const metricLine = `[METRIC] geminiCallCount=${geminiCallCount}\n\n`;
 
   // Build payload: table always; markers section only when non-empty
   // (D-15: clean-run invisible posture). SINGLE appendFile call wraps
   // both writes so a half-success cannot leave the file inconsistent
   // (Pitfall 5).
   const table = recorder.toMarkdownTable(firms);
-  let payload = table + '\n';
+  let payload = metricLine + table + '\n';
   // Phase 10 D-07 — delegate to shared helper for byte-for-byte parity
   // with main.ts DRY_RUN emission path. Pitfall 3 / Pitfall 5 preserved
   // by concatenating the helper's output into the existing single `payload`
