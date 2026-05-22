@@ -1,0 +1,156 @@
+# .github/workflows/weekly.yml
+#
+# LegalNewsletter — Phase 13 weekly digest dispatch (Mon).
+#
+# Runs src/main.ts --mode=weekly at 12:00 UTC (21:00 KST) every Monday.
+# Reads state/pending.json (accumulated by daily.yml Tue-Sun runs), composes
+# the digest (or heartbeat if empty per D-15), sends via Gmail SMTP, archives
+# the HTML, then truncates pending.json + writes seen.json lastUpdated.
+#
+# Concurrency group SHARED with daily.yml (same digest-pipeline lock) so a
+# Sunday daily run that overshoots into Monday cannot collide with the
+# weekly run. cancel-in-progress: false serializes the two; whichever started
+# first runs to completion.
+#
+# Atomic state commit groups state/pending.json + state/seen.json +
+# archive/**/*.html into one commit (D-23). [skip ci] in message prevents
+# workflow loops.
+#
+# Defense-in-depth retained: shin-kim Thawte intermediate cert installed
+# (even though weekly never fetches — leaving the install step idempotent
+# is cheaper than maintaining two divergent install paths), Open Issue on
+# failure step with the same bilingual remediation table.
+
+name: Weekly Digest
+
+on:
+  # Phase 13 cadence — config/settings.yaml decoupling tracked separately
+  # (SPEC §Out-of-scope §1 / §2).
+  schedule:
+    - cron: '0 12 * * 1'  # 월요일 21:00 KST = 12:00 UTC
+  workflow_dispatch: {} # manual trigger for smoke tests / gap closure
+
+concurrency: # OPS-02 — serialize overlapping runs (shared with daily.yml)
+  group: digest-pipeline
+  cancel-in-progress: false
+
+permissions:
+  contents: write # required by stefanzweifel/git-auto-commit-action
+  issues: write # required for failure-notification step (gh issue create)
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - name: Cache Playwright browser binary
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
+
+      - name: Install Playwright chromium shell (on cache miss)
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        # weekly does not fetch but keeps the install idempotent: a future
+        # plan that adds rendering to the weekly path (e.g., final-pass body
+        # re-fetch) inherits the install for free, and the cache step costs
+        # ~0s on warm caches.
+        run: pnpm exec playwright install chromium --only-shell --with-deps
+
+      - name: Write Thawte TLS RSA CA G1 intermediate (defense-in-depth)
+        # weekly does not fetch shin-kim's site; this step is preserved for
+        # parity with daily.yml so the two workflows can be diffed safely.
+        # Remove only when daily.yml's shin-kim Thawte block is also removed.
+        run: |
+          cat > /tmp/thawte-tls-rsa-ca-g1.pem << 'EOF'
+          -----BEGIN CERTIFICATE-----
+          MIIEizCCA3OgAwIBAgIQCQ7oxd5b+mLSri/3CXxIVzANBgkqhkiG9w0BAQsFADBh
+          MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3
+          d3cuZGlnaWNlcnQuY29tMSAwHgYDVQQDExdEaWdpQ2VydCBHbG9iYWwgUm9vdCBH
+          MjAeFw0xNzExMDIxMjI0MjVaFw0yNzExMDIxMjI0MjVaMF4xCzAJBgNVBAYTAlVT
+          MRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5j
+          b20xHTAbBgNVBAMTFFRoYXd0ZSBUTFMgUlNBIENBIEcxMIIBIjANBgkqhkiG9w0B
+          AQEFAAOCAQ8AMIIBCgKCAQEAxjngmPhVetC0b/ozbYJdzOBUA1sMog47030cAP+P
+          23ANUN8grXECL8NhDEF4F1R9tL0wY0mczHaR0a7lYanlxtwWo1s2uGnnyDs6mOCs
+          66ew2w3YETr6Tb14xgjpu1gGFtAeewaikO9Fud8hxGJTSwn8xeNkfKVWpD2L4vFN
+          36FNgxeilK6aE4ykgGAzNlokTp6hNOLAYpDySdLAPKzuJSQ7JCEZ6O+SDKywIdXL
+          oMTnpxuBKGSG88NWTo3CHCOGmQECia2yqdPDjgLqnEiYNjwQL8uMqj8rOvlMgviB
+          cHA7xty+7/uYLN6ZS7Vq1/F/lVhVOf5ej6jZdmB85szFbQIDAQABo4IBQDCCATww
+          HQYDVR0OBBYEFKWM/jLM6w8s1BnGCLgAJIhdw8W3MB8GA1UdIwQYMBaAFE4iVCAY
+          lebjbuYP+vq5Eu0GF485MA4GA1UdDwEB/wQEAwIBhjAdBgNVHSUEFjAUBggrBgEF
+          BQcDAQYIKwYBBQUHAwIwEgYDVR0TAQH/BAgwBgEB/wIBADA0BggrBgEFBQcBAQQo
+          MCYwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBCBgNVHR8E
+          OzA5MDegNaAzhjFodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vRGlnaUNlcnRHbG9i
+          YWxSb290RzIuY3JsMD0GA1UdIAQ2MDQwMgYEVR0gADAqMCgGCCsGAQUFBwIBFhxo
+          dHRwczovL3d3dy5kaWdpY2VydC5jb20vQ1BTMA0GCSqGSIb3DQEBCwUAA4IBAQC6
+          km0KA4sTb2VYpEBm/uL2HL/pZX9B7L/hbJ4NcoBe7V56oCnt7aeIo8sMjCRWTCWZ
+          D1dY0+2KZOC1dKj8d1VXXAtnjytDDuPPf6/iow0mYQTO/GAg/MLyL6CDm3FzDB8V
+          tsH/aeMgP6pgD1XQqz+haDnfnJTKBuxhcpnx3Adbleue/QnPf1hHYa8L+Rv8Pi5U
+          h4V9FwHOfphdMXOxi14OqmsiTbc5cOs9/uukH+YVsuFdWTna6IVw1qh+tEtyH16R
+          vmi7pkqyZYULOPMIE7avrljVVBZuikwARtY8tCVV6Pp9l3VeagBqb2ffgqNJt3C0
+          TYNYQI+BXG1R1cABlold
+          -----END CERTIFICATE-----
+          EOF
+
+      - name: Run weekly digest pipeline
+        id: run_pipeline
+        run: pnpm tsx src/main.ts --mode=weekly
+        env:
+          # Gemini API secret deliberately omitted — weekly never calls the
+          # summarizer (D-22 [METRIC] geminiCallCount=0 always). If a future
+          # plan wires re-summarization or hint generation into weekly, re-add
+          # the env entry alongside daily.yml's pattern.
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+          NODE_EXTRA_CA_CERTS: /tmp/thawte-tls-rsa-ca-g1.pem
+
+      - uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          # Phase 13 D-23: weekly atomic commit covers pending truncate + seen
+          # lastUpdated + new archive HTML. Same atomicity rationale as daily.
+          commit_message: 'chore(state): weekly — sent digest, truncate pending [skip ci]'
+          file_pattern: 'state/pending.json state/seen.json archive/**/*.html'
+
+      - name: Open issue on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "Weekly digest failed — run ${{ github.run_id }}" \
+            --body "$(cat <<'EOF'
+          **Workflow run:** https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          **Commit:** ${{ github.sha }}
+          **Triggered by:** ${{ github.event_name }}
+          **Started:** ${{ github.event.repository.updated_at }}
+
+          ## Likely causes (check in order)
+
+          | Symptom in logs | Fix |
+          |-----------------|-----|
+          | \`ZodError ... pending.json\` or \`Unsupported pending version\` | state/pending.json 형식 오류 — daily 가 만든 schema 와 weekly 의 zod schema 불일치 가능성. 코드 변경 없이 \`state/pending.json\` 백업 후 \`[]\`로 초기화하여 다음 weekly 가 empty heartbeat 발송하도록 복구 |
+          | \`535 5.7.8\` or \`GMAIL_AUTH_FAILURE\` | App Password 만료/폐기 — https://myaccount.google.com/apppasswords 에서 재발급 후 \`GMAIL_APP_PASSWORD\` secret 업데이트 |
+          | \`ZodError ... recipient\` | \`RECIPIENT_EMAIL\` 형식 오류 — Settings → Secrets 에서 수정 |
+          | \`ZodError ... firms\` | \`config/firms.yaml\` 형식 오류 |
+          | \`ENOENT.*pending.json\` | first-run 또는 pending 파일 부재 — 정상 동작 (heartbeat 발송) 아닌 다른 에러면 daily 가 한 번도 안 돌았다는 신호 |
+
+          ## Next steps
+
+          1. 위 run 링크에서 전체 로그 확인
+          2. 원인 파악 후 수정
+          3. Actions 탭 → "Weekly Digest" → **Run workflow** 로 수동 재실행
+          4. 재실행 성공 확인 후 이 issue close
+
+          ---
+          _Auto-created by .github/workflows/weekly.yml failure step._
+          EOF
+          )"
