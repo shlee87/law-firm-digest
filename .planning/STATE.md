@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
 status: executing
-stopped_at: Completed 13-1-gemini-rpd plan 03 (runDaily + runTypes extraction)
-last_updated: "2026-05-22T17:43:21.824Z"
+stopped_at: Completed 13-1-gemini-rpd plan 05 (main.ts mode dispatch + run.ts deletion)
+last_updated: "2026-05-22T17:56:11.106Z"
 last_activity: 2026-05-22
 progress:
   total_phases: 7
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-19)
 ## Current Position
 
 Phase: 13 (1-gemini-rpd) — EXECUTING
-Plan: 5 of 7
+Plan: 6 of 7
 Status: Ready to execute
 Last activity: 2026-05-22
 
@@ -133,6 +133,7 @@ Last activity: 2026-05-22
 | Phase 13-1-gemini-rpd P02 | ~6 min | 3 tasks | 4 files |
 | Phase 13-1-gemini-rpd P03 | ~3min | 2 tasks | 2 files |
 | Phase 13-1-gemini-rpd P04 PP04 | ~4 min | 2 tasks tasks | 3 files files |
+| Phase 13-1-gemini-rpd P05 | ~7min | 3 tasks tasks | 8 files files |
 
 ## Accumulated Context
 
@@ -294,6 +295,12 @@ Recent decisions affecting current work:
 - [Phase ?]: [Phase 13-1-gemini-rpd]: 13-04: heartbeat branch passes resultsForReport=[] to writeState — Phase 1 writer results-loop body skipped while lastUpdated still advances (W1 sub-acceptance satisfied)
 - [Phase ?]: [Phase 13-1-gemini-rpd]: 13-04: restoreFirmsFromPending warn+skip on missing firmId — Phase 2 D-P2-03 failure isolation mirror; runWeekly continues processing remaining items if a firm vanished from firms.yaml mid-week
 - [Phase ?]: [Phase 13-1-gemini-rpd]: 13-04: D-22 [METRIC] uniform emission verified — resetGeminiCallCount() at try start + getGeminiCallCount() in finally → writeStepSummary 4th arg; weekly always reads 0 but emission preserves SPEC AC-7 grep marker uniformity
+- [Phase ?]: 13-05: parseMode hard-fails exit 2 + Usage stderr on missing/invalid --mode (D-04 aggressive failure detection) — silent fallback deliberately rejected so manual workflow_dispatch that forgot the flag fails loudly
+- [Phase ?]: 13-05 Rule 3: src/cli/auditFirms.ts Reporter import retargeted from pipeline/run.js to pipeline/runTypes.js — was not in plan files_modified but would have broken pnpm audit:firms at run.ts deletion
+- [Phase ?]: 13-05 Rule 1: test/pipeline/guard01Layer1.test.ts grep-level Layer-1 assertions retargeted from run.ts to runDaily.ts — same contract verified at new location, all 4 L1 assertions pass
+- [Phase ?]: 13-05: test/pipeline/run.test.ts renamed to run.test.disabled.ts + @ts-nocheck header (three-layer skip: rename for vitest, header for tsc) + deferred-items.md tracker pointing to Plan 13-07 — preserves ~30 runPipeline integration tests as the rewrite checklist
+- [Phase ?]: 13-05: emitDryRunStepSummary signature widened to (report, geminiCallCount: number = 0) — default preserves 6 pre-existing Phase 10 tests verbatim; new tests cover D-21/D-22 [METRIC] prepend ordering + N=0 emission
+- [Phase ?]: 13-05: dry-run:weekly added (Claude's Discretion symmetry with dev:weekly per D-05) — explicit pair keeps script discoverability for non-developer operators editing package.json
 
 ### Roadmap Evolution
 
@@ -318,8 +325,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-22T17:42:55.996Z
-Stopped at: Completed 13-1-gemini-rpd plan 03 (runDaily + runTypes extraction)
+Last session: 2026-05-22T17:56:11.101Z
+Stopped at: Completed 13-1-gemini-rpd plan 05 (main.ts mode dispatch + run.ts deletion)
 Resume file: None
 
 **Next action:** `/gsd:plan-phase 11` — plan Phase 11: Cron Resumption Gate
