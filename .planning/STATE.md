@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
 status: executing
-stopped_at: Completed 13-1-gemini-rpd plan 01 (pending storage module)
-last_updated: "2026-05-22T17:14:54.657Z"
+stopped_at: Completed 13-1-gemini-rpd plan 02 (geminiCallCount observability)
+last_updated: "2026-05-22T17:23:15.143Z"
 last_activity: 2026-05-22
 progress:
   total_phases: 7
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-19)
 ## Current Position
 
 Phase: 13 (1-gemini-rpd) — EXECUTING
-Plan: 2 of 7
+Plan: 3 of 7
 Status: Ready to execute
 Last activity: 2026-05-22
 
@@ -130,6 +130,7 @@ Last activity: 2026-05-22
 | Phase 10-data-quality-observability P03 | ~1h | 2 tasks | 3 files |
 | Phase 11 P01 | 5min | 2 tasks | 6 files |
 | Phase 13-1-gemini-rpd P01 | 4min | 2 tasks | 2 files |
+| Phase 13-1-gemini-rpd P02 | ~6 min | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -279,6 +280,10 @@ Recent decisions affecting current work:
 - [Phase ?]: 13-01: PendingItem.url uses z.string().url() (rejects bare ids + javascript: URLs at read time); defaultPending() is a factory so windowStart reflects call-time; writePendingInternal kept private to make D-09 windowStart immutability enforceable at the module-export boundary
 - [Phase ?]: 13-01: Plan acceptance criteria 'grep -c isDryRun = 1' is plan-authoring imprecision — import+call structurally is 2; spirit (single DRY_RUN call site) preserved. Same self-invalidating-grep mitigation as Phase 1 plan 09 / plan 11 / Phase 7-02 decisions log
 - [Phase ?]: 13-01: DRY_RUN sanctioned call sites are now 5 (gmail.ts, state/writer.ts, archive/writer.ts, main.ts emitDryRunStepSummary, state/pending.ts writePendingInternal). main.ts header Pattern 2 containment annotation update deferred to plan 13-05
+- [Phase 13-1-gemini-rpd]: 13-02: geminiCallCount as module-level let in gemini.ts (D-20 sanctioned) over Recorder injection — single sanctioned writer + 2 readers + reset in beforeEach makes module-level state safe; threading recorder would touch 4+ files for one counter
+- [Phase 13-1-gemini-rpd]: 13-02: geminiCallCount++ placed BEFORE the await on ai.models.generateContent (D-18, threat T-13-02-01) — network throws still consumed RPD quota; post-await counting would under-report and break SPEC AC-7 daily-avg≤15 ceiling proximity
+- [Phase 13-1-gemini-rpd]: 13-02: writeStepSummary 4th param geminiCallCount: number = 0 default preserves backwards-compat with sole run.ts:425 call site; plans 13-03/04 will pass real getGeminiCallCount() when extracting runDaily/runWeekly
+- [Phase 13-1-gemini-rpd]: 13-02: [METRIC] marker emitted unconditionally (D-22) including N=0 case — weekly runs still produce a grep-able marker so SPEC AC-7 grep gate matches in EVERY workflow log, not just runs that called Gemini
 
 ### Roadmap Evolution
 
@@ -303,8 +308,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-22T17:14:54.652Z
-Stopped at: Completed 13-1-gemini-rpd plan 01 (pending storage module)
+Last session: 2026-05-22T17:23:15.138Z
+Stopped at: Completed 13-1-gemini-rpd plan 02 (geminiCallCount observability)
 Resume file: None
 
 **Next action:** `/gsd:plan-phase 11` — plan Phase 11: Cron Resumption Gate
