@@ -276,6 +276,10 @@ Recent decisions affecting current work:
 - restoreFetchHost operates only on the fetch URL — canonical item.url (www-stripped by canonicalizeUrl) is never modified, preserving dedup semantics
 - loader.test.ts DISABLED_FIRM_ID switched from bkl to shin-kim after bkl re-enable (Phase 11-01 Rule 1 fix)
 
+### Roadmap Evolution
+
+- Phase 13 added: 매일 스크래핑 + 주 1회 이메일 발송으로 분리 — Gemini 일일 무료 할당량(250 RPD) 부족 문제 해결. 매일 cron으로 fetch+summarize 실행하여 신규 항목만 그날 요약, state/seen.json에 summary_ko + digested 플래그로 pending 저장. 월요일 21:00 KST에만 이메일 발송 step이 pending 항목을 모아 다이제스트로 보내고 digested=true로 플립. 파이프라인을 fetch→summarize→store pending / send pending→flip flag 단계로 분리.
+
 ### Pending Todos
 
 None.

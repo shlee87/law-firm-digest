@@ -270,6 +270,16 @@ milestone is required before the cron can resume**. Full finding list and
 proposed phase breakdown:
 `.planning/backlog/v1.0-data-quality-audit.md`.
 
+### Phase 13: 매일 스크래핑 + 주 1회 이메일 발송 분리 (Gemini RPD 분산)
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 12
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 13 to break down)
+
 ---
 *Roadmap created: 2026-04-16*
 *v1.1 phases appended: 2026-04-19*
