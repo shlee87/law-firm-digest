@@ -24,7 +24,7 @@ on:
   # 변경 방법: 아래 cron 값을 수정한 뒤 config/settings.yaml도 동일하게 맞춰주세요.
   # 형식: '분 시(UTC) 일 월 요일' (KST = UTC+9)
   schedule:
-    - cron: '0 12 * * 2-7,0'  # Phase 13: 화~일 매일 21:00 KST (월요일은 weekly.yml 이 담당)
+    - cron: '0 12 * * 0,2-6'  # Phase 13: 화~일 매일 21:00 KST (월요일은 weekly.yml 이 담당)
   workflow_dispatch: {} # manual trigger for smoke tests / gap closure
 
 concurrency: # OPS-02 — serialize overlapping runs (Pitfall #5)
