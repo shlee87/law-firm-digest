@@ -1,9 +1,12 @@
 // `pnpm check:firm <id> [--save-html <path>]` CLI — Phase 3 OPS-07.
 //
-// Thin argv wrapper over runPipeline(). Does NOT send email, does NOT
-// write state, does NOT call Gemini (D-08). saveHtmlPath is optional
-// (D-07). Firm id matching is against the enabled-firms list returned
-// by loadFirms (D-05 R-01 — disabled firms are "not found").
+// Thin argv wrapper over runDaily() (Phase 13 D-03 — was runPipeline()
+// pre-Phase-13). Does NOT send email (runDaily does not import sendMail),
+// does NOT write state, does NOT call Gemini (D-08). saveHtmlPath is
+// optional (D-07) — accepted on the option surface but currently unused
+// by runDaily (composeDigest is not imported); a future render-preview
+// helper could wire it. Firm id matching is against the enabled-firms
+// list returned by loadFirms (D-05 R-01 — disabled firms are "not found").
 //
 // Exit codes:
 //   0: pipeline completed (new items found or silent day).
@@ -14,8 +17,8 @@
 // output format is deliberately grep-friendly — one idea per line,
 // stage name : detail. Feels like kubectl get / pg_dump.
 
-import { runPipeline } from '../pipeline/run.js';
-import type { Reporter } from '../pipeline/run.js';
+import { runDaily } from '../pipeline/runDaily.js';
+import type { Reporter } from '../pipeline/runTypes.js';
 import { loadFirms } from '../config/loader.js';
 
 interface ParsedArgs {
@@ -80,9 +83,13 @@ async function main(): Promise<number> {
 
     console.log(`[check:firm] id=${firmId}`);
 
-    const report = await runPipeline({
+    // Phase 13 D-03: check:firm is conceptually a dry-run of the daily path.
+    // skipEmail removed (runDaily does not import sendMail — option meaningless).
+    // saveHtmlPath kept on the option surface even though runDaily does not
+    // compose HTML; a future render-preview helper in runDaily could wire it.
+    // Today: passed through but unused — report.saveHtmlWritten stays undefined.
+    const report = await runDaily({
       firmFilter: firmId,
-      skipEmail: true,
       skipStateWrite: true,
       skipGemini: true,
       saveHtmlPath,
