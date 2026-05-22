@@ -4,8 +4,10 @@
   "type": "module",
   "packageManager": "pnpm@9.15.0",
   "scripts": {
-    "dev": "tsx src/main.ts",
-    "dry-run": "DRY_RUN=1 tsx src/main.ts",
+    "dev": "tsx src/main.ts --mode=daily",
+    "dev:weekly": "tsx src/main.ts --mode=weekly",
+    "dry-run": "DRY_RUN=1 tsx src/main.ts --mode=daily",
+    "dry-run:weekly": "DRY_RUN=1 tsx src/main.ts --mode=weekly",
     "check:firm": "tsx src/cli/checkFirm.ts",
     "audit:firms": "tsx src/cli/auditFirms.ts",
     "test": "vitest run",

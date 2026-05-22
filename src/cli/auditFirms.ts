@@ -19,7 +19,7 @@
 // Output: human-readable one-liners + Reporter sections from runAudit.
 
 import { runAudit } from '../audit/firmAudit.js';
-import type { Reporter } from '../pipeline/run.js';
+import type { Reporter } from '../pipeline/runTypes.js';
 
 interface ParsedArgs {
   includeDisabled: boolean;

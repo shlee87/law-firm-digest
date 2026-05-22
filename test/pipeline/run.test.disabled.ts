@@ -1,3 +1,14 @@
+// @ts-nocheck
+//
+// DISABLED — Phase 13 Plan 13-05 deleted src/pipeline/run.ts (the test target).
+// File renamed from run.test.ts → run.test.disabled.ts so vitest does not pick
+// it up (`*.test.ts` pattern). Re-written under Phase 13 Plan 13-07 (e2e tests
+// for runDaily + runWeekly).
+//
+// See: .planning/phases/13-1-gemini-rpd/deferred-items.md
+//
+// Original test header below preserved for context:
+//
 // Integration tests for src/pipeline/run.ts — the Phase 3 composition root.
 //
 // All pipeline stages are module-mocked so runPipeline's orchestration logic
