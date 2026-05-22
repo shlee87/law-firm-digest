@@ -1,27 +1,21 @@
 # .github/workflows/daily.yml
 #
-# LegalNewsletter — scheduled daily digest pipeline.
+# LegalNewsletter — Phase 13 daily scrape pipeline (Tue-Sun).
 #
-# Runs src/main.ts once per day at 09:00 UTC (18:00 KST, OPS-01). Executes the
-# full Phase 1 fetch → dedup → summarize → mail → state pipeline, then commits
-# the updated state/seen.json back to the repository via git-auto-commit-action.
+# Runs src/main.ts --mode=daily at 12:00 UTC (21:00 KST) every Tue-Sun (cron
+# `0 12 * * 2-7,0` — Mon excluded because weekly.yml owns Mon at the same
+# slot). Executes fetch → enrich → filter → dedup → summarize → appendPending
+# → writeState; does NOT send email or archive. Weekly.yml on Mon reads the
+# accumulated pending.json and dispatches the digest.
 #
-# Pitfall guards baked in (see .planning/phases/01-foundation-vertical-slice/
-# 01-RESEARCH.md §Pitfalls and 01-12-PLAN.md <threat_model>):
-#   - [skip ci] in commit message prevents an infinite workflow loop
-#     (Pitfall "What NOT to Use" — state commit triggering another run).
-#   - concurrency group with cancel-in-progress: false serializes overlapping
-#     runs so a manual workflow_dispatch can't race the scheduled run and
-#     corrupt state/seen.json (Pitfall #5, OPS-02).
-#   - permissions: contents: write is the minimum GITHUB_TOKEN scope needed
-#     for git-auto-commit-action to push state back (COMP-04 private-repo OK).
-#   - No sub-module recursion on checkout — .gsd-patches is local-dev
-#     tooling and must NOT be initialized in CI (default behavior).
-#   - setup-node@v6 cache: 'pnpm' relies on the packageManager field in
-#     package.json (pinned to pnpm@9.15.0 in plan 01, verified by W3
-#     pre-flight in plan 12 Task 1).
-#   - workflow_dispatch trigger enables manual smoke tests and gap closure
-#     from the GitHub UI without waiting for the next scheduled run.
+# State commit groups state/pending.json + state/seen.json into ONE git
+# commit (D-23 atomic invariant) so a runner death between summarize and
+# write leaves both files un-touched (idempotent recovery on next daily run).
+#
+# All pre-existing pitfall guards preserved: [skip ci] in commit message,
+# concurrency group "digest-pipeline" SHARED with weekly.yml (seen+pending
+# race prevention), permissions: contents: write, workflow_dispatch trigger
+# for manual smoke tests.
 
 name: Daily Digest
 
@@ -30,7 +24,7 @@ on:
   # 변경 방법: 아래 cron 값을 수정한 뒤 config/settings.yaml도 동일하게 맞춰주세요.
   # 형식: '분 시(UTC) 일 월 요일' (KST = UTC+9)
   schedule:
-    - cron: '0 12 * * 1'  # 매일 09:00 KST (config/settings.yaml schedule.cron 참고)
+    - cron: '0 12 * * 2-7,0'  # Phase 13: 화~일 매일 21:00 KST (월요일은 weekly.yml 이 담당)
   workflow_dispatch: {} # manual trigger for smoke tests / gap closure
 
 concurrency: # OPS-02 — serialize overlapping runs (Pitfall #5)
@@ -117,7 +111,7 @@ jobs:
           EOF
       - name: Run daily digest pipeline
         id: run_pipeline
-        run: pnpm tsx src/main.ts
+        run: pnpm tsx src/main.ts --mode=daily
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
@@ -126,10 +120,11 @@ jobs:
           NODE_EXTRA_CA_CERTS: /tmp/thawte-tls-rsa-ca-g1.pem  # shin-kim TLS chain fix (Phase 11-02)
       - uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          commit_message: 'chore(state): update seen items and archive [skip ci]'
-          # Phase 3 OPS-09 addition: archive/**/*.html rides the same commit as
-          # state/seen.json. Space-separated multi-pattern accepted by action v7.
-          file_pattern: 'state/seen.json'
+          # Phase 13 D-23: atomic commit groups pending.json + seen.json so
+          # a mid-run crash leaves both files at the prior-run snapshot —
+          # idempotent recovery on the next daily run (same input → same output).
+          commit_message: 'chore(state): daily — update seen + pending [skip ci]'
+          file_pattern: 'state/pending.json state/seen.json'
       - name: Open issue on failure
         if: failure()
         env:
