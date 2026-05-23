@@ -28,13 +28,14 @@ See: .planning/PROJECT.md (updated 2026-04-19)
 Phase: Milestone v1.1 complete
 Plan: —
 Status: Awaiting next milestone
-Last activity: 2026-05-23 — Milestone v1.1 completed and archived
+Last activity: 2026-05-23 — Completed quick task 260523-oi6: curated topics footer (post v1.1 close)
 
 ### Quick Tasks Completed
 
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 260523-mtz | Fix DQOBS-01 weekly observability regression — extend isEmptyFirm predicate | 2026-05-23 | 04a572e | [260523-mtz-fix-dqobs-01-weekly-observability-regres](./quick/260523-mtz-fix-dqobs-01-weekly-observability-regres/) |
+| 260523-oi6 | Show curated topic areas in digest + heartbeat email footer | 2026-05-23 | 1accbf0 | [260523-oi6-show-curated-topic-areas-in-digest-heart](./quick/260523-oi6-show-curated-topic-areas-in-digest-heart/) |
 
 **v1.0 regressions status (all originally discovered 2026-04-19 Phase 02 UAT):**
 
