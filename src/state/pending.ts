@@ -57,7 +57,7 @@ const PendingItemSchema = z
     summary_ko: z.string().nullable(),
     summaryConfidence: z.enum(['high', 'medium', 'low']),
     summaryModel: z.string().min(1),
-    summaryError: z.string().optional(),
+    summaryError: z.string().min(1).optional(),
     summarizedAt: z.string(), // ISO8601 (daily run sets this)
   })
   .strict();
