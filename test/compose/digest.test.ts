@@ -449,6 +449,65 @@ describe('composeDigest', () => {
     );
     expect(payload.html).not.toContain('⚠ 데이터 품질 경고');
   });
+
+  // --- quick task 260523-oi6: curated topics footer ---
+
+  describe('composeDigest curated topics footer (quick 260523-oi6)', () => {
+    const TOPICS_FIXTURE = {
+      vc_securities: ['VC'],
+      fair_trade: ['공정거래'],
+      privacy: ['개인정보'],
+      labor: ['노동'],
+      ip: ['특허'],
+    };
+
+    it('Test A: renders the locked Korean prose with all 5 mapped labels when topics is non-empty', () => {
+      const payload = composeDigest(
+        fixture(),
+        'u@e.com',
+        'u@e.com',
+        undefined,
+        fixedDate,
+        [],
+        TOPICS_FIXTURE,
+      );
+      expect(payload.html).toContain(
+        '현재 이 다이제스트는 다음 분야를 큐레이션합니다: VC·증권, 공정거래, 개인정보, 노동법, 지식재산권.',
+      );
+    });
+
+    it('Test B: curated-topics footer appears BEFORE the legal disclaimer/closing block', () => {
+      const payload = composeDigest(
+        fixture(),
+        'u@e.com',
+        'u@e.com',
+        undefined,
+        fixedDate,
+        [],
+        TOPICS_FIXTURE,
+      );
+      const topicsIdx = payload.html.indexOf(
+        '현재 이 다이제스트는 다음 분야를 큐레이션합니다:',
+      );
+      const disclaimerIdx = payload.html.indexOf('원문의 저작권은 각 로펌에 있으며');
+      expect(topicsIdx).toBeGreaterThan(0);
+      expect(topicsIdx).toBeLessThan(disclaimerIdx);
+    });
+
+    it('Test C: topics arg omitted → curated-topics prose absent (backwards-compat)', () => {
+      const payload = composeDigest(
+        fixture(),
+        'u@e.com',
+        'u@e.com',
+        undefined,
+        fixedDate,
+      );
+      expect(payload.html).not.toContain(
+        '현재 이 다이제스트는 다음 분야를 큐레이션합니다:',
+      );
+      expect(payload.html).not.toContain('큐레이션 분야');
+    });
+  });
 });
 
 const cliffordChance: FirmConfig = {

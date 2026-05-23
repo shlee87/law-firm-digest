@@ -38,6 +38,7 @@ import {
   loadFirms,
   loadRecipient,
   loadSettings,
+  loadTopics,
 } from '../config/loader.js';
 import { readState } from '../state/reader.js';
 import { writeState } from '../state/writer.js';
@@ -145,6 +146,10 @@ export async function runWeekly(options: RunOptions = {}): Promise<RunReport> {
   await loadSettings();
   const allFirms = await loadFirms();
   const recipient = await loadRecipient();
+  // quick task 260523-oi6: curated-topics footer reads from loaded TopicConfig
+  // at compose time (not a hardcoded list) so editing config/firms.yaml
+  // `topics:` changes the email next run.
+  const topics = await loadTopics();
   const fromAddr =
     process.env.GMAIL_FROM_ADDRESS ??
     (Array.isArray(recipient) ? recipient[0] : recipient);
@@ -171,7 +176,7 @@ export async function runWeekly(options: RunOptions = {}): Promise<RunReport> {
     if (pending.items.length === 0) {
       // D-15/16/17 heartbeat path (SPEC Req 5). Empty-week => keep weekly
       // rhythm + signal liveness. Failed-firm/marker absence is intentional.
-      payload = composeHeartbeat(recipient, fromAddr, now);
+      payload = composeHeartbeat(recipient, fromAddr, now, topics);
       reporter.section('compose', 'heartbeat — no pending items this week');
     } else {
       // D-14: restore FirmResult[] for the existing detectors + composeDigest.
@@ -215,6 +220,7 @@ export async function runWeekly(options: RunOptions = {}): Promise<RunReport> {
         warnings,
         now,
         markers,
+        topics,
       );
       reporter.section(
         'compose',

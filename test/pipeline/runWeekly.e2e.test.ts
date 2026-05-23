@@ -30,6 +30,7 @@ const mocks = vi.hoisted(() => ({
   loadFirmsMock: vi.fn(),
   loadRecipientMock: vi.fn(),
   loadSettingsMock: vi.fn(),
+  loadTopicsMock: vi.fn(),
   resetGeminiCallCountMock: vi.fn(),
   getGeminiCallCountMock: vi.fn(() => 0),
 }));
@@ -50,6 +51,7 @@ vi.mock('../../src/config/loader.js', () => ({
   loadFirms: mocks.loadFirmsMock,
   loadRecipient: mocks.loadRecipientMock,
   loadSettings: mocks.loadSettingsMock,
+  loadTopics: mocks.loadTopicsMock,
 }));
 
 // AC-3 cross-mode invariant: weekly NEVER calls Gemini at runtime. Mock the
@@ -118,6 +120,7 @@ describe('runWeekly — SPEC AC-2 (digest send) + AC-3 (heartbeat)', () => {
     mocks.loadFirmsMock.mockResolvedValue([FIRM]);
     mocks.loadRecipientMock.mockResolvedValue('user@example.com');
     mocks.loadSettingsMock.mockResolvedValue(SETTINGS);
+    mocks.loadTopicsMock.mockResolvedValue({});
     mocks.getGeminiCallCountMock.mockReturnValue(0);
   });
 

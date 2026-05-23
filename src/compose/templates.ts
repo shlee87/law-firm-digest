@@ -14,7 +14,7 @@
 //   inline is the safe baseline.
 // - Colors, spacing, and copy mirror the "Daily Legal Digest" redesign.
 
-import type { FirmResult } from '../types.js';
+import type { FirmResult, TopicConfig } from '../types.js';
 import type { StalenessWarnings } from '../observability/staleness.js';
 import { scrubSecrets } from '../util/logging.js';
 import type { DataQualityMarker } from '../pipeline/detectClusters.js';
@@ -63,6 +63,7 @@ export function renderHtml(
   markers: DataQualityMarker[] = [],
   totalFirmCount?: number,
   silentFirms: FirmResult[] = [],
+  topics: TopicConfig = {},
 ): string {
   const itemCount = firms.reduce((n, r) => n + r.summarized.length, 0);
   const firmCount = firms.length;
@@ -74,6 +75,7 @@ export function renderHtml(
   const silent = renderSilentFooter(failed);
   const dataQualityFooter = renderDataQualityFooter(markers);
   const coverageBar = renderCoverageBar(firms, failed, silentFirms);
+  const curatedTopics = renderCuratedTopicsFooter(topics);
   const footer = renderFooter(dateKst);
 
   return `<!doctype html>
@@ -97,6 +99,7 @@ export function renderHtml(
         ${silent}
         ${dataQualityFooter}
         ${coverageBar}
+        ${curatedTopics}
         ${footer}
       </table>
     </td>
@@ -341,6 +344,51 @@ export function classifyError(msg: string, stage: string): string {
   if (/selectors? (miss|not found)/i.test(msg)) return 'selector-miss';
   if (stage === 'parse' || /parse error|selector/i.test(msg)) return 'parse-error';
   return 'unknown';
+}
+
+/* ------------------------------------------------------------------ */
+/* Topic label map — snake_case → Korean display label                */
+/* ------------------------------------------------------------------ */
+//
+// Locked label vocabulary (constraint per quick task 260523-oi6):
+//   vc_securities  → VC·증권
+//   fair_trade     → 공정거래
+//   privacy        → 개인정보
+//   labor          → 노동법
+//   ip             → 지식재산권
+//
+// Unmapped keys (e.g. a new topic added to config/firms.yaml that this
+// map has not been extended for) are passed through verbatim (still
+// escapeHtml'd) so adding a YAML topic never crashes the email — it
+// shows the raw snake_case key until the map is extended in a follow-up.
+const TOPIC_LABEL_KO: Record<string, string> = {
+  vc_securities: 'VC·증권',
+  fair_trade: '공정거래',
+  privacy: '개인정보',
+  labor: '노동법',
+  ip: '지식재산권',
+};
+
+/* ------------------------------------------------------------------ */
+/* Curated topics footer (Phase 12 — quick task 260523-oi6)            */
+/* ------------------------------------------------------------------ */
+//
+// Tier-agnostic: renderHtml (digest) and composeHeartbeat (heartbeat)
+// both consume this. Returns '' when topics is empty so the row is
+// not emitted on empty config (visual no-op, same posture as
+// renderDataQualityFooter on a clean run).
+//
+// Wording locked (do not change without quick-task amendment):
+//   현재 이 다이제스트는 다음 분야를 큐레이션합니다: <label1>, <label2>, ..., <labelN>.
+export function renderCuratedTopicsFooter(topics: TopicConfig): string {
+  const keys = Object.keys(topics);
+  if (keys.length === 0) return '';
+  const labels = keys.map((k) => escapeHtml(TOPIC_LABEL_KO[k] ?? k));
+  const labelList = labels.join(', ');
+  return `<tr><td style="padding:16px 32px;background:${COLOR.bgAlt};border-bottom:1px solid ${COLOR.rule};font-size:12px;color:${COLOR.body};line-height:1.6;font-family:${FONT_SERIF};">
+    <span style="font-family:${FONT_MONO};font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:${COLOR.muted};margin-right:8px;">큐레이션 분야</span>
+    현재 이 다이제스트는 다음 분야를 큐레이션합니다: ${labelList}.
+  </td></tr>`;
 }
 
 /* ------------------------------------------------------------------ */
