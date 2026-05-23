@@ -169,10 +169,13 @@ describe('runWeekly — SPEC AC-2 (digest send) + AC-3 (heartbeat)', () => {
     const sentPayload = mocks.sendMailMock.mock.calls[0][0] as EmailPayload;
     expect(sentPayload.subject).toMatch(/^\[법률 다이제스트\] \d{4}-\d{2}-\d{2}/);
     expect(sentPayload.subject).not.toContain('이번 주 신규 없음');
-    // OPS-03 ordering: sendMail was called BEFORE writeArchive.
+    // Phase 13 W-03 fix: writeArchive runs BEFORE sendMail so an archive
+    // failure aborts before network egress (no duplicate-send window on the
+    // next weekly run). Trade-off: a successful archive no longer implies a
+    // successful send.
     const sendOrder = mocks.sendMailMock.mock.invocationCallOrder[0];
     const archiveOrder = mocks.writeArchiveMock.mock.invocationCallOrder[0];
-    expect(sendOrder).toBeLessThan(archiveOrder);
+    expect(archiveOrder).toBeLessThan(sendOrder);
 
     // truncatePending invariant — pending is empty after the run.
     const after = await readPending(pendingPath);
@@ -227,10 +230,12 @@ describe('runWeekly — SPEC AC-2 (digest send) + AC-3 (heartbeat)', () => {
   });
 
   it('AC-2 atomicity: when sendMail throws, pending is NOT truncated (idempotent recovery)', async () => {
-    // OPS-03 transaction ordering: if sendMail fails, truncatePending must
-    // NOT execute — the next manual workflow_dispatch retries cleanly with
-    // the same pending payload. This locks down the recovery invariant
-    // SPEC §Constraints implicitly relies on.
+    // Phase 13 W-03 fix: archive runs BEFORE sendMail, so on sendMail failure
+    // the archive HAS been written but truncatePending has NOT run — the next
+    // manual workflow_dispatch retries cleanly with the same pending payload.
+    // The recovery invariant SPEC §Constraints implicitly relies on still
+    // holds (pending preserved); the only change is that a failed-send run
+    // leaves an archive file for the un-sent digest.
     const fixedStart = '2026-05-15T00:00:00.000Z';
     const items: PendingItem[] = [
       {
@@ -257,8 +262,10 @@ describe('runWeekly — SPEC AC-2 (digest send) + AC-3 (heartbeat)', () => {
 
     await expect(runWeekly()).rejects.toThrow(/SMTP 503 transient/);
 
-    expect(mocks.writeArchiveMock).not.toHaveBeenCalled();
-    // Pending preserved — windowStart unchanged, items intact.
+    // W-03: writeArchive ran BEFORE sendMail and therefore was called.
+    expect(mocks.writeArchiveMock).toHaveBeenCalledTimes(1);
+    // Pending preserved — windowStart unchanged, items intact (truncate
+    // never ran because sendMail threw before reaching truncatePending).
     const after = await readPending(pendingPath);
     expect(after.items.length).toBe(1);
     expect(after.windowStart).toBe(fixedStart);

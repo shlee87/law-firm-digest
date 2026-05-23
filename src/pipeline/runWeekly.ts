@@ -221,10 +221,16 @@ export async function runWeekly(options: RunOptions = {}): Promise<RunReport> {
     }
 
     // Send + archive + truncate + state — OPS-03 ordering.
+    // Phase 13 W-03 fix: archive BEFORE send so a disk failure does not leave
+    // pending un-truncated after a successful send (which would resend on the
+    // next weekly run). Archive write is local + cheap; sendMail is network +
+    // lossy. Archive failure aborts BEFORE network egress => no duplicate-send
+    // window. Trade-off: a successful archive no longer implies a successful
+    // send (the inverse OPS-03 guarantee).
     let archivePath: string | undefined;
     if (!skipEmail) {
-      await sendMail(payload);
       archivePath = await writeArchive(payload.html, now);
+      await sendMail(payload);
       reporter.section('send', `archive=${archivePath}`);
     } else {
       reporter.section('would-send', payload.subject);
