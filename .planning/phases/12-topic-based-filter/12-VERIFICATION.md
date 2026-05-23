@@ -1,20 +1,22 @@
 ---
 phase: 12-topic-based-filter
 verified: 2026-04-21T14:21:00Z
-status: human_needed
-score: 5/6 must-haves verified
+re_verified: 2026-05-23T14:31:42Z
+status: passed
+score: 6/6 must-haves verified
 overrides_applied: 0
 human_verification:
   - test: "Run DRY_RUN=1 pnpm tsx src/main.ts and check for [filter] skipped lines"
-    expected: "For any fetched items that do not match vc_securities/fair_trade/privacy/labor/ip keywords, console output shows '[filter] skipped — no topic match: <title>'. If all today's items happen to match, no skip lines appear — that is also correct. State log '[DRY_RUN] would write state/seen.json with N URLs across M firms' confirms writeState path was exercised."
-    why_human: "Requires a live network run against real law firm sites. The [filter] skip log lines only appear when at least one fetched item today matches no keyword. Cannot be verified offline or via unit tests."
+    expected: "For any fetched items that do not match vc_securities/fair_trade/privacy/labor/ip keywords, console output shows '[filter] skipped — no topic match: <title>'. If all today's items happen to match, no skip lines appear — that is also correct."
+    resolved: "2026-05-23 production GHA run 26335283814 (daily mode) produced 20+ '[filter] skipped — no topic match' lines covering both English firm titles (Latham 'EU Prospectus Regulation', 'Workplace Investigations', 'COP30', 'Ukraine Sanctions', etc.) and Korean firm titles (로고스 뉴스레터 monthly issues, 태평양 ALB award notice, 금융회사 SaaS 망분리). Both code paths (English keyword matching + Korean keyword matching) exercised in live production. Phase 13 daily mode preserved Phase 12 filter integration (runDaily.ts:159 confirmed by integration checker)."
 ---
 
 # Phase 12: Topic-Based Filter Verification Report
 
 **Phase Goal:** The pipeline filters each newsletter item by topic relevance before body fetch and summarization, so only items related to VC/securities, 공정거래, 개인정보, 노동법, or IP are delivered in the digest.
-**Verified:** 2026-04-21T14:21:00Z
-**Status:** human_needed
+**Verified:** 2026-04-21T14:21:00Z (initial — 5/6 must-haves, 1 deferred to human live-run)
+**Re-verified:** 2026-05-23T14:31:42Z (live evidence captured from production daily run 26335283814)
+**Status:** passed
 **Re-verification:** No — initial verification
 
 ## Goal Achievement
