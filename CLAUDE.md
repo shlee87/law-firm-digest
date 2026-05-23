@@ -59,7 +59,7 @@
 | **@types/node** | Node typings | Pin to 22.x line. |
 | **prettier** | Formatting | Default config. |
 | **eslint** (v9, flat config) | Linting | Minimal setup; `@eslint/js` recommended rules + TS plugin. |
-| **GitHub Actions** | `actions/checkout@v5`, `actions/setup-node@v5`, `actions/cache@v4`, `stefanzweifel/git-auto-commit-action@v6` | Runner toolchain. `git-auto-commit-action` is the cleanest way to push state back to repo after each run. |
+| **GitHub Actions** | `actions/checkout@v6`, `actions/setup-node@v6`, `actions/cache@v4`, `stefanzweifel/git-auto-commit-action@v7` | Runner toolchain. `git-auto-commit-action` is the cleanest way to push state back to repo after each run. |
 ## Installation
 # Init
 # Only if some firms need JS rendering (verify first during research phase):

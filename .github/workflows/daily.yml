@@ -3,7 +3,7 @@
 # LegalNewsletter — Phase 13 daily scrape pipeline (Tue-Sun).
 #
 # Runs src/main.ts --mode=daily at 12:00 UTC (21:00 KST) every Tue-Sun (cron
-# `0 12 * * 2-7,0` — Mon excluded because weekly.yml owns Mon at the same
+# `0 12 * * 0,2-6` — Mon excluded because weekly.yml owns Mon at the same
 # slot). Executes fetch → enrich → filter → dedup → summarize → appendPending
 # → writeState; does NOT send email or archive. Weekly.yml on Mon reads the
 # accumulated pending.json and dispatches the digest.
