@@ -82,9 +82,8 @@ export async function runDaily(options: RunOptions = {}): Promise<RunReport> {
   const recorder = new Recorder();
   const settings = await loadSettings();
   const allFirms = await loadFirms();
-  // recipient loaded for symmetry with runWeekly contract, even though
-  // runDaily does not send — keeps composition-root parity in case a future
-  // dry-render plan reintroduces saveHtmlPath here.
+  // Pre-validate recipient config so a malformed RECIPIENT_EMAIL surfaces
+  // on Tue's daily run instead of waiting for Monday's weekly to crash.
   await loadRecipient();
   const topics = await loadTopics();
 

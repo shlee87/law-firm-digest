@@ -140,7 +140,9 @@ export async function runWeekly(options: RunOptions = {}): Promise<RunReport> {
 
   const now = new Date();
   const recorder = new Recorder();
-  await loadSettings(); // load for parity / future use; ignore concurrency etc.
+  // Pre-validate settings config so a malformed settings.yaml surfaces
+  // at the top of the weekly run instead of crashing partway through compose.
+  await loadSettings();
   const allFirms = await loadFirms();
   const recipient = await loadRecipient();
   const fromAddr =
