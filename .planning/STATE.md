@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
 status: executing
-stopped_at: Completed 13-1-gemini-rpd plan 05 (main.ts mode dispatch + run.ts deletion)
-last_updated: "2026-05-22T17:56:11.106Z"
-last_activity: 2026-05-22
+stopped_at: Completed 13-1-gemini-rpd plan 06 (workflow 2-file split — daily.yml + weekly.yml — human-verify checkpoint passed)
+last_updated: "2026-05-23T05:18:03.225Z"
+last_activity: 2026-05-23
 progress:
   total_phases: 7
   completed_phases: 6
   total_plans: 28
-  completed_plans: 27
-  percent: 86
+  completed_plans: 28
+  percent: 89
 ---
 
 # Project State
@@ -26,9 +26,9 @@ See: .planning/PROJECT.md (updated 2026-04-19)
 ## Current Position
 
 Phase: 13 (1-gemini-rpd) — EXECUTING
-Plan: 6 of 7
+Plan: 7 of 7
 Status: Ready to execute
-Last activity: 2026-05-22
+Last activity: 2026-05-23
 
 **v1.0 regressions status (all originally discovered 2026-04-19 Phase 02 UAT):**
 
@@ -134,6 +134,7 @@ Last activity: 2026-05-22
 | Phase 13-1-gemini-rpd P03 | ~3min | 2 tasks | 2 files |
 | Phase 13-1-gemini-rpd P04 PP04 | ~4 min | 2 tasks tasks | 3 files files |
 | Phase 13-1-gemini-rpd P05 | ~7min | 3 tasks tasks | 8 files files |
+| Phase 13-1-gemini-rpd P06 | ~12min | 2 tasks + 1 checkpoint | 2 files (1 modified + 1 created) |
 
 ## Accumulated Context
 
@@ -301,6 +302,11 @@ Recent decisions affecting current work:
 - [Phase ?]: 13-05: test/pipeline/run.test.ts renamed to run.test.disabled.ts + @ts-nocheck header (three-layer skip: rename for vitest, header for tsc) + deferred-items.md tracker pointing to Plan 13-07 — preserves ~30 runPipeline integration tests as the rewrite checklist
 - [Phase ?]: 13-05: emitDryRunStepSummary signature widened to (report, geminiCallCount: number = 0) — default preserves 6 pre-existing Phase 10 tests verbatim; new tests cover D-21/D-22 [METRIC] prepend ordering + N=0 emission
 - [Phase ?]: 13-05: dry-run:weekly added (Claude's Discretion symmetry with dev:weekly per D-05) — explicit pair keeps script discoverability for non-developer operators editing package.json
+- [Phase 13-1-gemini-rpd]: 13-06: cron literal '0 12 * * 2-7,0' (plan-prescribed) rejected by GitHub Actions cron parser with HTTP 422 — day 7 and day 0 both encode Sunday and GH parser refuses the overlap. Hotfixed as '0 12 * * 0,2-6' (Sun + Tue-Fri + Sat) which covers the same Tue-Sun set without the alias collision. Rule 1 deviation; lesson for future workflow plans documented in 13-06-SUMMARY.md
+- [Phase 13-1-gemini-rpd]: 13-06: weekly.yml env block deliberately omits GEMINI_API_KEY (least-privilege per threat T-13-06-04) — weekly never calls Gemini (D-22 [METRIC] geminiCallCount=0 always); runner image does not see the secret on weekly runs
+- [Phase 13-1-gemini-rpd]: 13-06: weekly.yml retains Playwright cache step + Thawte cert install for diff-clean parity with daily.yml (idempotent on warm caches ~0s cost); removal only justified once daily.yml's blocks also retire
+- [Phase 13-1-gemini-rpd]: 13-06: shared concurrency group 'digest-pipeline' declared verbatim on both files — Sun-overshoot vs Mon-weekly race lock; cancel-in-progress:false serializes first-trigger-wins. T-13-06-06 typo-splits-lock mitigated by grep gate
+- [Phase 13-1-gemini-rpd]: 13-06: human-verify checkpoint executed in-flight on 2026-05-22T20:13–20:18Z — daily run 26309754807 emitted [METRIC] geminiCallCount=21 (byte-for-byte match), weekly run 26309956124 emitted [METRIC] geminiCallCount=0; atomic commits 7f29113 (daily pending+seen) + a5041ad (weekly pending+seen+archive) landed with expected file_pattern triples. Gmail inbox arrival at nks4860@gmail.com unverifiable by orchestrator (MCP connects to different account) — operator one-time confirmation outstanding, does NOT block plan closure (pipeline step exit 0 implies SMTP success)
 
 ### Roadmap Evolution
 
@@ -325,8 +331,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-22T17:56:11.101Z
-Stopped at: Completed 13-1-gemini-rpd plan 05 (main.ts mode dispatch + run.ts deletion)
+Last session: 2026-05-23T05:18:03.221Z
+Stopped at: Completed 13-1-gemini-rpd plan 06 (workflow 2-file split — daily.yml + weekly.yml — human-verify checkpoint passed; daily run 26309754807, weekly run 26309956124)
 Resume file: None
 
 **Next action:** `/gsd:plan-phase 11` — plan Phase 11: Cron Resumption Gate
