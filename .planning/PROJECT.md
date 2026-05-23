@@ -4,18 +4,14 @@
 
 주요 국내·해외 로펌의 공개 뉴스레터/Legal Update 페이지를 매일 자동으로 수집하고, 신규 발행분이 있는 날에만 한 통의 통합 다이제스트 이메일로 받아보는 개인용 자동화 시스템. 여러 로펌 사이트를 수동으로 순회하던 작업을 대체한다.
 
-## Current Milestone: v1.1 Data-Quality Hardening
+## Shipped Milestones
 
-**Goal:** v1.0에서 shipped된 pipeline의 production output을 신뢰 가능한 수준으로 끌어올린다 — hallucinated summary 0건, 모든 enabled firm이 실제 article body를 추출, cron 재개 가능.
+- **v1.0 MVP** — Phases 1–5 (informally shipped before formal archive workflow existed)
+- **v1.1 Data-Quality Hardening** — Phases 6–13 (shipped 2026-05-23, archived to `milestones/v1.1-*`). End-to-end verified via manual `workflow_dispatch` (daily + weekly) on 2026-05-23 with real digest delivered to recipient inbox.
 
-**Target features:**
-- Firm-by-firm audit + probe (list/detail fetch 전수 진단: bkl, kim-chang, shin-kim, logos, skadden, js-render 4종)
-- SPA-aware detail tier (`firm.detail_tier: 'js-render' | 'static'` schema 확장)
-- Gemini hallucination guard (generic/empty body → title-verbatim + confidence:low)
-- Cooley sitemap tier (CF-blocked RSS 회피 — 신규 `type: sitemap` scraper)
-- Data-quality observability (step summary body-quality 지표 + 이상 firm 플래그)
+## Next Milestone
 
-**Acceptance:** 각 enabled firm detail body = 실제 article content, Gemini summary = 실제 내용 반영, cron 재개 후 1주일 관찰 hallucination 0건, cooley 복구 (또는 공식 disable 사유).
+TBD — start with `/gsd:new-milestone`. Carryover tech debt in MILESTONES.md → "Known deferred items".
 
 ## Core Value
 
@@ -27,21 +23,24 @@
 
 <!-- Shipped and confirmed valuable. -->
 
-(None yet — ship to validate)
+- ✓ 추적 대상 로펌의 뉴스레터/Legal Update 페이지를 주기적으로 확인한다 (현재 enabled: 11 firms — cooley, latham, clifford-chance, yulchon, logos, skadden, kim-chang, bkl, lee-ko, yoon-yang, barun; freshfields 제거됨 2026-05-18; shin-kim TLS-fix로 복구됨 Phase 11) — v1.0 + v1.1
+- ✓ 신규 발행분 식별 (canonical URL 기반 dedup + 500-cap seen state) — v1.0
+- ✓ 각 신규 항목에 대해 한국어 AI 요약 (Gemini 2.5 Flash + Flash-Lite 폴백 + 3-layer hallucination guard) — v1.0 + v1.1
+- ✓ 신규 항목이 있는 주에만 통합 다이제스트 발송 (Phase 13 분리 이후: daily는 누적, weekly는 pending 비어있으면 heartbeat) — v1.0 + v1.1
+- ✓ 각 아이템: 원어 제목 + 한국어 요약 + 원문 링크 — v1.0
+- ✓ 수신 이메일 주소는 `RECIPIENT_EMAIL` GH Actions secret으로 변경 가능 (코드 수정 불필요) — v1.0
+- ✓ 비개발자가 config/firms.yaml 편집만으로 firm 추가/제거 (zod 스키마 + 한국어 주석 헤더) — v1.0
+- ✓ 클라우드 자동 실행 — GitHub Actions cron (daily.yml Tue–Sun 21:00 KST + weekly.yml Mon 21:00 KST) — v1.0 + v1.1
+- ✓ $0 운영 비용 유지 (Gemini 무료 티어 + GHA 무료 분 + Gmail SMTP App Password) — v1.0 (유지 중)
 
 ### Active
 
 <!-- Current scope. Building toward these. -->
 
-- [ ] 추적 대상 로펌의 뉴스레터/Legal Update 페이지를 주기적으로 확인한다 (한국 7개, 미국 3개, 영국 2개를 기본값으로 포함)
-- [ ] 신규 발행분(이전 실행 대비 새로 올라온 항목)을 식별한다
-- [ ] 각 신규 항목에 대해 한국어 AI 요약(3~5줄)을 생성한다
-- [ ] 신규 항목이 하나라도 있는 날에만, 로펌별로 섹션이 나뉜 통합 다이제스트 이메일을 발송한다
-- [ ] 각 아이템은 원어 제목 + 한국어 요약 + 원문 링크를 포함한다 (영어 뉴스레터는 영어 제목 유지)
-- [ ] 수신 이메일 주소는 config에서 쉽게 변경할 수 있다 (코드 수정 불필요)
-- [ ] 추적 대상 로펌을 비개발자가 config 편집만으로 추가/제거할 수 있다 (YAML 혹은 동등한 선언적 포맷 + 필드 설명 주석)
-- [ ] 시스템은 클라우드에서 자동으로 실행된다 (사용자 로컬 머신 실행 불필요)
-- [ ] 운영 비용은 기존 Claude Pro / ChatGPT Plus 구독 외에 $0 을 유지한다
+TBD — define via `/gsd:new-milestone`. Likely v1.2 candidates (from v1.1 carry-over):
+- [ ] `scripts/sync-schedule.ts` 재작성 — Phase 13 daily/weekly split 인지하도록
+- [ ] Phase 10/11/11-03 backfill (VERIFICATION.md + SUMMARY.md + REQUIREMENTS checkboxes)
+- [ ] `pnpm audit:firms` 정기 재생성 정책 (`06-AUDIT.md` 신선도 유지)
 
 ### Out of Scope
 
@@ -79,12 +78,16 @@
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| 신규가 있을 때만 발송 | 매일 "오늘은 없음" 메일이 오면 노이즈. 신호 대 잡음비를 중시한 사용자 결정 | — Pending |
-| 통합 다이제스트 1통/일 | 로펌별 개별 메일은 하루 5~10통 가능 — 받은함 오염 방지 | — Pending |
-| 원어 제목 + 한국어 요약 | 법률 용어 원문을 보존하면서 빠른 스캔 가능. 번역 왜곡 리스크 회피 | — Pending |
-| Gemini API 무료 티어로 요약 | Claude/ChatGPT 구독으로는 자동화 파이프라인 불가능. 완전 무료 요건과 자동 실행 요건을 동시 만족하는 유일한 경로 | — Pending |
-| GitHub Actions로 크론 실행 | 저장소 자체에 cron 스케줄을 두면 사용자 머신 상태 무관 + 무료. 로그·재실행·secret 관리까지 내장 | — Pending |
-| 로펌 config를 YAML(또는 동등) 선언형 | 비개발자가 편집 가능해야 한다는 요건을 만족하는 가장 보편적 포맷 | — Pending |
+| 신규가 있을 때만 발송 | 매일 "오늘은 없음" 메일이 오면 노이즈. 신호 대 잡음비를 중시한 사용자 결정 | ✓ Good (Phase 13에서 weekly heartbeat 예외만 추가 — pending 비어있을 때 "still alive" 신호) |
+| 통합 다이제스트 1통/일 | 로펌별 개별 메일은 하루 5~10통 가능 — 받은함 오염 방지 | ✓ Good (Phase 13 이후 1통/주로 변경 — 같은 원칙, 다른 cadence) |
+| 원어 제목 + 한국어 요약 | 법률 용어 원문을 보존하면서 빠른 스캔 가능. 번역 왜곡 리스크 회피 | ✓ Good (SUMM-06으로 enforce — 제목은 Gemini에 안 보냄) |
+| Gemini API 무료 티어로 요약 | Claude/ChatGPT 구독으로는 자동화 파이프라인 불가능 | ✓ Good (gemini-2.5-flash + flash-lite 폴백; Phase 13 daily/weekly split으로 RPD 분산) |
+| GitHub Actions로 크론 실행 | 사용자 머신 상태 무관 + 무료 | ✓ Good (daily + weekly 두 워크플로우 + `concurrency: digest-pipeline` 락) |
+| 로펌 config를 YAML(또는 동등) 선언형 | 비개발자가 편집 가능해야 한다는 요건 | ✓ Good (eemeli/yaml + zod schema + 한국어 주석 헤더) |
+| Cooley CF bypass via sitemap tier | Cloudflare가 RSS feed 차단 — Playwright `context.request.get`으로 XML 가져오기 | ✓ Good (v1.1 Phase 9) |
+| `detail_tier` per-firm 도입 | SPA detail pages는 list-type과 무관하게 JS rendering 필요 | ✓ Good (v1.1 Phase 7) |
+| 3-layer hallucination guard | 단일 layer는 false negative 발생 — body shape + prompt rule + cluster detector | ✓ Good (v1.1 Phase 8) |
+| Pipeline daily/weekly split | 12-step canonical sequence가 1회 cron으로 묶여 있어 RPD bursty — 분리하면 daily ≤15 호출, weekly === 0 호출 | ✓ Good (v1.1 Phase 13; 2026-05-23 end-to-end verified) |
 
 ## Evolution
 
