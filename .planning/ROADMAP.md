@@ -246,7 +246,7 @@ Phases execute in numeric order. Phase 4 is conditional — skipped if Phase 2 a
 | 10. Data-Quality Observability | 0/0 | Pending | — |
 | 11. Cron Resumption Gate | 0/3 | Planning | — |
 | 12. Topic-Based Filter | 2/2 | Complete | 2026-04-21 |
-| 13. Gemini RPD 분산 (daily/weekly split) | 5/7 | In Progress|  |
+| 13. Gemini RPD 분산 (daily/weekly split) | 7/7 | Complete   | 2026-05-23 |
 
 ## ⚠ v1.0 Milestone — Production Readiness Caveat
 
@@ -276,7 +276,7 @@ proposed phase breakdown:
 **Goal:** `src/pipeline/run.ts` 의 12-step canonical sequence 를 `runDaily()` (화~일 매일 fetch+enrich+filter+dedup+summarize → `state/pending.json` 누적) 와 `runWeekly()` (월요일 1회 pending 읽기 → compose+send+archive → truncate) 두 entry 로 분리한다. 그 결과 Gemini API 호출이 7일에 분산되어 daily 당 평균 ≤ 15 호출, weekly === 0 호출로 RPM bottleneck 해소.
 **Requirements**: SPEC-1, SPEC-2, SPEC-3, SPEC-4, SPEC-5, SPEC-6, SPEC-7 (locked in 13-SPEC.md)
 **Depends on:** Phase 12
-**Plans:** 6/7 plans executed
+**Plans:** 7/7 plans complete
 
 Plans:
 - [x] 13-01-PLAN.md — `src/state/pending.ts` (zod schema + PendingItem/PendingState + read/append/truncate + COMP-05 toPendingItem) + tests [SPEC-3, Wave 1]
@@ -285,7 +285,7 @@ Plans:
 - [x] 13-04-PLAN.md — `src/pipeline/runWeekly.ts` (pending read → restore → detect → compose/heartbeat → send → truncate) + `src/compose/heartbeat.ts` [SPEC-2, SPEC-5, Wave 2]
 - [x] 13-05-PLAN.md — `main.ts` parseMode + dispatch + `checkFirm.ts` runDaily swap + package.json scripts + delete `run.ts` [SPEC-1, SPEC-2, SPEC-7, Wave 3]
 - [x] 13-06-PLAN.md — `.github/workflows/daily.yml` cron Tue-Sun + `weekly.yml` new + atomic commit file_pattern + human-verify checkpoint [SPEC-4, SPEC-6, SPEC-7, Wave 4]
-- [ ] 13-07-PLAN.md — vitest e2e fixtures (AC-1 daily + AC-2/3 weekly digest+heartbeat) + run.test.ts cleanup [SPEC-1, SPEC-2, SPEC-5, Wave 5]
+- [x] 13-07-PLAN.md — vitest e2e fixtures (AC-1 daily + AC-2/3 weekly digest+heartbeat) + run.test.ts cleanup [SPEC-1, SPEC-2, SPEC-5, Wave 5]
 
 ---
 *Roadmap created: 2026-04-16*

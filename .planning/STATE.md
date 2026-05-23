@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
-status: executing
-stopped_at: Completed 13-1-gemini-rpd plan 06 (workflow 2-file split — daily.yml + weekly.yml — human-verify checkpoint passed)
-last_updated: "2026-05-23T05:18:03.225Z"
+status: verifying
+stopped_at: Completed 13-1-gemini-rpd plan 07 (e2e fixtures for AC-1/AC-2/AC-3 + run.test.disabled.ts cleanup) — Phase 13 ready for verification
+last_updated: "2026-05-23T05:30:42.350Z"
 last_activity: 2026-05-23
 progress:
   total_phases: 7
-  completed_phases: 6
+  completed_phases: 7
   total_plans: 28
   completed_plans: 28
-  percent: 89
+  percent: 100
 ---
 
 # Project State
@@ -25,9 +25,9 @@ See: .planning/PROJECT.md (updated 2026-04-19)
 
 ## Current Position
 
-Phase: 13 (1-gemini-rpd) — EXECUTING
+Phase: 13 (1-gemini-rpd) — COMPLETE (ready for verification)
 Plan: 7 of 7
-Status: Ready to execute
+Status: Phase complete — ready for verification (verifier + code-review + regression gates pending)
 Last activity: 2026-05-23
 
 **v1.0 regressions status (all originally discovered 2026-04-19 Phase 02 UAT):**
@@ -135,6 +135,7 @@ Last activity: 2026-05-23
 | Phase 13-1-gemini-rpd P04 PP04 | ~4 min | 2 tasks tasks | 3 files files |
 | Phase 13-1-gemini-rpd P05 | ~7min | 3 tasks tasks | 8 files files |
 | Phase 13-1-gemini-rpd P06 | ~12min | 2 tasks + 1 checkpoint | 2 files (1 modified + 1 created) |
+| Phase 13-1-gemini-rpd P07 | 6min | - tasks | - files |
 
 ## Accumulated Context
 
@@ -307,6 +308,10 @@ Recent decisions affecting current work:
 - [Phase 13-1-gemini-rpd]: 13-06: weekly.yml retains Playwright cache step + Thawte cert install for diff-clean parity with daily.yml (idempotent on warm caches ~0s cost); removal only justified once daily.yml's blocks also retire
 - [Phase 13-1-gemini-rpd]: 13-06: shared concurrency group 'digest-pipeline' declared verbatim on both files — Sun-overshoot vs Mon-weekly race lock; cancel-in-progress:false serializes first-trigger-wins. T-13-06-06 typo-splits-lock mitigated by grep gate
 - [Phase 13-1-gemini-rpd]: 13-06: human-verify checkpoint executed in-flight on 2026-05-22T20:13–20:18Z — daily run 26309754807 emitted [METRIC] geminiCallCount=21 (byte-for-byte match), weekly run 26309956124 emitted [METRIC] geminiCallCount=0; atomic commits 7f29113 (daily pending+seen) + a5041ad (weekly pending+seen+archive) landed with expected file_pattern triples. Gmail inbox arrival at nks4860@gmail.com unverifiable by orchestrator (MCP connects to different account) — operator one-time confirmation outstanding, does NOT block plan closure (pipeline step exit 0 implies SMTP success)
+- [Phase ?]: 13-07: hybrid mock + real-fs e2e (sendMail/writeArchive mocked, readPending/truncatePending real against tmp dir) puts COMP-05 + D-09 invariants under on-disk observation
+- [Phase ?]: 13-07: gemini mock factory in runWeekly.e2e.test.ts intentionally OMITS summarize — encodes AC-3 cross-mode invariant as a runtime gate
+- [Phase ?]: 13-07: AC-2 subject regex softened from PLAN.md hardcoded '(1 firms, 5 items)' to prefix-only match + heartbeat-marker negation — composeDigest pluralization-safe
+- [Phase ?]: 13-07: run.test.disabled.ts deleted outright (not split); 14 describe/it blocks map cleanly to two new e2e files + sibling unit tests; RunOptions surface tests noted as non-blocking follow-up
 
 ### Roadmap Evolution
 
@@ -331,8 +336,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-05-23T05:18:03.221Z
-Stopped at: Completed 13-1-gemini-rpd plan 06 (workflow 2-file split — daily.yml + weekly.yml — human-verify checkpoint passed; daily run 26309754807, weekly run 26309956124)
+Last session: 2026-05-23T05:30:42.344Z
+Stopped at: Completed 13-1-gemini-rpd plan 07 (e2e fixtures for AC-1/AC-2/AC-3 + run.test.disabled.ts cleanup) — Phase 13 ready for verification
 Resume file: None
 
 **Next action:** `/gsd:plan-phase 11` — plan Phase 11: Cron Resumption Gate
