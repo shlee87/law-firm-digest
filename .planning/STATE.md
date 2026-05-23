@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: — Data-Quality Hardening
-status: milestone_complete
-stopped_at: Milestone complete (Phase 13 was final phase)
-last_updated: 2026-05-23T05:42:24.110Z
-last_activity: 2026-05-23
+status: Awaiting next milestone
+stopped_at: Completed 13-1-gemini-rpd plan 07 (e2e fixtures for AC-1/AC-2/AC-3 + run.test.disabled.ts cleanup) — Phase 13 ready for verification
+last_updated: "2026-05-23T22:22:51.238Z"
+last_activity: 2026-05-23 — Milestone v1.1 completed and archived
 progress:
   total_phases: 7
-  completed_phases: 7
+  completed_phases: 6
   total_plans: 28
-  completed_plans: 69
-  percent: 100
+  completed_plans: 27
+  percent: 86
 ---
 
 # Project State
@@ -25,10 +25,10 @@ See: .planning/PROJECT.md (updated 2026-04-19)
 
 ## Current Position
 
-Phase: 13
-Plan: Not started
-Status: Milestone complete
-Last activity: 2026-05-23 - Completed quick task 260523-mtz: Fix DQOBS-01 weekly observability regression
+Phase: Milestone v1.1 complete
+Plan: —
+Status: Awaiting next milestone
+Last activity: 2026-05-23 — Milestone v1.1 completed and archived
 
 ### Quick Tasks Completed
 
@@ -335,11 +335,30 @@ None.
 
 ## Deferred Items
 
-Items acknowledged and carried forward from previous milestone close:
+Items acknowledged and carried forward from milestone closes.
 
-| Category | Item | Status | Deferred At |
-|----------|------|--------|-------------|
-| *(none)* | | | |
+### Acknowledged at v1.1 close (2026-05-23)
+
+All four items are false positives from `gsd-tools audit-open` — flagged by the script but resolved in fact:
+
+| Category | Item | Status | Notes |
+|----------|------|--------|-------|
+| uat_gaps | Phase 02 02-HUMAN-UAT.md | resolved | 0 pending scenarios — script flags any UAT file as "gap"; this one resolved in v1.0 |
+| uat_gaps | Phase 09 09-UAT.md | resolved | 0 pending scenarios — same false positive shape |
+| quick_tasks | 260523-mtz-fix-dqobs-01-weekly-observability-regres | committed | SUMMARY.md status=complete (frontmatter); script flagged as "missing" before audit-open re-scan |
+| context_questions | Phase 02 02-CONTEXT.md (3 questions) | answered by execution | Three Korean firm RSS/HTML/JS questions from 2026-04-16 planning — all answered by current config/firms.yaml (kim-chang: html+detail_tier=js-render, 광장(bkl): html+detail_tier=js-render, etc.). Doc rot. |
+
+### v1.1 tech debt promoted to v1.2 backlog
+
+From v1.1-MILESTONE-AUDIT.md TD-1..TD-5 (see .planning/milestones/v1.1-MILESTONE-AUDIT.md after archive):
+
+| Category | Item | Severity | Plan in |
+|----------|------|----------|---------|
+| ops_footgun | scripts/sync-schedule.ts targets only daily.yml — would overwrite Phase 13 split cron | medium | v1.2 |
+| docs | Phase 10 + 11 VERIFICATION.md never written (code shipped; goal-backward audit skipped) | low | v1.2 |
+| docs | Phase 11-03-SUMMARY.md missing (cron uncommented in codebase but no formal closure summary) | low | v1.2 |
+| docs | 06-AUDIT.md stale (lists removed `freshfields`) — `pnpm audit:firms` regenerates cleanly | low | v1.2 |
+| metadata | Phase 10/11 SUMMARYs have empty requirements-completed: []; Phase 12 uses SPEC-12-REQ-* local IDs; REQUIREMENTS.md DQOBS-* + RESUME-* checkboxes still [ ] despite work shipped | low | v1.2 |
 
 ## Session Continuity
 
@@ -348,3 +367,7 @@ Stopped at: Completed 13-1-gemini-rpd plan 07 (e2e fixtures for AC-1/AC-2/AC-3 +
 Resume file: None
 
 **Next action:** `/gsd:plan-phase 11` — plan Phase 11: Cron Resumption Gate
+
+## Operator Next Steps
+
+- Start the next milestone with /gsd-new-milestone
