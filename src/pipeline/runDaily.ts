@@ -247,8 +247,16 @@ export async function runDaily(options: RunOptions = {}): Promise<RunReport> {
     }
 
     // jsRenderFailures count (Phase 4 D-08 — used by main.ts for exit code).
+    // Phase 13 W-02 fix: also count failures from firms with
+    // detail_tier === 'js-render'. The browser launch decision above (lines
+    // 104-109) considers both type and detail_tier, so the fail-loud gate
+    // must mirror that surface — otherwise js-rendering regressions on
+    // detail-tier-only firms slip past the cron failure-issue auto-opener.
+    // (type === 'sitemap' deliberately not included — scope decision deferred.)
     const jsRenderFailures = summarized.filter(
-      (r) => r.firm.type === 'js-render' && r.error != null,
+      (r) =>
+        r.error != null &&
+        (r.firm.type === 'js-render' || r.firm.detail_tier === 'js-render'),
     ).length;
 
     // Step 10 — convert SummarizedItem → PendingItem (COMP-05 enforced by toPendingItem)
