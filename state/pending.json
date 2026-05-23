@@ -1,5 +1,16 @@
 {
   "version": 1,
   "windowStart": "2026-05-22T20:18:37.198Z",
-  "items": []
+  "items": [
+    {
+      "firmId": "latham",
+      "title": "NRC Finalizes Generic Environmental Impact Statement for New Nuclear Reactors",
+      "url": "https://globalelr.com/2026/05/nrc-finalizes-generic-environmental-impact-statement-for-new-nuclear-reactors",
+      "language": "en",
+      "summary_ko": "미국 원자력규제위원회(NRC)는 2026년 5월 26일 발효되는 신규 원자로 인허가를 위한 일반 환경영향평가서(GEIS) 최종 규칙을 발표했습니다. 이 규칙은 기존의 개별 프로젝트별 환경 검토 방식에서 벗어나, 환경 문제를 범주화하여 많은 사안에 대해 일반적인 결정을 허용함으로써 인허가 절차를 간소화합니다. 이는 신규 원자로 건설을 추진하는 개발자, 특히 데이터 센터 및 AI 운영사와 같이 안정적인 무탄소 전력원을 찾는 산업계에 영향을 미치며, 적격 프로젝트의 환경 검토 기간과 비용을 크게 줄여 인허가 절차를 가속화할 잠재력이 있습니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-05-23T12:16:39.508Z"
+    }
+  ]
 }
