@@ -28,7 +28,13 @@ See: .planning/PROJECT.md (updated 2026-04-19)
 Phase: 13
 Plan: Not started
 Status: Milestone complete
-Last activity: 2026-05-23
+Last activity: 2026-05-23 - Completed quick task 260523-mtz: Fix DQOBS-01 weekly observability regression
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260523-mtz | Fix DQOBS-01 weekly observability regression — extend isEmptyFirm predicate | 2026-05-23 | 04a572e | [260523-mtz-fix-dqobs-01-weekly-observability-regres](./quick/260523-mtz-fix-dqobs-01-weekly-observability-regres/) |
 
 **v1.0 regressions status (all originally discovered 2026-04-19 Phase 02 UAT):**
 
