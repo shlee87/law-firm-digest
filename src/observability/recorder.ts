@@ -152,9 +152,20 @@ export class Recorder {
                 m.bodyLengths.reduce((s, x) => s + x, 0) / m.bodyLengths.length,
               ).toString();
 
-        // GUARD / H/M/L: '—' when firm was never fetched (Fetched=0 AND empty bodyLengths).
-        // Preserves Phase 3 Pitfall 6 mid-stage-throw honesty.
-        const isEmptyFirm = m.fetched === 0 && m.bodyLengths.length === 0;
+        // DQOBS-01 fix (BLOCKER-1 in .planning/v1.1-MILESTONE-AUDIT.md):
+        // Weekly entry (runWeekly.ts) writes guardCount + confidence WITHOUT calling fetched(n)
+        // because it reads pending instead of fetching. Original two-signal predicate
+        // (fetched + bodyLengths) blanked weekly rows. Extended to four signals so a firm
+        // is "empty" only when ALL recorder writes are absent. Daily-side mid-stage-throw
+        // honesty (Phase 3 Pitfall 6) preserved: a truly-untouched firm still has all
+        // four signals at zero and still renders em-dash.
+        const isEmptyFirm =
+          m.fetched === 0 &&
+          m.bodyLengths.length === 0 &&
+          m.guardCount === 0 &&
+          m.confidenceH === 0 &&
+          m.confidenceM === 0 &&
+          m.confidenceL === 0;
         const guard = isEmptyFirm ? '—' : m.guardCount.toString();
         const hml = isEmptyFirm
           ? '—'

@@ -226,6 +226,19 @@ describe('Recorder — per-firm metrics accumulator', () => {
       expect(table).toContain('| FirmB | 0 | 0 | 0 | — | 0ms | — | — | — |');
     });
 
+    it('DQOBS-01 regression: runWeekly pattern (guardCount + confidence, no fetched call) renders non-em-dash GUARD + H/M/L', () => {
+      const r = new Recorder();
+      // Mirrors runWeekly.ts:197,201 — weekly never calls fetched() or bodyLengths()
+      // because weekly reads pending instead of fetching.
+      r.firm('cooley').guardCount(2).confidence(5, 1, 0);
+      const table = r.toMarkdownTable([
+        { id: 'cooley', name: 'Cooley', enabled: true, type: 'rss', url: 'x', language: 'en', timezone: 'UTC' } as FirmConfig,
+      ]);
+      // GUARD must be '2' not '—'; H/M/L must be '5/1/0' not '—'.
+      // AvgBody stays '—' (bodyLengths empty — intentional per COMP-05, body not persisted to pending.json).
+      expect(table).toContain('| Cooley | 0 | 0 | 0 | — | 0ms | — | 2 | 5/1/0 |');
+    });
+
     it('disabled-firm filter covers new columns: no AvgBody/GUARD/H-M-L leak for disabled firm', () => {
       const r = new Recorder();
       r.firm('disabled-firm').fetched(99).bodyLengths([9999]).guardCount(77).confidence(77, 77, 77);
