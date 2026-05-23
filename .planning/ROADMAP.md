@@ -246,7 +246,7 @@ Phases execute in numeric order. Phase 4 is conditional — skipped if Phase 2 a
 | 10. Data-Quality Observability | 0/0 | Pending | — |
 | 11. Cron Resumption Gate | 0/3 | Planning | — |
 | 12. Topic-Based Filter | 2/2 | Complete | 2026-04-21 |
-| 13. Gemini RPD 분산 (daily/weekly split) | 7/7 | Complete   | 2026-05-23 |
+| 13. Gemini RPD 분산 (daily/weekly split) | 7/7 | Complete    | 2026-05-23 |
 
 ## ⚠ v1.0 Milestone — Production Readiness Caveat
 
