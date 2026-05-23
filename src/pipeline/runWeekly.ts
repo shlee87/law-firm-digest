@@ -227,19 +227,25 @@ export async function runWeekly(options: RunOptions = {}): Promise<RunReport> {
     // lossy. Archive failure aborts BEFORE network egress => no duplicate-send
     // window. Trade-off: a successful archive no longer implies a successful
     // send (the inverse OPS-03 guarantee).
+    //
+    // Phase 13 W-01 fix: truncatePending is ALSO gated behind !skipEmail. A
+    // dry-run caller (skipEmail=true) must not silently delete the pending
+    // window — that would defeat the purpose of inspecting pending without
+    // sending. D-09 truncate-after-send invariant is preserved on the
+    // normal path.
     let archivePath: string | undefined;
     if (!skipEmail) {
       archivePath = await writeArchive(payload.html, now);
       await sendMail(payload);
       reporter.section('send', `archive=${archivePath}`);
+      // D-09: truncate AFTER mailer + archive succeed. Failure above → pending
+      // preserved → next manual workflow_dispatch retries cleanly.
+      await truncatePending();
+      reporter.section('truncate', 'pending cleared');
     } else {
       reporter.section('would-send', payload.subject);
+      reporter.section('would-truncate', 'skipped (skipEmail=true)');
     }
-
-    // D-09: truncate AFTER mailer + archive succeed. Failure above → pending
-    // preserved → next manual workflow_dispatch retries cleanly.
-    await truncatePending();
-    reporter.section('truncate', 'pending cleared');
 
     // OPS-03 last: state write (lastUpdated refresh; no new urls because
     // weekly does not fetch, so writeState merges an empty FirmResult[] —
