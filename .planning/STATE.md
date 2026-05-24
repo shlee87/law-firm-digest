@@ -25,10 +25,11 @@ See: .planning/PROJECT.md (updated 2026-04-19)
 
 ## Current Position
 
-Phase: Milestone v1.1 complete
+Phase: Not started (defining requirements)
 Plan: —
-Status: Awaiting next milestone
-Last activity: 2026-05-23 — Completed quick task 260523-oi6: curated topics footer (post v1.1 close)
+Status: Defining requirements
+Milestone: v1.2 Coverage & Closure
+Last activity: 2026-05-24 — Milestone v1.2 started
 
 ### Quick Tasks Completed
 

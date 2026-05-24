@@ -9,9 +9,19 @@
 - **v1.0 MVP** — Phases 1–5 (informally shipped before formal archive workflow existed)
 - **v1.1 Data-Quality Hardening** — Phases 6–13 (shipped 2026-05-23, archived to `milestones/v1.1-*`). End-to-end verified via manual `workflow_dispatch` (daily + weekly) on 2026-05-23 with real digest delivered to recipient inbox.
 
-## Next Milestone
+## Current Milestone: v1.2 Coverage & Closure
 
-TBD — start with `/gsd:new-milestone`. Carryover tech debt in MILESTONES.md → "Known deferred items".
+**Goal:** v1.1 close 과정에서 드러난 운영 footgun + 문서 메타데이터 누락 + 큐레이션 사각지대(월–화 48시간 fetch gap)를 한 번에 정리해 production 안정성과 artifact 정합성을 v1.1 shipping 수준에 맞춘다.
+
+**Target features:**
+- 월–화 48시간 fetch 갭 해소 (월요일에도 daily 1회 추가, weekly와 시간 분리)
+- `scripts/sync-schedule.ts` 재작성 — Phase 13 daily/weekly split 인지 (현재 footgun)
+- Phase 10 + 11 VERIFICATION.md 백필 (code shipped, goal-backward audit 미실행)
+- Phase 11-03-SUMMARY.md 백필 (cron uncomment 공식 closure 없음)
+- `pnpm audit:firms` 정기 재생성 정책 + 06-AUDIT.md 갱신 (freshfields 잔존 row 제거)
+- REQUIREMENTS metadata 정렬 — 아카이브된 v1.1 traceability의 DQOBS-* + RESUME-* + CONF-06 status를 SUMMARY와 sync
+
+**Acceptance:** (1) Production 1주 관찰 후 월요일에도 신규 글이 잡힘 확인, (2) `pnpm sync-schedule` 실행해도 cron split 유지, (3) 모든 v1.1 phase에 VERIFICATION.md + SUMMARY.md 존재, (4) v1.1 archived REQUIREMENTS.md traceability와 실제 SUMMARY 100% sync.
 
 ## Core Value
 
