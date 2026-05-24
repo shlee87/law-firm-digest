@@ -48,13 +48,11 @@ None currently identified. v1.2 is intentionally a cleanup milestone — new fea
 
 ## Traceability
 
-(Filled by roadmapper during ROADMAP.md generation)
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SCHED-01 | TBD | Pending |
-| SCHED-02 | TBD | Pending |
-| CLOSURE-01 | TBD | Pending |
-| CLOSURE-02 | TBD | Pending |
-| META-01 | TBD | Pending |
-| META-02 | TBD | Pending |
+| SCHED-01 | Phase 14 — Scheduling Coverage | Pending |
+| SCHED-02 | Phase 14 — Scheduling Coverage | Pending |
+| CLOSURE-01 | Phase 15 — v1.1 Phase Closure Backfills | Pending |
+| CLOSURE-02 | Phase 15 — v1.1 Phase Closure Backfills | Pending |
+| META-01 | Phase 16 — v1.1 Metadata Hygiene | Pending |
+| META-02 | Phase 16 — v1.1 Metadata Hygiene | Pending |
