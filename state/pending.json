@@ -1,5 +1,16 @@
 {
   "version": 1,
   "windowStart": "2026-05-25T13:14:49.166Z",
-  "items": []
+  "items": [
+    {
+      "firmId": "yoon-yang",
+      "title": "미국 국방부, CMMC 관련 조달규칙 본격 적용",
+      "url": "https://yoonyang.com/kor/insights/newsletter/14833",
+      "language": "ko",
+      "summary_ko": "미국 국방부가 CMMC(사이버보안 성숙도 모델 인증)를 국방 조달 계약의 필수 사이버보안 인증으로 확정하고 2025년 11월부터 1단계 시행에 들어갔습니다. 미 국방부 공급망에 직간접적으로 참여하는 국내 방산·조선업체 및 관련 IT 서비스 업체는 물론, 원청 및 하청·재하청업체까지 CMMC 인증 취득 대상이 됩니다. 기업들은 취급 정보 식별, 평가 범위 설정, 공급망 계약 구조 재설계, 실제 운영 기록 기반의 증적 체계 정비, 국내외 법규 충돌 검토 및 인증 후 의무 이행을 위한 전사적 컴플라이언스 체계 구축을 서둘러야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-05-26T12:54:02.681Z"
+    }
+  ]
 }
