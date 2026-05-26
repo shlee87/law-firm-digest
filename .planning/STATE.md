@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Coverage & Closure
 status: planning
-stopped_at: Phase 15 context gathered (orchestrate V2-discuss Round 6, rolled-back)
-last_updated: "2026-05-26T12:27:53.786Z"
+stopped_at: Phase 16 context gathered (orchestrate V2-discuss Round 8, further-rolled)
+last_updated: "2026-05-26T12:52:12.023Z"
 last_activity: 2026-05-24 — Milestone v1.2 roadmap created
 progress:
   total_phases: 3
@@ -86,9 +86,9 @@ Items acknowledged and carried forward from v1.1 close (2026-05-23):
 
 ## Session Continuity
 
-Last session: 2026-05-26T12:27:53.782Z
-Stopped at: Phase 15 context gathered (orchestrate V2-discuss Round 6, rolled-back)
-Resume file: .planning/phases/15-v1-1-phase-closure-backfills/15-CONTEXT.md
+Last session: 2026-05-26T12:52:12.019Z
+Stopped at: Phase 16 context gathered (orchestrate V2-discuss Round 8, further-rolled)
+Resume file: .planning/phases/16-v1-1-metadata-hygiene/16-CONTEXT.md
 
 **Next action:** `/gsd:plan-phase 14` — plan Phase 14: Scheduling Coverage
 
