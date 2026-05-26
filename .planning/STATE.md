@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Coverage & Closure
 status: executing
-stopped_at: Phase 16 context gathered (orchestrate V2-discuss Round 8, further-rolled)
-last_updated: "2026-05-26T13:44:08.194Z"
+stopped_at: "Halted at V2-plan → V2-execute transition gate (orchestrate_sh v1.15). Phase 14 plan complete; Phase 15/16 still need plan-phase. Next session: /gsd:orchestrate_sh 14,15,16 (re-enters at V2-plan with same cascade roll-back pattern)."
+last_updated: "2026-05-26T13:46:30.382Z"
 last_activity: 2026-05-26 -- Phase 14 planning complete
 progress:
   total_phases: 3
@@ -86,9 +86,9 @@ Items acknowledged and carried forward from v1.1 close (2026-05-23):
 
 ## Session Continuity
 
-Last session: 2026-05-26T12:52:12.019Z
-Stopped at: Phase 16 context gathered (orchestrate V2-discuss Round 8, further-rolled)
-Resume file: .planning/phases/16-v1-1-metadata-hygiene/16-CONTEXT.md
+Last session: 2026-05-26T13:46:30.378Z
+Stopped at: Halted at V2-plan → V2-execute transition gate (orchestrate_sh v1.15). Phase 14 plan complete; Phase 15/16 still need plan-phase. Next session: /gsd:orchestrate_sh 14,15,16 (re-enters at V2-plan with same cascade roll-back pattern).
+Resume file: .planning/phases/14-scheduling-coverage/14-01-PLAN.md
 
 **Next action:** `/gsd:plan-phase 14` — plan Phase 14: Scheduling Coverage
 
