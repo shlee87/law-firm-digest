@@ -61,7 +61,9 @@ Requirements snapshot: `.planning/milestones/v1.1-REQUIREMENTS.md`
   2. `daily.yml` cron triggers on Monday (in addition to Tue–Sun) and `weekly.yml` cron continues to fire on Monday at a separated time, with `concurrency: digest-pipeline` lock preventing overlap
   3. Running `pnpm sync-schedule` either (a) leaves both `daily.yml` + `weekly.yml` byte-identical to their pre-run state, or (b) returns "command not found" / equivalent failure because the script + package.json entry were removed
   4. A documented policy exists (in CLAUDE.md or settings.yaml header) explaining how cron schedules are edited after this phase
-**Plans**: TBD
+**Plans**:
+- [ ] 14-01-PLAN.md — SCHED-01 functional: daily.yml + weekly.yml cron split (add Mon to daily, shift weekly to Mon 06:00 KST)
+- [ ] 14-02-PLAN.md — SCHED-02 mechanical cleanup: delete sync-schedule.ts + package.json entry + toCron() + settings.yaml ref; add CLAUDE.md edit policy + STATE.md acceptance note
 
 ### Phase 15: v1.1 Phase Closure Backfills
 **Goal**: Every shipped v1.1 phase has both a per-plan SUMMARY.md and a goal-backward VERIFICATION.md, restoring full v1.1 archive integrity.
@@ -94,7 +96,7 @@ Phases execute in numeric order: 14 → 15 → 16
 |-------|-----------|----------------|--------|-----------|
 | 1–5 (collapsed) | v1.0 | 30+/30+ | Complete | (pre-2026-04-19) |
 | 6–13 (collapsed) | v1.1 | 28/28 | Complete | 2026-05-23 |
-| 14. Scheduling Coverage | v1.2 | 0/TBD | Not started | - |
+| 14. Scheduling Coverage | v1.2 | 0/2 | Not started | - |
 | 15. v1.1 Phase Closure Backfills | v1.2 | 0/TBD | Not started | - |
 | 16. v1.1 Metadata Hygiene | v1.2 | 0/TBD | Not started | - |
 
