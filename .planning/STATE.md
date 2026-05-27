@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Coverage & Closure
-status: executing
+status: verifying
 stopped_at: "Halted at V2-plan → V2-execute transition gate (orchestrate_sh v1.15). Phase 14 plan complete; Phase 15/16 still need plan-phase. Next session: /gsd:orchestrate_sh 14,15,16 (re-enters at V2-plan with same cascade roll-back pattern)."
-last_updated: "2026-05-27T13:16:52.000Z"
+last_updated: "2026-05-27T13:22:09.051Z"
 last_activity: 2026-05-27
 progress:
   total_phases: 3
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 2
-  completed_plans: 1
-  percent: 0
+  completed_plans: 2
+  percent: 33
 ---
 
 # Project State
@@ -27,11 +27,11 @@ See: .planning/PROJECT.md (updated 2026-05-23)
 
 Phase: 14 (scheduling-coverage) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Milestone: v1.2 Coverage & Closure
 Last activity: 2026-05-27
 
-Progress: [█████░░░░░] 50%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -62,6 +62,9 @@ Recent decisions affecting current work:
 - v1.1 close decision recap: All four `audit-open` flagged items are false positives (resolved scenarios + committed quick-task); see PROJECT.md and v1.1-MILESTONE-AUDIT.md
 - Phase 13 cron lesson preserved: `0,2-6` not `2-7,0` (GH Actions rejects day-7 + day-0 overlap as Sunday alias collision) — Phase 14 SCHED-01 must apply same constraint when adding Monday
 - [Phase ?]: Phase 14-01: daily cron extended to '0 12 * * 0-6' (all 7 days); weekly cron shifted to '0 21 * * 0' (Mon 06:00 KST = Sun 21:00 UTC). Concurrency byte-identical, GH Actions parser accepted both via workflow_dispatch (daily run 26513050608, weekly run 26513052641).
+- [Phase 14]: Phase 14 SCHED-02 bundled cleanup commit (D-01): 5 files + STATE.md note → single chore(14) commit; Phase 14 ships exactly 2 commits total (fix(14) SCHED-01 + chore(14) SCHED-02-with-STATE-note).
+- [Phase 14]: settings.yaml schedule block preserved (zod compat) with '현재 미사용' header pointing to daily.yml/weekly.yml + CLAUDE.md; full removal deferred to v1.3+.
+- [Phase 14]: CLAUDE.md ### Workflow scheduling (cron edit policy) subsection added INSIDE GSD:conventions fence with procedure-only text (no literal cron values) — prevents new doc-sync footgun. Phase 16 META-02 will add sibling subsection for audit:firms freshness.
 
 ### Pending Todos
 
@@ -86,10 +89,11 @@ Items acknowledged and carried forward from v1.1 close (2026-05-23):
 | metadata | empty `requirements-completed: []` + Phase 12 SPEC-local IDs + REQUIREMENTS DQOBS/RESUME checkboxes [ ] | promoted to v1.2 | 2026-05-23 | META-01 / Phase 16 |
 | curation | Monday fetch gap (~48h Sun-21:00 → Tue-21:00) | newly identified during v1.2 scoping | 2026-05-24 | SCHED-01 / Phase 14 |
 | Phase 14 P14-01 | 3min | 3 tasks | 2 files |
+| Phase 14 P14-02 | 4min | 4 tasks | 6 files |
 
 ## Session Continuity
 
-Last session: 2026-05-27T13:12:19.265Z
+Last session: 2026-05-27T13:21:02.233Z
 Stopped at: Halted at V2-plan → V2-execute transition gate (orchestrate_sh v1.15). Phase 14 plan complete; Phase 15/16 still need plan-phase. Next session: /gsd:orchestrate_sh 14,15,16 (re-enters at V2-plan with same cascade roll-back pattern).
 Resume file: None
 

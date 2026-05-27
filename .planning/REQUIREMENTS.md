@@ -14,7 +14,7 @@ Operational cron coverage + sync-script integrity. User-facing impact: monday ne
 
 - [x] **SCHED-01**: Pipeline fetches new newsletter items at least once every 24 hours across all weekdays (no >24h fetch gap). Currently 일–화 사이 ~48시간 gap because daily.yml excludes Monday (weekly.yml owns Mon). Add Monday daily fetch — daily and weekly may run on the same day if their times are separated (e.g., daily 21:00 KST / weekly 06:00 KST) and `concurrency: digest-pipeline` lock continues to prevent overlap.
 
-- [ ] **SCHED-02**: `pnpm sync-schedule` does not silently overwrite the Phase 13 daily/weekly cron split. The script either (a) is rewritten to read `config/settings.yaml` and update BOTH `daily.yml` and `weekly.yml` in lockstep, or (b) is removed entirely and replaced with a documented manual-edit policy in CLAUDE.md / settings.yaml header. Acceptance: running `pnpm sync-schedule` (if kept) leaves split intact, OR `package.json` script is removed and `pnpm` no longer accepts the command.
+- [x] **SCHED-02**: `pnpm sync-schedule` does not silently overwrite the Phase 13 daily/weekly cron split. The script either (a) is rewritten to read `config/settings.yaml` and update BOTH `daily.yml` and `weekly.yml` in lockstep, or (b) is removed entirely and replaced with a documented manual-edit policy in CLAUDE.md / settings.yaml header. Acceptance: running `pnpm sync-schedule` (if kept) leaves split intact, OR `package.json` script is removed and `pnpm` no longer accepts the command.
 
 ### Phase Closure (CLOSURE)
 
@@ -51,7 +51,7 @@ None currently identified. v1.2 is intentionally a cleanup milestone — new fea
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | SCHED-01 | Phase 14 — Scheduling Coverage | Complete |
-| SCHED-02 | Phase 14 — Scheduling Coverage | Pending |
+| SCHED-02 | Phase 14 — Scheduling Coverage | Complete |
 | CLOSURE-01 | Phase 15 — v1.1 Phase Closure Backfills | Pending |
 | CLOSURE-02 | Phase 15 — v1.1 Phase Closure Backfills | Pending |
 | META-01 | Phase 16 — v1.1 Metadata Hygiene | Pending |

@@ -46,7 +46,7 @@ Requirements snapshot: `.planning/milestones/v1.1-REQUIREMENTS.md`
 
 **Milestone Goal:** v1.1 close 과정에서 드러난 운영 footgun + 문서 메타데이터 누락 + 큐레이션 사각지대(월–화 48시간 fetch gap)를 한 번에 정리해 production 안정성과 artifact 정합성을 v1.1 shipping 수준에 맞춘다. No new user-facing features — pure operational + documentation tightening.
 
-- [ ] **Phase 14: Scheduling Coverage** — Close the Monday fetch gap and remove the sync-schedule footgun (SCHED-01 + SCHED-02)
+- [x] **Phase 14: Scheduling Coverage** — Close the Monday fetch gap and remove the sync-schedule footgun (SCHED-01 + SCHED-02) (completed 2026-05-27)
 - [ ] **Phase 15: v1.1 Phase Closure Backfills** — Write the missing VERIFICATION.md + 11-03-SUMMARY.md artifacts (CLOSURE-01 + CLOSURE-02)
 - [ ] **Phase 16: v1.1 Metadata Hygiene** — Reconcile traceability + regen 06-AUDIT.md + document freshness policy (META-01 + META-02)
 
@@ -63,7 +63,7 @@ Requirements snapshot: `.planning/milestones/v1.1-REQUIREMENTS.md`
   4. A documented policy exists (in CLAUDE.md or settings.yaml header) explaining how cron schedules are edited after this phase
 **Plans**:
 - [x] 14-01-PLAN.md — SCHED-01 functional: daily.yml + weekly.yml cron split (add Mon to daily, shift weekly to Mon 06:00 KST)
-- [ ] 14-02-PLAN.md — SCHED-02 mechanical cleanup: delete sync-schedule.ts + package.json entry + toCron() + settings.yaml ref; add CLAUDE.md edit policy + STATE.md acceptance note
+- [x] 14-02-PLAN.md — SCHED-02 mechanical cleanup: delete sync-schedule.ts + package.json entry + toCron() + settings.yaml ref; add CLAUDE.md edit policy + STATE.md acceptance note
 
 ### Phase 15: v1.1 Phase Closure Backfills
 **Goal**: Every shipped v1.1 phase has both a per-plan SUMMARY.md and a goal-backward VERIFICATION.md, restoring full v1.1 archive integrity.
@@ -96,7 +96,7 @@ Phases execute in numeric order: 14 → 15 → 16
 |-------|-----------|----------------|--------|-----------|
 | 1–5 (collapsed) | v1.0 | 30+/30+ | Complete | (pre-2026-04-19) |
 | 6–13 (collapsed) | v1.1 | 28/28 | Complete | 2026-05-23 |
-| 14. Scheduling Coverage | v1.2 | 1/2 | In Progress|  |
+| 14. Scheduling Coverage | v1.2 | 2/2 | Complete   | 2026-05-27 |
 | 15. v1.1 Phase Closure Backfills | v1.2 | 0/TBD | Not started | - |
 | 16. v1.1 Metadata Hygiene | v1.2 | 0/TBD | Not started | - |
 
