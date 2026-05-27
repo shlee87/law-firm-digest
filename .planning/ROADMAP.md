@@ -96,7 +96,7 @@ Phases execute in numeric order: 14 → 15 → 16
 |-------|-----------|----------------|--------|-----------|
 | 1–5 (collapsed) | v1.0 | 30+/30+ | Complete | (pre-2026-04-19) |
 | 6–13 (collapsed) | v1.1 | 28/28 | Complete | 2026-05-23 |
-| 14. Scheduling Coverage | v1.2 | 2/2 | Complete   | 2026-05-27 |
+| 14. Scheduling Coverage | v1.2 | 2/2 | Complete    | 2026-05-27 |
 | 15. v1.1 Phase Closure Backfills | v1.2 | 0/TBD | Not started | - |
 | 16. v1.1 Metadata Hygiene | v1.2 | 0/TBD | Not started | - |
 

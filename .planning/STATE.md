@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Coverage & Closure
-status: verifying
-stopped_at: "Halted at V2-plan → V2-execute transition gate (orchestrate_sh v1.15). Phase 14 plan complete; Phase 15/16 still need plan-phase. Next session: /gsd:orchestrate_sh 14,15,16 (re-enters at V2-plan with same cascade roll-back pattern)."
-last_updated: "2026-05-27T13:22:09.051Z"
+status: ready_to_plan
+stopped_at: Phase 14 complete (2/2) — ready to discuss Phase 15
+last_updated: 2026-05-27T13:37:00.303Z
 last_activity: 2026-05-27
 progress:
   total_phases: 3
   completed_phases: 1
   total_plans: 2
-  completed_plans: 2
+  completed_plans: 71
   percent: 33
 ---
 
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-23)
 
 **Core value:** 사용자가 직접 로펌 웹사이트를 돌지 않아도, 추적 대상 로펌들의 신규 뉴스레터를 원문 링크와 함께 한국어 요약으로 받아볼 수 있어야 한다.
-**Current focus:** Phase 14 — scheduling-coverage
+**Current focus:** Phase 15 — v1 1 phase closure backfills
 
 ## Current Position
 
-Phase: 14 (scheduling-coverage) — EXECUTING
-Plan: 2 of 2
-Status: Phase complete — ready for verification
+Phase: 15
+Plan: Not started
+Status: Ready to plan
 Milestone: v1.2 Coverage & Closure
 Last activity: 2026-05-27
 
@@ -37,7 +37,7 @@ Progress: [██████████] 100%
 
 **Velocity (v1.0 + v1.1 lifetime):**
 
-- Total plans completed: 66 (across Phases 1–13)
+- Total plans completed: 68 (across Phases 1–13)
 - v1.1 closed 2026-05-23 with 28 plans across 8 phases
 
 **v1.2 (this milestone):**
