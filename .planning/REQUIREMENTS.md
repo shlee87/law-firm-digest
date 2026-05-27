@@ -28,9 +28,9 @@ v1.1 phases that shipped code without their goal-backward verification artifact.
 
 Archived artifact accuracy + audit freshness.
 
-- [ ] **META-01**: `.planning/milestones/v1.1-REQUIREMENTS.md` traceability table reflects actual shipped state — DQOBS-01/02/03, RESUME-01/02, and CONF-06 (satisfied by Phase 12 topic filter) flipped from `[ ]` to `[x]` with phase + commit evidence. Also update any `requirements-completed: []` empty arrays in `milestones/v1.1-phases/{10,11,12}/SUMMARYs` to list the actual REQ-IDs each plan closed (Phase 12 SUMMARYs need cross-walk from local `SPEC-12-REQ-*` IDs to top-level `CONF-06`).
+- [x] **META-01**: `.planning/milestones/v1.1-REQUIREMENTS.md` traceability table reflects actual shipped state — DQOBS-01/02/03, RESUME-01/02, and CONF-06 (satisfied by Phase 12 topic filter) flipped from `[ ]` to `[x]` with phase + commit evidence. Also update any `requirements-completed: []` empty arrays in `milestones/v1.1-phases/{10,11,12}/SUMMARYs` to list the actual REQ-IDs each plan closed (Phase 12 SUMMARYs need cross-walk from local `SPEC-12-REQ-*` IDs to top-level `CONF-06`).
 
-- [ ] **META-02**: `pnpm audit:firms` re-run produces fresh `06-AUDIT.md` reflecting current `config/firms.yaml` (no `freshfields` row — that firm was removed 2026-05-18). Policy: document in CLAUDE.md or `06-AUDIT.md` header how often this should be re-run (e.g., "after every `firms.yaml` change" or "monthly").
+- [x] **META-02**: `pnpm audit:firms` re-run produces fresh `06-AUDIT.md` reflecting current `config/firms.yaml` (no `freshfields` row — that firm was removed 2026-05-18). Policy: document in CLAUDE.md or `06-AUDIT.md` header how often this should be re-run (e.g., "after every `firms.yaml` change" or "monthly").
 
 ## Future Requirements (deferred — re-evaluate at v1.3)
 
@@ -54,5 +54,5 @@ None currently identified. v1.2 is intentionally a cleanup milestone — new fea
 | SCHED-02 | Phase 14 — Scheduling Coverage | Complete |
 | CLOSURE-01 | Phase 15 — v1.1 Phase Closure Backfills | Pending |
 | CLOSURE-02 | Phase 15 — v1.1 Phase Closure Backfills | Pending |
-| META-01 | Phase 16 — v1.1 Metadata Hygiene | Pending |
-| META-02 | Phase 16 — v1.1 Metadata Hygiene | Pending |
+| META-01 | Phase 16 — v1.1 Metadata Hygiene | Complete |
+| META-02 | Phase 16 — v1.1 Metadata Hygiene | Complete |

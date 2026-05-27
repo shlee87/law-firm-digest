@@ -48,7 +48,7 @@ Requirements snapshot: `.planning/milestones/v1.1-REQUIREMENTS.md`
 
 - [x] **Phase 14: Scheduling Coverage** — Close the Monday fetch gap and remove the sync-schedule footgun (SCHED-01 + SCHED-02) (completed 2026-05-27)
 - [ ] **Phase 15: v1.1 Phase Closure Backfills** — Write the missing VERIFICATION.md + 11-03-SUMMARY.md artifacts (CLOSURE-01 + CLOSURE-02)
-- [ ] **Phase 16: v1.1 Metadata Hygiene** — Reconcile traceability + regen 06-AUDIT.md + document freshness policy (META-01 + META-02)
+- [x] **Phase 16: v1.1 Metadata Hygiene** — Reconcile traceability + regen 06-AUDIT.md + document freshness policy (META-01 + META-02) (completed 2026-05-27)
 
 ## Phase Details
 
@@ -98,7 +98,7 @@ Phases execute in numeric order: 14 → 15 → 16
 | 6–13 (collapsed) | v1.1 | 28/28 | Complete | 2026-05-23 |
 | 14. Scheduling Coverage | v1.2 | 2/2 | Complete    | 2026-05-27 |
 | 15. v1.1 Phase Closure Backfills | v1.2 | 0/TBD | Not started | - |
-| 16. v1.1 Metadata Hygiene | v1.2 | 0/TBD | Not started | - |
+| 16. v1.1 Metadata Hygiene | v1.2 | 3/3 | Complete    | 2026-05-27 |
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
