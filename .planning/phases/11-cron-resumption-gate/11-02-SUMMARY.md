@@ -3,6 +3,8 @@ phase: 11-cron-resumption-gate
 plan: 02
 status: complete
 completed: 2026-04-21
+requirements-completed:
+  - RESUME-01
 ---
 
 # Plan 11-02 Summary: Thawte CA Fix + shin-kim Re-enabled

@@ -22,6 +22,8 @@ key_files:
 decisions:
   - restoreFetchHost operates only on the fetch URL; canonical item.url (www-stripped) preserved for dedup
   - loader.test.ts DISABLED_FIRM_ID switched from bkl to shin-kim (Rule 1 fix — bkl now enabled)
+requirements-completed:
+  - RESUME-01
 metrics:
   duration: "~5 min"
   completed: "2026-04-21"

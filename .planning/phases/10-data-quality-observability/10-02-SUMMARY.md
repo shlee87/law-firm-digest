@@ -28,6 +28,8 @@ decisions:
   - "renderMarkersMarkdown shared between DRY_RUN stdout (main.ts) and GHA step-summary (summary.ts) for D-07 byte-parity"
   - "D-15 clean-run invisible: markers block rendered only when markers.length > 0"
   - "ClusterMarker discriminated with kind='cluster'; LowConfidenceMarker with kind='low-confidence'"
+requirements-completed:
+  - DQOBS-02
 metrics:
   duration: "~3h"
   completed: "2026-04-21"

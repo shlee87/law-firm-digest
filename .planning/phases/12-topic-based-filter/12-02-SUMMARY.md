@@ -115,6 +115,10 @@ None beyond the test mock gap above.
 - Filtered items recorded in seen.json — no re-evaluation on future runs (SPEC-12-REQ-5)
 - All 6 SPEC-12 requirements covered across plans 01 and 02
 
+## Cross-walk
+
+**Cross-walk:** This plan closes `SPEC-12-REQ-2`, `SPEC-12-REQ-3`, `SPEC-12-REQ-4`, `SPEC-12-REQ-5`, `SPEC-12-REQ-6` (phase-local IDs — verified against `12-02-SUMMARY.md` frontmatter `requirements-completed:`). Together with Plan 12-01's contributions, these satisfy top-level **CONF-06** (`각 로펌은 선택적 include_keywords / exclude_keywords 필터를 지원한다`). Tracked in `.planning/milestones/v1.1-REQUIREMENTS.md` traceability table.
+
 ---
 *Phase: 12-topic-based-filter*
 *Completed: 2026-04-21*

@@ -108,6 +108,10 @@ None beyond the TypeScript stub requirement above.
 - 8 RED tests will turn GREEN when Plan 02 replaces the stubs with real implementations
 - `config/firms.yaml` keyword lists are live and will be validated by `loadTopics()` on first run
 
+## Cross-walk
+
+**Cross-walk:** This plan closes `SPEC-12-REQ-1`, `SPEC-12-REQ-2`, `SPEC-12-REQ-3`, `SPEC-12-REQ-6` (phase-local IDs). Together with Plan 12-02's contributions, these satisfy top-level **CONF-06** (`각 로펌은 선택적 include_keywords / exclude_keywords 필터를 지원한다`). Tracked in `.planning/milestones/v1.1-REQUIREMENTS.md` traceability table.
+
 ---
 *Phase: 12-topic-based-filter*
 *Completed: 2026-04-21*

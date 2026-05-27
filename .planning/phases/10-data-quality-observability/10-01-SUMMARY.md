@@ -21,6 +21,8 @@ decisions:
   - "isEmptyFirm gate: fetched===0 AND bodyLengths.length===0 → AvgBody/GUARD/H-M-L all render as em-dash"
   - "AvgBody column is integer math (Math.round), not float"
   - "Recorder write-sites placed post-enrichBody and post-cluster-detect in run.ts"
+requirements-completed:
+  - DQOBS-01
 metrics:
   duration: "~2h"
   completed: "2026-04-21"

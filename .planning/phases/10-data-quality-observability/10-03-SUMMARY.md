@@ -21,6 +21,8 @@ decisions:
   - "emitDryRunStepSummary is the fourth and final sanctioned DRY_RUN site (Pattern 2 containment)"
   - "RunReport widened with markers: DataQualityMarker[] and firms: FirmConfig[] for DRY_RUN emission"
   - "toMarkdownTable called with report.firms so disabled-firm filter and deterministic order apply"
+requirements-completed:
+  - DQOBS-03
 metrics:
   duration: "~1h"
   completed: "2026-04-21"
