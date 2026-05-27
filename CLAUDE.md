@@ -190,7 +190,21 @@
 <!-- GSD:conventions-start source:CONVENTIONS.md -->
 ## Conventions
 
-Conventions not yet established. Will populate as patterns emerge during development.
+### Workflow scheduling (cron edit policy)
+
+Cron 일정의 단일 진실 원천은 `.github/workflows/daily.yml` + `.github/workflows/weekly.yml`의 `schedule.cron` 두 줄이다. `config/settings.yaml`의 `schedule:` 블록은 zod 호환을 위한 placeholder이며 runtime에 사용되지 않는다.
+
+**변경 절차:**
+1. `daily.yml` / `weekly.yml`의 `schedule.cron` 줄을 직접 편집한다.
+2. Commit + push.
+3. `gh workflow run daily.yml` + `gh workflow run weekly.yml`로 즉시 dispatch — 양쪽 yml syntax가 GH Actions parser를 통과하는지 검증.
+
+**Phase 13 lesson (cron syntax 충돌):**
+GH Actions는 같은 day-of-week 필드에서 `0`(Sun)과 `7`(Sun alias)이 동시에 등장하면 cron을 reject한다. Monday를 추가할 때 `2-7,0` 같은 형태를 쓰지 말고 `0-6`, `*`, 또는 `0,1,2-6`처럼 collision-free 표현을 사용한다.
+
+**시간 분리 원칙:**
+daily와 weekly cron의 발사 시각은 분리해 유지한다. `concurrency: digest-pipeline` lock이 동시 실행을 직렬화하긴 하지만, 동일 시각 트리거는 한쪽이 다른 쪽이 끝나길 기다리는 슬롯 슬립을 만든다.
+
 <!-- GSD:conventions-end -->
 
 <!-- GSD:architecture-start source:ARCHITECTURE.md -->

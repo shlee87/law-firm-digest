@@ -4,7 +4,7 @@ milestone: v1.2
 milestone_name: Coverage & Closure
 status: executing
 stopped_at: "Halted at V2-plan → V2-execute transition gate (orchestrate_sh v1.15). Phase 14 plan complete; Phase 15/16 still need plan-phase. Next session: /gsd:orchestrate_sh 14,15,16 (re-enters at V2-plan with same cascade roll-back pattern)."
-last_updated: "2026-05-27T13:12:23.750Z"
+last_updated: "2026-05-27T13:16:52.000Z"
 last_activity: 2026-05-27
 progress:
   total_phases: 3
@@ -54,6 +54,7 @@ Progress: [█████░░░░░] 50%
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
+- 2026-05-27 Phase 14 cron split: daily/weekly workflow_dispatch 검증 완료 — daily run ID 26513050608, weekly run ID 26513052641. 다음 자연 schedule trigger 확인은 1주 내 production history에서.
 - v1.2 is a closure milestone — no new user-facing features, pure operational + documentation tightening
 - Phase 14 ordering: SCHED-01 + SCHED-02 grouped because both touch GH Actions cron config + sync-schedule script (single editing context)
 - Phase 15 ordering: CLOSURE-01 + CLOSURE-02 grouped because both write missing artifacts (single audit-discipline context)

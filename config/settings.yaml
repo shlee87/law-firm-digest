@@ -19,23 +19,15 @@ recipient:
   email: your.email@example.com
 
 # --------------------------------------------------------------
-# 발송 일정
+# 발송 일정 (현재 미사용)
 # --------------------------------------------------------------
-# 변경 후 터미널에서 `pnpm sync-schedule` 실행 → daily.yml 자동 업데이트
-#
-# time_utc 예시 (UTC 기준, KST = UTC+9):
-#   '00:00'  = 09:00 KST   '01:00'  = 10:00 KST
-#   '02:00'  = 11:00 KST   '22:00'  = 07:00 KST (다음날)
-#
-# days 선택지:
-#   daily     = 매일 (기본값)
-#   weekdays  = 평일만 (월~금)
-#   weekends  = 주말만 (토~일)
-#   weekly    = 주 1회 (매주 월요일)
-#   biweekly  = 격주 1회 (매달 1일·15일 기준)
+# ⚠ 이 schedule 블록은 현재 사용되지 않습니다.
+#   실제 cron 일정은 .github/workflows/daily.yml + weekly.yml에서 직접 관리합니다.
+#   변경 절차는 CLAUDE.md의 "Workflow scheduling" 섹션을 참조하세요.
+#   (zod 호환을 위해 블록 자체는 남겨두지만 값은 무시됩니다.)
 schedule:
-  time_utc: '12:00'   # UTC 기준 발송 시각 (12:00 UTC = 08:00 Chicago CDT / 07:00 CST)
-  days: weekly         # daily / weekdays / weekends / weekly / biweekly
+  time_utc: '12:00'
+  days: weekly
 
 # --------------------------------------------------------------
 # Gemini AI 모델 설정

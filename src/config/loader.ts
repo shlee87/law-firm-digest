@@ -82,24 +82,6 @@ export async function loadSettings(): Promise<Settings> {
   return result.data;
 }
 
-// toCron: converts human-readable schedule fields to a GitHub Actions cron string.
-// Called by scripts/sync-schedule.ts to update .github/workflows/daily.yml.
-export function toCron(schedule: { time_utc: string; days: string }): string {
-  const [hoursStr, minutesStr] = schedule.time_utc.split(':');
-  const hours = parseInt(hoursStr, 10);
-  const minutes = parseInt(minutesStr, 10);
-  if (schedule.days === 'biweekly') {
-    // 매달 1일·15일 실행 (격주 근사 — cron에 정확한 격주 지원 없음)
-    return `${minutes} ${hours} 1,15 * *`;
-  }
-  const daysPart =
-    schedule.days === 'weekdays' ? '1-5' :
-    schedule.days === 'weekends' ? '0,6' :
-    schedule.days === 'weekly' ? '1' : // 매주 월요일
-    '*';
-  return `${minutes} ${hours} * * ${daysPart}`;
-}
-
 // Phase 12 D-06: load the topics: block from config/firms.yaml.
 // Reuses the same FirmsConfigSchema parse path as loadFirms so validation
 // errors surface with the same formatted output. Returns TopicConfig (which
