@@ -205,6 +205,18 @@ GH Actions는 같은 day-of-week 필드에서 `0`(Sun)과 `7`(Sun alias)이 동�
 **시간 분리 원칙:**
 daily와 weekly cron의 발사 시각은 분리해 유지한다. `concurrency: digest-pipeline` lock이 동시 실행을 직렬화하긴 하지만, 동일 시각 트리거는 한쪽이 다른 쪽이 끝나길 기다리는 슬롯 슬립을 만든다.
 
+### Audit freshness (audit:firms)
+
+`pnpm audit:firms`를 재실행해야 하는 조건:
+1. `config/firms.yaml`을 편집한 직후 (firm 추가/제거/disable 토글, tier 변경, selector 수정 등).
+2. 마지막 audit 실행으로부터 6개월 이상 경과 시 (firms가 사이트 변경에 silent drift 했는지 확인 목적).
+
+실행 절차:
+- `pnpm audit:firms` → `.planning/phases/06-firm-audit-probe/06-AUDIT.md` 가 재생성된다(header timestamp + per-firm 행 갱신).
+- 실행자가 06-AUDIT.md 변경분을 같은 PR/commit에서 함께 commit한다 (drift 상태가 자동 push되지 않도록 manual gate 유지).
+
+CI 통합(자동 fail-on-drift)은 over-engineering으로 의도적 보류 — single-developer project에서 manual policy가 충분.
+
 <!-- GSD:conventions-end -->
 
 <!-- GSD:architecture-start source:ARCHITECTURE.md -->
