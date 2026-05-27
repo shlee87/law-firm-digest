@@ -11,6 +11,48 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-05-26T12:54:02.681Z"
+    },
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 18 – 22 May 2026",
+      "url": "https://cliffordchance.com/briefings/2026/05/international-regulatory-update-18---22-may-2026.html",
+      "publishedAt": "2026-05-27T08:57:40.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 18 – 22 May 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash-lite",
+      "summarizedAt": "2026-05-27T13:02:37.348Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "글로벌 부동산 만기절벽(Maturity Wall)의 도래",
+      "url": "https://yoonyang.com/kor/insights/newsletter/14843",
+      "language": "ko",
+      "summary_ko": "2026년 만기가 도래하는 수조 달러 규모의 상업용 부동산 대출이 고금리 환경과 맞물려 '만기절벽' 현상을 일으키고 있습니다. 이는 국내 기관투자자의 해외 부동산 대체투자 포트폴리오에도 직접적인 영향을 미치며, 특히 후순위 투자자로서의 법적 지위 리스크, Extend-and-Pretend 전략의 함의, EOD 발동 시 담보권 실행 및 협상력 상실 등의 법적·재무적 리스크가 부각되고 있습니다. 이에 따라 DSCR 미달, LTV Breach, 임차인 신용도 악화, 리파이낸싱 실패 가능성 등의 조기 경보 신호를 포착하고, 만기 6개월 전부터 계약서 검토 및 협상 카드 확보 등 선제적 법률 대응이 중요합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash-lite",
+      "summarizedAt": "2026-05-27T13:02:37.348Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "EU ETS: European Commission Announces Additional Flexibilities, Including Updated Benchmarks",
+      "url": "https://globalelr.com/2026/05/eu-ets-european-commission-announces-additional-flexibilities-including-updated-benchmarks",
+      "language": "en",
+      "summary_ko": "EU ETS: European Commission Announces Additional Flexibilities, Including Updated Benchmarks",
+      "summaryConfidence": "low",
+      "summaryModel": "failed",
+      "summaryError": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-2.5-flash\\nPlease retry in 39.347610487s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://ai.google.dev/gemini-api/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerMinutePerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"location\":\"global\",\"model\":\"gemini-2.5-flash\"},\"quotaValue\":\"5\"}]},{\"@type\":\"type.googleapis.com/google.rpc.RetryInfo\",\"retryDelay\":\"39s\"}]}}",
+      "summarizedAt": "2026-05-27T13:02:37.348Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "UK Employment Rights Act Changes: What M&A Buyers Need to Know",
+      "url": "https://lw.com/en/insights/uk-employment-rights-act-changes-what-ma-buyers-need-to-know",
+      "language": "en",
+      "summary_ko": "2027년 1월 1일부터 영국 고용권법(Employment Rights Act 2025) 개정으로 부당 해고 관련 규정이 크게 변경됩니다. 주요 변경 사항으로는 부당 해고 시 보상금 상한액 폐지 및 소송 제기 가능 근속 기간 6개월 단축이 있습니다. 또한, '해고 후 재고용' 관행이 제한되고, 집단 해고 시 통지 의무 위반에 대한 배상액이 증가하며, 고용 tribunal 소송 제기 기한이 3개월에서 6개월로 연장됩니다. M&A 거래 시 인수 대상 기업의 고용 위험 증가에 대비해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash-lite",
+      "summarizedAt": "2026-05-27T13:02:37.348Z"
     }
   ]
 }
