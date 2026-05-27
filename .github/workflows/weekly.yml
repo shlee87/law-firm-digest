@@ -24,10 +24,10 @@
 name: Weekly Digest
 
 on:
-  # Phase 13 cadence — config/settings.yaml decoupling tracked separately
-  # (SPEC §Out-of-scope §1 / §2).
+  # 발송 일정 — Mon 06:00 KST. daily.yml의 Mon 21:00 KST run과 시간 분리.
+  # 변경 절차: 아래 cron 줄을 수정 → commit → push → `gh workflow run weekly.yml`로 검증.
   schedule:
-    - cron: '0 12 * * 1'  # 월요일 21:00 KST = 12:00 UTC
+    - cron: '0 21 * * 0'  # Phase 14: 월요일 06:00 KST = 일요일 21:00 UTC
   workflow_dispatch: {} # manual trigger for smoke tests / gap closure
 
 concurrency: # OPS-02 — serialize overlapping runs (shared with daily.yml)

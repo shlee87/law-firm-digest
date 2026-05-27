@@ -20,11 +20,12 @@
 name: Daily Digest
 
 on:
-  # 발송 일정 — config/settings.yaml의 schedule.cron과 동일하게 유지하세요.
-  # 변경 방법: 아래 cron 값을 수정한 뒤 config/settings.yaml도 동일하게 맞춰주세요.
+  # 발송 일정 — cron은 이 파일과 weekly.yml에서 직접 관리합니다.
+  # 변경 절차: 아래 cron 줄을 수정 → commit → push → `gh workflow run daily.yml`로 검증.
+  # Phase 13 lesson: day-of-week 필드에서 0(Sun)과 7(Sun alias) 동시 사용 금지 (GH Actions reject).
   # 형식: '분 시(UTC) 일 월 요일' (KST = UTC+9)
   schedule:
-    - cron: '0 12 * * 0,2-6'  # Phase 13: 화~일 매일 21:00 KST (월요일은 weekly.yml 이 담당)
+    - cron: '0 12 * * 0-6'  # Phase 14: 매일(월~일) 21:00 KST
   workflow_dispatch: {} # manual trigger for smoke tests / gap closure
 
 concurrency: # OPS-02 — serialize overlapping runs (Pitfall #5)
