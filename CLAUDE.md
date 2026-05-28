@@ -26,8 +26,11 @@
 | Model | RPM | RPD | TPM | Notes |
 |-------|----:|----:|----:|-------|
 | `gemini-2.5-pro` | 5 | 100 | shared 250K | Reasoning, deprecated from free tier for some accounts as of April 1, 2026 |
-| `gemini-2.5-flash` | 10 | 250 | shared 250K | **Recommended for this project** |
+| `gemini-2.5-flash` | 5 (observed 2026-05-27) | 250 | shared 250K | **Recommended for this project** |
 | `gemini-2.5-flash-lite` | 15 | 1,000 | shared 250K | Fallback if Flash quota spikes |
+
+> **Observed 2026-05-27:** flash + flash-lite share the same `gemini-2.5-flash` quota metric — model fallback alone does NOT unstick a 429.
+
 ## Recommended Stack
 ### Core Technologies
 | Technology | Version | Purpose | Why Recommended |
