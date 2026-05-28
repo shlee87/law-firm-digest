@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Coverage & Closure
-status: milestone_complete
-stopped_at: Milestone complete (Phase 16 was final phase)
-last_updated: 2026-05-27T15:07:40.035Z
-last_activity: 2026-05-27 -- Phase 16 planning complete
+status: executing
+stopped_at: "Halted at V2-plan → V2-execute transition gate (orchestrate_sh v1.15). Phase 14 plan complete; Phase 15/16 still need plan-phase. Next session: /gsd:orchestrate_sh 14,15,16 (re-enters at V2-plan with same cascade roll-back pattern)."
+last_updated: "2026-05-28T04:53:37.022Z"
+last_activity: 2026-05-28 -- Phase 17 planning complete
 progress:
-  total_phases: 3
-  completed_phases: 1
-  total_plans: 7
-  completed_plans: 77
-  percent: 33
+  total_phases: 4
+  completed_phases: 3
+  total_plans: 10
+  completed_plans: 7
+  percent: 70
 ---
 
 # Project State
@@ -27,9 +27,9 @@ See: .planning/PROJECT.md (updated 2026-05-23)
 
 Phase: 16
 Plan: Not started
-Status: Milestone complete
+Status: Ready to execute
 Milestone: v1.2 Coverage & Closure
-Last activity: 2026-05-27
+Last activity: 2026-05-28 -- Phase 17 planning complete
 
 Progress: [██████████] 100%
 
