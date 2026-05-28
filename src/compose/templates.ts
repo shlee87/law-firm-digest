@@ -171,13 +171,6 @@ function renderFirmSection(r: FirmResult): string {
 }
 
 function renderArticle(it: FirmResult['summarized'][number], isFirst: boolean): string {
-  const badge =
-    it.summaryModel === 'skipped'
-      ? ` <span style="font-family:${FONT_MONO};color:${COLOR.warnBorder};font-size:11px;letter-spacing:0.04em;">⚠ 본문 없음</span>`
-      : it.summaryModel === 'failed'
-      ? ` <span style="font-family:${FONT_MONO};color:${COLOR.errInk};font-size:11px;letter-spacing:0.04em;">⚠ 요약 실패${it.summaryError ? ` — ${escapeHtml(it.summaryError.slice(0, 80))}` : ''}</span>`
-      : '';
-  const summaryText = it.summary_ko ?? it.title;
   const published = it.publishedAt ? formatDate(it.publishedAt) : '';
   const meta = [published].filter(Boolean);
   const metaLine = meta
@@ -189,6 +182,32 @@ function renderArticle(it: FirmResult['summarized'][number], isFirst: boolean): 
 
   const topPad = isFirst ? '6px' : '22px';
   const topBorder = isFirst ? '' : `border-top:1px solid ${COLOR.ruleSoft};`;
+
+  // SPEC FAIL-UX-01 (D-01/D-02/D-03/D-04): failed-summary items omit the body
+  // <p> entirely — the title-as-summary_ko fallback (gemini.ts catch path) was
+  // duplicating the title in the body, and the previous error-badge path
+  // leaked raw 429 quota JSON to recipient HTML. Failed items now render
+  // title + a muted-gray monospace "⚠ 요약 일시 불가" tag + the standard
+  // "원문 읽기 →" link. The scrubbed error message remains on console.error
+  // in gemini.ts and reaches the step-summary recorder for operator triage
+  // (D-08); it never reaches recipient HTML.
+  if (it.summaryModel === 'failed') {
+    return `
+    <div style="padding:${topPad} 0 22px;${topBorder}">
+      ${metaLine ? `<div style="margin-bottom:8px;">${metaLine}</div>` : ''}
+      <div style="font-family:${FONT_SERIF};font-size:20px;font-weight:500;line-height:1.3;margin:0 0 10px;letter-spacing:-0.005em;">
+        <a href="${escapeAttr(it.url)}" style="color:${COLOR.link};text-decoration:underline;text-decoration-color:${COLOR.linkUnder};">${escapeHtml(it.title)}</a>
+      </div>
+      <div style="font-family:${FONT_MONO};font-size:11px;letter-spacing:0.12em;color:${COLOR.muted};text-transform:uppercase;margin:0 0 12px;">⚠ 요약 일시 불가</div>
+      <a href="${escapeAttr(it.url)}" style="display:inline-block;font-family:${FONT_MONO};font-size:10.5px;letter-spacing:0.08em;color:${COLOR.link};text-transform:uppercase;text-decoration:none;border-bottom:1px solid ${COLOR.linkUnder};padding:8px 0 7px;">원문 읽기 &nbsp;→</a>
+    </div>`;
+  }
+
+  const badge =
+    it.summaryModel === 'skipped'
+      ? ` <span style="font-family:${FONT_MONO};color:${COLOR.warnBorder};font-size:11px;letter-spacing:0.04em;">⚠ 본문 없음</span>`
+      : '';
+  const summaryText = it.summary_ko ?? it.title;
 
   return `
     <div style="padding:${topPad} 0 22px;${topBorder}">

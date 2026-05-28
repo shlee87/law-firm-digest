@@ -118,8 +118,10 @@ describe('composeDigest', () => {
     expect(payload.html).toContain('⚠ 본문 없음');
     // The title appears in the summary slot for the skipped item.
     expect(payload.html).toContain('Title-only Article (B3 skipped)');
-    // The 'failed' item gets its own badge (⚠ 요약 실패).
-    expect(payload.html).toContain('⚠ 요약 실패');
+    // Phase 17 FAIL-UX-01: failed items render the muted "⚠ 요약 일시 불가"
+    // tag (body <p> omitted) — the legacy "⚠ 요약 실패" red badge is gone.
+    expect(payload.html).toContain('⚠ 요약 일시 불가');
+    expect(payload.html).not.toContain('⚠ 요약 실패');
     // Confirm each badge appears exactly once.
     const skippedBadge = (payload.html.match(/⚠ 본문 없음/g) ?? []).length;
     expect(skippedBadge).toBe(1);
