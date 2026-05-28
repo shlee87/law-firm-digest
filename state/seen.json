@@ -1,9 +1,10 @@
 {
   "version": 1,
-  "lastUpdated": "2026-05-27T13:10:35.059Z",
+  "lastUpdated": "2026-05-28T13:04:44.744Z",
   "firms": {
     "cooley": {
       "urls": [
+        "https://cooleygo.com/welcome-to-the-new-cooley-go",
         "https://cooleygo.com/share-incentives-employees-private-uk-companies",
         "https://cooleygo.com/maximizing-qsbs-for-entrepreneurs",
         "https://cooleygo.com/what-is-qualified-small-business-stock-and-why-does-it-matter-for-you-and-your-startup",
@@ -26,7 +27,7 @@
         "https://cooleygo.com/q2-2025-venture-financing-report-interview-with-lily-lyman",
         "https://cooleygo.com/incentive-stock-option-modifications-key-considerations-and-traps-for-the-unwary"
       ],
-      "lastNewAt": "2026-04-07T19:29:04.000Z"
+      "lastNewAt": "2026-05-27T23:48:08.000Z"
     },
     "clifford-chance": {
       "urls": [
@@ -195,6 +196,8 @@
     },
     "skadden": {
       "urls": [
+        "https://skadden.com/insights/publications/2026/05/prepare-for-potential-investigations",
+        "https://skadden.com/insights/publications/2026/05/sec-proposes-sweeping",
         "https://skadden.com/insights/publications/2026/05/sec-proposes-sweeping-overhaul",
         "https://skadden.com/insights/publications/2026/05/a-new-eu-ruling-on-no-poach-agreements",
         "https://skadden.com/insights/publications/2026/05/us-trade-court-strikes-down-section-122-tariffs",
@@ -221,6 +224,7 @@
     },
     "lee-ko": {
       "urls": [
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2277",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2275",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2276",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2274",
@@ -235,7 +239,7 @@
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2265",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2264"
       ],
-      "lastNewAt": "2026-05-13T15:00:00.000Z",
+      "lastNewAt": "2026-05-25T15:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "yoon-yang": {

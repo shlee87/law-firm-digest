@@ -53,6 +53,28 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash-lite",
       "summarizedAt": "2026-05-27T13:02:37.348Z"
+    },
+    {
+      "firmId": "cooley",
+      "title": "Welcome To The New Cooley Go",
+      "url": "https://cooleygo.com/welcome-to-the-new-cooley-go",
+      "publishedAt": "2026-05-27T23:48:08.000Z",
+      "language": "en",
+      "summary_ko": "Welcome To The New Cooley Go",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-05-28T13:03:09.343Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "EU 기업결합 심사 가이드라인 전면 개정안 공개",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2277",
+      "publishedAt": "2026-05-25T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "유럽집행위원회(EC)는 기업결합심사 가이드라인 개정 초안을 공개하며 비경제적 정책 목표를 최초로 명시하고 효율성 항변을 실질화했습니다. 이는 '혁신 방패' 도입과 '킬러 인수' 등 새로운 경쟁 제한 이론 확대를 포함하며, EU 시장 내 모든 기업결합 당사자에게 영향을 미칩니다. 기업들은 거래 초기부터 효율성 논거를 EU 정책 목표와 연계하여 전략적으로 구성하고, 내부 문서 관리를 강화하며, 신고 전 협의를 통해 편익 이론을 조기에 제시해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-05-28T13:03:09.343Z"
     }
   ]
 }
