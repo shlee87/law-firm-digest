@@ -32,6 +32,12 @@ Archived artifact accuracy + audit freshness.
 
 - [x] **META-02**: `pnpm audit:firms` re-run produces fresh `06-AUDIT.md` reflecting current `config/firms.yaml` (no `freshfields` row — that firm was removed 2026-05-18). Policy: document in CLAUDE.md or `06-AUDIT.md` header how often this should be re-run (e.g., "after every `firms.yaml` change" or "monthly").
 
+### Summary Failure UX (FAIL-UX)
+
+Recipient-facing cleanup of Gemini summarize failure mode. Surfaced by 2026-05-27 daily digest where Latham EU ETS article rendered title twice + raw error JSON in body.
+
+- [ ] **FAIL-UX-01**: When `summaryModel === 'failed'` (Gemini 429 quota / safety block / Zod parse failure), the rendered article in the digest email does NOT show the title text twice and does NOT include raw error JSON, error codes, quota messages, or stack-trace fragments visible to the recipient. The failed item must still be discoverable (title + link only, OR demoted into the existing `renderDemotedBlock` — decision made during discuss-phase). Operator-visible failure signal MUST be preserved: the `[summarize] model=... url=... FAILED:` console.error in `src/summarize/gemini.ts:181-183` keeps firing, and step-summary still reports per-item `summaryModel` counts. Also: update `CLAUDE.md` "Gemini Free-Tier Reality" table — observed 2026-05-27 limit is `gemini-2.5-flash: 5 RPM` (not 10) and flash + flash-lite share the same `gemini-2.5-flash` quota metric (model fallback alone does NOT unstick a 429).
+
 ## Future Requirements (deferred — re-evaluate at v1.3)
 
 None currently identified. v1.2 is intentionally a cleanup milestone — new feature ideas should be captured via `/gsd:plant-seed` for surfacing at v1.3 planning.
@@ -56,3 +62,4 @@ None currently identified. v1.2 is intentionally a cleanup milestone — new fea
 | CLOSURE-02 | Phase 15 — v1.1 Phase Closure Backfills | Pending |
 | META-01 | Phase 16 — v1.1 Metadata Hygiene | Complete |
 | META-02 | Phase 16 — v1.1 Metadata Hygiene | Complete |
+| FAIL-UX-01 | Phase 17 — Summary Failure UX Cleanup | Pending |
