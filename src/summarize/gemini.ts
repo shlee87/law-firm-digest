@@ -70,6 +70,43 @@ export function resetGeminiCallCount(): void {
   geminiCallCount = 0;
 }
 
+/**
+ * Parse Gemini 429 error retryDelay from either error.errorDetails[].retryDelay
+ * (SDK 1.49.x+ structured shape) or the message body's "retryDelay":"39.347610487s"
+ * pattern (fallback when SDK only stringifies the upstream error).
+ *
+ * Returns seconds as a number, or 0 if not present / unparseable / negative /
+ * non-finite. Capped at 60s to bound wall-clock impact (SPEC D-06 safety:
+ * SDK may report inflated retryDelay during a sustained outage).
+ */
+function parseRetryDelaySeconds(err: unknown): number {
+  if (!err || typeof err !== 'object') return 0;
+  const e = err as { errorDetails?: Array<{ retryDelay?: string }>; message?: string };
+
+  // (a) Structured errorDetails (preferred — SDK 1.49.x error shape)
+  if (Array.isArray(e.errorDetails)) {
+    for (const d of e.errorDetails) {
+      if (typeof d?.retryDelay === 'string') {
+        const m = d.retryDelay.match(/^(\d+(?:\.\d+)?)s$/);
+        if (m) {
+          const n = parseFloat(m[1]);
+          if (Number.isFinite(n) && n > 0) return Math.min(n, 60);
+        }
+      }
+    }
+  }
+
+  // (b) Fallback: message-body regex (in case SDK only stringifies the error)
+  if (typeof e.message === 'string') {
+    const m = e.message.match(/"retryDelay"\s*:\s*"(\d+(?:\.\d+)?)s"/);
+    if (m) {
+      const n = parseFloat(m[1]);
+      if (Number.isFinite(n) && n > 0) return Math.min(n, 60);
+    }
+  }
+  return 0;
+}
+
 const SummaryZ = z.object({
   // GUARD-01 Layer 2 (Phase 8): empty string is the generic-boilerplate
   // sentinel — caller substitutes item.title when parsed.summary_ko === ''.
@@ -163,12 +200,29 @@ export async function summarize(
   try {
     return await pRetry(call, {
       retries: 3,
-      onFailedAttempt: ({ error }) => {
-        const anyErr = error as unknown as { status?: number; name?: string; message: string };
+      onFailedAttempt: async ({ error }) => {
+        const anyErr = error as unknown as {
+          status?: number;
+          name?: string;
+          message: string;
+          errorDetails?: Array<{ retryDelay?: string }>;
+        };
         if (anyErr.status === 429 && model === (models?.primary ?? 'gemini-2.5-flash')) {
           model = models?.fallback ?? 'gemini-2.5-flash-lite';
         }
         if (anyErr.name === 'ZodError') throw new AbortError(anyErr.message);
+        // SPEC D-06 (FAIL-UX-01): honor Gemini 429 retryDelay so the next
+        // attempt waits for the per-minute quota window to reset. flash +
+        // flash-lite share the same `gemini-2.5-flash` quota metric, so the
+        // model fallback above alone does NOT unstick a 429 burst — we have
+        // to actually sleep. 60s cap (inside parseRetryDelaySeconds) prevents
+        // a runaway value from blocking the GHA job past its budget.
+        if (anyErr.status === 429) {
+          const delaySec = parseRetryDelaySeconds(anyErr);
+          if (delaySec > 0) {
+            await new Promise((r) => setTimeout(r, delaySec * 1000));
+          }
+        }
       },
     });
   } catch (err) {

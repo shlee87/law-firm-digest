@@ -125,3 +125,104 @@ describe('summarize — GUARD-02 body-shape fixtures', () => {
     expect(callArgs.contents).not.toContain(baseItem.title);
   });
 });
+
+// ─────────────────────────────────────────────────────────────────────────
+// Phase 17 / FAIL-UX-01 (SPEC requirement 5 / D-06) — onFailedAttempt now
+// honors Gemini's 429 retryDelay so the next attempt waits for the per-minute
+// quota window to reset (flash + flash-lite share the same gemini-2.5-flash
+// quota metric — model fallback alone does NOT unstick a 429 burst).
+// Fixtures mirror the 2026-05-27 production failure (GHA run 26512695491,
+// retryDelay 39.347610487s).
+// ─────────────────────────────────────────────────────────────────────────
+
+describe('summarize — retryDelay honor on 429 (FAIL-UX-01 / SPEC requirement 5)', () => {
+  beforeEach(() => {
+    mocks.generateContentMock.mockReset();
+    vi.stubEnv('GEMINI_API_KEY', 'test-stub-key-not-real');
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+    vi.unstubAllEnvs();
+  });
+
+  it('sleeps for the parsed retryDelay (errorDetails shape) before the next attempt', async () => {
+    const err429 = Object.assign(new Error('429 quota exceeded'), {
+      status: 429,
+      errorDetails: [{ retryDelay: '30s' }],
+    });
+    mocks.generateContentMock.mockRejectedValueOnce(err429);
+    mocks.generateContentMock.mockResolvedValueOnce({
+      text: JSON.stringify({ summary_ko: '요약입니다.', confidence: 'high' }),
+    });
+
+    const promise = summarize(baseItem, realArticleBody);
+
+    // p-retry awaits onFailedAttempt → which awaits the 30s sleep. At 25s,
+    // the retry has NOT happened yet.
+    await vi.advanceTimersByTimeAsync(25_000);
+    expect(mocks.generateContentMock).toHaveBeenCalledTimes(1);
+
+    // Past 30s + p-retry's own minTimeout, the retry fires.
+    await vi.advanceTimersByTimeAsync(10_000);
+    await vi.runAllTimersAsync();
+
+    const result = await promise;
+    expect(mocks.generateContentMock).toHaveBeenCalledTimes(2);
+    expect(result.summary_ko).toBe('요약입니다.');
+    expect(result.summaryModel).not.toBe('failed');
+  });
+
+  it('parses retryDelay from message body fallback when errorDetails is absent', async () => {
+    const err429 = Object.assign(
+      new Error('{"error":{"code":429,"details":[{"retryDelay":"5s"}]}}'),
+      { status: 429 },
+    );
+    mocks.generateContentMock.mockRejectedValueOnce(err429);
+    mocks.generateContentMock.mockResolvedValueOnce({
+      text: JSON.stringify({ summary_ko: '본문 요약', confidence: 'medium' }),
+    });
+
+    const promise = summarize(baseItem, realArticleBody);
+    await vi.advanceTimersByTimeAsync(6_000);
+    await vi.runAllTimersAsync();
+    const result = await promise;
+    expect(mocks.generateContentMock).toHaveBeenCalledTimes(2);
+    expect(result.summaryModel).not.toBe('failed');
+  });
+
+  it('caps retryDelay at 60 seconds (does not block indefinitely on inflated SDK value)', async () => {
+    const err429 = Object.assign(new Error('429'), {
+      status: 429,
+      errorDetails: [{ retryDelay: '3600s' }], // 1 hour — must be capped to 60s
+    });
+    mocks.generateContentMock.mockRejectedValueOnce(err429);
+    mocks.generateContentMock.mockResolvedValueOnce({
+      text: JSON.stringify({ summary_ko: 'OK', confidence: 'high' }),
+    });
+
+    const promise = summarize(baseItem, realArticleBody);
+    await vi.advanceTimersByTimeAsync(65_000);
+    await vi.runAllTimersAsync();
+    const result = await promise;
+    expect(mocks.generateContentMock).toHaveBeenCalledTimes(2);
+    expect(result.summary_ko).toBe('OK');
+  });
+
+  it('does not sleep when 429 has no retryDelay field (preserves p-retry default backoff)', async () => {
+    const err429 = Object.assign(new Error('429 no details'), { status: 429 });
+    mocks.generateContentMock.mockRejectedValueOnce(err429);
+    mocks.generateContentMock.mockResolvedValueOnce({
+      text: JSON.stringify({ summary_ko: 'ok', confidence: 'low' }),
+    });
+
+    const promise = summarize(baseItem, realArticleBody);
+    // p-retry default minTimeout=1000ms — advance past it.
+    await vi.advanceTimersByTimeAsync(2_000);
+    await vi.runAllTimersAsync();
+    const result = await promise;
+    expect(mocks.generateContentMock).toHaveBeenCalledTimes(2);
+    expect(result.summaryModel).not.toBe('failed');
+  });
+});
