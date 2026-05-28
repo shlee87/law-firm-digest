@@ -49,7 +49,7 @@ Requirements snapshot: `.planning/milestones/v1.1-REQUIREMENTS.md`
 - [x] **Phase 14: Scheduling Coverage** — Close the Monday fetch gap and remove the sync-schedule footgun (SCHED-01 + SCHED-02) (completed 2026-05-27)
 - [ ] **Phase 15: v1.1 Phase Closure Backfills** — Write the missing VERIFICATION.md + 11-03-SUMMARY.md artifacts (CLOSURE-01 + CLOSURE-02)
 - [x] **Phase 16: v1.1 Metadata Hygiene** — Reconcile traceability + regen 06-AUDIT.md + document freshness policy (META-01 + META-02) (completed 2026-05-27)
-- [ ] **Phase 17: Summary Failure UX Cleanup** — Hide Gemini 429/safety failure technicals from digest email body (FAIL-UX-01)
+- [x] **Phase 17: Summary Failure UX Cleanup** — Hide Gemini 429/safety failure technicals from digest email body (FAIL-UX-01) (completed 2026-05-28)
 
 ## Phase Details
 
@@ -112,7 +112,7 @@ Phases execute in numeric order: 14 → 15 → 16 → 17
 | 14. Scheduling Coverage | v1.2 | 2/2 | Complete    | 2026-05-27 |
 | 15. v1.1 Phase Closure Backfills | v1.2 | 0/TBD | Not started | - |
 | 16. v1.1 Metadata Hygiene | v1.2 | 3/3 | Complete    | 2026-05-27 |
-| 17. Summary Failure UX Cleanup | v1.2 | 0/TBD | Not started | - |
+| 17. Summary Failure UX Cleanup | v1.2 | 3/3 | Complete    | 2026-05-28 |
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
