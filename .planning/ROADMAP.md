@@ -105,3 +105,26 @@ Phases execute in numeric order: 14 → 15 → 16
 | v1.0 MVP | 1–5 | 30+ | ✅ Complete | (pre-2026-04-19; not formally archived) |
 | v1.1 Data-Quality Hardening | 6–13 | 28 | ✅ Complete | 2026-05-23 |
 | v1.2 Coverage & Closure | 14–16 | TBD | 🚧 In progress | — |
+
+## Backlog
+
+### Phase 999.1: Gemini summary failure UX cleanup — body title duplication + error JSON exposure (BACKLOG)
+
+**Goal:** [Captured for future planning] On Gemini summary failure (429 quota / safety block), the rendered email currently shows the title duplicated as the article body AND a raw error JSON snippet inline. Desired: hide the failure technicals from the recipient while preserving operator-visible signal in logs/run summary.
+**Size:** S
+**Requirements:** TBD
+**Plans:** 0 plans
+
+**Symptom (2026-05-27 daily digest):**
+- Latham & Watkins "EU ETS: European Commission Announces..." article rendered with body identical to title and a red ⚠ 요약 실패 badge truncated mid-error-JSON.
+- Root cause: `src/summarize/gemini.ts:188-194` sets `summary_ko = item.title` on failure; `src/compose/templates.ts:177-178` then renders title twice + scrubbed error sliced to 80 chars as a badge.
+
+**Options to weigh during /gsd:discuss-phase:**
+- A — Demote into existing `renderDemotedBlock` so only title + link show.
+- B — Drop body `<p>` entirely when `summaryModel === 'failed'`, keep only title + small "요약 실패, 원문 참조" tag.
+- C — Reduce failure frequency upstream: extend p-retry to honor `retryDelay` (e.g., 39s in this case); raise/stagger `p-limit` cap.
+
+**Related finding — `CLAUDE.md` outdated:** Free-tier table says flash 10 RPM; actual 2026-05-27 error reports `limit: 5`. flash + flash-lite appear to share the same RPM pool (the fallback hit the same `gemini-2.5-flash` quota metric).
+
+Plans:
+- [ ] TBD (promote with /gsd:review-backlog when ready)
