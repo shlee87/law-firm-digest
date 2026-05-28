@@ -1,5 +1,19 @@
 # Milestones
 
+## v1.2 Coverage & Closure (Shipped: 2026-05-28)
+
+**Phases completed:** 4 phases, 10 plans, 15 tasks
+
+**Key accomplishments:**
+
+- daily.yml cron extended to all 7 days at 21:00 KST and weekly.yml shifted to Mon 06:00 KST via two single-line cron edits + header comment rewrites; concurrency lock and all step bodies byte-identical.
+- Eliminated the sync-schedule footgun permanently — script + package.json entry + toCron() helper deleted, settings.yaml schedule block neutralized to "현재 미사용" placeholder, CLAUDE.md ### Workflow scheduling (cron edit policy) subsection added inside GSD:conventions fence, and Phase 14 acceptance note appended to STATE.md with both Plan 14-01 workflow_dispatch run IDs — all bundled into a single SCHED-02 commit per CONTEXT D-01 (Phase 14 = exactly 2 commits total).
+- Failed-summary items now render title + muted "⚠ 요약 일시 불가" tag + "원문 읽기 →" link with the body paragraph omitted — quota JSON / retryDelay / RESOURCE_EXHAUSTED never reach recipient HTML.
+- 429 responses with retryDelay (errorDetails or message body) now cause an explicit sleep before the next p-retry attempt — flash/flash-lite quota-pool bursts wait for the actual RPM window instead of exhausting the default exponential backoff.
+- gemini-2.5-flash RPM flipped from 10 to '5 (observed 2026-05-27)' + quote-block note that flash and flash-lite share the same quota metric (so model fallback alone does NOT unstick a 429).
+
+---
+
 ## v1.1 — Data-Quality Hardening (Shipped: 2026-05-23)
 
 **Phases completed:** 8 phases (6–13), 28 plans, 56 tasks

@@ -1,13 +1,14 @@
 # Roadmap: LegalNewsletter
 
 **Created:** 2026-04-16
-**Last reorganized:** 2026-05-24 (v1.2 milestone open)
+**Last reorganized:** 2026-05-28 (v1.2 milestone shipped)
 
 ## Milestones
 
 - ✅ **v1.0 MVP** — Phases 1–5 (informally shipped; never formally archived through `/gsd:complete-milestone` — see PROJECT.md for v1.0 retro)
 - ✅ **v1.1 Data-Quality Hardening** — Phases 6–13 (shipped 2026-05-23, archived to `milestones/v1.1-*`)
-- 🚧 **v1.2 Coverage & Closure** — Phases 14–17 (in progress, opened 2026-05-24)
+- ✅ **v1.2 Coverage & Closure** — Phases 14–17 (shipped 2026-05-28, archived to `milestones/v1.2-*`)
+- 📋 **v1.3** — Awaiting `/gsd:new-milestone`
 
 ## Phases
 
@@ -42,80 +43,34 @@ Requirements snapshot: `.planning/milestones/v1.1-REQUIREMENTS.md`
 
 </details>
 
-### 🚧 v1.2 Coverage & Closure (In Progress) — Opened 2026-05-24
+<details>
+<summary>✅ v1.2 Coverage & Closure (Phases 14–17) — SHIPPED 2026-05-28</summary>
 
-**Milestone Goal:** v1.1 close 과정에서 드러난 운영 footgun + 문서 메타데이터 누락 + 큐레이션 사각지대(월–화 48시간 fetch gap)를 한 번에 정리해 production 안정성과 artifact 정합성을 v1.1 shipping 수준에 맞춘다. No new user-facing features — pure operational + documentation tightening.
+- [x] Phase 14: Scheduling Coverage (2/2 plans) — Monday cron added (`daily.yml` `0 12 * * 0-6`); `weekly.yml` shifted to Mon 06 KST; `sync-schedule` footgun removed; CLAUDE.md cron edit policy. *Code-verified; time-delayed Monday-cron observability audit deferred to 2026-06-03 per pre-staged `14-VERIFICATION.md` `human_verification:` block.*
+- [x] Phase 15: v1.1 Phase Closure Backfills (2/2 plans) — `10-VERIFICATION.md` + `11-03-SUMMARY.md` + `11-VERIFICATION.md` backfilled with cited evidence (DQOBS-01/02/03, RESUME-01/02, commit `04a572e`, GHA runs `26335283814`/`26335329895`).
+- [x] Phase 16: v1.1 Metadata Hygiene (3/3 plans) — v1.1 traceability table 4-col with evidence pins; Phase 10/11/12 SUMMARY `requirements-completed` frontmatter backfilled; `06-AUDIT.md` regenerated via `pnpm audit:firms` + CLAUDE.md audit freshness policy.
+- [x] Phase 17: Summary Failure UX Cleanup (3/3 plans, INSERTED from backlog 999.1 mid-milestone) — `renderArticle()` failed branch removes title duplication + raw error JSON; `parseRetryDelaySeconds` + async `onFailedAttempt` sleep (60s cap) honors Gemini 429 retryDelay; CLAUDE.md free-tier RPM table updated to flash `5 (observed 2026-05-27)` + flash/flash-lite quota-pool shared note.
 
-- [x] **Phase 14: Scheduling Coverage** — Close the Monday fetch gap and remove the sync-schedule footgun (SCHED-01 + SCHED-02) (completed 2026-05-27)
-- [ ] **Phase 15: v1.1 Phase Closure Backfills** — Write the missing VERIFICATION.md + 11-03-SUMMARY.md artifacts (CLOSURE-01 + CLOSURE-02)
-- [x] **Phase 16: v1.1 Metadata Hygiene** — Reconcile traceability + regen 06-AUDIT.md + document freshness policy (META-01 + META-02) (completed 2026-05-27)
-- [x] **Phase 17: Summary Failure UX Cleanup** — Hide Gemini 429/safety failure technicals from digest email body (FAIL-UX-01) (completed 2026-05-28)
+Full milestone details: `.planning/milestones/v1.2-ROADMAP.md`
+Audit report: `.planning/milestones/v1.2-MILESTONE-AUDIT.md`
+Requirements snapshot: `.planning/milestones/v1.2-REQUIREMENTS.md`
 
-## Phase Details
+</details>
 
-### Phase 14: Scheduling Coverage
-**Goal**: Pipeline fetches new items on every weekday (no >24h gap) and the `sync-schedule` tooling no longer silently regresses the Phase 13 daily/weekly cron split.
-**Depends on**: v1.1 complete (Phases 6–13)
-**Requirements**: SCHED-01, SCHED-02
-**Success Criteria** (what must be TRUE):
-  1. After one full week of production runs, every weekday (Mon–Sun) shows at least one successful daily fetch in GHA run history — no >24h gap between consecutive fetches
-  2. `daily.yml` cron triggers on Monday (in addition to Tue–Sun) and `weekly.yml` cron continues to fire on Monday at a separated time, with `concurrency: digest-pipeline` lock preventing overlap
-  3. Running `pnpm sync-schedule` either (a) leaves both `daily.yml` + `weekly.yml` byte-identical to their pre-run state, or (b) returns "command not found" / equivalent failure because the script + package.json entry were removed
-  4. A documented policy exists (in CLAUDE.md or settings.yaml header) explaining how cron schedules are edited after this phase
-**Plans**:
-- [x] 14-01-PLAN.md — SCHED-01 functional: daily.yml + weekly.yml cron split (add Mon to daily, shift weekly to Mon 06:00 KST)
-- [x] 14-02-PLAN.md — SCHED-02 mechanical cleanup: delete sync-schedule.ts + package.json entry + toCron() + settings.yaml ref; add CLAUDE.md edit policy + STATE.md acceptance note
+### 📋 v1.3 (Planned)
 
-### Phase 15: v1.1 Phase Closure Backfills
-**Goal**: Every shipped v1.1 phase has both a per-plan SUMMARY.md and a goal-backward VERIFICATION.md, restoring full v1.1 archive integrity.
-**Depends on**: Phase 14 (independent in scope, but ordered after so production-impact work ships first)
-**Requirements**: CLOSURE-01, CLOSURE-02
-**Success Criteria** (what must be TRUE):
-  1. `10-VERIFICATION.md` exists at the archived Phase 10 path with frontmatter `status: passed` (or `gaps_found` with documented gaps), backfilled goal-backward against DQOBS-01/02/03 evidence including the quick-task 260523-mtz fix (commit 04a572e)
-  2. `11-03-SUMMARY.md` exists documenting the cron-uncomment outcome with explicit commit references to `daily.yml:27` + `weekly.yml:30`
-  3. `11-VERIFICATION.md` exists with frontmatter `status: passed` and evidence against RESUME-01 (smoke test 2026-04-21 + production runs 26335283814 + 26335329895 on 2026-05-23) and RESUME-02 (cron lines factually uncommented in both yml files)
-  4. Every v1.1 phase (06–13) now has both SUMMARY.md (per plan) AND VERIFICATION.md — no remaining "(work shipped, audit skipped)" gaps from the v1.1 audit
-**Plans**: TBD
-
-### Phase 16: v1.1 Metadata Hygiene
-**Goal**: Archived v1.1 metadata (traceability table + plan SUMMARYs + audit artifact) accurately reflects shipped state, and a freshness policy documents when `pnpm audit:firms` must be re-run.
-**Depends on**: Phase 15 (META-01 cross-walks against the VERIFICATION outcomes from Phase 15)
-**Requirements**: META-01, META-02
-**Success Criteria** (what must be TRUE):
-  1. `milestones/v1.1-REQUIREMENTS.md` traceability table shows DQOBS-01/02/03 + RESUME-01/02 + CONF-06 as `[x]` with phase + commit evidence (no `[ ]` checkboxes remain for shipped reqs)
-  2. v1.1 Phase 10/11/12 plan SUMMARYs list actual closed REQ-IDs in `requirements-completed` frontmatter (no empty `[]` arrays; Phase 12 SUMMARYs cross-walk phase-local `SPEC-12-REQ-*` IDs to top-level `CONF-06`)
-  3. `06-AUDIT.md` reflects current `config/firms.yaml` — no `freshfields` row, regenerated via `pnpm audit:firms`
-  4. A freshness policy for `pnpm audit:firms` is documented in CLAUDE.md or in `06-AUDIT.md` header (e.g., "after every `firms.yaml` change" or "monthly")
-**Plans**: TBD
-
-### Phase 17: Summary Failure UX Cleanup
-**Goal**: Daily digest emails no longer expose the title-duplication + raw error JSON when Gemini summary fails (429 quota / safety block) — recipient sees a clean fallback while operator-visible failure signal is preserved in run logs and step summary.
-**Depends on**: Phase 16
-**Requirements**: FAIL-UX-01
-**Success Criteria** (what must be TRUE):
-  1. When `summaryModel === 'failed'`, the rendered article does NOT show the title text twice (heading + body) and does NOT include any raw error JSON, error code, quota message, or stack trace fragment visible to the recipient
-  2. The failed item is still discoverable in the digest — either shown with title + link only (no body paragraph) OR demoted into the existing `renderDemotedBlock` ("⚠ 품질 의심 — 요약 숨김") block, decision made during discuss-phase
-  3. Operator-visible failure signal is preserved — the `[summarize] model=... url=... FAILED: ...` console.error line in `src/summarize/gemini.ts:181-183` still fires, and step-summary still reports per-item summaryModel counts so a failure is not hidden from `pnpm dry-run` or GHA run output
-  4. `CLAUDE.md` "Gemini Free-Tier Reality" table updated to reflect the actual observed 2026-05-27 limits — `gemini-2.5-flash` RPM 5 (not 10), and a note that flash + flash-lite share the same `gemini-2.5-flash` quota metric (so model fallback alone does not unstick a 429)
-  5. (Optional, depends on discuss-phase decision) `src/summarize/gemini.ts` p-retry honors the `retryDelay` field from 429 responses so a 39s-class wait is actually performed instead of giving up after the default backoff schedule
-**Plans**: TBD
+Awaiting `/gsd:new-milestone` — questioning → research → requirements → roadmap.
 
 ## Progress
-
-**Execution Order:**
-Phases execute in numeric order: 14 → 15 → 16 → 17
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 1–5 (collapsed) | v1.0 | 30+/30+ | Complete | (pre-2026-04-19) |
 | 6–13 (collapsed) | v1.1 | 28/28 | Complete | 2026-05-23 |
-| 14. Scheduling Coverage | v1.2 | 2/2 | Complete    | 2026-05-27 |
-| 15. v1.1 Phase Closure Backfills | v1.2 | 0/TBD | Not started | - |
-| 16. v1.1 Metadata Hygiene | v1.2 | 3/3 | Complete    | 2026-05-27 |
-| 17. Summary Failure UX Cleanup | v1.2 | 3/3 | Complete    | 2026-05-28 |
+| 14–17 (collapsed) | v1.2 | 10/10 | Complete | 2026-05-28 |
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
 | v1.0 MVP | 1–5 | 30+ | ✅ Complete | (pre-2026-04-19; not formally archived) |
 | v1.1 Data-Quality Hardening | 6–13 | 28 | ✅ Complete | 2026-05-23 |
-| v1.2 Coverage & Closure | 14–17 | TBD | 🚧 In progress | — |
+| v1.2 Coverage & Closure | 14–17 | 10 | ✅ Complete | 2026-05-28 |

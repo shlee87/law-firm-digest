@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Coverage & Closure
-status: executing
-stopped_at: "Phase 17 complete (FAIL-UX-01). 495/495 tests green. Next: Phase 15 (CLOSURE-01 + CLOSURE-02) — last open phase in v1.2."
-last_updated: "2026-05-28T00:05:00.000Z"
-last_activity: 2026-05-28 -- Phase 17 execution complete
+status: Awaiting next milestone
+stopped_at: "Halted at V2-plan → V2-execute transition gate (orchestrate_sh v1.15). Phase 14 plan complete; Phase 15/16 still need plan-phase. Next session: /gsd:orchestrate_sh 14,15,16 (re-enters at V2-plan with same cascade roll-back pattern)."
+last_updated: "2026-05-28T06:12:29.015Z"
+last_activity: 2026-05-28 — Milestone v1.2 completed and archived
 progress:
   total_phases: 4
-  completed_phases: 3
-  total_plans: 13
+  completed_phases: 4
+  total_plans: 10
   completed_plans: 10
-  percent: 77
+  percent: 100
 ---
 
 # Project State
@@ -25,13 +25,10 @@ See: .planning/PROJECT.md (updated 2026-05-23)
 
 ## Current Position
 
-Phase: 17
-Plan: 17-01 / 17-02 / 17-03 (all complete)
-Status: Phase verified — passed
-Milestone: v1.2 Coverage & Closure
-Last activity: 2026-05-28 -- Phase 17 execution complete (FAIL-UX-01)
-
-Progress: [████████░░] 77% (10/13 plans)
+Phase: Milestone v1.2 complete
+Plan: —
+Status: Awaiting next milestone
+Last activity: 2026-05-28 — Milestone v1.2 completed and archived
 
 ## Performance Metrics
 
@@ -91,6 +88,18 @@ Items acknowledged and carried forward from v1.1 close (2026-05-23):
 | Phase 14 P14-01 | 3min | 3 tasks | 2 files |
 | Phase 14 P14-02 | 4min | 4 tasks | 6 files |
 
+### v1.2 close (2026-05-28) — 7 items acknowledged
+
+| Category | Item | Status | Notes |
+|----------|------|--------|-------|
+| quick_task | 260523-mtz-fix-dqobs-01-weekly-observability-regres | missing-artifact | Fix shipped (commit 04a572e cited in 10-VERIFICATION.md). Quick-task tracking file never created — not a code gap. |
+| quick_task | 260523-oi6-show-curated-topic-areas-in-digest-heart | missing-artifact | Display-only footer shipped to digest. Quick-task tracking file never created — not a code gap. |
+| uat_gap | Phase 02 02-HUMAN-UAT.md | resolved (0 pending) | False-positive surfacing — file marker [resolved] but auditor flagged anyway. |
+| uat_gap | Phase 09 09-UAT.md | resolved (0 pending) | Same as above — false-positive surface. |
+| uat_gap | Phase 14 14-HUMAN-UAT.md | partial (2 pending) | Time-delayed Monday-cron audit. Pre-staged in 14-VERIFICATION.md `human_verification:` block, run on or after 2026-06-03. |
+| verification_gap | Phase 14 14-VERIFICATION.md | human_needed | Same time-delayed audit as above. 11/11 code-verifiable PASS; SC #1 deferred by design. |
+| context_question | Phase 02 02-CONTEXT.md | stale-v1.0-ideation | 3 questions (firm RSS/HTML/JS detection, robots.txt) answered by phases 06–12. Cosmetic — content has no actionable items. |
+
 ## Session Continuity
 
 Last session: 2026-05-27T13:21:02.233Z
@@ -101,5 +110,4 @@ Resume file: None
 
 ## Operator Next Steps
 
-- Plan Phase 14 with `/gsd:plan-phase 14`
-- Decide between sync-schedule rewrite (option a) vs removal (option b) before Phase 14 plan-phase opens
+- Start the next milestone with /gsd-new-milestone
