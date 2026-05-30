@@ -75,6 +75,68 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-05-28T13:03:09.343Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "Inside the Courts – May 2026",
+      "url": "https://skadden.com/insights/publications/2026/05/inside-the-courts",
+      "publishedAt": "2026-05-01T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "상장기업의 재무 가이던스 미달 또는 하향 조정은 증권 집단소송의 흔한 원인으로, 원고는 가이던스가 발행 당시 허위였거나 오해의 소지가 있었음을 입증해야 합니다. 이는 진정한 믿음이 없었거나 합리적 근거가 부족했거나 정확성을 훼손하는 미공개 사실을 알면서도 발행되었음을 보여주는 것을 포함합니다. 이러한 소송 위험을 완화하기 위해 기업들은 가이던스 준비 과정의 방법론, 가정, 근거를 문서화하고, \"우리는 믿는다\"와 같은 미래 예측적 표현을 사용하며, 주요 가정과 위험 요소를 명확히 식별하는 등의 관행을 고려해야 합니다. 또한, 가이던스 미달 시 커뮤니케이션 방식에 신중을 기하는 것이 중요합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-05-30T12:19:07.167Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "『광장 국제통상연구원』 미·중 정상회담 결과: ‘전략적 안정’ 합의와 통상·투자 위원회 설치 - Issue Brief, 2026",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2278",
+      "publishedAt": "2026-05-26T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "2026년 미·중 정상회담에서 통상·투자위원회 신설, 농산물·항공기 구매 확대, 핵심 광물 공급망 우려 해소에 합의했으나, 관세 인하 및 첨단 기술·안보 의제(반도체 수출 통제, AI 거버넌스, 대만)에 대한 구체적 합의는 불발되었습니다. 이는 미·중 간 '관리된 경쟁' 또는 '선별적 디리스킹' 체제 고착화를 시사하며, 글로벌 공급망과 국제 무역 시스템에 불확실성을 증폭시킬 수 있습니다. 우리 기업은 미·중 갈등 동향을 면밀히 관찰하고, 특정 시장의 법규범 및 정책 변화를 모니터링하며, 전문적인 법적·정책적 자문을 통해 선제적이고 차별화된 대응 전략을 수립해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-05-30T12:19:07.167Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "산업안전 의제에 대해서도 ‘원청 사용자성 부정’",
+      "url": "https://yoonyang.com/kor/insights/newsletter/14851",
+      "language": "ko",
+      "summary_ko": "전남지방노동위원회는 개정 노동조합법 시행 후 처음으로 종합건설사 J사의 타워크레인 조종사 노조에 대한 '원청 사용자성'을 부정했습니다. 이는 산업안전 등 개별 교섭 의제에 대해 원청의 실질적 지배·결정권이 없으면 사용자성이 인정되지 않음을 보여줍니다. 기업은 계약 형식보다 하청 근로자 근로조건에 대한 실제 관여 수준을 점검하고 의제별로 관리해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-05-30T12:19:07.167Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "고성능AI 관련 금융권 보안위협 대응 및 망분리 규제 완화",
+      "url": "https://yoonyang.com/kor/insights/newsletter/14847",
+      "language": "ko",
+      "summary_ko": "금융당국은 고성능 AI 관련 금융권 보안 위협에 대응하고자 'AI는 AI로 방어' 기조 아래 AI 기반 보안체계 구축을 지원하고 망분리 규제 완화를 추진합니다. 일정 규모 이상 금융회사는 보안 목적 AI 활용 시 망분리 규제 한시적 완화 신청을 고려해야 하며, 고도의 보안역량을 갖춘 회사는 전면 해제도 검토됩니다. 이에 금융회사들은 AI 보안 거버넌스, 데이터 및 접근권한 통제 등 AI 활용 관련 내부통제 및 컴플라이언스 체계를 선제적으로 정비하고, 당국의 AI 보안 가이드라인 및 체크리스트에 대비해야 합니다. 이는 AI 기반 위협에 대한 신속하고 선제적 대응을 중시하는 감독 기조 변화를 반영합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-05-30T12:19:07.167Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "The Growth Rocketship: Axiado Takes Cybersecurity Inside the Rack",
+      "url": "https://lw.com/en/insights/the-growth-rocketship-axiado-takes-cybersecurity-inside-the-rack",
+      "language": "en",
+      "summary_ko": "Latham & Watkins는 AI 기반 보안 칩 개발사인 Axiado의 1억 달러 이상 규모 시리즈 C+ 투자 유치를 성공적으로 대리했습니다. Axiado는 서버 하드웨어에 AI 기반 보안 칩을 내장하여 AI 및 클라우드 인프라를 실시간 사이버 공격으로부터 보호하는 기술을 제공합니다. 이는 AI 인프라의 진화하는 사이버 보안 환경에서 차세대 방어 전략으로 주목받고 있으며, 관련 기업들은 이러한 기술 발전과 투자 동향에 주목할 필요가 있습니다.",
+      "summaryConfidence": "medium",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-05-30T12:19:07.167Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "New BaFin Consultation: Revised Draft of WpI-MaRisk Published",
+      "url": "https://globalfinregblog.com/2026/05/new-bafin-consultation-revised-draft-wpi-marisk-published",
+      "language": "en",
+      "summary_ko": "독일 연방 금융감독청(BaFin)은 투자회사 위험관리 최소요건(WpI-MaRisk) 개정 초안을 발표했습니다. 이 개정안은 독일 투자회사, 특히 중소 규모 회사에 대한 위험 관리 요구사항을 비례의 원칙에 따라 간소화하는 데 중점을 둡니다. 통제 기능, 내부 감사 및 보고 의무에 대한 요건이 완화되어 내부 관료주의가 줄어들 것으로 예상됩니다. 관련 회사들은 2026년 6월 17일까지 의견을 제출할 수 있으며, 새로운 규정은 2027년 1월 1일부터 시행될 예정입니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-05-30T12:19:07.167Z"
     }
   ]
 }
