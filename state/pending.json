@@ -1,5 +1,28 @@
 {
   "version": 1,
   "windowStart": "2026-05-31T21:22:52.927Z",
-  "items": []
+  "items": [
+    {
+      "firmId": "logos",
+      "title": "법무법인(유)로고스 뉴스레터 2026년 5월호",
+      "url": "https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=2165",
+      "publishedAt": "2026-05-31T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "법무법인(유)로고스 뉴스레터 2026년 5월호",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-01T13:51:03.057Z"
+    },
+    {
+      "firmId": "logos",
+      "title": "법무법인(유)로고스 노동법센터 뉴스레터 5월호",
+      "url": "https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=2164",
+      "publishedAt": "2026-05-31T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "법무법인(유)로고스 노동법센터 뉴스레터 5월호",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-01T13:51:03.057Z"
+    }
+  ]
 }
