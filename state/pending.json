@@ -23,6 +23,58 @@
       "summaryConfidence": "low",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-06-01T13:51:03.057Z"
+    },
+    {
+      "firmId": "cooley",
+      "title": "Facility Security Clearance Basics A Primer On The Process",
+      "url": "https://cooleygo.com/facility-security-clearance-basics-a-primer-on-the-process",
+      "publishedAt": "2026-06-02T20:07:47.000Z",
+      "language": "en",
+      "summary_ko": "미국 정부 계약자가 기밀 정보 접근을 위해 국방방첩보안국(DCSA)으로부터 시설 보안 인가(FCL)를 획득하는 절차를 상세히 설명합니다. 이는 '알 필요성' 입증, 정부 또는 주 계약자의 후원, 그리고 DD Form 254, DD Form 441, SF 328 등 서류 준비를 포함합니다. 정부 계약자들은 초기 단계부터 기업 구조, 주요 경영진(KMP)의 보안 인가 여부, 그리고 외국인 소유, 통제 또는 영향(FOCI) 가능성을 면밀히 검토하고 대비해야 합니다. 특히 FOCI가 식별될 경우 완화 계획 협상으로 인해 인가 획득 기간이 크게 연장될 수 있으므로 사전 계획과 철저한 서류 준비가 필수적이며, 인가 획득 후에도 NISPOM 규정 준수 및 변경 사항 보고 의무를 이행해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-03T13:26:22.760Z"
+    },
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 25 – 29 May 2026",
+      "url": "https://cliffordchance.com/briefings/2026/05/international-regulatory-update-25---29-may-2026.html",
+      "publishedAt": "2026-06-02T08:26:33.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 25 – 29 May 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-03T13:26:22.760Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "해외 부동산펀드에 투자하는 특정금전신탁상품 관련 불완전판매 소송에서 판매사를 대리하여 ‘전부승소’ 판결을 이끌어낸 사례",
+      "url": "https://yoonyang.com/kor/insights/newsletter/14858",
+      "language": "ko",
+      "summary_ko": "해외 부동산펀드에 투자하는 특정금전신탁상품 관련 불완전판매 손해배상청구소송에서 판매사가 전부 승소한 하급심 판결 사례입니다. 법원은 코로나19 등 외부 시장 환경 변화로 인한 부동산 가치 하락이 손실의 근본 원인이며, 상품설명서에 관련 위험이 충분히 기재되었고 판매 과정에서 설명의무를 위반하지 않았다는 판매사의 주장을 받아들였습니다. 이는 복잡한 해외 부동산펀드 상품의 불완전판매 분쟁에서 판매사가 상품 구조, 설명서 내용, 투자자 경험 등을 종합적으로 입증하여 효과적으로 방어할 수 있음을 시사합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-03T13:26:22.760Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Data Center Insights — The Complex Landscape of Data Center Permits",
+      "url": "https://lw.com/en/insights/2026/03/data-center-insights-the-complex-landscape-of-data-center-permits",
+      "language": "en",
+      "summary_ko": "데이터 센터 허가 절차의 복잡한 환경에 대한 통찰을 제공하며, 데이터 센터 개발에 필요한 세 가지 수준의 허가와 이를 효율적으로 진행하기 위한 전략이 강조됩니다. 데이터 센터를 개발하는 기업들은 복잡한 허가 절차를 이해하고 효과적으로 대응해야 합니다. 이는 프로젝트 지연을 방지하고 규제 준수를 보장하는 데 중요합니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-03T13:26:22.760Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "MiCA Review: European Commission Launches Consultation on EU Cryptoasset Regulatory Framework",
+      "url": "https://fintechanddigitalassets.com/2026/06/mica-review-european-commission-launches-consultation-on-eu-cryptoasset-regulatory-framework",
+      "language": "en",
+      "summary_ko": "유럽연합 집행위원회는 암호자산 시장 규제(MiCA)의 적절성을 검토하기 위한 공개 협의를 시작했습니다. 이 검토는 토큰화된 금융상품, 스테이블코인 규제, 암호자산 서비스 제공자(CASP) 프레임워크의 적절성, 그리고 DeFi, 스테이킹, 대출, 토큰화된 예금 등 신흥 활동의 규제 편입 여부에 중점을 둡니다. 디지털 자산 산업 관계자 및 공공 기관은 2026년 8월 31일까지 의견을 제출할 수 있으며, 이번 검토 결과는 MiCA 및 관련 규정에 대한 입법 개정으로 이어질 수 있습니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-03T13:26:22.760Z"
     }
   ]
 }
