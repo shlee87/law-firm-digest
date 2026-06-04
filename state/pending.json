@@ -75,6 +75,88 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-06-03T13:26:22.760Z"
+    },
+    {
+      "firmId": "clifford-chance",
+      "title": "Mitigating risk in the energy transition",
+      "url": "https://cliffordchance.com/briefings/2026/06/mitigating-risk-in-the-energy-transition.html",
+      "publishedAt": "2026-06-04T15:00:00.000Z",
+      "language": "en",
+      "summary_ko": "전 세계적인 청정에너지 전환이 가속화되면서 투자 증가 및 시장 변화가 인프라 개발과 위험 공유 방식에 영향을 미치고 있습니다. 정부, 규제기관, 시장의 변화에 따라 기업들은 변동성과 경제적 변화에 직면하고 있으며, 레거시 자산, 전환 연료, 장기 공급 계약, 금융 모델 등 복잡한 법적 문제들이 발생하고 있습니다. 특히 규제 개혁, ESG 책임, 정책 우선순위 변화가 프로젝트 사업성과 투자자 보호에 직접적인 영향을 미치므로, 자본 흐름을 원활히 하고 위험을 관리하며 에너지 인프라 구축을 지원하기 위한 정보에 기반한 법률 분석이 필수적입니다.",
+      "summaryConfidence": "medium",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-04T12:54:39.262Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "APA Fast-Track 도입에 따른 진행절차 간소화",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2279",
+      "publishedAt": "2026-05-27T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "국세청은 다국적 기업의 이중 과세 부담 해소 및 한국 투자 매력도 제고를 위해 APA(사전 정상가격 합의) 갱신 신청에 대한 'fast-track' 제도를 도입합니다. 이는 기존 APA와 유사한 거래 구조 등을 가진 갱신 건에 대해 심사 절차를 간소화하여 신속히 처리하는 것이 핵심입니다. 글로벌 기업들은 APA fast-track 적용 요건을 면밀히 검토하고 사전 상담 자료를 철저히 준비해야 하며, 서면 심사 개시 시점 명확화, 판단 기준 구체화, 상대국과의 공조 강화 등 제도 안착을 위한 향후 개선 동향을 주시할 필요가 있습니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-04T12:54:39.262Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "6.3 지방선거 결과에 따른 기업 규제환경 전망",
+      "url": "https://yoonyang.com/kor/insights/newsletter/14859",
+      "language": "ko",
+      "summary_ko": "6.3 지방선거 결과에 따른 기업 규제환경 전망",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-04T12:54:39.262Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "The Rise in Data Centers and Energy Bills",
+      "url": "https://lw.com/en/admin/upload/SiteAttachments/The-Rise-in-Data-Centers-and-Energy-Bills-2026.pdf",
+      "language": "en",
+      "summary_ko": "The Rise in Data Centers and Energy Bills",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-06-04T12:54:39.262Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "President Trump Signs Executive Order Establishing AI Cybersecurity and Frontier Model Framework",
+      "url": "https://lw.com/en/insights/president-trump-signs-executive-order-establishing-ai-cybersecurity-and-frontier-model-framework",
+      "language": "en",
+      "summary_ko": "미국 백악관과 주지사들이 데이터 센터 수요에 대한 원칙을 발표했으며, PJM은 결정 서한 변경 사항을 발행했습니다. 이러한 변화는 PJM 지역 내 대규모 부하 개발 및 운영에 단기 및 중기적으로 영향을 미칠 것입니다. 따라서 PJM 전역의 데이터 센터 개발 및 운영에 중요한 변화가 예상됩니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-04T12:54:39.262Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "AI Act Update: EU Resolves to Change Rules and Extend Deadlines",
+      "url": "https://lw.com/en/insights/ai-act-update-eu-resolves-to-change-rules-and-extend-deadlines",
+      "language": "en",
+      "summary_ko": "트럼프 행정부가 최첨단 AI에서 발생하는 사이버 위험에 초점을 맞춘 AI 사이버 보안 및 프론티어 모델 프레임워크를 수립하는 행정명령에 서명했습니다. 이 행정명령은 최첨단 AI 기술을 사용하는 기업 및 관련 산업에 영향을 미칠 것으로 예상됩니다. 기업들은 새로운 프레임워크에 따라 AI 관련 사이버 위험 관리에 대한 주의를 기울여야 할 것입니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-04T12:54:39.262Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "President Trump Signs Executive Order Establishing AI Cybersecurity and Frontier Model Framework",
+      "url": "https://lw.com/en/insights/president-trump-signs-executive-order-establishing-ai-cybersecurity-and-frontier-model-framework",
+      "language": "en",
+      "summary_ko": "미국 데이터 센터 수요와 관련하여 백악관과 주지사들이 원칙을 발표했으며, PJM은 결정 서한 변경 사항을 발표했습니다. PJM 지역 내의 이러한 단기 및 중기적 변화는 PJM 전역의 대규모 부하 개발 및 운영에 영향을 미칠 것입니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-04T12:54:39.262Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "FDIC Issues Proposal on Illicit Finance Standards Under GENIUS Act",
+      "url": "https://fintechanddigitalassets.com/2026/06/fdic-issues-proposal-on-illicit-finance-standards-under-genius-act",
+      "language": "en",
+      "summary_ko": "미국 연방예금보험공사(FDIC)가 혁신적인 미국 스테이블코인 법안(GENIUS Act)에 따라 스테이블코인 발행자를 위한 자금세탁방지(AML), 테러자금조달(CFT) 및 제재 준수 기준에 대한 제안을 발표했습니다. 이 제안은 핀센(FinCEN) 및 OFAC 규정과 일치하는 원칙 기반의 기준을 설정하며, FDIC 감독 하의 스테이블코인 발행자에게 적용됩니다. 효과적인 AML/CFT 프로그램을 유지하는 발행자는 FDIC의 제재 조치를 피할 수 있으며, 향후 고객 식별 요건 준수도 예상됩니다. 이는 디지털 자산의 책임감 있는 성장을 지원하고 불법 금융 위험을 방지하는 데 기여할 것입니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash-lite",
+      "summarizedAt": "2026-06-04T12:54:39.262Z"
     }
   ]
 }
