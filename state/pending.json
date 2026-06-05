@@ -157,6 +157,47 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash-lite",
       "summarizedAt": "2026-06-04T12:54:39.262Z"
+    },
+    {
+      "firmId": "bkl",
+      "title": "태평양, 3년 연속 ‘최상위 로펌’ 평가",
+      "url": "https://bkl.co.kr/law/insight/informationView.do?infoNo=6546&lang=ko",
+      "publishedAt": "2026-06-03T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "태평양, 3년 연속 ‘최상위 로펌’ 평가",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-05T12:52:27.966Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Telecommunications and Media: FCC Priorities in 2026 and Beyond",
+      "url": "https://sites.lwcommunicate.com/38/17681/landing-pages/rsvp-form-(blank-generic).asp",
+      "language": "en",
+      "summary_ko": "Telecommunications and Media: FCC Priorities in 2026 and Beyond",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-06-05T12:52:27.966Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "The Growth Rocketship: How Rakuten Capital Masters Diplomatic Capitalism",
+      "url": "https://lw.com/en/insights/the-growth-rocketship-how-rakuten-capital-masters-diplomatic-capitalism",
+      "language": "en",
+      "summary_ko": "The Growth Rocketship: How Rakuten Capital Masters Diplomatic Capitalism",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-05T12:52:27.966Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "European Commission Publishes Draft Implementing Rules on CBAM Carbon Price Deductions",
+      "url": "https://globalelr.com/2026/06/european-commission-publishes-draft-implementing-rules-on-cbam-carbon-price-deductions",
+      "language": "en",
+      "summary_ko": "유럽연합 집행위원회는 탄소국경조정메커니즘(CBAM)에 따라 제3국에서 지불된 탄소 가격을 CBAM 인증서 의무에서 공제하는 방법에 대한 이행 규정 초안을 발표했습니다. 이 초안은 탄소 가격 계산, 증빙, 인증 요건을 상세히 규정하며, 탄소세, 리베이트, 보상 및 국제 탄소 크레딧의 처리 방안을 포함합니다. EU로 탄소 집약적 상품을 수입하는 신고인과 해당 상품을 생산하는 제3국 사업자들은 이 규정에 따라 CBAM 인증서 구매 의무를 줄일 수 있으나, 공제액은 제3국 탄소 가격 수준 및 국제 탄소 크레딧 사용 제한(10% 상한)에 따라 달라질 수 있습니다. 관련 기업들은 이러한 세부 규정을 면밀히 검토하여 준수 전략을 수립하고 재정적 영향을 평가해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-05T12:52:27.966Z"
     }
   ]
 }
