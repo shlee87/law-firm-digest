@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-06-05T12:54:04.205Z",
+  "lastUpdated": "2026-06-06T12:23:15.785Z",
   "firms": {
     "cooley": {
       "urls": [
@@ -202,6 +202,7 @@
     },
     "skadden": {
       "urls": [
+        "https://skadden.com/insights/publications/2026/06/the-price-of-generosity",
         "https://skadden.com/insights/publications/2026/06/eu-mar-and-uk-mar",
         "https://skadden.com/insights/publications/2026/06/deadline-approaching-for-companies-seeking-onshoring-deals",
         "https://skadden.com/insights/publications/2026/06/chapter-12-prudential-solvency-regimes-in-africa",
@@ -319,6 +320,8 @@
     },
     "latham": {
       "urls": [
+        "https://lw.com/en/insights/latham-in-focus-the-false-claims-act-next-wave",
+        "https://lw.com/en/insights/uk-reforms-clinical-trials-regulations",
         "https://sites.lwcommunicate.com/38/17681/landing-pages/rsvp-form-(blank-generic).asp",
         "https://lw.com/en/insights/the-growth-rocketship-how-rakuten-capital-masters-diplomatic-capitalism",
         "https://globalelr.com/2026/06/european-commission-publishes-draft-implementing-rules-on-cbam-carbon-price-deductions",
