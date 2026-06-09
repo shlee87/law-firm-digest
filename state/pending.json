@@ -12,6 +12,41 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-06-08T13:19:56.597Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "EU Fund Manager Reforms May Deepen Divide With U.K. Regs",
+      "url": "https://skadden.com/insights/publications/2026/06/eu-fund-manager-reforms-may-deepen-divide",
+      "publishedAt": "2026-06-05T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "EU Fund Manager Reforms May Deepen Divide With U.K. Regs",
+      "summaryConfidence": "low",
+      "summaryModel": "failed",
+      "summaryError": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-2.5-flash\\nPlease retry in 46.933942726s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://ai.google.dev/gemini-api/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerMinutePerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"location\":\"global\",\"model\":\"gemini-2.5-flash\"},\"quotaValue\":\"5\"}]},{\"@type\":\"type.googleapis.com/google.rpc.RetryInfo\",\"retryDelay\":\"46s\"}]}}",
+      "summarizedAt": "2026-06-09T12:52:18.117Z"
+    },
+    {
+      "firmId": "bkl",
+      "title": "태평양, IP STARS 2026 특허분쟁·저작권·IP거래 분야 선도 로펌으로 선정",
+      "url": "https://bkl.co.kr/law/insight/informationView.do?infoNo=6547&lang=ko",
+      "publishedAt": "2026-06-08T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "태평양, IP STARS 2026 특허분쟁·저작권·IP거래 분야 선도 로펌으로 선정",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-06-09T12:52:18.117Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "개인정보 과징금 산정기준 및 거버넌스·유출 대응 체계 구체화",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2283",
+      "publishedAt": "2026-06-03T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "개인정보 과징금 산정기준 및 거버넌스·유출 대응 체계 구체화",
+      "summaryConfidence": "low",
+      "summaryModel": "failed",
+      "summaryError": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-2.5-flash\\nPlease retry in 43.199629687s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://ai.google.dev/gemini-api/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerMinutePerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"location\":\"global\",\"model\":\"gemini-2.5-flash\"},\"quotaValue\":\"5\"}]},{\"@type\":\"type.googleapis.com/google.rpc.RetryInfo\",\"retryDelay\":\"43s\"}]}}",
+      "summarizedAt": "2026-06-09T12:52:18.117Z"
     }
   ]
 }
