@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-06-09T12:54:59.866Z",
+  "lastUpdated": "2026-06-10T13:01:41.820Z",
   "firms": {
     "cooley": {
       "urls": [
@@ -202,6 +202,8 @@
     },
     "skadden": {
       "urls": [
+        "https://skadden.com/insights/publications/2026/06/the-informed-board/ai-drafting-board-minutes",
+        "https://skadden.com/insights/publications/2026/06/the-informed-board/how-to-stay-ahead-of-the-risk",
         "https://skadden.com/insights/publications/2026/06/eu-fund-manager-reforms-may-deepen-divide",
         "https://skadden.com/insights/publications/2026/06/chapter-11-prudential-solvency-regimes-in-latin-america",
         "https://skadden.com/insights/publications/2026/06/the-price-of-generosity",
@@ -421,6 +423,7 @@
     },
     "bkl": {
       "urls": [
+        "https://bkl.co.kr/law/insight/informationView.do?infoNo=6549&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6547&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6546&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6544&lang=ko",
