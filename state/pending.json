@@ -47,6 +47,60 @@
       "summaryModel": "failed",
       "summaryError": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 5, model: gemini-2.5-flash\\nPlease retry in 43.199629687s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://ai.google.dev/gemini-api/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerMinutePerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"location\":\"global\",\"model\":\"gemini-2.5-flash\"},\"quotaValue\":\"5\"}]},{\"@type\":\"type.googleapis.com/google.rpc.RetryInfo\",\"retryDelay\":\"43s\"}]}}",
       "summarizedAt": "2026-06-09T12:52:18.117Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "구 노동조합법이 적용되는 사안에서 원청의 단체교섭의무를 부정한 대법원 전원합의체 판결",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=34867&sch_section=4",
+      "publishedAt": "2026-05-21T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "대법원은 구 노동조합법 적용 사안에서 단체교섭의무를 부담하는 사용자의 범위를 명시적·묵시적 근로계약 관계를 맺은 자로 한정하는 종전 법리를 유지했습니다. 이는 개정 노동조합법 시행 전의 사안에만 국한되지만, 향후 개정법 적용 사건에서는 '노동3권의 실효적 보장'이라는 입법 목적에 따라 사용자 개념이 확대 해석될 여지가 있습니다. 따라서 기업들은 개정 노동조합법 체제에 맞춰 원·하청 도급 구조 및 운영 방식을 재점검하고 새로운 단체교섭 요구와 법적 리스크에 선제적으로 대응해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-11T13:08:07.081Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "공정위, AI 서비스 시장 실태조사 실시",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=34834&sch_section=4",
+      "publishedAt": "2026-05-20T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "공정거래위원회는 국내 AI 서비스 시장의 거래 실태 및 경쟁 상황을 점검하기 위한 'AI 서비스 시장 실태조사'를 발표했습니다. 이는 AI 서비스 탑재 과정의 공정성, Agentic AI의 자사우대, 소비자 선택권 왜곡, 부당한 데이터 수집 등 경쟁 및 소비자 이슈를 선제적으로 분석하기 위함입니다. 국내외 주요 AI 서비스 개발사 및 탑재 제품 제공사 등 46개 사업자와 일반 소비자가 주요 조사 대상입니다. 관련 사업자들은 실태조사 진행 상황을 모니터링하고, 자사 서비스 제공 방식 및 거래 현황을 점검하여 컴플라이언스 체계를 재정비하며 잠재적 리스크에 대비해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-11T13:08:07.081Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "AI기술 개발 특례를 위한 개인정보 보호법 개정안 국회 정무위원회 통과",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=34814&sch_section=4",
+      "publishedAt": "2026-05-14T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "개인정보 보호법 개정안이 국회 정무위를 통과하며, 인공지능(AI) 기술 개발 및 성능 개선을 위해 기존에 적법하게 수집한 개인정보를 당초 수집 목적 외로 이용할 수 있는 특례 조항이 신설됩니다. 이는 개인정보보호위원회의 심의·의결 및 특정 안전조치 요건 충족 시 가능하며, AI 기술 개발 기업 및 관련 산업에 영향을 미칩니다. 관련 기업들은 향후 법안 통과 및 시행령 개정 동향을 주시하고, 위원회 심의 요건 및 안전조치 의무를 철저히 준비해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-11T13:08:07.081Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "상장법인 합병 시 ‘공정한 가액’ 도입 등 자본시장법 개정안 정무위 통과",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=34758&sch_section=4",
+      "publishedAt": "2026-05-13T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "2026년 5월 14일 국회 정무위를 통과한 자본시장법 개정안은 상장법인 합병 시 계열회사 여부와 관계없이 '공정한 가액' 산정 의무를 도입하고, 이사회 의견서 및 외부평가 결과의 법률상 공시 의무를 신설하며, 반대주주 주식매수청구권 매수가격 산정 기준도 '공정한 가액'으로 변경합니다. 이는 조직개편 거래를 검토하는 상장기업과 자본시장 투자자에게 영향을 미치며, 합병 등 조직개편 거래에서 이사의 충실의무 범위가 확장되어 '공정한 가액' 산정 및 주주 손해 방지를 위한 최선의 노력 여부에 대한 법적 다툼이 증가할 것으로 예상됩니다. 기업은 특별위원회 설치, 독립적 외부전문가 활용, 주주 정보 제공 등 공정성 확보 절차를 강화해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-11T13:08:07.081Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "UK FCA Consults on Simplifying Climate-Related Reporting for Investment Products",
+      "url": "https://globalfinregblog.com/2026/06/uk-fca-consults-on-simplifying-climate-related-reporting-for-investment-products",
+      "language": "en",
+      "summary_ko": "영국 금융감독청(FCA)은 투자 상품에 대한 기후 관련 보고를 간소화하기 위해 기존 TCFD 기반의 상세한 공시 의무를 보다 유연하고 결과 중심적인 접근 방식으로 대체하는 방안을 협의 중입니다. 이는 자산운용사, 생명보험사, FCA 규제 연금 제공업체 등 금융기관에 영향을 미치며, 소매 투자자 및 기관 고객에 대한 공시 방식이 변경됩니다. 기업들은 기후 관련 정보 전달에 있어 더 큰 유연성을 가지게 되며, 보고 부담이 연간 약 2천만 파운드 감소할 것으로 예상됩니다. 소매 공시의 경우 소비자 의무(Consumer Duty)를 고려해야 하며, 기관 고객에게는 요청 시 연 1회 GHG 배출량 데이터를 제공하게 됩니다. 최종 규칙은 2026년 가을에 발표될 예정입니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-11T13:08:07.081Z"
     }
   ]
 }
