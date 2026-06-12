@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-05-23)
 Phase: Milestone v1.2 complete
 Plan: —
 Status: Awaiting next milestone
-Last activity: 2026-05-28 — Milestone v1.2 completed and archived
+Last activity: 2026-06-12 — Completed quick task 260612-lbt: js-render firm failure observability + flakiness retry
 
 ## Performance Metrics
 
@@ -72,6 +72,12 @@ None.
 - Phase 14 entry: confirm whether `scripts/sync-schedule.ts` rewrite (option a) or removal (option b) is preferred — decision deferred to plan-phase
 - Phase 15 entry: Phase dirs may live at `.planning/phases/` or `.planning/milestones/v1.1-phases/` depending on whether `/gsd:cleanup` ran post-v1.1 close; backfill at whichever path the phase currently occupies
 - Phase 16 entry: META-01 depends on Phase 15 producing the verification outcomes that the traceability table will reference
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260612-lbt | js-render firm failure observability + flakiness retry | 2026-06-12 | 4a8a35e | [260612-lbt-js-render-firm-failure-observability-fla](./quick/260612-lbt-js-render-firm-failure-observability-fla/) |
 
 ## Deferred Items
 
