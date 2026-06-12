@@ -83,6 +83,7 @@ import 'dotenv/config';
 import { runDaily } from './pipeline/runDaily.js';
 import { runWeekly } from './pipeline/runWeekly.js';
 import type { RunReport } from './pipeline/runTypes.js';
+import type { FirmResult } from './types.js';
 import { getGeminiCallCount } from './summarize/gemini.js';
 import { scrubSecrets } from './util/logging.js';
 import { isDryRun } from './env.js';
@@ -114,6 +115,29 @@ export function parseMode(argv: string[]): Mode {
     process.exit(2);
   }
   return mode;
+}
+
+/**
+ * Phase 260612-lbt — exported for unit testing. Emits one console.error line
+ * per failing js-render firm (type==='js-render' || detail_tier==='js-render')
+ * with firm id and scrubbed error message. Called in the FATAL block BEFORE
+ * the summary count line so the per-firm lines are greppable in the GHA run
+ * log and auto-issue body.
+ *
+ * scrubSecrets() applied defensively on the error.message even though fetch.ts
+ * already scrubs at the catch site — satisfies T-260612-01 defense-in-depth.
+ */
+export function emitJsRenderFatalLines(results: FirmResult[]): void {
+  for (const r of results) {
+    if (
+      r.error != null &&
+      (r.firm.type === 'js-render' || r.firm.detail_tier === 'js-render')
+    ) {
+      console.error(
+        `[js-render-fail] firm=${r.firm.id} error=${scrubSecrets(r.error.message)}`,
+      );
+    }
+  }
 }
 
 /**
@@ -162,6 +186,7 @@ async function main(): Promise<number> {
       const report = await runDaily();
       emitDryRunStepSummary(report, getGeminiCallCount());
       if (report.jsRenderFailures > 0) {
+        emitJsRenderFatalLines(report.results);
         console.error(
           `FATAL: ${report.jsRenderFailures} js-render firm(s) failed — see email footer; state + archive have already been committed`,
         );

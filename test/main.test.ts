@@ -133,6 +133,94 @@ describe('emitDryRunStepSummary — Phase 10 DQOBS-03', () => {
   });
 });
 
+describe('emitJsRenderFatalLines — js-render observability', () => {
+  let errSpy: ReturnType<typeof vi.spyOn>;
+
+  beforeEach(() => {
+    errSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    vi.stubEnv('GEMINI_API_KEY', 'test-stub-key-not-real');
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    errSpy.mockRestore();
+  });
+
+  it('emits one [js-render-fail] line per failing js-render firm', async () => {
+    const { emitJsRenderFatalLines } = await import('../src/main.js');
+    const results = [
+      {
+        firm: { id: 'lee-ko', type: 'js-render', name: '광장', language: 'ko', url: '', timezone: 'Asia/Seoul', enabled: true },
+        error: { stage: 'fetch' as const, message: 'scrapeJsRender lee-ko: playwright-timeout waiting for ul#list' },
+        items: [],
+        newItems: [],
+        newItemsDeduped: [],
+      },
+      {
+        firm: { id: 'yoon-yang', type: 'js-render', name: '윤양', language: 'ko', url: '', timezone: 'Asia/Seoul', enabled: true },
+        error: { stage: 'fetch' as const, message: 'scrapeJsRender yoon-yang: zero items extracted (selector-miss)' },
+        items: [],
+        newItems: [],
+        newItemsDeduped: [],
+      },
+    ];
+    emitJsRenderFatalLines(results as never);
+    const calls = errSpy.mock.calls.map((c: unknown[]) => c[0] as string);
+    expect(calls.some((s) => s.includes('[js-render-fail] firm=lee-ko'))).toBe(true);
+    expect(calls.some((s) => s.includes('[js-render-fail] firm=yoon-yang'))).toBe(true);
+  });
+
+  it('includes the scrubbed error message in each per-firm line', async () => {
+    const { emitJsRenderFatalLines } = await import('../src/main.js');
+    const results = [
+      {
+        firm: { id: 'lee-ko', type: 'js-render', name: '광장', language: 'ko', url: '', timezone: 'Asia/Seoul', enabled: true },
+        error: { stage: 'fetch' as const, message: 'playwright-timeout waiting for selector' },
+        items: [],
+        newItems: [],
+        newItemsDeduped: [],
+      },
+    ];
+    emitJsRenderFatalLines(results as never);
+    const calls = errSpy.mock.calls.map((c: unknown[]) => c[0] as string);
+    const firmLine = calls.find((s) => s.includes('[js-render-fail] firm=lee-ko'));
+    expect(firmLine).toBeDefined();
+    expect(firmLine).toContain('error=playwright-timeout waiting for selector');
+  });
+
+  it('does NOT emit lines for non-js-render firms', async () => {
+    const { emitJsRenderFatalLines } = await import('../src/main.js');
+    const results = [
+      {
+        firm: { id: 'cooley', type: 'rss', name: 'Cooley', language: 'en', url: '', timezone: 'America/Los_Angeles', enabled: true },
+        error: { stage: 'fetch' as const, message: 'rss parse error' },
+        items: [],
+        newItems: [],
+        newItemsDeduped: [],
+      },
+    ];
+    emitJsRenderFatalLines(results as never);
+    const calls = errSpy.mock.calls.map((c: unknown[]) => c[0] as string);
+    expect(calls.some((s) => s.includes('[js-render-fail]'))).toBe(false);
+  });
+
+  it('matches firms with detail_tier=js-render even when type is not js-render', async () => {
+    const { emitJsRenderFatalLines } = await import('../src/main.js');
+    const results = [
+      {
+        firm: { id: 'detail-firm', type: 'html', detail_tier: 'js-render', name: 'DetailFirm', language: 'en', url: '', timezone: 'UTC', enabled: true },
+        error: { stage: 'fetch' as const, message: 'browser-launch-fail' },
+        items: [],
+        newItems: [],
+        newItemsDeduped: [],
+      },
+    ];
+    emitJsRenderFatalLines(results as never);
+    const calls = errSpy.mock.calls.map((c: unknown[]) => c[0] as string);
+    expect(calls.some((s) => s.includes('[js-render-fail] firm=detail-firm'))).toBe(true);
+  });
+});
+
 describe('parseMode — Phase 13 D-04/D-06', () => {
   let exitSpy: ReturnType<typeof vi.spyOn>;
   let errSpy: ReturnType<typeof vi.spyOn>;
