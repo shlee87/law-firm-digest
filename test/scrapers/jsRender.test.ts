@@ -124,7 +124,9 @@ describe('scrapeJsRender', () => {
     await expect(scrapeJsRender(makeFirm(), browser as never)).rejects.toThrow(
       /playwright-timeout/,
     );
-    expect(context.close).toHaveBeenCalledTimes(1);
+    // playwright-timeout triggers p-retry (1 retry) — context.close() fires in
+    // the finally block for each attempt, so exactly 2 calls are expected.
+    expect(context.close).toHaveBeenCalledTimes(2);
   });
 
   it('re-wraps Playwright timeout to the "playwright-timeout" classifier-friendly message', async () => {
@@ -165,5 +167,100 @@ describe('scrapeJsRender', () => {
     await expect(scrapeJsRender(bad, browser as never)).rejects.toThrow(
       /wait_for is required/,
     );
+  });
+});
+
+describe('scrapeJsRender — p-retry behavior', () => {
+  it('retries once when first call throws playwright-timeout, succeeds on second call', async () => {
+    const html = `<!doctype html><html><body>
+      <ul id="contentsList">
+        <li><a href="/detail/1"><span class="title">Newsletter A</span></a></li>
+      </ul>
+    </body></html>`;
+
+    // First newContext call: waitForSelector throws playwright-timeout
+    const failPage = {
+      goto: vi.fn().mockResolvedValue(undefined),
+      waitForSelector: vi
+        .fn()
+        .mockRejectedValue(new Error('Timeout 15000ms exceeded waiting for selector')),
+      content: vi.fn().mockResolvedValue('<html></html>'),
+    };
+    const failContext = {
+      newPage: vi.fn().mockResolvedValue(failPage),
+      close: vi.fn().mockResolvedValue(undefined),
+    };
+
+    // Second newContext call: succeeds with items
+    const successPage = {
+      goto: vi.fn().mockResolvedValue(undefined),
+      waitForSelector: vi.fn().mockResolvedValue(undefined),
+      content: vi.fn().mockResolvedValue(html),
+    };
+    const successContext = {
+      newPage: vi.fn().mockResolvedValue(successPage),
+      close: vi.fn().mockResolvedValue(undefined),
+    };
+
+    const browser = {
+      newContext: vi
+        .fn()
+        .mockResolvedValueOnce(failContext)
+        .mockResolvedValueOnce(successContext),
+    };
+
+    const items = await scrapeJsRender(makeFirm(), browser as never);
+    expect(items).toHaveLength(1);
+    expect(items[0].title).toBe('Newsletter A');
+    // newContext called twice: once for the failed attempt, once for the retry
+    expect(browser.newContext).toHaveBeenCalledTimes(2);
+  });
+
+  it('propagates error after retry exhaustion (both calls throw playwright-timeout)', async () => {
+    const failPage = {
+      goto: vi.fn().mockResolvedValue(undefined),
+      waitForSelector: vi
+        .fn()
+        .mockRejectedValue(new Error('Timeout 15000ms exceeded waiting for selector')),
+      content: vi.fn().mockResolvedValue('<html></html>'),
+    };
+    const failContext = {
+      newPage: vi.fn().mockResolvedValue(failPage),
+      close: vi.fn().mockResolvedValue(undefined),
+    };
+    const browser = {
+      newContext: vi.fn().mockResolvedValue(failContext),
+    };
+
+    await expect(scrapeJsRender(makeFirm(), browser as never)).rejects.toThrow(
+      /playwright-timeout/,
+    );
+    // newContext called twice: initial + 1 retry
+    expect(browser.newContext).toHaveBeenCalledTimes(2);
+  });
+
+  it('does NOT retry on selector-miss (zero items) — error propagates after single attempt', async () => {
+    const html = '<html><body><ul id="contentsList"></ul></body></html>';
+    const { browser } = makeMockBrowser({
+      content: vi.fn().mockResolvedValue(html),
+    });
+
+    await expect(scrapeJsRender(makeFirm(), browser as never)).rejects.toThrow(
+      /zero items extracted \(selector-miss\)/,
+    );
+    // newContext called once only — no retry
+    expect(browser.newContext).toHaveBeenCalledTimes(1);
+  });
+
+  it('does NOT retry on browser-launch-fail — error propagates after single attempt', async () => {
+    const { browser } = makeMockBrowser({
+      goto: vi.fn().mockRejectedValue(new Error('chromium executable not found')),
+    });
+
+    await expect(scrapeJsRender(makeFirm(), browser as never)).rejects.toThrow(
+      /browser-launch-fail/,
+    );
+    // newContext called once only — no retry
+    expect(browser.newContext).toHaveBeenCalledTimes(1);
   });
 });

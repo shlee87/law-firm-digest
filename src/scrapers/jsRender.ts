@@ -38,6 +38,7 @@
 // is ALWAYS a contract violation worth a user-visible alert (D-10).
 
 import type { Browser } from 'playwright';
+import pRetry from 'p-retry';
 import { USER_AGENT } from '../util/logging.js';
 import { parseListItemsFromHtml } from './util.js';
 import type { FirmConfig, RawItem } from '../types.js';
@@ -46,34 +47,12 @@ const WAIT_TIMEOUT_MS = 15_000;
 const GOTO_TIMEOUT_MS = 15_000;
 
 /**
- * Fetch a JS-rendered listing page via Playwright and parse it into a
- * RawItem[]. The browser argument is owned by runPipeline (composition root)
- * — this function MUST NOT close it.
- *
- * @param firm FirmConfig with type='js-render' and a wait_for selector.
- *             Schema superRefine enforces presence at config-load time; if
- *             this function is called with a firm that lacks wait_for, we
- *             treat it as a programmer error and throw a clear message.
- * @param browser A launched chromium Browser instance (headless shell).
- * @throws Error on navigation / wait / zero-items. Outer pipeline/fetch.ts
- *         catches and synthesizes FirmResult.error.
+ * Inner implementation — called by scrapeJsRender (which wraps it with
+ * p-retry). Extracted so the retry wrapper can call scrapeOnce multiple times
+ * using a fresh BrowserContext on each attempt (context.close() in finally
+ * ensures the failed context is cleaned up before the retry opens a new one).
  */
-export async function scrapeJsRender(
-  firm: FirmConfig,
-  browser: Browser,
-): Promise<RawItem[]> {
-  if (!firm.wait_for) {
-    // Defense-in-depth: schema superRefine should prevent this at load time.
-    throw new Error(
-      `scrapeJsRender ${firm.id}: wait_for is required for type='js-render' but was missing`,
-    );
-  }
-  if (!firm.selectors) {
-    throw new Error(
-      `scrapeJsRender ${firm.id}: selectors block is required for list-item extraction`,
-    );
-  }
-
+async function scrapeOnce(firm: FirmConfig, browser: Browser): Promise<RawItem[]> {
   const context = await browser.newContext({ userAgent: USER_AGENT });
   let html: string;
   try {
@@ -83,7 +62,7 @@ export async function scrapeJsRender(
         timeout: GOTO_TIMEOUT_MS,
         waitUntil: 'domcontentloaded',
       });
-      await page.waitForSelector(firm.wait_for, {
+      await page.waitForSelector(firm.wait_for!, {
         timeout: WAIT_TIMEOUT_MS,
         state: 'attached',
       });
@@ -119,8 +98,55 @@ export async function scrapeJsRender(
     // D-10 selector-miss — page hydrated OK (wait_for matched) but extractor
     // returned zero items. Contract violation worth an alert.
     throw new Error(
-      `scrapeJsRender ${firm.id}: zero items extracted (selector-miss) — wait_for matched but list_item ${firm.selectors.list_item} returned nothing`,
+      `scrapeJsRender ${firm.id}: zero items extracted (selector-miss) — wait_for matched but list_item ${firm.selectors!.list_item} returned nothing`,
     );
   }
   return items;
+}
+
+/**
+ * Fetch a JS-rendered listing page via Playwright and parse it into a
+ * RawItem[]. The browser argument is owned by runPipeline (composition root)
+ * — this function MUST NOT close it.
+ *
+ * Phase 260612-lbt D-02: wraps scrapeOnce with p-retry({ retries: 1 }).
+ * shouldRetry is scoped strictly to the 'playwright-timeout' error message
+ * shape (D-10 classifier contract). selector-miss and browser-launch-fail are
+ * NOT transient — they abort immediately. Retry does NOT add sleep (p-retry
+ * default). Total wall-clock bounded by one extra 30s timeout window (T-260612-02).
+ *
+ * @param firm FirmConfig with type='js-render' and a wait_for selector.
+ *             Schema superRefine enforces presence at config-load time; if
+ *             this function is called with a firm that lacks wait_for, we
+ *             treat it as a programmer error and throw a clear message.
+ * @param browser A launched chromium Browser instance (headless shell).
+ * @throws Error on navigation / wait / zero-items. Outer pipeline/fetch.ts
+ *         catches and synthesizes FirmResult.error.
+ */
+export async function scrapeJsRender(
+  firm: FirmConfig,
+  browser: Browser,
+): Promise<RawItem[]> {
+  if (!firm.wait_for) {
+    // Defense-in-depth: schema superRefine should prevent this at load time.
+    throw new Error(
+      `scrapeJsRender ${firm.id}: wait_for is required for type='js-render' but was missing`,
+    );
+  }
+  if (!firm.selectors) {
+    throw new Error(
+      `scrapeJsRender ${firm.id}: selectors block is required for list-item extraction`,
+    );
+  }
+
+  return pRetry(() => scrapeOnce(firm, browser), {
+    retries: 1,
+    // p-retry v8: shouldRetry receives a RetryContext { error, ... } object,
+    // not the raw error (as in v6). Match the gemini.ts pattern in this repo.
+    shouldRetry: ({ error }) => {
+      // Only retry playwright-timeout (transient slow SPA load).
+      // selector-miss and browser-launch-fail are NOT transient — abort immediately.
+      return /playwright-timeout/i.test((error as Error).message);
+    },
+  });
 }
