@@ -101,6 +101,48 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-06-11T13:08:07.081Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "Fit for Purpose? European Commission Launches Review of MiCA",
+      "url": "https://skadden.com/insights/publications/2026/06/fit-for-purpose",
+      "publishedAt": "2026-06-10T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "EU 집행위원회는 급변하는 암호자산 시장에 맞춰 MiCA(Markets in Crypto-Assets) 규정이 여전히 적합한지 검토하기 위한 의견 수렴을 시작했습니다. 이번 검토는 암호자산과 전통 금융상품의 경계, 스테이블코인 규제(다중 발행 구조, 유로화 연동, 이자 금지 등), 그리고 제3국 발행자에 대한 동등성 프레임워크 부재 등 핵심 쟁점을 다룹니다. 금융기관 및 암호자산 서비스 제공자 등 시장 참여자들은 2026년 8월 31일까지 온라인 설문지를 통해 의견을 제출하여 EU 암호자산 규제의 미래를 형성하는 데 참여할 수 있습니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-13T12:29:20.509Z"
+    },
+    {
+      "firmId": "bkl",
+      "title": "태평양, ‘알아두면 쓸모있는 신선한 법무 이슈: 공정거래 및 개인정보 관련 최근 동향’ 고객초청 세미나 개최",
+      "url": "https://bkl.co.kr/law/insight/informationView.do?infoNo=6550&lang=ko",
+      "publishedAt": "2026-06-09T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "법무법인 태평양은 공정거래 및 개인정보 관련 최신 동향 세미나를 개최했습니다. 핵심 법적 사안은 공정거래위원회의 집행실무 및 판례 동향(공정거래법, 하도급법)과 개정 개인정보보호법 및 AI 활용 시 개인정보 이슈입니다. 기업 법무, 컴플라이언스, 개인정보보호 담당자들은 공정거래 리스크에 유의하고, 개인정보 보호와 데이터 활용의 균형을 고려한 관리 체계를 구축해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-13T12:29:20.509Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Space X’s IPO Marks the First Use of the FCA’s POP Regime for a UK Retail Offer",
+      "url": "https://lw.com/en/insights/space-x-ipo-uk-retail-offer",
+      "language": "en",
+      "summary_ko": "Latham의 디지털 자산 및 Web3 실무 리더가 예측 시장(Prediction Markets)의 규제, 라이선싱 및 구조화 고려사항에 대한 포괄적인 개요를 제공하는 웹캐스트가 예정되어 있습니다. 이는 변화하는 규제 환경 속에서 예측 시장 관련 신규 상품 개발 및 운영에 관심 있는 기업 및 법률 전문가에게 중요한 정보를 제공할 것입니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-13T12:29:20.509Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Chambers USA 2026 Guide: Private Credit Overview",
+      "url": "https://lw.com/en/insights/chambers-usa-2026-guide-private-credit-overview",
+      "language": "en",
+      "summary_ko": "사모 신용(Private Credit) 시장은 2009년 이후 1,000% 성장하여 약 2조 달러 규모에 달하며, 규제 변화와 투자자 수요에 힘입어 미국 기업 금융의 핵심으로 부상했습니다. 이는 차입자와 사모 펀드 스폰서에게 유연하고 맞춤화된 자금 조달 솔루션을 제공하며, 대규모 레버리지 바이아웃에서 중요한 역할을 수행하고 있습니다. 기업 금융 및 투자 관련 전문가들은 이러한 사모 신용 시장의 지속적인 성장과 변화에 주목해야 합니다.",
+      "summaryConfidence": "medium",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-13T12:29:20.509Z"
     }
   ]
 }
