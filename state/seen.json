@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-06-14T12:33:54.365Z",
+  "lastUpdated": "2026-06-15T14:02:24.620Z",
   "firms": {
     "cooley": {
       "urls": [
@@ -242,6 +242,7 @@
     },
     "lee-ko": {
       "urls": [
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2284",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2283",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2282",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2281",
@@ -263,11 +264,12 @@
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2265",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2264"
       ],
-      "lastNewAt": "2026-06-03T15:00:00.000Z",
+      "lastNewAt": "2026-06-09T15:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "yoon-yang": {
       "urls": [
+        "https://yoonyang.com/kor/insights/newsletter/14878",
         "https://yoonyang.com/kor/insights/newsletter/14859",
         "https://yoonyang.com/kor/insights/newsletter/14858",
         "https://yoonyang.com/kor/insights/newsletter/14851",

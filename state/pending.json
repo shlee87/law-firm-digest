@@ -143,6 +143,17 @@
       "summaryConfidence": "medium",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-06-13T12:29:20.509Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "EU 진출 기업들이 알아야 할 역외보조금(FSR) 리스크와 대응전략",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2284",
+      "publishedAt": "2026-06-09T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "EU 집행위는 한국수력원자력의 체코 원전 사업에 대한 역외 보조금 규정(FSR) 심층조사를 종결하며 FSR의 중요성을 부각했습니다. FSR은 역외 보조금의 반환, 기업결합 및 공공조달 낙찰 금지 등 광범위한 권한을 집행위에 부여하며, EU 시장 진출을 모색하는 한국 기업들은 정부 지원이 재정적 기여, 혜택, 특정성 요건을 충족하고 시장을 왜곡할 가능성이 있는지 면밀히 검토해야 합니다. 심층조사 시 거래 지연, 과징금, 사업 금지 등 중대한 위험이 따르므로, 초기 단계부터 FSR에 대한 정확한 이해와 EU 집행위와의 직접 소통 경험을 갖춘 전문가의 조력이 필수적입니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-15T14:00:06.855Z"
     }
   ]
 }
