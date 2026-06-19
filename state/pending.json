@@ -197,6 +197,48 @@
       "summaryConfidence": "low",
       "summaryModel": "skipped",
       "summarizedAt": "2026-06-18T13:00:11.049Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "Skadden’s GDPR Risk Compass: A Data-Driven Starting Point for Enforcement Risk Discussions",
+      "url": "https://skadden.com/insights/publications/2026/06/skaddens-gdpr-risk-compass",
+      "publishedAt": "2026-06-18T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "Skadden은 2026년 GDPR 리스크 컴패스를 발표하며 EU 및 영국 전역의 규제 기관 집행 데이터를 분석하여 GDPR 집행 리스크를 정량화했습니다. 이 컴패스는 규제 기관을 부과된 벌금의 수와 규모에 따라 네 가지 리스크 기반 사분면으로 분류합니다. 기업들은 GDPR 준수 프로그램을 평가하고 규제 기관과 소통할 때 관련 규제 기관의 집행 접근 방식을 고려해야 합니다. 이는 아일랜드, 네덜란드, 영국 등 고액 벌금 부과 기관과 프랑스, 이탈리아 등 고액 다수 벌금 부과 기관의 차이를 이해하는 데 도움이 됩니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-19T13:03:52.441Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "대법원, 비상장주식 재산분할에 관한 최초의 판단기준 제시",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2286",
+      "publishedAt": "2026-06-15T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "대법원은 이혼 재산분할 시 비상장주식의 분할 방법에 대해 최초로 구체적인 판단 기준을 제시하며, 현금 정산(대상 분할)이 우선 고려되더라도 '실질적 형평'에 따라 현물 분할 또는 혼합 방식도 가능하다고 판시했습니다. 이는 비상장주식을 주요 재산으로 보유한 기업 경영자 및 그 배우자의 이혼 재산분할 사건에 직접적인 영향을 미칩니다. 기존의 대상 분할 관행에서 벗어나, 회사의 가치, 유동성, 경영권 영향, 세금 부담 등 구체적 사정을 종합적으로 고려한 맞춤형 분할 방식과 평가 전략 수립이 중요해질 것입니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-19T13:03:52.441Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "US Designates Brazilian Criminal Organizations as Foreign Terrorist Organizations",
+      "url": "https://lw.com/en/insights/us-designates-brazilian-criminal-organizations-as-foreign-terrorist-organizations",
+      "language": "en",
+      "summary_ko": "US Designates Brazilian Criminal Organizations as Foreign Terrorist Organizations",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-19T13:03:52.441Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "The Growth Rocketship: Modernizing Real Estate With Opendoor",
+      "url": "https://lw.com/en/insights/the-growth-rocketship-modernizing-real-estate-with-opendoor",
+      "language": "en",
+      "summary_ko": "The Growth Rocketship: Modernizing Real Estate With Opendoor",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-19T13:03:52.441Z"
     }
   ]
 }
