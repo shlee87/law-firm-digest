@@ -26,6 +26,7 @@ import {
   readPending,
   appendPending,
   truncatePending,
+  updatePending,
   toPendingItem,
   type PendingItem,
 } from '../../src/state/pending.js';
@@ -217,6 +218,52 @@ describe('src/state/pending.ts', () => {
       expect(
         (pendingModule as unknown as { writePending?: unknown }).writePending,
       ).toBeUndefined();
+    });
+  });
+
+  describe('backward-compat — new optional fields', () => {
+    it('parses pending.json without summaryBody/summaryAttempts without error, fields are undefined', async () => {
+      const fixedStart = '2026-06-01T00:00:00.000Z';
+      const item = makePendingItem('cooley', 'Legacy item');
+      // Write a pending.json that has NO summaryBody or summaryAttempts fields
+      writeFileSync(
+        pendingPath,
+        JSON.stringify({
+          version: 1,
+          windowStart: fixedStart,
+          items: [item],
+        }),
+      );
+      const state = await readPending(pendingPath);
+      expect(state.items).toHaveLength(1);
+      expect(state.items[0].summaryBody).toBeUndefined();
+      expect(state.items[0].summaryAttempts).toBeUndefined();
+    });
+  });
+
+  describe('updatePending — in-place replacement (D-09)', () => {
+    it('replaces items array and preserves windowStart unchanged', async () => {
+      const fixedStart = '2026-06-01T00:00:00.000Z';
+      const item1 = makePendingItem('cooley', 'Item A');
+      const item2 = makePendingItem('bkl', 'Item B');
+      writeFileSync(
+        pendingPath,
+        JSON.stringify({
+          version: 1,
+          windowStart: fixedStart,
+          items: [item1, item2],
+        }),
+      );
+      // Replace with a single mutated item
+      const mutated: PendingItem = { ...item1, summaryModel: 'gemini-2.5-flash-lite' };
+      await updatePending([mutated], pendingPath);
+      const final = JSON.parse(readFileSync(pendingPath, 'utf8'));
+      // D-09: windowStart is preserved
+      expect(final.windowStart).toBe(fixedStart);
+      // Items are replaced, not concatenated
+      expect(final.items).toHaveLength(1);
+      expect(final.items[0].title).toBe('Item A');
+      expect(final.items[0].summaryModel).toBe('gemini-2.5-flash-lite');
     });
   });
 });

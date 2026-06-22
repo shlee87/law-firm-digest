@@ -59,6 +59,10 @@ const PendingItemSchema = z
     summaryModel: z.string().min(1),
     summaryError: z.string().min(1).optional(),
     summarizedAt: z.string(), // ISO8601 (daily run sets this)
+    // Cross-day retry fields (plan 260622-p9j). COMP-05 exception: summaryBody
+    // stores the summarize INPUT on failed items only; deleted on retry success.
+    summaryBody: z.string().optional(),
+    summaryAttempts: z.number().int().positive().optional(),
   })
   .strict();
 
@@ -148,12 +152,34 @@ export async function truncatePending(
   await writePendingInternal(next, path);
 }
 
+export async function updatePending(
+  items: PendingItem[],
+  path = 'state/pending.json',
+): Promise<void> {
+  const current = await readPending(path);
+  const next: PendingState = {
+    version: 1,
+    windowStart: current.windowStart, // D-09: preserved
+    items,
+  };
+  await writePendingInternal(next, path);
+}
+
 // D-07 COMP-05 enforcement: the description (article body) MUST NOT reach
-// disk. isClusterMember is runtime-only (Phase 8 D-08). isNew is
-// runtime-only (NewItem marker). Construct the projected shape EXPLICITLY
-// so a future widening of SummarizedItem (e.g., adding a new runtime-only
-// field) does not silently start persisting through a spread.
-export function toPendingItem(s: SummarizedItem, now: Date): PendingItem {
+// disk under normal circumstances. isClusterMember is runtime-only (Phase 8
+// D-08). isNew is runtime-only (NewItem marker). Construct the projected shape
+// EXPLICITLY so a future widening of SummarizedItem (e.g., adding a new
+// runtime-only field) does not silently start persisting through a spread.
+//
+// COMP-05 exception for summaryBody: when summaryModel === 'failed', the
+// summarize INPUT (preprocessed article body) is stored in summaryBody so
+// the next daily run can retry without re-fetching. summaryBody is removed on
+// retry success. This is the ONLY sanctioned path where body content reaches disk.
+export function toPendingItem(
+  s: SummarizedItem,
+  now: Date,
+  body?: string, // NEW: only stored when summaryModel === 'failed' (COMP-05 exception)
+): PendingItem {
   return {
     firmId: s.firmId,
     title: s.title,
@@ -165,5 +191,8 @@ export function toPendingItem(s: SummarizedItem, now: Date): PendingItem {
     summaryModel: s.summaryModel,
     summaryError: s.summaryError,
     summarizedAt: now.toISOString(),
+    ...(s.summaryModel === 'failed' && body && body.trim().length > 0
+      ? { summaryBody: body, summaryAttempts: 1 }
+      : {}),
   };
 }
