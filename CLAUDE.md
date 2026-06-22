@@ -195,26 +195,24 @@
 
 ### Workflow scheduling (cron edit policy)
 
-Cron 일정의 단일 진실 원천은 `.github/workflows/daily.yml` + `.github/workflows/weekly.yml`의 `schedule.cron` 줄들이다 (daily 1줄 + weekly 2줄 — 아래 dual-cron 참고). `config/settings.yaml`의 `schedule:` 블록은 zod 호환을 위한 placeholder이며 runtime에 사용되지 않는다.
+Cron 일정의 단일 진실 원천은 `.github/workflows/daily.yml` + `.github/workflows/weekly.yml`의 `schedule.cron` 줄들이다 (daily 1줄 + weekly 1줄). `config/settings.yaml`의 `schedule:` 블록은 zod 호환을 위한 placeholder이며 runtime에 사용되지 않는다.
 
 **변경 절차:**
-1. `daily.yml` / `weekly.yml`의 `schedule.cron` 줄을 직접 편집한다. weekly는 dual-cron이므로 두 cron의 분(分)은 항상 동일하게 유지한다.
+1. `daily.yml` / `weekly.yml`의 `schedule.cron` 줄을 직접 편집한다.
 2. Commit + push.
-3. syntax 검증은 로컬 파싱으로 한다: `node -e "require('yaml').parse(require('fs').readFileSync('.github/workflows/weekly.yml','utf8'))"`. **`gh workflow run`은 실제 파이프라인을 실행한다** — 특히 weekly dispatch는 guard를 우회해 **실제 메일 1통을 발송**하므로, syntax-only 검증에는 쓰지 말고 의도된 테스트 발송이 필요할 때만 사용한다.
+3. syntax 검증은 로컬 파싱으로 한다: `node -e "require('yaml').parse(require('fs').readFileSync('.github/workflows/weekly.yml','utf8'))"`. **`gh workflow run`은 실제 파이프라인을 실행한다** — 특히 weekly dispatch는 **실제 메일 1통을 발송**하므로, syntax-only 검증에는 쓰지 말고 의도된 테스트 발송이 필요할 때만 사용한다.
 
-**DST-aware 발송 (weekly dual-cron + guard, 2026-06-08~):**
-GH Actions cron은 UTC 고정이라 서머타임을 모른다. weekly를 "캘리포니아 항상 06:00 PT"로 고정하기 위해 single-cron 대신 **over-trigger + guard** 패턴을 쓴다:
-- `schedule`에 cron 2줄 — `0 13 * * 1`(PDT/UTC-7 = 06:00 PT) + `0 14 * * 1`(PST/UTC-8 = 06:00 PT).
-- `guard` job이 `TZ='America/Los_Angeles' date +%H`가 `06`인 트리거만 통과시킨다 (runner tzdata가 PDT/PST를 자동 판정). 매주 정확히 하나만 통과 → 연중 06:00 PT 고정, 수동 DST 조정 불필요.
-- `digest` job은 `needs: guard` + `if: needs.guard.outputs.should_send == 'true'`로 게이팅. skip되는 cron은 guard runner만 소모하고 checkout/install은 돌리지 않는다.
-- `workflow_dispatch`는 guard를 항상 통과(수동 smoke test 보존) — 그래서 dispatch가 실제 메일을 보낸다(위 3번 주의).
-- 목적지 timezone을 바꾸려면: 두 cron의 시(時)를 새 오프셋의 두 후보(표준시/서머타임)로 바꾸고, guard의 TZ와 비교 시각(`06`)을 함께 수정한다.
+**발송 시각 + DST (weekly, 단일 cron — 2026-06-22 정정):**
+weekly는 `0 13 * * 1` 단일 cron이다 = 여름(PDT) 06:00 PT / 겨울(PST) 05:00 PT. 겨울 1h 드리프트를 감수하는 대가로 **항상 발송되는** 단순·안정 구조를 택했다.
+- **금지 패턴 — dual-cron + 실행시점 시각 guard:** 2026-06-08에 "연중 정확히 06:00 PT"를 노리고 cron 2줄(13:00+14:00 UTC) + `TZ='America/Los_Angeles' date +%H == 06` guard를 넣었으나, **GH Actions 예약 실행은 1~3h 지연이 상수**라 guard가 매번 07~09시로 보고 **4번의 월요일 모두 skip → 6/8~6/22 weekly 미발송** 회귀를 일으켰다. GH Actions에서 "정확한 발송 시각"은 원천적으로 보장 불가 — 실행시점 시각 비교 guard는 절대 쓰지 말 것.
+- 정확한 연중 06:00이 꼭 필요하면 실행시점 시각이 아니라 **상태 기반 멱등 마커**("이번 ISO주 발송했나?")로 dedup해야 한다. 단일 cron으로 안 되는 게 확실해진 뒤에만 도입.
+- 목적지 timezone 변경: cron의 시(時)만 새 표준시 오프셋으로 바꾸면 된다.
 
 **Phase 13 lesson (cron syntax 충돌):**
 GH Actions는 같은 day-of-week 필드에서 `0`(Sun)과 `7`(Sun alias)이 동시에 등장하면 cron을 reject한다. Monday를 추가할 때 `2-7,0` 같은 형태를 쓰지 말고 `0-6`, `*`, 또는 `0,1,2-6`처럼 collision-free 표현을 사용한다.
 
 **시간 분리 원칙:**
-daily와 weekly cron의 발사 시각은 분리해 유지한다. `concurrency: digest-pipeline` lock이 동시 실행을 직렬화하긴 하지만, 동일 시각 트리거는 한쪽이 다른 쪽이 끝나길 기다리는 슬롯 슬립을 만든다. (현재: daily `0 12 * * 0-6`, weekly `0 13`/`0 14 * * 1` — 월요일에 daily 12:00 UTC와 weekly 13:00/14:00 UTC가 최소 1h 분리.)
+daily와 weekly cron의 발사 시각은 분리해 유지한다. `concurrency: digest-pipeline` lock이 동시 실행을 직렬화하긴 하지만, 동일 시각 트리거는 한쪽이 다른 쪽이 끝나길 기다리는 슬롯 슬립을 만든다. (현재: daily `0 12 * * 0-6`, weekly `0 13 * * 1` — 월요일에 daily 12:00 UTC와 weekly 13:00 UTC가 1h 분리.)
 
 ### Audit freshness (audit:firms)
 

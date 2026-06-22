@@ -2,9 +2,10 @@
 #
 # LegalNewsletter — Phase 13 weekly digest dispatch (Mon).
 #
-# Runs src/main.ts --mode=weekly always at Mon 06:00 PT (DST-aware): the guard
-# job over-triggers with two crons (13:00 + 14:00 UTC) and lets through only the
-# trigger that maps to 06:00 in America/Los_Angeles right now.
+# Runs src/main.ts --mode=weekly at Mon 13:00 UTC (06:00 PT in summer/PDT,
+# 05:00 PT in winter/PST). Single cron — GH Actions scheduled runs are routinely
+# delayed 1-3h, so an exact-hour guard would skip the send entirely; a single
+# unconditional cron always fires (delay just lands it later that morning).
 # Reads state/pending.json (accumulated by daily.yml Tue-Sun runs), composes
 # the digest (or heartbeat if empty per D-15), sends via Gmail SMTP, archives
 # the HTML, then truncates pending.json + writes seen.json lastUpdated.
@@ -26,15 +27,15 @@
 name: Weekly Digest
 
 on:
-  # 발송 일정 — 항상 월요일 06:00 PT (DST 자동 처리). cron 2개로 PDT(13:00 UTC)·
-  # PST(14:00 UTC)를 모두 커버하고, guard job이 현재 LA 06시인 트리거만 통과시켜
-  # 연중 주 1회만 발송한다. 두 cron의 분(分)은 항상 동일하게 유지할 것.
+  # 발송 일정 — 월요일 13:00 UTC = 여름(PDT) 06:00 PT / 겨울(PST) 05:00 PT.
+  # 단일 cron. GH Actions 예약은 1~3h 지연이 흔하므로 "정확히 06시" guard는
+  # 지연 때 발송 자체를 skip시킨다(2026-06 회귀 사고). 무조건 발사하는 단일 cron이
+  # 안정적이며, 겨울 1h 드리프트는 미발송보다 낫다.
   # 변경 절차: cron 줄 수정 → commit → push. 수동 검증(`gh workflow run weekly.yml`)은
-  # guard를 우회해 실제 메일을 발송하므로 테스트 발송이 필요할 때만 사용.
+  # 실제 메일을 발송하므로 테스트 발송이 필요할 때만 사용.
   schedule:
-    - cron: '0 13 * * 1'  # PDT(UTC-7): 월요일 06:00 PT
-    - cron: '0 14 * * 1'  # PST(UTC-8): 월요일 06:00 PT
-  workflow_dispatch: {} # manual trigger for smoke tests / gap closure (guard 우회)
+    - cron: '0 13 * * 1'  # 월요일 13:00 UTC (PDT 06:00 / PST 05:00 PT)
+  workflow_dispatch: {} # manual trigger for smoke tests / gap closure (실제 메일 발송)
 
 concurrency: # OPS-02 — serialize overlapping runs (shared with daily.yml)
   group: digest-pipeline
@@ -45,34 +46,7 @@ permissions:
   issues: write # required for failure-notification step (gh issue create)
 
 jobs:
-  guard:
-    # DST-aware gate. GH Actions cron is fixed-UTC, so we over-trigger with two
-    # crons (13:00 + 14:00 UTC) and let exactly one through — whichever maps to
-    # 06:00 in America/Los_Angeles right now (tzdata on the runner handles the
-    # PDT/PST switch automatically). workflow_dispatch always passes so manual
-    # smoke tests still send.
-    runs-on: ubuntu-latest
-    outputs:
-      should_send: ${{ steps.check.outputs.should_send }}
-    steps:
-      - id: check
-        run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "manual dispatch → send"
-            echo "should_send=true" >> "$GITHUB_OUTPUT"
-          else
-            hour=$(TZ='America/Los_Angeles' date +%H)
-            echo "scheduled run: America/Los_Angeles hour=$hour (want 06)"
-            if [ "$hour" = "06" ]; then
-              echo "should_send=true" >> "$GITHUB_OUTPUT"
-            else
-              echo "should_send=false" >> "$GITHUB_OUTPUT"
-            fi
-          fi
-
   digest:
-    needs: guard
-    if: needs.guard.outputs.should_send == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
