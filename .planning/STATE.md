@@ -5,7 +5,7 @@ milestone_name: Coverage & Closure
 status: Awaiting next milestone
 stopped_at: "Halted at V2-plan → V2-execute transition gate (orchestrate_sh v1.15). Phase 14 plan complete; Phase 15/16 still need plan-phase. Next session: /gsd:orchestrate_sh 14,15,16 (re-enters at V2-plan with same cascade roll-back pattern)."
 last_updated: "2026-06-22T23:22:36.409Z"
-last_activity: "2026-06-12 — Completed quick task 260612-lbt: js-render firm failure observability + flakiness retry"
+last_activity: "2026-06-22 — Completed quick task 260622-p9j: cross-day retry of failed Gemini summaries"
 progress:
   total_phases: 18
   completed_phases: 18
@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-05-23)
 Phase: Milestone v1.2 complete
 Plan: —
 Status: Awaiting next milestone
-Last activity: 2026-06-12 — Completed quick task 260612-lbt: js-render firm failure observability + flakiness retry
+Last activity: 2026-06-22 — Completed quick task 260622-p9j: cross-day retry of failed Gemini summaries
 
 ## Performance Metrics
 
@@ -78,6 +78,7 @@ None.
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 260612-lbt | js-render firm failure observability + flakiness retry | 2026-06-12 | 4a8a35e | [260612-lbt-js-render-firm-failure-observability-fla](./quick/260612-lbt-js-render-firm-failure-observability-fla/) |
+| 260622-p9j | cross-day retry of failed Gemini summaries (exploit daily RPD reset) | 2026-06-22 | d4cd37a | [260622-p9j-cross-day-retry-of-failed-gemini-summari](./quick/260622-p9j-cross-day-retry-of-failed-gemini-summari/) |
 
 ## Deferred Items
 
