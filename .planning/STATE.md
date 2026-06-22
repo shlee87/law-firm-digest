@@ -4,14 +4,14 @@ milestone: v1.2
 milestone_name: Coverage & Closure
 status: Awaiting next milestone
 stopped_at: "Halted at V2-plan → V2-execute transition gate (orchestrate_sh v1.15). Phase 14 plan complete; Phase 15/16 still need plan-phase. Next session: /gsd:orchestrate_sh 14,15,16 (re-enters at V2-plan with same cascade roll-back pattern)."
-last_updated: "2026-05-28T06:12:29.015Z"
-last_activity: 2026-05-28 — Milestone v1.2 completed and archived
+last_updated: "2026-06-22T23:22:36.409Z"
+last_activity: "2026-06-12 — Completed quick task 260612-lbt: js-render firm failure observability + flakiness retry"
 progress:
-  total_phases: 4
-  completed_phases: 4
-  total_plans: 10
-  completed_plans: 10
-  percent: 100
+  total_phases: 18
+  completed_phases: 18
+  total_plans: 81
+  completed_plans: 80
+  percent: 99
 ---
 
 # Project State
@@ -108,7 +108,7 @@ Items acknowledged and carried forward from v1.1 close (2026-05-23):
 
 ## Session Continuity
 
-Last session: 2026-05-27T13:21:02.233Z
+Last session: 2026-06-22T23:22:36.402Z
 Stopped at: Halted at V2-plan → V2-execute transition gate (orchestrate_sh v1.15). Phase 14 plan complete; Phase 15/16 still need plan-phase. Next session: /gsd:orchestrate_sh 14,15,16 (re-enters at V2-plan with same cascade roll-back pattern).
 Resume file: None
 
