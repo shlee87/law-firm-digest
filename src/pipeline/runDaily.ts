@@ -57,7 +57,12 @@ import {
 import { detectStaleness } from '../observability/staleness.js';
 import { Recorder } from '../observability/recorder.js';
 import { writeStepSummary } from '../observability/summary.js';
-import { appendPending, toPendingItem } from '../state/pending.js';
+import {
+  appendPending,
+  toPendingItem,
+  readPending,
+  updatePending,
+} from '../state/pending.js';
 import type { FirmResult, SummarizedItem } from '../types.js';
 import type { RunOptions, RunReport } from './runTypes.js';
 import { noopReporter } from './runTypes.js';
@@ -173,6 +178,80 @@ export async function runDaily(options: RunOptions = {}): Promise<RunReport> {
       deduped.map((r) => `${r.firm.id}: ${r.new.length} new`).join(' | '),
     );
 
+    // Retry pre-pass (plan 260622-p9j): re-summarize previously-failed items
+    // using their stored summaryBody. Runs BEFORE new-item summarize so quota
+    // is consumed from the same daily budget window. CAP = 3 total attempts.
+    // skipGemini=true skips the pre-pass (same guard as the main summarize step).
+    if (!skipGemini) {
+      const prePending = await readPending();
+      const toRetry = prePending.items.filter(
+        (it) => it.summaryModel === 'failed' && (it.summaryAttempts ?? 1) < 3,
+      );
+      if (toRetry.length > 0) {
+        const retryLimit = pLimit(settings.gemini.concurrency);
+        const updatedItems = [...prePending.items];
+        await Promise.all(
+          toRetry.map((failedItem) =>
+            retryLimit(async () => {
+              const body = failedItem.summaryBody ?? '';
+              if (!body.trim()) return; // guard: no body stored, skip silently
+              // Construct a minimal proxy for summarize() — only needs the fields
+              // used by buildPrompt (firmId, title, url, language) and the spread
+              // in the catch branch (SummarizedItem-compatible shape).
+              const newItemProxy = {
+                firmId: failedItem.firmId,
+                title: failedItem.title,
+                url: failedItem.url,
+                publishedAt: failedItem.publishedAt,
+                language: failedItem.language,
+                description: body,
+                isNew: true as const,
+              };
+              const result = await summarize(
+                newItemProxy,
+                body,
+                {
+                  primary: settings.gemini.primary_model,
+                  fallback: settings.gemini.fallback_model,
+                },
+                settings.prompt,
+              );
+              const idx = updatedItems.findIndex((it) => it.url === failedItem.url);
+              if (idx === -1) return;
+              const prev = updatedItems[idx];
+              if (result.summaryModel !== 'failed') {
+                // Success: update in-place, delete summaryBody (COMP-05)
+                updatedItems[idx] = {
+                  ...prev,
+                  summary_ko: result.summary_ko,
+                  summaryConfidence: result.summaryConfidence,
+                  summaryModel: result.summaryModel,
+                  summaryError: undefined,
+                  summaryBody: undefined,
+                  summaryAttempts: (prev.summaryAttempts ?? 1) + 1,
+                };
+              } else {
+                // Still failed: keep summaryBody, bump attempt count
+                updatedItems[idx] = {
+                  ...prev,
+                  summaryAttempts: (prev.summaryAttempts ?? 1) + 1,
+                };
+              }
+            }),
+          ),
+        );
+        await updatePending(updatedItems);
+      }
+    }
+
+    // Local type for carrying inputBody alongside SummarizedItem through the
+    // summarize step. NOT exported — only used within this function to thread
+    // body down to toPendingItem without modifying FirmResult in types.ts.
+    type SummarizedPair = { result: SummarizedItem; inputBody: string };
+    // pairsMap: firmId → SummarizedPair[] (parallel to summarized FirmResult[])
+    // Populated during the summarize step so toPendingItem can receive inputBody.
+    const pairsMap = new Map<string, SummarizedPair[]>();
+
     // Step 9 — summarize (verbatim from run.ts:262-312 minus the cluster/low-conf
     // detection that runs only in weekly per D-12). Phase 13 counter increments
     // inside summarize() at each generateContent attempt.
@@ -180,27 +259,33 @@ export async function runDaily(options: RunOptions = {}): Promise<RunReport> {
     const summarized: FirmResult[] = await Promise.all(
       deduped.map(async (r) => {
         if (r.error || r.new.length === 0) return r;
-        const out: SummarizedItem[] = await Promise.all(
+        const pairs: SummarizedPair[] = await Promise.all(
           r.new.map((item) =>
-            summarizeLimit(async (): Promise<SummarizedItem> => {
+            summarizeLimit(async (): Promise<SummarizedPair> => {
               if (skipGemini) {
                 return {
-                  ...item,
-                  summary_ko: null,
-                  summaryConfidence: 'low' as const,
-                  summaryModel: 'cli-skipped',
+                  result: {
+                    ...item,
+                    summary_ko: null,
+                    summaryConfidence: 'low' as const,
+                    summaryModel: 'cli-skipped',
+                  },
+                  inputBody: item.description ?? '',
                 };
               }
               const body = item.description ?? '';
               if (body.trim().length < settings.digest.min_body_chars) {
                 return {
-                  ...item,
-                  summary_ko: item.title,
-                  summaryConfidence: 'low' as const,
-                  summaryModel: 'skipped',
+                  result: {
+                    ...item,
+                    summary_ko: item.title,
+                    summaryConfidence: 'low' as const,
+                    summaryModel: 'skipped',
+                  },
+                  inputBody: body,
                 };
               }
-              return summarize(
+              const result = await summarize(
                 item,
                 body,
                 {
@@ -209,9 +294,12 @@ export async function runDaily(options: RunOptions = {}): Promise<RunReport> {
                 },
                 settings.prompt,
               );
+              return { result, inputBody: body };
             }),
           ),
         );
+        pairsMap.set(r.firm.id, pairs);
+        const out: SummarizedItem[] = pairs.map((p) => p.result);
         recorder
           .firm(r.firm.id)
           .summarized(
@@ -260,9 +348,23 @@ export async function runDaily(options: RunOptions = {}): Promise<RunReport> {
 
     // Step 10 — convert SummarizedItem → PendingItem (COMP-05 enforced by toPendingItem)
     // and append. Skip firms that errored (we don't have summarized items for them).
+    // Pass inputBody from pairsMap so toPendingItem can set summaryBody on failed items.
     const pendingItems: PendingItem[] = summarized
       .filter((r) => !r.error)
-      .flatMap((r) => r.summarized.map((s) => toPendingItem(s, now)));
+      .flatMap((r) => {
+        const pairs = pairsMap.get(r.firm.id);
+        if (pairs) {
+          return pairs.map((p) =>
+            toPendingItem(
+              p.result,
+              now,
+              p.result.summaryModel === 'failed' ? p.inputBody : undefined,
+            ),
+          );
+        }
+        // Fallback for firms with 0 new items (pairs not set): r.summarized is empty.
+        return r.summarized.map((s) => toPendingItem(s, now));
+      });
     await appendPending(pendingItems);
     reporter.section('pending', `appended ${pendingItems.length} item(s)`);
 
