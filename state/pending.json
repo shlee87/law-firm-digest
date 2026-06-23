@@ -1,5 +1,17 @@
 {
   "version": 1,
   "windowStart": "2026-06-22T20:54:42.175Z",
-  "items": []
+  "items": [
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 15 – 19 June 2026",
+      "url": "https://cliffordchance.com/briefings/2026/06/international-regulatory-update-15---19-june-2026.html",
+      "publishedAt": "2026-06-23T08:32:03.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 15 – 19 June 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-23T12:49:49.591Z"
+    }
+  ]
 }
