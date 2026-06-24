@@ -12,6 +12,48 @@
       "summaryConfidence": "low",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-06-23T12:49:49.591Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "AI-Enabled Vulnerability Discovery: What Next-Gen Tools Mean for the Management of Cybersecurity Risk",
+      "url": "https://skadden.com/insights/publications/2026/06/insights-june-2026/ai-enabled-vulnerability-discovery",
+      "publishedAt": "2026-06-23T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "Anthropic의 Claude Mythos Preview와 같은 차세대 AI 도구들이 수많은 소프트웨어 취약점을 발견하고 자율적으로 악용할 수 있음을 입증하면서, 전 세계적으로 사이버 위협 환경이 급변하고 있습니다. 이는 기존의 취약점 관리 관행으로는 대응하기 어려운 새로운 법적 및 규제적 도전을 야기합니다. 디지털 요소를 가진 제품 생산 기업, 중요 인프라 제공업체, 금융 부문 등 광범위한 기업들이 강화된 규제 준수 의무와 함께 증가하는 소송 위험에 직면하게 됩니다. 기업들은 거버넌스, 취약점 관리, 사고 대응 및 AI 기반 사이버 보안 전략을 재검토하고, EU의 CRA, NIS2, DORA, GDPR 및 미국의 FTC, CCPA 등 여러 국가 및 지역의 엄격한 규제 요건과 상이한 보고 의무에 대비하여 조율된 대응 체계를 구축하는 것이 필수적입니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-24T12:37:55.797Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "Beyond Divestitures: The Global Shift Toward More Flexible Merger Remedies",
+      "url": "https://skadden.com/insights/publications/2026/06/insights-june-2026/beyond-divestitures-the-global-shift",
+      "publishedAt": "2026-06-23T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "전 세계적으로 합병 심사 시 구조적 시정조치뿐만 아니라 행태적 시정조치에 대한 수용도가 높아지면서 더욱 유연한 접근 방식으로 전환되고 있습니다. 미국 트럼프 행정부는 구조적 및 행태적 시정조치를 모두 수용하고 있으며, 유럽에서는 영국 경쟁시장청(CMA)이 행태적 조치를 적극적으로 받아들이고 있고 EU의 새로운 합병 가이드라인도 유연성을 시사합니다. 아시아 태평양 지역, 특히 한국과 필리핀에서는 디지털 플랫폼 거래에서 행태적 약속 활용이 증가하고 있습니다. 복잡한 국경 간 거래를 추진하는 기업들은 초기 단계부터 시정조치 전략을 수립하고, 각 관할권에 맞춰 효율성, 소비자 혜택 및 정책 목표를 고려한 일관된 옹호 논리를 개발해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-24T12:37:55.797Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "CRD VI: Implications of the Licensed Branch Requirement on Lending to EU Borrowers",
+      "url": "https://lw.com/en/insights/crd-vi-implications-of-the-licensed-branch-requirement-on-lending-to-eu-borrowers",
+      "language": "en",
+      "summary_ko": "CRD VI: Implications of the Licensed Branch Requirement on Lending to EU Borrowers",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-24T12:37:55.797Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "2026 Proxy Season: Lessons Learned and Coming Attractions",
+      "url": "https://sites.lwcommunicate.com/38/17673/landing-pages/rsvp-form-(blank-generic).asp",
+      "language": "en",
+      "summary_ko": "2026 Proxy Season: Lessons Learned and Coming Attractions",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-06-24T12:37:55.797Z"
     }
   ]
 }
