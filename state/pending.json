@@ -94,6 +94,59 @@
       "summaryConfidence": "low",
       "summaryModel": "skipped",
       "summarizedAt": "2026-06-25T12:40:43.990Z"
+    },
+    {
+      "firmId": "cooley",
+      "title": "What You Should Know About Safes",
+      "url": "https://cooleygo.com/what-you-should-know-about-safes",
+      "publishedAt": "2026-06-25T18:20:07.000Z",
+      "language": "en",
+      "summary_ko": "SAFE(Simple Agreement for Future Equity)는 초기 단계 스타트업의 자금 조달을 위해 Y Combinator가 고안한 투자 수단으로, 전환사채(convertible notes)의 대안으로 부상했습니다. 이는 만기일이나 이자 발생과 같은 부채적 특성을 제거하여 자금 조달 과정을 간소화하며, 특정 트리거 이벤트(예: 후속 지분 투자 라운드) 발생 시 주식으로 전환됩니다. 초기 단계 창업자와 투자자는 SAFE의 할인율, 밸류에이션 캡 등 주요 특징과 전환 이벤트 미발생 시의 위험을 명확히 이해하고, 각 거래에 적합한 자금 조달 방식을 신중하게 선택해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-26T12:35:57.286Z"
+    },
+    {
+      "firmId": "cooley",
+      "title": "Terminating Employment Agreements Uk",
+      "url": "https://cooleygo.com/terminating-employment-agreements-uk",
+      "publishedAt": "2026-06-25T18:15:57.000Z",
+      "language": "en",
+      "summary_ko": "영국 고용주는 고용 계약 해지 시 발생할 수 있는 직원 클레임을 제한하기 위해 적절한 절차를 준수해야 합니다. 특히 해고 통지 기간(계약상, 법정 최소), 통지 기간 대신 급여 지급(PILON), 가드닝 휴가 조항을 면밀히 검토해야 합니다. 이는 영국 내 모든 고용주에게 해당하며, 계약 위반에 따른 부당 해고(wrongful dismissal)와 법규 위반에 따른 불공정 해고(unfair dismissal) 청구를 방지하기 위한 실질적인 지침을 제공합니다. 고용주는 해고 사유의 정당성 확보, 적절한 절차 준수, 그리고 명확한 서면 통지를 통해 법적 분쟁 위험을 최소화해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-26T12:35:57.286Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "『광장 국제통상연구원』 국제통상질서 재편: 「턴베리 체제」와 통상 리스크 - 미국의 양자 무역합의 확산과 도전 - Issue Brief, 2026",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2287",
+      "publishedAt": "2026-06-22T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "미국 트럼프 행정부는 WTO 다자 통상 체제를 벗어나 상호성, 경제 안보, 관리 무역을 키워드로 하는 '턴베리 체제'를 구축하고 있으며, 연방대법원의 IEEPA 위법 판결 이후 무역법 301조를 법적 근거로 삼아 국가별 차등 관세, 비관세 장벽 제거, 대미 투자·구매 약속 연동 등 새로운 통상 질서를 구조화하고 있습니다. 한국을 포함한 주요 교역국 정부와 기업, 특히 반도체, 자동차·전자, 철강·조선·석유화학 등 주요 산업 및 동남아 생산 기지를 둔 기업들이 직접적인 영향을 받습니다. 기업들은 턴베리 체제하의 301조 조사 결과와 관세 조치에 대비하여 품목별 통합 관세표 작성, 시나리오별 영향 분석, 주요국 정책 변화 모니터링, 대외 무역·투자 시 법률 자문 등을 통해 통상 리스크를 관리해야 합니다. 또한, 장기 공급 계약 정비, 사내 모니터링 체계 구축, 정부와의 긴밀한 협력으로 변화하는 통상 환경에 선제적으로 대응해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-26T12:35:57.286Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "직장 내 괴롭힘, 노동청이 직접 조사한다",
+      "url": "https://yoonyang.com/kor/insights/newsletter/14917",
+      "language": "ko",
+      "summary_ko": "고용노동부가 직장 내 괴롭힘 신고사건 처리지침을 개정하여 근로감독관의 직접조사 범위를 확대하고 기업 자체조사에 대한 심사 기준을 강화했습니다. 이에 따라 사용자가 가해자인 사건 등 특정 유형의 경우 노동청이 직접 조사하며, 기업의 조사 절차와 결과의 적정성까지 적극적으로 검토합니다. 기업은 조사기구의 독립성 확보, 절차 및 기록 관리 강화, 보호조치 및 사내 규정 정비를 통해 객관적이고 신뢰할 수 있는 조사 프로세스를 구축해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-26T12:35:57.286Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Under the Spotlight: Navigating Congressional Investigations Before and After the Upcoming Midterm Elections",
+      "url": "https://sites.lwcommunicate.com/38/17687/landing-pages/rsvp-form-(blank-generic).asp",
+      "language": "en",
+      "summary_ko": "Under the Spotlight: Navigating Congressional Investigations Before and After the Upcoming Midterm Elections",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-06-26T12:35:57.286Z"
     }
   ]
 }
