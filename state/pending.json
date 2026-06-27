@@ -147,6 +147,16 @@
       "summaryConfidence": "low",
       "summaryModel": "skipped",
       "summarizedAt": "2026-06-26T12:35:57.286Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "The LathamTECH Podcast — The Rise of Energy Tech",
+      "url": "https://lw.com/en/insights/the-lathamtech-podcast-the-rise-of-energy-tech",
+      "language": "en",
+      "summary_ko": "AI 및 데이터 센터 용량에 대한 폭발적인 수요로 인해 연료전지, 지열 에너지, 소형 모듈형 원자로 등 에너지 기술 분야에서 혁신과 투자가 급증하고 있습니다. 이로 인해 에너지 기술 기업과 투자자들은 새로운 기회와 함께 고유한 도전에 직면하고 있습니다. 특히 보수적인 투자자 프로필, 적절한 자본 파트너 확보, 변화하는 규제 및 정책 환경에 대한 적응이 중요하며, 관련 기업과 투자자들은 이러한 복잡성을 이해하고 기회를 포착해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-27T12:21:17.342Z"
     }
   ]
 }
