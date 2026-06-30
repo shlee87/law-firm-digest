@@ -1,5 +1,48 @@
 {
   "version": 1,
   "windowStart": "2026-06-29T14:27:43.617Z",
-  "items": []
+  "items": [
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 22 – 26 June 2026",
+      "url": "https://cliffordchance.com/briefings/2026/06/international-regulatory-update-22---26-june-2026.html",
+      "publishedAt": "2026-06-30T08:54:13.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 22 – 26 June 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-30T12:34:18.840Z"
+    },
+    {
+      "firmId": "clifford-chance",
+      "title": "Workplace Investigations – Quarterly Review – Edition 6",
+      "url": "https://cliffordchance.com/briefings/2026/06/workplace-investigations---quarterly-review---edition-6.html",
+      "publishedAt": "2026-06-29T09:18:00.000Z",
+      "language": "en",
+      "summary_ko": "AI가 직장 내 조사에 미치는 영향이 커지면서 사실 확인 과정, AI 지원 조사의 기회와 위험, 특권 결정, AI 프롬프트의 증거적 중요성 등 다양한 법적 쟁점이 부상하고 있으며, AI 사용으로 인한 해고를 정당화한 호주 판례도 주목됩니다. 영국에서는 2026년 10월부터 고용주의 성희롱 방지 및 제3자 괴롭힘 책임이 강화되고, 2027년 1월부터 부당 해고 보호 요건 및 보상 상한선이 폐지되며, 2026년 6월부터 고위 관리자의 범죄에 대한 기업 형사 책임이 도입됩니다. 프랑스에서는 내부 조사 의무 및 직원의 절차적 권리에 대한 판례가 명확해졌고, 스페인에서는 독립적인 내부 고발자 보호 기관이 설립되었으며, 금융 서비스 부문에서는 고위 경영진 인증 제도(SMCR) 간소화가 조사에 미치는 영향이 중요합니다. 이러한 변화들은 전 세계 고용주들에게 AI 활용 위험 관리, 강화된 고용법 준수, 내부 고발 시스템 정비, 그리고 고위 관리자 책임에 대한 철저한 대비를 요구합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-30T12:34:18.840Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "금융규제 샌드박스 전면 개편: 신청 활성화 유도 및 제도권 연착륙 지원",
+      "url": "https://yoonyang.com/kor/insights/newsletter/14922",
+      "language": "ko",
+      "summary_ko": "금융위원회가 핀테크 스타트업의 진입 장벽을 낮추고 혁신 서비스의 제도권 연착륙을 지원하기 위해 금융규제 샌드박스 제도를 전면 개편합니다. 주요 내용은 배타적 운영권 확대, 핀테크 맞춤형 심사기준 정비, 제도권 연착륙 지원 강화, 심사체계 효율화 등입니다. 핀테크 기업과 금융회사는 배타적 운영권 전략적 활용, 출구전략 사전 수립, 기획형 샌드박스 참여 등을 통해 변화에 선제적으로 대응해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-30T12:34:18.840Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "화우 보험 뉴스레터 2026-3호",
+      "url": "https://yoonyang.com/kor/insights/newsletter/14921",
+      "language": "ko",
+      "summary_ko": "화우 보험 뉴스레터 2026-3호",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-06-30T12:34:18.840Z"
+    }
+  ]
 }
