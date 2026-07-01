@@ -43,6 +43,57 @@
       "summaryConfidence": "low",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-06-30T12:34:18.840Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "CIPA Is Still a Mess: California Legislature to Reconsider Potential Privacy Law Reform",
+      "url": "https://skadden.com/insights/publications/2026/06/cipa-is-still-a-mess",
+      "publishedAt": "2026-06-29T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "캘리포니아 의회가 CIPA(California Invasion of Privacy Act)의 적용 범위를 좁히고 기업에 대한 소송 남용을 완화하기 위한 법안인 S.B. 690 재심의를 앞두고 있습니다. CIPA는 원래 유선 통신 감청을 금지하는 형사 법규였으나, 현대 웹사이트 기술에 광범위하게 적용되어 건당 5,000달러의 법정 손해배상금 조항으로 인해 수많은 소송의 근거가 되고 있습니다. 이로 인해 웹사이트에 일반적인 기술을 사용하는 기업들이 CIPA 소송에 직면하고 있으며, 원고 측 변호사들이 이를 악용하여 합의를 강요하는 사례가 늘고 있습니다. 따라서 CIPA 관련 청구에 직면했거나 직면할 수 있는 기업들은 S.B. 690의 진행 상황을 면밀히 주시하고, 캘리포니아 의원들이 CIPA의 오용을 이해하도록 증언을 제공하는 것을 고려해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-01T12:50:46.387Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "2026년 하반기 노동관계법 무엇이 바뀌나",
+      "url": "https://yoonyang.com/kor/insights/newsletter/14927",
+      "language": "ko",
+      "summary_ko": "2026년 하반기부터 4시간 근무자 휴게시간 선택권 확대, 단기 육아휴직 및 배우자 유산·사산휴가 신설 등 일·가정 양립 제도 강화, 위험성평가 사업주 책임 및 노동자 참여 보장, 재해조사보고서 공개, 명예산업안전감독관 위촉 의무화 등 노동관계법이 개정됩니다. 기업은 근로시간 운영, 휴가·휴직 제도, 산업안전 관리체계 전반에 걸쳐 영향을 받으며, 특히 단시간 근로자, 임산부 및 자녀 양육 근로자에게 직접적인 변화가 있습니다. 기업은 각 제도 시행일에 맞춰 취업규칙, 휴가·휴직 규정, 안전관리체계 및 내부 대응 프로세스를 즉시 점검하고 정비하여 과태료 부과 및 대외 신뢰도 하락 위험에 대비해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-01T12:50:46.387Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "화우, 글로벌 SaaS 기업 법인세 소송 대법원 승소 확정 외국 SaaS 기업에 지급한 소프트웨어·서비스 대가, ‘사용료’ 아닌 ‘사업소득’ … 원천징수세 전액 환급 확정",
+      "url": "https://yoonyang.com/kor/insights/newsletter/14926",
+      "language": "ko",
+      "summary_ko": "대법원은 국내 기업이 외국 SaaS 기업에 지급한 소프트웨어·서비스 대가가 계약서상 '라이선스' 표현에도 불구하고 본질이 '서비스 제공'이라면 '사용료소득'이 아닌 '사업소득'에 해당하여 원천징수 대상이 아니라고 확정했습니다. 이는 외국 SaaS 및 플랫폼 기업과 국내 기업 간 국경 간 디지털 서비스 거래의 소득 구분 및 법인세 원천징수 실무에 중대한 영향을 미칩니다. 국내 기업은 SaaS·구독형 서비스 등에 지급하는 대가에 대한 기존 원천징수 관행의 적정성을 재검토하고, 기납부세액 환급 가능성 및 향후 원천징수 의무를 면밀히 검토해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-01T12:50:46.387Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "AI 인프라 투자의 부상:  데이터센터, 기회인가 리스크인가",
+      "url": "https://yoonyang.com/kor/insights/newsletter/14923",
+      "language": "ko",
+      "summary_ko": "AI 시대 데이터센터 투자가 급증하며 전력 확보, 하이퍼스케일러 임차인 집중, 기술 진부화, 복잡한 자금 조달, 규제·인허가 등 복합적인 법적·운영적 리스크가 부상하고 있습니다. 이는 기관투자자 및 데이터센터 개발·운영사에 중대한 영향을 미치므로, 투자 전 전력, 기술, 계약, 규제 측면의 정밀한 법률 실사가 필수적입니다. 또한, 계약 협상 시 투자자 보호 조항을 면밀히 설계하고 투자 후에도 지속적인 법적 모니터링을 통해 리스크를 선제적으로 관리해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-01T12:50:46.387Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "The Growth Rocketship: Inside Boutique Venture With NewView Capital",
+      "url": "https://lw.com/en/insights/the-growth-rocketship-inside-boutique-venture-with-newview-capital",
+      "language": "en",
+      "summary_ko": "The Growth Rocketship: Inside Boutique Venture With NewView Capital",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-01T12:50:46.387Z"
     }
   ]
 }
