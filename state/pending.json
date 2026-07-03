@@ -135,6 +135,16 @@
       "summaryConfidence": "low",
       "summaryModel": "skipped",
       "summarizedAt": "2026-07-02T12:34:15.544Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Lexology Panoramic 2026 Equity Derivatives Guide",
+      "url": "https://lw.com/en/admin/upload/SiteAttachments/Lexology-Panoramic-2026-Equity-Derivatives-Guide.pdf",
+      "language": "en",
+      "summary_ko": "Lexology Panoramic 2026 Equity Derivatives Guide",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-07-03T13:28:12.072Z"
     }
   ]
 }
