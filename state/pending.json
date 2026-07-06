@@ -1,5 +1,50 @@
 {
   "version": 1,
   "windowStart": "2026-07-06T14:14:40.767Z",
-  "items": []
+  "items": [
+    {
+      "firmId": "kim-chang",
+      "title": "공정위, 소비자 3법 시행령 및 과징금 고시 개정으로 법위반 행위에 대한 억지력 강화",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=34982&sch_section=4",
+      "publishedAt": "2026-06-08T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "공정거래위원회는 반복적 법 위반 억지력 강화를 위해 방문판매법, 표시광고법, 할부거래법 등 '소비자 3법' 시행령 및 과징금 고시 개정안을 7월 1일부터 시행합니다. 주요 내용은 반복 법 위반 가중 한도 상향(최대 100%), 가중 기산 기간 연장(5년), 임의적 감경 요소 축소 및 삭제, 그리고 표시광고법 부과기준율 체계 정비입니다. 이에 따라 소비자 3법 관련 사업자, 특히 과거 공정위 시정조치 이력이 있는 기업들은 과징금 리스크가 크게 증가할 것입니다. 기업들은 과거 5년 이내 위반 이력을 면밀히 검토하고, 임의적 감경 가능성이 줄어든 만큼 컴플라이언스 프로그램을 점검 및 업데이트하여 예방적 기능을 강화하며, 위반행위의 중대성에 대한 사전 평가를 통해 과징금 리스크를 관리해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-06T14:50:44.494Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "Korea Environmental Legal Update (2026년 여름)",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=34986&sch_section=4",
+      "publishedAt": "2026-06-07T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "Korea Environmental Legal Update (2026년 여름)",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-06T14:50:44.494Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "개인정보 보호법 시행령 개정안 입법예고",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=34970&sch_section=4",
+      "publishedAt": "2026-06-04T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "개인정보보호위원회는 개정 개인정보 보호법의 후속조치로 개인정보 보호법 시행령 개정안을 입법예고했습니다. 주요 내용은 과징금 등 제재의 실효성 강화 및 개인정보 유출사고 예방·대응 강화입니다. 개정안은 과징금 산정 기준 및 감경 제도를 구체화하고, 일정 규모 이상 개인정보처리자의 CPO 이사회 의결 및 신고 의무, ISMS-P 인증 의무 대상을 명확히 했습니다. 또한, 개인정보 유출 '가능성' 인지 시 통지 의무를 신설하고 과태료 부과 기준을 상향 조정했습니다. 기업들은 개인정보 보호 투자 현황, CPO 지정 절차, ISMS-P 인증 준비, 유출 사고 대응 매뉴얼 등을 점검하고 후속 동향에 지속적인 관심을 기울여야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-06T14:50:44.494Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "법무부 전자주주총회 등 관련 상법 시행령 개정안 입법예고",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=34887&sch_section=4",
+      "publishedAt": "2026-05-31T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "법무부는 2027년 1월 1일부터 대규모 상장회사에 의무화되는 전자주주총회 운영을 위한 '상법 시행령' 개정안을 입법예고했습니다. 이 개정안은 자산총액 2조원 이상 상장회사를 의무 대상으로 명시하고, 전자주주총회 개최 요건, 소집 통지 사항, 의사 참여 방법 및 운영 기준 등을 구체화합니다. 모든 상장회사, 특히 대규모 상장회사는 2027년 전자주주총회 의무화에 대비하여 내부 규정 검토 및 위탁 관리기관 선정 등 선제적 준비가 필요하며, 주주 질의·발언 제한 기준의 합리성 및 본인 확인 기술적 사항의 충분성 등 운영 과정에서 발생할 수 있는 논란에 대한 면밀한 대비가 중요합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-06T14:50:44.494Z"
+    }
+  ]
 }
