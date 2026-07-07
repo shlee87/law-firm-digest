@@ -45,6 +45,38 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-07-06T14:50:44.494Z"
+    },
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 29 June – 3 July 2026",
+      "url": "https://cliffordchance.com/briefings/2026/07/international-regulatory-update-29-june---3-july-2026.html",
+      "publishedAt": "2026-07-07T08:47:48.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 29 June – 3 July 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-07T14:00:35.131Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "제3차 개인정보 보호 기본계획(2027-2029) 발표",
+      "url": "https://yoonyang.com/kor/insights/newsletter/14938",
+      "language": "ko",
+      "summary_ko": "개인정보보호위원회는 AI 대전환과 대규모 유출에 대응하여 '제3차 개인정보 보호 기본계획(2027-2029)'을 발표했습니다. 이는 일률적·사후제재 중심 규제에서 위험 비례 원칙 중심 규율 및 사전예방·회복력 중심 보호체계로의 전환을 골자로 합니다.통신·플랫폼, 금융, AI 개발·활용, 클라우드·글로벌 사업 영위 기업 및 공공기관 등 전 산업에 영향을 미치며, 특히 AI 학습을 위한 개인정보 원본 활용 특례 도입과 국경 간 데이터 이전 체계 정비가 주목됩니다.기업들은 안전조치 전제 하의 데이터 활용 기회를 선점하고, 개인정보 보호를 경영 의제화하며, 제재와 인센티브의 이중 구조에 대응한 통합 리스크 관리가 필요합니다. 또한 국경 간 데이터 이전 체계를 선제적으로 정비하고 신기술 규율의 향방을 주시해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-07T14:00:35.131Z"
+    },
+    {
+      "firmId": "barun",
+      "title": "소기업·소상공인 단체협상에 대한 공정거래법 담합 규정 적용 제외 추진",
+      "url": "https://barunlaw.com/letter/56697",
+      "publishedAt": "2026-07-06T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "소기업·소상공인 단체협상에 대한 공정거래법 담합 규정 적용 제외 추진",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-07-07T14:00:35.131Z"
     }
   ]
 }
