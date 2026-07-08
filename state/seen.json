@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-07-07T14:02:19.942Z",
+  "lastUpdated": "2026-07-08T13:24:32.169Z",
   "firms": {
     "cooley": {
       "urls": [
@@ -212,6 +212,8 @@
     },
     "skadden": {
       "urls": [
+        "https://skadden.com/insights/publications/2026/07/uk-public-markets-monitor-q2-2026",
+        "https://skadden.com/insights/publications/2026/07/chapter-15-the-prudential-solvency-regimes",
         "https://skadden.com/insights/publications/2026/07/the-european-commissions-draft",
         "https://skadden.com/insights/publications/2026/07/chapter-14-the-prudential-solvency-regimes-of-australia-and-new-zealand",
         "https://skadden.com/insights/publications/2026/06/cipa-is-still-a-mess",
@@ -257,7 +259,7 @@
         "https://skadden.com/insights/publications/2026/04/federal-ai-policy-threatens-state-ai-laws",
         "https://skadden.com/insights/publications/2026/04/should-boards-be-wary-of-informal-settlements"
       ],
-      "lastNewAt": "2026-06-29T04:00:00.000Z",
+      "lastNewAt": "2026-07-08T04:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "lee-ko": {
@@ -296,6 +298,7 @@
     },
     "yoon-yang": {
       "urls": [
+        "https://yoonyang.com/kor/insights/newsletter/14942",
         "https://yoonyang.com/kor/insights/newsletter/14938",
         "https://yoonyang.com/kor/insights/newsletter/14935",
         "https://yoonyang.com/kor/insights/newsletter/14934",
@@ -351,11 +354,12 @@
         "https://yoonyang.com/kor/insights/newsletter/14711",
         "https://yoonyang.com/kor/insights/newsletter/14709"
       ],
-      "lastNewAt": "2026-07-07T14:02:19.942Z",
+      "lastNewAt": "2026-07-08T13:24:32.168Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "barun": {
       "urls": [
+        "https://barunlaw.com/letter/56729",
         "https://barunlaw.com/letter/56697",
         "https://barunlaw.com/letter/56049",
         "https://barunlaw.com/letter/56045",
@@ -372,11 +376,14 @@
         "https://barunlaw.com/letter/53793",
         "https://barunlaw.com/letter/53473"
       ],
-      "lastNewAt": "2026-07-06T15:00:00.000Z",
+      "lastNewAt": "2026-07-07T15:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "latham": {
       "urls": [
+        "https://fintechanddigitalassets.com/2026/07/prediction-markets-esma-confirms-application-of-binary-options-product-intervention-measures-to-event-contracts",
+        "https://lw.com/en/insights/english-restructuring-plans-for-us-debtors",
+        "https://lw.com/en/insights/latham-in-focus-capturing-the-sports-market-boom",
         "https://lw.com/en/admin/upload/SiteAttachments/Lexology-Panoramic-2026-Equity-Derivatives-Guide.pdf",
         "https://globalprivacyblog.com/2026/07/the-nis-2-registration-gap-how-cyber-incidents-can-expose-non-eu-companies-to-enforcement-risks",
         "https://lw.com/en/insights/the-uks-salaried-member-rules-supreme-court-affirms-court-of-appeals-decision-in-bluecrest",

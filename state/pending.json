@@ -77,6 +77,38 @@
       "summaryConfidence": "low",
       "summaryModel": "skipped",
       "summarizedAt": "2026-07-07T14:00:35.131Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "UK Public Markets Monitor Q2 2026 and H1 2026 Takeovers Update",
+      "url": "https://skadden.com/insights/publications/2026/07/uk-public-markets-monitor-q2-2026",
+      "publishedAt": "2026-07-08T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "영국 금융감독청(FCA)은 IPO 과정에서 투자 리서치 발행 규정을 변경하여 7일 대기 기간 및 독립 애널리스트 정보 동등 제공 의무를 삭제함으로써 IPO 절차를 간소화하고 비용을 절감할 계획입니다. 런던증권거래소(LSE)는 AIM 시장 규정 개정을 협의 중인데, 이는 메인 시장과의 차별화, 규제 부담 완화, 국제 기업 유치 등을 목표로 워킹 캐피탈 진술 대체, 자본 접근 창구 도입, 역인수 기준 변경 등 광범위한 개혁을 포함합니다. 또한, FCA의 새로운 공모 플랫폼(POP) 제도가 SpaceX IPO에 처음 적용되어 소매 투자자에게 증권 공모를 용이하게 했으며, FCA는 폐쇄형 투자 펀드의 이해상충 및 특수관계인 조항을 강화하는 상장 규정(UKLR) 변경도 제안했습니다. 이러한 변화들은 영국 상장 기업과 투자 시장 전반에 걸쳐 규제 환경을 재편하고 거래 효율성을 높이는 데 중점을 둡니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-08T13:22:51.978Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "중복상장 가이드라인 및 거래소 상장·공시규정 개정안 발표",
+      "url": "https://yoonyang.com/kor/insights/newsletter/14942",
+      "language": "ko",
+      "summary_ko": "금융위원회와 한국거래소는 중복상장 원칙금지·예외허용 세부기준을 담은 상장규정 개정안 및 가이드라인을 발표하여 모회사 일반주주 보호를 강화합니다. 이는 자회사 상장을 추진하는 상장회사 및 투자자들에게 영향을 미치며, 모회사 이사회에 주주 영향평가, 주주보호 방안 마련, 주주소통 및 동의 확보 등 5대 의무를 부과합니다. 기업들은 거래구조 설계 초기부터 가이드라인 적용 여부, 특별위원회 구성, 주주 동의 확보 방안 등을 선제적으로 검토하고 준비해야 하며, 주주 동의 없이는 상장심사 통과가 어려울 수 있습니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-08T13:22:51.978Z"
+    },
+    {
+      "firmId": "barun",
+      "title": "한국거래소「중복상장 가이드라인」제정안의 주요 내용과 시사점",
+      "url": "https://barunlaw.com/letter/56729",
+      "publishedAt": "2026-07-07T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "한국거래소「중복상장 가이드라인」제정안의 주요 내용과 시사점",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-07-08T13:22:51.978Z"
     }
   ]
 }
