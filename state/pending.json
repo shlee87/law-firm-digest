@@ -109,6 +109,72 @@
       "summaryConfidence": "low",
       "summaryModel": "skipped",
       "summarizedAt": "2026-07-08T13:22:51.978Z"
+    },
+    {
+      "firmId": "cooley",
+      "title": "New Resource Short Term Promissory Note Forms",
+      "url": "https://cooleygo.com/new-resource-short-term-promissory-note-forms",
+      "publishedAt": "2026-07-09T00:30:12.000Z",
+      "language": "en",
+      "summary_ko": "New Resource Short Term Promissory Note Forms",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-09T14:23:56.140Z"
+    },
+    {
+      "firmId": "clifford-chance",
+      "title": "Commodities Innovation Forum Mining + Metals 2026: key insights",
+      "url": "https://cliffordchance.com/briefings/2026/07/commodities-innovation-forum-mining---metals-2026--key-insights.html",
+      "publishedAt": "2026-07-08T09:06:00.000Z",
+      "language": "en",
+      "summary_ko": "에너지 전환, AI 인프라, 국방 현대화 및 지정학적 경쟁으로 인해 글로벌 핵심 광물 부문의 전략적 중요성이 커지고 있습니다. 미국 정부는 전통적인 규제와 인센티브를 넘어 대출, 공동 투자자, 전략적 구매 당사자로서 적극적인 역할을 하고 있으며, 중국은 장기적인 산업 정책과 수출 통제로 공급망 지배력을 강화하고 있습니다. 핵심 광물 공급망에 관련된 광업, 가공 및 제조 기업들과 미국, 일본, 한국, 호주 등 주요 국가들이 영향을 받습니다. 가치 사슬 전반에 걸쳐 투자 기회가 창출되고 있으나, 중간 단계 가공 및 정제 역량은 여전히 주요 병목 현상으로 남아있으며, 주권국 지원 구매 약정 등 새로운 금융 모델과 국제 파트너십이 중요해지고 있습니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-09T14:23:56.140Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "특허출원 서비스에 대한 부가가치세 영세율 상호주의(중국) 사건 승소",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2292",
+      "publishedAt": "2026-07-05T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "국내 특허법인이 중국 법인에 제공한 지식재산권 서비스에 대한 부가가치세 영세율 적용 적법성 여부가 쟁점이었으며, 조세심판원은 중국 세법상 해당 서비스가 증치세 면세 대상이므로 한국 부가가치세법의 상호주의 요건을 충족한다고 결정했습니다. 이번 결정은 국내 특허법인 등 중국 법인에 지식재산권 서비스를 제공하는 전문 서비스 업자 및 관련 국제거래 기업들에게 영향을 미칩니다. 중국과의 지식재산권 서비스 관련 부가가치세 영세율 상호주의 요건 충족이 확인되었으나, 중국 세법 및 과세당국 해석 기준의 변경 가능성에 대비하여 지속적인 모니터링과 선제적 대응이 필요합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-09T14:23:56.140Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "불법·허위조작정보 유통 방지 시행령 시행 및 가이드라인 발간",
+      "url": "https://yoonyang.com/kor/insights/newsletter/14945",
+      "language": "ko",
+      "summary_ko": "방송미디어통신위원회는 불법·허위조작정보 유통 방지를 위한 정보통신망법 시행령 개정안을 시행하고 가이드라인을 발간했습니다. 이는 대규모 정보통신서비스 제공자의 범위, 가중 손해배상 및 과징금 부과 요건 등 핵심 규제 요소를 구체화하며, 검색 및 오픈마켓 서비스는 규제 대상에서 제외되었습니다.SNS, 온라인 커뮤니티, 동영상 공유 서비스 등 대규모 정보통신서비스 제공자와 상업적 목적의 일정 규모 이상 콘텐츠 게재자가 직접적인 영향을 받습니다. 대규모 정보통신서비스 제공자는 자율운영정책 수립, 투명성 보고서 공표, 신고 시스템 정비 등 컴플라이언스 체계를 즉시 구축해야 합니다. 콘텐츠 게재자는 가중 손해배상 및 과징금 부과 대상이 될 수 있으므로 법원 확정판결이 있는 정보의 반복 유통을 중단하고 과거 게시물을 점검해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-09T14:23:56.140Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "지속가능성(ESG) 법정공시 2028년 시행, 연결자산 10조원 이상, 지금부터 준비해야",
+      "url": "https://yoonyang.com/kor/insights/newsletter/14944",
+      "language": "ko",
+      "summary_ko": "정부와 더불어민주당은 2028년부터 연결자산 10조원 이상 코스피 상장사에 지속가능성(ESG) 법정공시를 의무화하는 최종안을 발표했습니다. 이는 자본시장법상 사업보고서 공시로 직행하며, 3년간 고의적 그린워싱을 제외한 공시 정보에 포괄적 면책이 부여되고 2030년부터 제3자 인증이 의무화됩니다.영향받는 기업들은 법적 책임 강화에 대비하여 지금부터 ESG 공시 내부통제 체계를 구축하고, 데이터 검증 및 문서화 시스템을 마련하며, 제3자 인증을 전제로 한 데이터 품질 확보에 주력해야 합니다. 특히 3년 면책 기간을 준비 기간으로 활용하고, 공시 품질이 자금 조달 조건에 직접 영향을 미칠 수 있음을 유념해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-09T14:23:56.140Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Singapore AI Guidance: Governance, Data Protection, and Legal Responsibility",
+      "url": "https://lw.com/en/insights/singapore-ai-guidance-governance-data-protection-and-legal-responsibility",
+      "language": "en",
+      "summary_ko": "Singapore AI Guidance: Governance, Data Protection, and Legal Responsibility",
+      "summaryConfidence": "low",
+      "summaryModel": "failed",
+      "summaryError": "{\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+      "summarizedAt": "2026-07-09T14:23:56.140Z",
+      "summaryBody": "Client Alert Singapore AI Guidance: Governance, Data Protection, and Legal Responsibility July 8, 2026 Singapore shows strong commitment to developing practical guidance and addressing the complex legal challenges posed by emerging AI technologies. Share pdfShare on linkedinShare on facebookShare on twitterShare on email Between May and June 2026, Singapore authorities issued three significant AI publications: the Infocomm Media Development Authority of Singapore’s (IMDA’s) Model AI Governance Framework for Agentic AI (Version 1.5) (MGF for Agentic AI), published on 20 May 2026 and updated on 5 June 2026; IMDA’s discussion paper on Legal Responsibility for AI Agents (Legal Responsibility for AI Agents Paper), published in May 2026; and the Personal Data Protection Commission’s (PDPC’s) Proposed Advisory Guidelines on Use of Personal Data in Generative AI (Proposed Guidelines), published on 2 June 2026, with public consultation closing on 14 July 2026. Together, these publications demonstrate Singapore’s strong commitment to developing practical guidance and being at the forefront of exploring complex legal issues for emerging AI technology. This Client Alert summarises the publications, covering three distinct areas (i) a principles-based governance framework for the deployment of agentic AI; (ii) IMDA’s initial exploration of how legal responsibility should be allocated for AI agents; and (iii) the PDPC’s proposed guidelines on the use of personal data in generative AI and its impact on organisations developing or deploying AI in Singapore. Model AI Governance Framework for Agentic AI (IMDA) The MGF for Agentic AI is aimed at organisations deploying agentic AI, whether developed in-house or procured from third parties. It defines agentic AI by reference to independent planning, decision-making, and action-taking over multiple steps, and organises recommended practices around four dimensions: assessing and bounding risks upfront; making humans meaningfully accountable; implementing technical controls and lifecycle processes; and enabling end-user responsibility. The MGF identifies five specific categories of harmful outcomes that organisations should consider: (i) erroneous actions, such as incorrect appointments or flawed code; (ii) unauthorised actions outside of permitted scope or without required human approval; (iii) biased or unfair actions leading to discriminatory outcomes; (iv) data breaches, noting that agents can both leak and wrongly modify data; and (v) disruption to connected systems when compromised or during agent malfunctions. For multi-agent systems, the MGF highlights additional systemic risks, including agent sprawl (uncontrolled proliferation without centralised management), collaborative failures (such as miscoordination between agents, conflict between agents optimising different goals, and potential collusion), and unpredictable emergent behaviours that cannot be anticipated from testing individual agents. IMDA takes the view that not all use cases are suitable for agents. Governance should be calibrated to risk factors affecting both impact (such as domain sensitivity, access to sensitive data, access to external systems, and scope and reversibility of actions) and likelihood (such as agent autonomy, task complexity, exposure to external systems, use of third-party solutions, and system complexity). Controls should, where possible, be structural and system-level rather than merely prompt-based, with deterministic safeguards preferred over non-deterministic ones for higher-risk actions. Organisations should define human approval checkpoints for higher-risk or irreversible actions, and regularly audit the effectiveness of human oversight by tracking indicators such as human override rates and response times. Testing should cover new agentic dimensions such as overall task execution accuracy, policy adherence, and tool use, with agents gradually rolled out into production supported by continuous monitoring, logging, and robust change management processes. For end-user responsibility, organisations should provide transparency on the agent’s range of actions, data access, and escalation channels. For users who integrate agents into their work processes, IMDA recommends layering on training such as relevant use cases, common failure modes (such as hallucinations), and looping errors. IMDA describes the MGF for Agentic AI as a “living document” and invites feedback to refine the framework and more case studies. Exploration of Legal Responsibility for AI Agents (IMDA) The Legal Responsibility Paper for AI Agents consolidates discussions from a working group convened by IMDA to consider how legal responsibility should be allocated when AI agents act autonomously, use tools, interact with third parties, and cause harm. It focuses on civil liability and private law, and identifies autonomy, planning, and decision-making, and action-taking and tool-use as the agentic AI features most relevant to liability. The paper also highlights that responsibility may need to be considered across a broader agentic AI value chain, including model developers, tooling providers, platform providers, system providers, deployers, end-users, and impacted third parties. The paper suggests that existing legal frameworks, including contract and negligence, may address many agentic AI scenarios, but highlights potential challenges in determining fault, causation, foreseeability, and attribution of knowledge or intention across a complex value chain. Contracts can pre-allocate risk and define expectations for agent behaviour, but their usefulness is limited by privity and bargaining power, particularly where consumers or impacted third parties are involved. The paper also notes that Singapore’s current product liability laws are limited and do not cover losses arising from AI. The paper also explores fault-based and strict liability approaches and weighs the respective considerations. For fault-based liability, it considers the difficulty of establishing breach, causation, and foreseeability where agents act autonomously and unpredictably, together with the challenge of attributing knowledge or intention to any single actor across the value chain. It notes that strict liability could assist victim compensation by shifting complex apportionment disputes away from end-users and third parties, but may also create unscoped liability and moral hazards. The paper includes a detailed hypothetical involving a computer-use agent that hacks into a cloud provider’s servers, causing data leakage and financial harm to third parties. This illustrative scenario analyses how fault-based and strict liability could apply across the value chain. However, the paper does not reach firm conclusions. The paper notes various areas for further study, including value-chain responsibility allocation, protections for actors with limited bargaining power, and responsibility for unforeseeable agent actions. These issues underscore the importance of clear records, disclosures, logs, and safeguards while the liability landscape develops. Proposed Advisory Guidelines on Use of Personal Data in Generative AI (PDPC) The Proposed Guidelines are advisory in nature and set out the PDPC’s expectations on how organisations should comply with the Personal Data Protection Act 2012 (PDPA) when developing or deploying generative AI solutions involving personal data. They are organised by the development, deployment, and post-deployment stages of the generative AI lifecycle. Key aspects include: Roles of generative AI stakeholders. The Proposed Guidelines distinguish between model providers, system providers, and system deployers, each of which may have independent PDPA obligations. The PDPC contemplates that the system deployers bear primary responsibility as organisations in ensuring that the AI system meets their obligations under the PDPA. It further states that the model providers processing personal data for downstream users as part of services provided and the system providers engaged to develop bespoke AI systems on behalf of downstream deployers may be data intermediaries. Model and system providers should document relevant safeguards for downstream stakeholders, while system deployers should map their role(s), document responsibilities, and obtain sufficient information on upstream safeguards before procurement or deployment. Model providers and system providers will be considered organisations when they process personal data as part of their own datasets to develop AI systems, including where model providers use personal data from downstream systems (e.g., end-user prompts, inputs) for model development. Use of personal data: Consent and notifications. The PDPC views notifications that provide a general purpose (such as “new product development”) as insufficient for the purpose of obtaining consent to use user data for AI model training or fine-tuning. Organisations should provide AI-specific notifications covering the types of personal data used, how it will be used, model functions, and withdrawal options. Publicly available exception. Instead of consent, organisations may be able to rely on the “publicly available exception” to collect, use, or disclose personal data to develop AI models where the personal data forms part of online data that is publicly accessible without any restrictions. Where personal data sits behind digital barriers such as paywalls, registration requirements, or AI bot blockers, the PDPC considers these barriers as measures that meaningfully restrict access. However, the existence of a barrier does not automatically mean that personal data is not publicly available. The assessment is fact-specific and takes into account, e.g., the barrier’s purpose and effects, steps needed for access, and whether the data is available elsewhere. For example, data on large open forums may be considered publicly available even in the presence of ",
+      "summaryAttempts": 1
     }
   ]
 }
