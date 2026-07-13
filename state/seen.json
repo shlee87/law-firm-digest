@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-07-12T12:48:49.674Z",
+  "lastUpdated": "2026-07-13T13:57:56.846Z",
   "firms": {
     "cooley": {
       "urls": [
@@ -537,6 +537,7 @@
     },
     "bkl": {
       "urls": [
+        "https://bkl.co.kr/law/insight/informationView.do?infoNo=6558&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6557&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6555&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6553&lang=ko",
