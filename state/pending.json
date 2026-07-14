@@ -1,5 +1,28 @@
 {
   "version": 1,
   "windowStart": "2026-07-13T15:43:32.236Z",
-  "items": []
+  "items": [
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 6 – 10 July 2026",
+      "url": "https://cliffordchance.com/briefings/2026/07/-international-regulatory-update-6---10-july-2026.html",
+      "publishedAt": "2026-07-14T08:41:34.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 6 – 10 July 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-14T13:00:08.890Z"
+    },
+    {
+      "firmId": "barun",
+      "title": "ESG 공시, 이제 '법정공시'입니다 ― 2028년 시행, 지금 준비해야 할 것",
+      "url": "https://barunlaw.com/letter/56925",
+      "publishedAt": "2026-07-13T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "ESG 공시, 이제 '법정공시'입니다 ― 2028년 시행, 지금 준비해야 할 것",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-07-14T13:00:08.890Z"
+    }
+  ]
 }
