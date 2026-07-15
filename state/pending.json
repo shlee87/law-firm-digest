@@ -23,6 +23,28 @@
       "summaryConfidence": "low",
       "summaryModel": "skipped",
       "summarizedAt": "2026-07-14T13:00:08.890Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "UK Employment Flash – July 2026",
+      "url": "https://skadden.com/insights/publications/2026/07/uk-employment-flash-july-2026",
+      "publishedAt": "2026-07-15T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "영국 고용권리법 2025에 따라 2027년 1월 1일부터 부당 해고 청구 자격 요건이 연속 근무 2년에서 6개월로 단축되며, 부당 해고에 대한 법정 보상금 상한액이 폐지됩니다. 이는 영국 내 직원을 둔 고용주와 직원들에게 영향을 미치며, 특히 고액 연봉자와 고위 임원의 해고 시 보상액이 크게 증가할 수 있습니다. 고용주는 2027년 1월 1일 이전에 인력 구조조정이나 성과 부진 직원 관련 조치를 가속화하고, 신규 채용자의 온보딩 및 성과 관리 절차를 강화하여 6개월 이내에 적절한 평가가 이루어지도록 해야 합니다. 또한, 고위 임원과의 계약 협상 시 부당 해고 위험을 고려하고, 소송 위험을 줄이기 위해 청구 포기 조건부 사전 합의된 퇴직금 또는 기타 해고 혜택을 검토해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-15T13:03:21.179Z"
+    },
+    {
+      "firmId": "barun",
+      "title": "법무법인(유한) 바른 뉴스레터 - 제158호 (2026.07)",
+      "url": "https://barunlaw.com/letter/56909",
+      "publishedAt": "2026-07-14T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "법무법인(유한) 바른 뉴스레터 - 제158호 (2026.07)",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-07-15T13:03:21.179Z"
     }
   ]
 }
