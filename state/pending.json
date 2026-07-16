@@ -45,6 +45,37 @@
       "summaryConfidence": "low",
       "summaryModel": "skipped",
       "summarizedAt": "2026-07-15T13:03:21.179Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "Proposed Broad California Antitrust Legislation Passes Senate Judiciary Committee",
+      "url": "https://skadden.com/insights/publications/2026/07/proposed-broad-california-antitrust-legislation",
+      "publishedAt": "2026-07-15T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "캘리포니아 AB 1776(COMPETE Act) 법안이 상원 사법위원회를 통과하며, 캘리포니아의 주요 독점금지법인 Cartwright Act를 단일 기업 행위까지 포함하도록 크게 확장할 예정입니다. 이 법안은 연방 독점금지법상 합법으로 여겨지던 행위에 대해서도 기업에 책임을 부과할 수 있어, 원고가 독점금지 소송을 제기하고 재판까지 진행하기가 더 쉬워질 수 있습니다. 캘리포니아에서 상당한 시장 입지를 가진 기업들은 이 법안의 진행 상황을 면밀히 주시하고, 가격 책정, 유통 및 기타 경쟁 전략을 재평가해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-16T13:11:33.493Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Financial Regulation: July 2026 Edition",
+      "url": "https://sites.lwcommunicate.com/38/17729/landing-pages/rsvp-form-(blank-generic).asp",
+      "language": "en",
+      "summary_ko": "Financial Regulation: July 2026 Edition",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-07-16T13:11:33.493Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "FDA Proposes to Eliminate “Adequate Provision” Standard for DTC Broadcast Advertising",
+      "url": "https://lw.com/en/insights/fda-proposes-to-eliminate-adequate-provision-standard-for-dtc-broadcast-advertising",
+      "language": "en",
+      "summary_ko": "미국 식품의약국(FDA)이 소비자 직접 광고(DTC 방송 광고)에 대한 \"적절한 조항\" 기준을 폐지하는 규정 변경을 제안했습니다. 이 제안된 규칙은 처방약 제조업체에 상당한 영향을 미칠 것으로 예상됩니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-16T13:11:33.493Z"
     }
   ]
 }
