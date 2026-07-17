@@ -76,6 +76,26 @@
       "summaryConfidence": "low",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-07-16T13:11:33.493Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "DEMAT Outlines Plan to Remove Paper Share Certificates by 2027",
+      "url": "https://lw.com/en/insights/demat-outlines-plan-to-remove-paper-share-certificates-by-2027",
+      "language": "en",
+      "summary_ko": "영국 정부의 주식 소유권 디지털화 프로그램에 따라, DEMAT은 2027년까지 종이 주식 증서를 폐지하는 이행 계획을 발표했습니다. 이는 영국 내 기업과 주주들에게 영향을 미치며, 주식 소유 방식이 전면적으로 디지털화될 것임을 의미합니다. 관련 기업 및 투자자들은 이러한 변화에 대비하여 디지털 주식 관리 시스템 도입 등 필요한 조치를 검토해야 할 것입니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-17T12:56:44.818Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Legal Landscape: Shareholder Activism — United States",
+      "url": "https://lw.com/en/admin/upload/SiteAttachments/Legal-500-Legal-Landscape-Shareholder-Activism-United-States.pdf",
+      "language": "en",
+      "summary_ko": "Legal Landscape: Shareholder Activism — United States",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-07-17T12:56:44.818Z"
     }
   ]
 }
