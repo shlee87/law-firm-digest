@@ -96,6 +96,26 @@
       "summaryConfidence": "low",
       "summaryModel": "skipped",
       "summarizedAt": "2026-07-17T12:56:44.818Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "ESMA Launches Common Supervisory Action on Digital Operational Resilience of CASPs",
+      "url": "https://fintechanddigitalassets.com/2026/07/esma-launches-common-supervisory-action-on-digital-operational-resilience-of-casps",
+      "language": "en",
+      "summary_ko": "ESMA는 암호자산 서비스 제공자(CASP)의 디지털 운영 복원력, 특히 수탁 서비스에 대한 공동 감독 조치(CSA)를 시작했습니다. 이는 MiCA 규정 전환 기간 만료 및 DORA에 따른 CASP의 \"금융 기관\" 분류에 대응하여, 분산원장기술(DLT) 관련 거버넌스, 키 관리, 거래 통제 등의 위험을 평가합니다. EU 내 수탁 서비스를 제공하는 CASP는 NCA의 감독 활동에 대비하고 DORA를 포함한 디지털 운영 복원력 의무 준수를 강화해야 합니다. 영국 기업들도 FCA의 향후 감독 기조를 예측하는 지표로 활용할 수 있습니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-18T12:43:30.025Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "ESMA Launches Common Supervisory Action on Digital Operational Resilience of CASPs",
+      "url": "https://fintechanddigitalassets.com/2026/07/esma-launches-common-supervisory-action-on-digital-operational-resilience-of-casps",
+      "language": "en",
+      "summary_ko": "유럽 증권시장감독청(ESMA)은 2026년 7월 8일, 암호자산 서비스 제공업체(CASP)의 디지털 운영 복원력, 특히 수탁 서비스에 대한 공동 감독 조치(CSA)를 시작한다고 발표했습니다. 이는 MiCA(암호자산 시장 규제) 전환 기간 만료와 DORA(디지털 운영 복원력법)의 CASP 적용에 따른 것입니다. EU 내 수탁 서비스를 제공하는 CASP는 국가 관할 당국(NCA)의 감독에 대비하고, DORA를 포함한 디지털 운영 복원력 의무 준수를 철저히 해야 합니다. 영국 기반 암호화폐 그룹 또한 FCA의 향후 감독 기대를 가늠하는 지표로 삼을 수 있습니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-18T12:43:30.025Z"
     }
   ]
 }
