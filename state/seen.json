@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-07-19T12:46:18.490Z",
+  "lastUpdated": "2026-07-20T13:45:44.490Z",
   "firms": {
     "cooley": {
       "urls": [
@@ -275,6 +275,8 @@
     },
     "lee-ko": {
       "urls": [
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2295",
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2296",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2294",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2293",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2292",
@@ -307,11 +309,13 @@
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2265",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2264"
       ],
-      "lastNewAt": "2026-07-06T15:00:00.000Z",
+      "lastNewAt": "2026-07-13T15:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "yoon-yang": {
       "urls": [
+        "https://yoonyang.com/kor/insights/newsletter/14968",
+        "https://yoonyang.com/kor/insights/newsletter/14962",
         "https://yoonyang.com/kor/insights/newsletter/14949",
         "https://yoonyang.com/kor/insights/newsletter/14947",
         "https://yoonyang.com/kor/insights/newsletter/14945",
@@ -372,7 +376,7 @@
         "https://yoonyang.com/kor/insights/newsletter/14711",
         "https://yoonyang.com/kor/insights/newsletter/14709"
       ],
-      "lastNewAt": "2026-07-10T13:52:09.333Z",
+      "lastNewAt": "2026-07-20T13:45:44.490Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "barun": {
@@ -523,6 +527,11 @@
     },
     "kim-chang": {
       "urls": [
+        "https://kimchang.com/ko/insights/detail.kc?idx=35094&sch_section=4",
+        "https://kimchang.com/ko/insights/detail.kc?idx=35085&sch_section=4",
+        "https://kimchang.com/ko/insights/detail.kc?idx=35092&sch_section=4",
+        "https://kimchang.com/ko/insights/detail.kc?idx=35041&sch_section=4",
+        "https://kimchang.com/ko/insights/detail.kc?idx=35121&sch_section=4",
         "https://kimchang.com/ko/insights/detail.kc?idx=34982&sch_section=4",
         "https://kimchang.com/ko/insights/detail.kc?idx=34986&sch_section=4",
         "https://kimchang.com/ko/insights/detail.kc?idx=34970&sch_section=4",
@@ -549,7 +558,7 @@
         "https://kimchang.com/ko/insights/detail.kc?idx=34400&sch_section=4",
         "https://kimchang.com/ko/insights/detail.kc?idx=34401&sch_section=4"
       ],
-      "lastNewAt": "2026-06-08T15:00:00.000Z",
+      "lastNewAt": "2026-06-23T15:00:00.000Z",
       "enabledAt": "2026-04-23T12:22:12.249Z"
     },
     "bkl": {
