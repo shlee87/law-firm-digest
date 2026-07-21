@@ -1,5 +1,49 @@
 {
   "version": 1,
   "windowStart": "2026-07-20T15:13:42.736Z",
-  "items": []
+  "items": [
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 13 – 17 July 2026",
+      "url": "https://cliffordchance.com/briefings/2026/07/international-regulatory-update-13---17-july-2026.html",
+      "publishedAt": "2026-07-21T09:06:14.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 13 – 17 July 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-21T13:09:18.100Z"
+    },
+    {
+      "firmId": "bkl",
+      "title": "태평양, ‘개인정보 보호법 개정과 AI 데이터 활용' 세미나 성료",
+      "url": "https://bkl.co.kr/law/insight/informationView.do?infoNo=6561&lang=ko",
+      "publishedAt": "2026-07-20T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "법무법인 태평양은 '개정 개인정보 보호법의 새로운 과제: AI 데이터 활용과 기업의 책임' 세미나를 개최했습니다. 이 세미나에서는 AI 개발·학습을 위한 개인정보 활용의 법적 근거, AI 특례 제도, 그리고 국내외 입법 동향이 논의되었습니다. 특히 개정법에 따른 중대 과징금 제도 신설 및 CEO·CPO 책임 강화에 따른 기업의 개인정보 거버넌스 변화와 선제적 내부 통제 체계 구축의 중요성이 강조되었습니다. 기업들은 AI 데이터 활용 시 적절한 법적 근거를 검토하고, 강화된 책임에 대비하여 내부 통제 시스템을 재정비해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-21T13:09:18.100Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "『광장 국제통상연구원』 AI·사이버 전장의 시대, 한미 방산협력의 새 길 - Issue Brief, 2026",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2297",
+      "publishedAt": "2026-07-15T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "우크라이나 전쟁 등으로 변화된 현대전 양상에 대응하여 한미 방산 협력을 기존 무기 구매·기술 이전에서 피지컬 AI·사이버 보안 중심의 공동 개발·생산 및 공급망 협력 강화(‘제5세대 공동 생산 동맹’)로 발전시키기 위한 법적·제도적 과제가 논의됩니다. 이는 한미 양국 정부, 국방 당국 및 방위산업체에 영향을 미칩니다. 한미 방산 협력의 구조적 정착을 위해 RDP-A 체결, 피지컬 AI 공동 연구, CMMC 연계 공급망 제도화, 함정 신조 협력 등 법적·제도적 기반 마련이 시급합니다. 이 과정에서 방산 조달, 기술 보호, 수출 통제 등 복합적인 법률 문제에 대한 전문 법률 자문이 필수적입니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-21T13:09:18.100Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Lending & Secured Finance 2026",
+      "url": "https://lw.com/en/admin/upload/SiteAttachments/Lending-Secured-Finance-2026.pdf",
+      "language": "en",
+      "summary_ko": "Lending & Secured Finance 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-07-21T13:09:18.100Z"
+    }
+  ]
 }
