@@ -54,6 +54,37 @@
       "summaryConfidence": "low",
       "summaryModel": "skipped",
       "summarizedAt": "2026-07-22T13:15:30.040Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "7th Circuit Finds That the Private Right of Action in Section 227(c) of the Telephone Consumer Protection Act Does Not Apply to Text Messages",
+      "url": "https://skadden.com/insights/publications/2026/07/7th-circuit-finds-that-the-private-right-of-action",
+      "publishedAt": "2026-07-15T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "제7연방항소법원은 Steidinger 사건에서 TCPA(전화소비자보호법) 제227(c)(5)조의 사적 소권이 원치 않는 문자 메시지 수신에는 적용되지 않는다고 판결했습니다. 이는 해당 조항이 '전화 통화'에만 한정되며, 대법원의 McLaughlin 판결 이후 FCC의 해석에 구속되지 않고 법률의 명확한 문구를 따랐기 때문입니다. 이 판결은 문자 메시지 텔레마케팅 캠페인을 수행하는 기업들에게 영향을 미치며, 제227(c)조 관련 문자 메시지 소송의 증가를 억제하는 데 도움이 될 수 있습니다. 기업들은 관련 판례의 변화를 계속 주시하고, 문자 메시지에도 적용될 수 있는 주(州) 텔레마케팅 법규를 인지해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-23T13:18:05.647Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Private Capital Insights — July 2026",
+      "url": "https://brochure.lw.com/privatecapitalinsights-july2026",
+      "language": "en",
+      "summary_ko": "Private Capital Insights — July 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-07-23T13:18:05.647Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Powering Up: FERC's New Orders on Large Load Integration and What They Mean for Data Centers",
+      "url": "https://sites.lwcommunicate.com/38/17727/landing-pages/rsvp-form-(blank-generic).asp",
+      "language": "en",
+      "summary_ko": "Powering Up: FERC's New Orders on Large Load Integration and What They Mean for Data Centers",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-07-23T13:18:05.647Z"
     }
   ]
 }
