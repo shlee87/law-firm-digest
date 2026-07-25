@@ -139,6 +139,26 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-07-24T13:11:49.144Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "SEC Proposes to Make Electronic Delivery the New Normal",
+      "url": "https://globalfinregblog.com/2026/07/sec-proposes-to-make-electronic-delivery-the-new-normal",
+      "language": "en",
+      "summary_ko": "미국 증권거래위원회(SEC)는 연방 증권법상 투자자 공시 문서 송달 방식을 기존의 '옵트인'에서 전자 송달을 기본으로 하는 '옵트아웃' 모델로 전환하는 'Reg E-Delivery' 규정을 제안했습니다. 이 제안은 상장 기업, 등록 투자 자문사, 브로커-딜러 등 공시 의무가 있는 모든 주체에 적용되며, 특히 위임장 권유 및 공개 매수 자료 송달 방식에 중대한 변화를 가져올 것입니다. 기업들은 투자자 동의 절차 간소화, 인쇄 및 우편 비용 절감, 그리고 보다 상호작용적인 공시 활용 등의 이점을 얻을 수 있으나, 전자 주소 확보 및 송달 실패 시 대응 정책 마련이 중요해질 것입니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-25T12:54:20.745Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "SEC Proposes to Make Electronic Delivery the New Normal",
+      "url": "https://globalfinregblog.com/2026/07/sec-proposes-to-make-electronic-delivery-the-new-normal",
+      "language": "en",
+      "summary_ko": "미국 증권거래위원회(SEC)는 투자자에게 규제 공시를 전자적으로 전달하는 것을 기본 방식으로 전환하는 'Reg E-Delivery'를 제안했습니다. 이는 기존의 옵트인(opt-in) 방식에서 수신자가 명시적으로 종이 수령을 선택하지 않는 한 전자 전달이 기본으로 간주되는 옵트아웃(opt-out) 모델로 전환하는 것이 핵심입니다. 이 제안은 공개 보고 회사, 등록된 투자 자문사, 브로커-딜러 등 연방 증권법상 공시 의무가 있는 모든 기관에 적용되며, 특히 위임장 권유(proxy solicitation)의 경우 기존의 '통지 전용(notice-only)' 옵션이 폐지되고 Reg E-Delivery가 유일한 전자 전달 방식이 됩니다. 관련 기업들은 전자 전달을 위한 투자자 동의 절차 간소화, 비용 절감 등의 이점을 얻는 동시에, 새로운 규정에 맞춰 공시 전달 정책 및 절차를 재정비해야 할 것입니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-25T12:54:20.745Z"
     }
   ]
 }
