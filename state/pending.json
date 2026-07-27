@@ -159,6 +159,50 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-07-25T12:54:20.745Z"
+    },
+    {
+      "firmId": "yulchon",
+      "title": "율촌 뉴스레터 2026년 여름호",
+      "url": "https://webzine.yulchon.com/2607",
+      "publishedAt": "2026-07-26T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "율촌 뉴스레터 2026년 여름호",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-07-27T14:04:41.045Z"
+    },
+    {
+      "firmId": "bkl",
+      "title": "태평양, 이희동 전 서울남부지검 차장검사 영입으로 중대재해 대응 전문성 강화",
+      "url": "https://bkl.co.kr/law/insight/informationView.do?infoNo=6563&lang=ko",
+      "publishedAt": "2026-07-23T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "법무법인 태평양은 중대재해 대응본부의 전문성 강화를 위해 이희동 전 서울남부지검 차장검사를 영입하며 중대재해 관련 형사, 노동, 산업안전, 행정, 규제 분야의 통합 대응 체계를 고도화하고 있습니다. 이는 중대재해 대응이 형사절차를 넘어 안전보건관리체계 구축, 사고 현장 대응, 감독기관 조사, 민·형사 분쟁 등 전 과정을 아우르는 종합적 대응이 요구되는 변화에 따른 것입니다. 기업들은 중대재해 리스크 관리를 위해 사고 예방부터 사후 대응까지 통합적인 법률 자문 및 전문 역량 확보가 중요해졌습니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-27T14:04:41.045Z"
+    },
+    {
+      "firmId": "bkl",
+      "title": "태평양, ‘온라인 콘텐츠 규제 대응 TF’ 출범",
+      "url": "https://bkl.co.kr/law/insight/informationView.do?infoNo=6562&lang=ko",
+      "publishedAt": "2026-07-22T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "법무법인 태평양은 개정 정보통신망법 시행으로 온라인 플랫폼 및 콘텐츠 서비스 제공자의 책임과 콘텐츠 관리체계 구축 의무가 강화됨에 따라, 기업의 규제 대응을 지원하는 '온라인 콘텐츠 규제 대응 TF'를 출범했습니다. 이는 관련 기업들이 디지털 컴플라이언스 및 콘텐츠 관리 리스크에 선제적으로 대응할 수 있도록, 영향 분석부터 컴플라이언스 체계 구축, 감독기관 조사 및 분쟁 해결까지 종합적인 법률 자문을 제공할 예정입니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-27T14:04:41.045Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "『광장 국제통상연구원』 주요국의 외국인투자심사 제도 강화 동향: 특징, 리스크 및 대응방향 - Issue Brief, 2026",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2301",
+      "publishedAt": "2026-07-21T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "주요국(EU, 미국, 중국, 일본 등)은 경제 안보 강화를 위해 외국인 투자 심사(FDI Screening) 제도를 강화하며 간접 투자 및 우회 지분 구조까지 심사 대상으로 확대하고 있습니다. 이에 따라 해외 투자를 추진하는 한국 기업들은 역외 지주회사 등을 활용한 우회 취득 전략의 실효성 약화에 유의하여 최종 실질 투자자 기준의 사전 검토가 필수적입니다. 또한 다국가 동시 신고 시 일정 관리 및 완화 조치 협상 전략을 수립하고, 한국 정부도 위험 기반 심사 체계 도입을 검토해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-07-27T14:04:41.045Z"
     }
   ]
 }
