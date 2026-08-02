@@ -401,8 +401,19 @@ function extractLinkUrl($: ReturnType<typeof cheerio.load>, itemEl: any, firm: F
 
   // Mode 2: link is a non-empty string — plain CSS selector, take href
   if (typeof selectors.link === 'string' && selectors.link !== '') {
-    const href = $(itemEl).find(selectors.link).attr('href') ?? '';
-    return href || null;
+    // Descendant match first — preserves behavior for all existing string-link firms.
+    const found = $(itemEl).find(selectors.link).first();
+    if (found.length > 0) {
+      const href = found.attr('href') ?? '';
+      return href || null;
+    }
+    // Self-match fallback (2026-08-02 barun 리뉴얼): list_item이 <a class="board-item">
+    // 앵커 자기 자신인 DOM 대응 — cheerio .find()는 자손만 탐색하므로 필요.
+    if ($(itemEl).is(selectors.link)) {
+      const href = $(itemEl).attr('href') ?? '';
+      return href || null;
+    }
+    return null;
   }
 
   // Mode 3: legacy onclick path — DEPRECATED but supported
