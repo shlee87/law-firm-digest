@@ -576,6 +576,35 @@ describe('parseListItemsFromHtml link extraction (Phase 4.1 unified extractor)',
     const items = parseListItemsFromHtml(html, firm);
     expect(items).toHaveLength(0);
   });
+
+  it('Mode 2 (string link): self-match fallback when list_item IS the anchor (barun 2026-08-02 redesign)', () => {
+    // barunlaw.com renewal DOM: the list_item element itself is the <a href>
+    // anchor — .find() only searches descendants, so extractLinkUrl needs a
+    // self-match fallback ($(itemEl).is(selector) → attr('href')).
+    // The hidden <input> inside <h4> must not leak into title .text().
+    const html = `
+      <section id="sec">
+        <a href="/letter/1" class="board-item">
+          <div class="item-info">
+            <h4 class="item-tit"><input type="hidden" value="x">바른 뉴스레터 - 제158호</h4>
+            <div class="item-meta"><span class="date">2026-07-15</span></div>
+          </div>
+        </a>
+      </section>`;
+    const firm: FirmConfig = {
+      ...baseFirm,
+      selectors: {
+        list_item: '#sec .board-item',
+        title: '.item-tit',
+        link: 'a.board-item',
+        date: '.item-meta .date',
+      },
+    };
+    const items = parseListItemsFromHtml(html, firm);
+    expect(items).toHaveLength(1);
+    expect(items[0].title).toBe('바른 뉴스레터 - 제158호');
+    expect(items[0].url).toBe('https://example.com/letter/1');
+  });
 });
 
 // --------------------------------------------------------------------------
