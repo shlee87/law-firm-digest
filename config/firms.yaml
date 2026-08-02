@@ -407,30 +407,25 @@ firms:
         regex: "doView\\((\\d+)\\)"
         template: "/kor/insights/newsletter/{1}"
 
-  # ----- KR js-render firm (NEW IN PHASE 4, no Phase 2 placeholder) -----
+  # ----- KR HTML plain-href firm — barun (2026-08-02 사이트 리뉴얼로 js-render에서 전환) -----
+  # 목록 페이지가 서버 렌더링으로 바뀌어 Playwright 불필요. 구 DOM(.articlebox)은 소멸.
+  # list_item이 <a class="board-item" href="/letter/N"> 앵커 자기 자신 —
+  # link는 extractLinkUrl Mode 2 self-match fallback으로 href를 읽는다 (quick-260802-jex).
   - id: barun
     name: 법무법인(유한) 바른
     language: ko
-    type: js-render
+    type: html
     url: https://barunlaw.com/barunnews/N
-    wait_for: ".articlebox"
     timezone: Asia/Seoul
     enabled: true
-    detail_tier: 'js-render'  # Phase 7 migration — explicit declaration
     selectors:
-      list_item: ".articlebox"
-      title: ".article_tit"
-      link: "a"
-      date: ".article_date"
-      # Phase 7-04 body selector (2026-04-20): barun detail pages are
-      # image-only HTML email templates (<table id="Table_01"> wrapping
-      # <img> tiles with empty alt attributes). Zero textual body content
-      # is available by design — the newsletter is rendered as JPG/PNG
-      # images rather than HTML prose. Setting this selector documents
-      # the intended scope (the tile table) even though text extraction
-      # returns ~0 chars; SUMM-06 B3 guard absorbs the missing body by
-      # skipping Gemini. Phase 10/11 monitor candidate: either OCR path
-      # or mark barun as title-only in the digest.
+      list_item: "#barunnew-sec .board-item"
+      title: ".item-tit"
+      link: "a.board-item"
+      date: ".item-meta .date"
+      # 2026-08-02 probe: 상세 페이지(/letter/N)도 서버 렌더링으로 전환 (detail_tier
+      # static 복귀) — 단 여전히 이미지 전용 이메일 템플릿(#Table_01 + img 타일, text 0자).
+      # 본문 텍스트 없음은 설계상 그대로이며 B3 guard가 Gemini 스킵으로 흡수.
       body: "#Table_01"
 
   # ----- US js-render firm (1) — activated in Phase 4 (probe-verified 2026-04-19) -----
