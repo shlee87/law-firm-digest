@@ -1,5 +1,106 @@
 {
   "version": 1,
   "windowStart": "2026-07-27T15:44:54.713Z",
-  "items": []
+  "items": [
+    {
+      "firmId": "skadden",
+      "title": "Supreme Court Decision Raises New Questions for EU-US Data Transfers",
+      "url": "https://skadden.com/insights/publications/2026/07/supreme-court-decision-raises-new-questions",
+      "publishedAt": "2026-07-28T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "미국 대법원이 Trump v. Slaughter 판결에서 연방거래위원회(FTC) 위원들의 대통령에 의한 해고 제한 규정이 위헌이라고 판결했습니다. 이 판결은 FTC의 독립성을 약화시켜, EU-미국 데이터 프라이버시 프레임워크(DPF)에 대한 유럽연합 집행위원회의 2023년 적정성 결정에 새로운 의문을 제기하고 있습니다. 유럽사법재판소(ECJ)가 DPF 적정성 결정을 무효화할 가능성이 높아짐에 따라, EU에서 미국으로 개인 데이터를 이전하는 기업들은 표준 계약 조항(SCCs)과 같은 대체 데이터 이전 메커니즘을 포함한 비상 계획을 검토하고 국제 데이터 이전 준수 사항을 전반적으로 재평가해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-03T14:09:04.766Z"
+    },
+    {
+      "firmId": "bkl",
+      "title": "태평양, 서현영 변호사 등 영입으로 인사노무 전문성 강화",
+      "url": "https://bkl.co.kr/law/insight/informationView.do?infoNo=6567&lang=ko",
+      "publishedAt": "2026-08-02T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "태평양, 서현영 변호사 등 영입으로 인사노무 전문성 강화",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-03T14:09:04.766Z"
+    },
+    {
+      "firmId": "bkl",
+      "title": "태평양, 리걸 AI·범용 AI 통합 운영체계 구축",
+      "url": "https://bkl.co.kr/law/insight/informationView.do?infoNo=6565&lang=ko",
+      "publishedAt": "2026-07-30T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "태평양, 리걸 AI·범용 AI 통합 운영체계 구축",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-08-03T14:09:04.766Z"
+    },
+    {
+      "firmId": "bkl",
+      "title": "태평양, KB손해보험·스몰티켓과 AI 기반 산업안전 협력 체계 구축",
+      "url": "https://bkl.co.kr/law/insight/informationView.do?infoNo=6564&lang=ko",
+      "publishedAt": "2026-07-27T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "법무법인 태평양은 KB손해보험, 스몰티켓과 AI·데이터 기반 산업안전보건 및 중대재해 예방을 위한 공동협력 MOU를 체결했습니다. 이는 산업안전보건법 및 중대재해처벌법 관련 기업의 안전보건관리체계 구축과 중대재해 예방을 지원하는 법률, 보험, AI 기술 연계 협력입니다. 기업들은 법률 자문, AI 기반 위험요인 분석, 보험상품 개발 지원 등을 통해 안전관리 수준을 높이고 법률 리스크 및 보험 부담을 줄일 수 있습니다. 이 협력은 예방 중심의 산업안전 관리체계 확산에 기여할 것으로 예상됩니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-03T14:09:04.766Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "2026년 중국 신규 시행 법령 업데이트(2)",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2305",
+      "publishedAt": "2026-07-28T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "중국은 2026년부터 가상화폐 관련 업무 및 현실 세계 자산 토큰화 금지, 영업비밀 정의 및 침해 행위 구체화, 정년초과근로자 산재보험 가입 의무화, 그리고 대외투자 시 개인 투자자 지위 확인 및 안전심사 강화 등 다수의 신설·개정 법령을 시행합니다. 이에 따라 중국과 거래하는 한국 기업 및 개인은 가상화폐 관련 법률 검토를 철저히 하고, 중국 내 사업자는 영업비밀 보호 컴플라이언스를 재검토하며, 정년초과근로자를 고용한 기업은 산재보험 가입 등 노동법 준수 여부를 점검해야 합니다. 또한, 중국의 대외투자 규정 강화에 따라 관련 기업 및 개인은 향후 하위 규정을 예의주시하며 투자 계획을 수립해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-03T14:09:04.766Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "프랑스 부동산 3% Tax 면제 요건 개정",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2304",
+      "publishedAt": "2026-07-27T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "프랑스 사회보장·조세 부정행위 방지법 개정으로 프랑스 부동산 3% Tax 면제 절차 요건이 강화되었습니다. 2027년부터는 일회성 확약 방식이 폐지되고 매년 Form 2746-SD 제출이 의무화되며, 비거주 단체는 세무 대리인 지정 의무가 신설되었습니다. 프랑스 부동산에 직간접적으로 투자한 국내외 법인, 펀드, 신탁 등 모든 법적 단체, 특히 국내 기관 투자자와 자산 운용사가 영향을 받습니다. 기존 확약 방식에 의존하던 투자자는 2027년 5월 15일까지 최초 연례 신고를 위해 프랑스 내 등록 및 세무 계정 개설 절차를 조속히 시작해야 하며, 세무 대리인 지정 및 지분 보유자 정보의 정확성과 완전성 확보에 유의해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-03T14:09:04.766Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "소수주주 다수결(MoM) 논의 동향 및 도입 가능성",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2302",
+      "publishedAt": "2026-07-22T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "기업 구조 재편 시 지배주주와 일반 주주 간 이해상충 거래의 공정성 확보를 위한 절차적 통제 장치인 '소수주주의 다수결(MoM)' 도입 논의가 지속되고 있습니다. 국내외 입법 동향을 살펴보면, MoM은 주주 평등 원칙과의 충돌 등으로 일반적인 의무로서 제도화될 가능성은 낮아 보입니다. 그러나 MoM을 거치는 경우 거래의 공정성이나 관여 이사의 책임에 관한 심사 기준을 완화하거나 입증 책임을 전환하는 '안전항' 형태로 도입될 가능성은 남아있으므로, 관련 입법 및 연성 규범 논의를 지속적으로 모니터링할 필요가 있습니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-03T14:09:04.766Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "FCC Adds Foreign-Produced Power Inverters and Advanced Robotic Devices to the Covered List",
+      "url": "https://lw.com/en/insights/fcc-adds-foreign-produced-power-inverters-and-advanced-robotic-devices-to-the-covered-list",
+      "language": "en",
+      "summary_ko": "FCC Adds Foreign-Produced Power Inverters and Advanced Robotic Devices to the Covered List",
+      "summaryConfidence": "low",
+      "summaryModel": "failed",
+      "summaryError": "{\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+      "summarizedAt": "2026-08-03T14:09:04.766Z",
+      "summaryBody": "July 31, 2026 Client Alert FCC Adds Foreign-Produced Power Inverters and Advanced Robotic Devices to the Covered List The items are barred from receiving FCC equipment authorization and are effectively banned from the US market, absent a Conditional Approval.",
+      "summaryAttempts": 1
+    },
+    {
+      "firmId": "latham",
+      "title": "What Defense Contractors Should Know About DOD’s Suspension of CMMC Phase 2",
+      "url": "https://lw.com/en/insights/what-defense-contractors-should-know-about-dod-suspension-of-cmmc-phase-2",
+      "language": "en",
+      "summary_ko": "2026년 7월 30일, 미 국방부(DOD)는 CMMC 2단계의 제3자 평가 요건을 일시 중단했습니다. 이는 방산 계약업체가 통제 대상이 아닌 정보(CUI)를 취급할 때 적용됩니다. 하지만 사이버 보안 의무 및 잠재적 부정청구법(FCA) 노출 위험은 여전히 유효하므로 주의가 필요합니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash-lite",
+      "summarizedAt": "2026-08-03T14:09:04.766Z"
+    }
+  ]
 }

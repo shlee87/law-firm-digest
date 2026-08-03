@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-07-27T15:44:54.714Z",
+  "lastUpdated": "2026-08-03T14:11:09.052Z",
   "firms": {
     "cooley": {
       "urls": [
@@ -220,6 +220,9 @@
     },
     "skadden": {
       "urls": [
+        "https://skadden.com/insights/publications/2026/07/supreme-court-decision-raises-new-questions",
+        "https://skadden.com/insights/publications/2026/07/sports-event-contracts",
+        "https://skadden.com/insights/publications/2026/07/uks-pra-fca-offer-proposals",
         "https://skadden.com/insights/publications/2026/07/the-2026-shareholder-proposal-exclusion-experience",
         "https://skadden.com/insights/publications/2026/07/how-2nd-circ-raised-the-bar-for-pleading-securities-fraud",
         "https://skadden.com/insights/publications/2026/07/usda-rule-would-broaden-foreign-co-reporting-burden",
@@ -279,11 +282,15 @@
         "https://skadden.com/insights/publications/2026/04/federal-ai-policy-threatens-state-ai-laws",
         "https://skadden.com/insights/publications/2026/04/should-boards-be-wary-of-informal-settlements"
       ],
-      "lastNewAt": "2026-07-22T04:00:00.000Z",
+      "lastNewAt": "2026-07-28T04:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "lee-ko": {
       "urls": [
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2305",
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2304",
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2302",
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2303",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2301",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2300",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2299",
@@ -323,7 +330,7 @@
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2265",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2264"
       ],
-      "lastNewAt": "2026-07-21T15:00:00.000Z",
+      "lastNewAt": "2026-07-28T15:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "yoon-yang": {
@@ -419,6 +426,11 @@
     },
     "latham": {
       "urls": [
+        "https://lw.com/en/insights/fcc-adds-foreign-produced-power-inverters-and-advanced-robotic-devices-to-the-covered-list",
+        "https://lw.com/en/insights/what-defense-contractors-should-know-about-dod-suspension-of-cmmc-phase-2",
+        "https://globalelr.com/2026/07/european-commission-publishes-eu-ets-review-proposing-significant-reforms",
+        "https://globalelr.com/2026/07/european-commission-publishes-eu-ets-review-proposing-significant-reforms",
+        "https://globalelr.com/2026/07/eu-methane-regulation-european-commission-recommends-delaying-penalties",
         "https://globalfinregblog.com/2026/07/sec-proposes-to-make-electronic-delivery-the-new-normal",
         "https://globalfinregblog.com/2026/07/sec-proposes-to-make-electronic-delivery-the-new-normal",
         "https://globalfinregblog.com/2026/07/fca-proposes-reforms-to-remuneration-codes",
@@ -545,7 +557,7 @@
         "https://lathamreg.com/2026/03/ftc-reverts-to-old-hsr-form-after-fifth-circuit-denial-of-ftc-stay-motion",
         "https://globalfinregblog.com/2026/03/financial-ombudsman-service-reset-key-reforms-on-the-horizon"
       ],
-      "lastNewAt": "2026-07-25T12:55:53.596Z",
+      "lastNewAt": "2026-08-03T14:11:09.052Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "kim-chang": {
@@ -586,6 +598,9 @@
     },
     "bkl": {
       "urls": [
+        "https://bkl.co.kr/law/insight/informationView.do?infoNo=6567&lang=ko",
+        "https://bkl.co.kr/law/insight/informationView.do?infoNo=6565&lang=ko",
+        "https://bkl.co.kr/law/insight/informationView.do?infoNo=6564&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6563&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6562&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6561&lang=ko",
@@ -608,7 +623,7 @@
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6529&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6526&lang=ko"
       ],
-      "lastNewAt": "2026-07-23T15:00:00.000Z",
+      "lastNewAt": "2026-08-02T15:00:00.000Z",
       "enabledAt": "2026-04-23T12:22:12.249Z"
     }
   }
