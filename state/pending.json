@@ -1,5 +1,49 @@
 {
   "version": 1,
   "windowStart": "2026-08-03T15:45:35.739Z",
-  "items": []
+  "items": [
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 27 – 31 July 2026",
+      "url": "https://cliffordchance.com/briefings/2026/08/international-regulatory-update-27---31-july-2026.html",
+      "publishedAt": "2026-08-04T08:22:01.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 27 – 31 July 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-04T13:31:31.875Z"
+    },
+    {
+      "firmId": "clifford-chance",
+      "title": "Space and satellite infrastructure: Opportunities for private equity",
+      "url": "https://cliffordchance.com/briefings/2026/07/space-and-satellite-infrastructure--opportunities-for-private-eq.html",
+      "publishedAt": "2026-08-03T15:45:34.000Z",
+      "language": "en",
+      "summary_ko": "우주 및 위성 인프라 분야는 발사 비용 하락과 위성 기술 발전으로 급성장하며, 향후 10년 내 1조 달러 규모를 넘어설 것으로 예상됩니다. 이 분야는 사모펀드 투자자들에게 매력적인 기회를 제공하지만, 투자의 핵심은 로켓이 아닌 궤도 내 인프라, 네트워크 및 서비스에 있습니다. 특히, 급변하는 상업적 발전에 대응하여 진화하는 법률 및 규제 프레임워크가 가치, 가격 책정 및 거래 구조에 미치는 영향을 이해하는 것이 중요합니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-04T13:31:31.875Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "공정위 공정거래법 시행령 개정안 행정예고",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2306",
+      "publishedAt": "2026-07-29T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "공정거래위원회는 공정거래법 시행령 개정안을 행정예고하며, 일반지주회사 CVC의 우회 투자, SPC를 통한 채무보증, 친족 독립 경영 제도의 탈법 행위 규율을 강화합니다. 이는 지주회사 체계를 가진 기업 및 대규모 기업집단 소속 회사들의 경영 활동에 직접적인 영향을 미칩니다. 공정위의 대기업집단 규율 강화 기조에 따라 관련 기업들은 지주회사 규제 및 대기업집단 시책에 대한 선제적인 내부 점검 체계 마련이 필요합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-04T13:31:31.875Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Recent Developments for UK PLCs — August 2026",
+      "url": "https://lw.com/en/insights/recent-developments-for-uk-plcs-august-2026",
+      "language": "en",
+      "summary_ko": "영국 정부는 인지세 및 인지세 준비금을 단일 증권 양도세(STT)로 대체하여 2027년 도입할 예정이며, 이는 증권 거래의 행정 절차를 디지털화하고 간소화할 것입니다. 금융행위감독청(FCA)은 상장회사의 총 의결권 공시 명확성 및 중요 거래 관련 위험 요소 설명과 이사회 진술 문구 준수에 대한 기대치를 발표했습니다. 또한, 인수합병 규정(Takeover Code)은 좌절 행위 제한, 공동 행위자 정의, 역인수 정의 등 광범위한 기술적 명확화가 제안되어 관련 기업 및 투자자들에게 영향을 미칠 것입니다. 기업들은 새로운 STT 도입에 따른 시스템 변경 및 공시 의무 준수를 준비하고, FCA의 지침과 인수합병 규정 변경 사항을 면밀히 검토하여 규제 준수를 강화해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-04T13:31:31.875Z"
+    }
+  ]
 }
