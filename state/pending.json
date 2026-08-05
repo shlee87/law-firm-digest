@@ -44,6 +44,27 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-08-04T13:31:31.875Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "Political Law Risks in M&A — Why Diligence Matters and How to Get it Right",
+      "url": "https://skadden.com/insights/publications/2026/08/political-law-risks-in-ma",
+      "publishedAt": "2026-08-03T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "Political Law Risks in M&A — Why Diligence Matters and How to Get it Right",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-05T13:29:22.329Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "US Eases Export Controls for the UAE: 4 Key Takeaways",
+      "url": "https://lw.com/en/insights/us-eases-export-controls-for-the-uae-4-key-takeaways",
+      "language": "en",
+      "summary_ko": "미국이 아랍에미리트(UAE)에 대한 수출 통제를 완화하는 새로운 규정을 발표했습니다. 이 규정은 UAE 관련 수출에 대한 새로운 경로를 열고, 일부 수출 허가 요건을 완화하며, 특정 의무적인 CFIUS(미국 외국인 투자 심의 위원회) 신고 의무를 줄입니다. 이는 UAE로 수출하거나 투자하는 기업들에게 규제 부담을 경감시킬 수 있는 실질적인 영향을 미칠 것으로 보입니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-05T13:29:22.329Z"
     }
   ]
 }
