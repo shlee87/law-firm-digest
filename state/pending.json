@@ -139,6 +139,60 @@
       "summaryConfidence": "low",
       "summaryModel": "skipped",
       "summarizedAt": "2026-08-06T13:27:52.827Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "Inside SEC Crypto Vault Statement's Securities Law Warning",
+      "url": "https://skadden.com/insights/publications/2026/08/inside-sec-crypto-vault",
+      "publishedAt": "2026-08-05T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "SEC 헤스터 피어스 위원이 암호화폐 금고(crypto vaults) 및 온체인 대출 전략에 연방 증권법이 적용될 수 있음을 경고하는 성명을 발표했습니다. 위원은 온체인 활동이라 할지라도 연방 증권법의 적용 범위 내에 있다면 해당 법률의 적용을 벗어나지 않는다고 강조했습니다. 이에 따라 암호화폐 시장 참여자들은 각 금고 또는 대출 전략의 모든 계층을 개별적으로 분석하여 증권법 준수 여부를 신중하게 검토해야 합니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-07T12:34:48.689Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "Payment Service or Ancillary Service? Clarifying the Scope of PSD2",
+      "url": "https://skadden.com/insights/publications/2026/08/payment-service-or-ancillary-service",
+      "publishedAt": "2026-08-05T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "2026년 7월 16일 유럽사법재판소(ECJ)는 중개인이 자금을 수령하고 전달하는 서비스가 EU 제2차 지급결제서비스 지침(PSD2)의 적용을 받는 지급결제 서비스에 해당하지 않는다고 판결했습니다. 이는 해당 서비스가 PSD2 범위 외의 주된 서비스에 단순히 부수적인 경우에 해당하며, 특히 Betaal Garant의 담보 예치 서비스 사례에서 명확해졌습니다. 이 판결은 지급결제 서비스를 광범위하게 해석해 온 각국 감독 당국(예: 독일 BaFin)의 권한을 제한하며, 에스크로 및 플랫폼 모델과 같이 주된 서비스에 부수적으로 지급결제 거래를 포함하는 비즈니스 모델을 가진 기업들에게 법적 명확성을 제공합니다. 따라서 과거에 지급결제 서비스로 분류되었던 기업들은 이번 판결을 근거로 자신들의 활동이 PSD2 범위 밖의 부수적 서비스로 재분류될 수 있는지 검토해야 합니다. 다만, 송금 서비스(money remittance)에 대한 불확실성과 부수적 활동이 규제 대상 주된 활동이 되는 정확한 기준에 대한 의문은 여전히 남아있어 향후 PSD3 입법 과정에 영향을 미칠 수 있습니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-07T12:34:48.689Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "AI, Prediction Markets Lead Securities Developments in 2026",
+      "url": "https://skadden.com/insights/publications/2026/08/ai-prediction-markets",
+      "publishedAt": "2026-08-04T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "2026년 상반기에는 인공지능(AI) 관련 증권 집단 소송과 예측 시장 플랫폼이 기술과 증권 소송의 주요 쟁점으로 부상했습니다. AI 소송에서는 'AI 워싱' 주장(AI washing claims)에서 '효과 기반 이론'(effects-based theories)으로의 전환이 논의되고 있습니다. 예측 시장 분야에서는 연방 선점(federal preemption)과 주(state) 게임 규제 간의 충돌이 발생하고 있으며, 관련 법적 프레임워크를 형성할 항소심 판결이 계류 중입니다. 법률 전문가들은 이러한 AI 및 예측 시장 관련 법적 변화와 계류 중인 판결이 증권 시장에 미칠 영향을 주시해야 할 것입니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-07T12:34:48.689Z"
+    },
+    {
+      "firmId": "bkl",
+      "title": "태평양 이경근 고문, 『TAX RULES ON PERMANENT ESTABLISHMENT IN KOREA: A Practitioner's Guide』 발행",
+      "url": "https://bkl.co.kr/law/insight/informationView.do?infoNo=6570&lang=ko",
+      "publishedAt": "2026-08-06T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "법무법인 태평양 이경근 고문이 국내 고정사업장(PE) 과세제도를 체계적으로 정리한 영문 실무 가이드를 발행했습니다. 본서는 고정장소, 종속대리인, 용역 등 주요 PE 유형별 과세기준과 부가가치세, 이익귀속 등 핵심 쟁점을 다룹니다. 해외 조세 전문가와 외국계 기업 세무 담당자는 국내 법령, 조세조약, 대법원 판례를 바탕으로 PE 관련 과세 리스크를 이해하고 대응하는 데 필요한 실무적 지침을 얻을 수 있습니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-07T12:34:48.689Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "DOJ Declines to Prosecute in First Healthcare Declination Under New Corporate Enforcement Policy",
+      "url": "https://lw.com/en/insights/doj-declines-to-prosecute-in-first-healthcare-declination-under-new-corporate-enforcement-policy",
+      "language": "en",
+      "summary_ko": "미국 법무부(DOJ)는 새로운 '기업 집행 및 자발적 자진신고 정책(CEP)'에 따라 헬스케어 사기 사건에서 처음으로 불기소 처분을 내렸습니다. Campus Eye Entities는 Medicare 및 기타 보험사로부터 약 370만 달러를 부당하게 청구한 혐의에 대해 자진신고, 전적인 협력, 그리고 시정 조치를 취하여 기업 차원의 기소를 면했습니다. 그러나 전 CEO는 개별적으로 기소되어 기업의 불기소 처분이 개인의 책임을 면제하지 않음을 보여주었습니다. 이는 헬스케어 기업과 사모펀드 스폰서들에게 인수 전후의 철저한 컴플라이언스 실사 및 위법 행위 발견 시 CEP에 따른 자진신고와 협력의 중요성을 강조합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-07T12:34:48.689Z"
     }
   ]
 }
