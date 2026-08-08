@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-08-07T12:36:24.283Z",
+  "lastUpdated": "2026-08-08T12:27:03.771Z",
   "firms": {
     "cooley": {
       "urls": [
@@ -223,6 +223,9 @@
     },
     "skadden": {
       "urls": [
+        "https://skadden.com/insights/publications/2026/08/next-irs-chief-counsel",
+        "https://skadden.com/insights/publications/2026/08/sec-proposes-new-edelivery",
+        "https://skadden.com/insights/publications/2026/08/skadden-discusses-second-circuit-decision",
         "https://skadden.com/insights/publications/2026/08/inside-sec-crypto-vault",
         "https://skadden.com/insights/publications/2026/08/payment-service-or-ancillary-service",
         "https://skadden.com/insights/publications/2026/08/ai-prediction-markets",
