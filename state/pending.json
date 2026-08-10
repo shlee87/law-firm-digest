@@ -193,6 +193,16 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-08-07T12:34:48.689Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "금융회사의 제3자 IT 리스크 관리 가이드라인 마련: 이사회 책임부터 계약 종료까지, 전주기 관리체계 본격화",
+      "url": "https://yoonyang.com/kor/insights/newsletter/15015",
+      "language": "ko",
+      "summary_ko": "금융감독원은 금융회사의 클라우드·SaaS 등 제3자 IT 서비스 활용에 따른 리스크 관리를 위한 가이드라인을 발표했습니다. 이는 이사회 책임부터 계약 종료 후 정보 파기까지 전주기적 관리체계를 구축하는 것을 목표로 합니다. 외부 IT 서비스를 이용하는 모든 금융회사는 이사회 및 경영진의 IT 리스크 관리 책임 명확화, 주요 제3자 지정 및 관리 강화, 기존 IT 위탁 계약서 점검, 내규 및 절차 정비, 비상 대응 및 백업 체계 점검 등을 통해 새로운 가이드라인 시행(2026년 11월 예정)에 대비해야 합니다. 사이버 보안이 이사회와 경영진이 직접 책임지는 핵심 경영 리스크로 자리매김함에 따라 전사적 IT 리스크 관리 역량 강화가 요구됩니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-10T12:38:16.357Z"
     }
   ]
 }
