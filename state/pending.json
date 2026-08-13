@@ -34,6 +34,28 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-08-12T12:37:50.237Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "2026 Report on Hong Kong-Listed Biotech Companies",
+      "url": "https://skadden.com/insights/publications/2026/08/2026-report-on-hong-kong-listed-biotech-companies",
+      "publishedAt": "2026-08-01T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "스캐든 보고서에 따르면, 홍콩 상장 바이오텍 기업들은 2024년 신규 상장이 감소했으나 2025년 16개 기업 상장으로 강하게 반등하며 회복력을 보였습니다. 2025년 12월 31일 기준 총 시가총액은 1,690억 달러로 전년 대비 109% 증가했으며, 상하이 지역 기업들이 홍콩 상장 바이오텍 산업의 절반 이상을 차지했습니다. 이는 홍콩 바이오텍 시장의 성장 잠재력과 투자 매력을 보여주며, 관련 기업 및 투자자들은 IPO 동향, 기업 거버넌스 관행 및 재무 성과를 면밀히 주시해야 할 것입니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-13T12:38:55.628Z"
+    },
+    {
+      "firmId": "bkl",
+      "title": "태평양, 송명달 前 해양수산부 차관 영입",
+      "url": "https://bkl.co.kr/law/insight/informationView.do?infoNo=6574&lang=ko",
+      "publishedAt": "2026-08-12T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "태평양, 송명달 前 해양수산부 차관 영입",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-13T12:38:55.628Z"
     }
   ]
 }
