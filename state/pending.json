@@ -56,6 +56,48 @@
       "summaryConfidence": "low",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-08-13T12:38:55.628Z"
+    },
+    {
+      "firmId": "clifford-chance",
+      "title": "Roundtable on Agentic Payments and the Emerging Regulatory Landscape",
+      "url": "https://cliffordchance.com/briefings/2026/08/roundtable-on-agentic-payments-and-the-emerging-regulatory-lands.html",
+      "publishedAt": "2026-08-13T15:45:00.000Z",
+      "language": "en",
+      "summary_ko": null,
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-14T12:34:41.098Z"
+    },
+    {
+      "firmId": "barun",
+      "title": "공정위 2026년 하반기 추진계획: 유통·하도급 대금 제도 개편 및 지자체 조사권 신설에 따른 기업의 리스크 관리",
+      "url": "https://barunlaw.com/letter/57341",
+      "publishedAt": "2026-08-13T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "공정위 2026년 하반기 추진계획: 유통·하도급 대금 제도 개편 및 지자체 조사권 신설에 따른 기업의 리스크 관리",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-08-14T12:34:41.098Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Crypto Vaults: US Regulatory Considerations",
+      "url": "https://fintechanddigitalassets.com/2026/08/crypto-vaults-us-regulatory-considerations",
+      "language": "en",
+      "summary_ko": "미국 증권거래위원회(SEC) 헤스터 피어스 위원은 암호화폐 볼트(crypto vaults) 및 온체인 대출에 연방 증권법이 적용될 수 있음을 명확히 하는 성명을 발표하며, 온체인 활동이라도 SEC 관할에서 벗어나지 않는다는 원칙을 재확인했습니다. 이는 암호화폐 볼트 운영자, 큐레이터 및 예치자들에게 직접적인 영향을 미칩니다. 볼트의 구조와 운영 방식에 따라 하위 테스트(Howey test), 리브스 노트 테스트(Reves note test), 투자회사법(Investment Company Act), 투자자문법(Investment Advisers Act) 등의 적용 여부가 결정됩니다. 따라서 볼트 설계 시 이러한 법적 고려사항을 면밀히 검토해야 하며, 파생상품이나 마진 거래를 포함하는 경우 CFTC 규제 및 OFAC 제재 위반 가능성도 유의해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-14T12:34:41.098Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "The CJEU’s Next Wave on Sports and Competition",
+      "url": "https://lw.com/en/insights/the-cjeu-next-wave-on-sports-and-competition",
+      "language": "en",
+      "summary_ko": "2026년 8월 13일, 유럽사법재판소(CJEU)는 스포츠 분야의 경쟁법 적용에 대한 새로운 판결들을 발표했습니다. 이 판결들은 선수 스카우트 금지(no-poach) 합의, 스포츠 에이전트 규제, 징계 시스템과 관련하여 EU 경쟁법이 스포츠 생태계에 어떻게 적용되는지를 명확히 합니다. 이는 스포츠 관련 조직 및 에이전트들이 EU 경쟁법 준수 여부를 검토하고 관련 규정을 재정비해야 함을 시사합니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-14T12:34:41.098Z"
     }
   ]
 }
