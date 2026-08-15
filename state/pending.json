@@ -98,6 +98,27 @@
       "summaryConfidence": "low",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-08-14T12:34:41.098Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "The Circuits Are Split in How They Apply the Safe Harbor in Securities Law",
+      "url": "https://skadden.com/insights/publications/2026/08/the-circuits-are-split-in-how-they-apply",
+      "publishedAt": "2026-08-12T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "최근 일부 법원들은 PSLRA에 명시된 미래예측진술에 대한 면책조항(safe harbor)이, 주의 문구(cautionary statements) 자체에 현재 현실화되고 있는 위험에 대한 정보가 누락된 경우에도 적용되는지에 대해 의문을 제기하고 있습니다. 특히 제9연방순회항소법원의 Funko 판결은 다른 순회법원들과 다른 접근 방식을 취하며 이 문제에 대한 순회법원 간의 견해 차이(circuit split)를 심화시키고 있습니다. 미래예측진술을 발표하는 기업들과 증권법 관련 소송에 연루될 수 있는 투자자 및 법률 전문가들이 영향을 받습니다. 기업들은 현재 위험이 현실화되고 있을 때 주의 문구의 완전성에 대한 순회법원별 상이한 해석을 인지하고, 증권 소송에서의 불확실성에 대비해야 합니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-15T12:12:26.250Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Europe Litigation: Mass Actions at a Global Scale",
+      "url": "https://lw.com/en/insights/europe-litigation-mass-actions-at-a-global-scale",
+      "language": "en",
+      "summary_ko": "EU 대표 소송 지침(EU Representative Actions Directive)의 전면 시행과 소송 자금 조달 증가로 유럽은 집단적 구제(collective redress) 시대로 진입했습니다. 이로 인해 기업들은 소비자, 데이터 프라이버시, 경쟁 관련 소송에서 전 세계적인 규모의 병행 소송에 직면하게 되었습니다. 기업들은 개별 소송 승리뿐만 아니라 여러 전선에서 주장, 데이터 전략 및 합의 접근 방식의 일관성을 관리하는 것이 중요하며, 지침으로 인해 발생할 수 있는 잠재적 문제에 대비해야 합니다.",
+      "summaryConfidence": "medium",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-15T12:12:26.250Z"
     }
   ]
 }
