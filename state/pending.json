@@ -1,5 +1,60 @@
 {
   "version": 1,
   "windowStart": "2026-08-17T13:41:31.944Z",
-  "items": []
+  "items": [
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 10 – 14 August 2026",
+      "url": "https://cliffordchance.com/briefings/2026/08/international-regulatory-update-10-14-august-2026.html",
+      "publishedAt": "2026-08-18T14:20:00.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 10 – 14 August 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-18T12:18:50.871Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "Fed. Circ.'s Thermostat Ruling Holds Patent Jury Trial Lessons",
+      "url": "https://skadden.com/insights/publications/2026/08/fed-circs-thermostat-ruling-holds",
+      "publishedAt": "2026-08-14T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "Fed. Circ.'s Thermostat Ruling Holds Patent Jury Trial Lessons",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-18T12:18:50.871Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "개정 형사소송법 하의 공정거래사건 수사절차 변화",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2309",
+      "publishedAt": "2026-08-12T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "형사소송법 개정 및 공소청법·중수청법 시행으로 검사의 직접수사 및 보완수사 권한이 폐지되고, 중대범죄수사청(중수청)이 공정거래 형사사건을 포함한 중대범죄 수사를 전담하게 됩니다. 이는 공정거래 관련 형사사건에 연루될 수 있는 기업 및 관련 임직원에게 영향을 미칩니다. 중수청의 공정거래 분야 경험 부족을 고려하여 수사 단계에서 위법성 평가 요소를 명확히 설명하고, 기소 여부를 결정하는 공소청에 대해 전문적인 변론을 준비해야 합니다. 또한, 기존 형사 리니언시 제도의 활용 불확실성과 보완수사 반복에 따른 수사 장기화 가능성에 유의해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-18T12:18:50.871Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "대법원, 해외근무수당 통상임금 사건에서 원심 파기환송",
+      "url": "https://yoonyang.com/kor/insights/newsletter/15034",
+      "language": "ko",
+      "summary_ko": "대법원은 해외근무수당의 통상임금 산입 여부 및 포괄수당약정의 유효성에 대한 사건에서 원심을 파기환송하며, 해외근무수당 내 가산수당이 포함될 수 있다는 포괄수당약정의 성립 가능성을 인정했습니다. 이는 해외근무수당 제도를 운영하는 공기업 및 민간기업에 중요한 영향을 미칩니다. 기업들은 해외근무수당의 지급 목적과 구성 항목을 명확히 설계하고, 내부규정, 운영지침, 직원 안내자료 및 실제 지급 실무에 일관되게 반영하여 임금 리스크를 사전에 예방해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-18T12:18:50.871Z"
+    },
+    {
+      "firmId": "barun",
+      "title": "법무법인(유한) 바른 뉴스레터 - 제159호 (2026.08)",
+      "url": "https://barunlaw.com/letter/57377",
+      "publishedAt": "2026-08-18T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "법무법인(유한) 바른 뉴스레터 - 제159호 (2026.08)",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-08-18T12:18:50.871Z"
+    }
+  ]
 }
