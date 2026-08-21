@@ -108,6 +108,48 @@
       "summaryConfidence": "low",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-08-20T12:19:59.534Z"
+    },
+    {
+      "firmId": "logos",
+      "title": "법무법인(유)로고스 노동법센터 뉴스레터 8월호",
+      "url": "https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=2348",
+      "publishedAt": "2026-08-20T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "법무법인(유)로고스 노동법센터 뉴스레터 8월호",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-21T12:19:53.342Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "Recent IP Developments in Korea",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2311",
+      "publishedAt": "2026-08-19T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "2026년부터 한국 특허 심사 제도가 변경됩니다. 심사유예 신청의 변경/철회 2개월 기한이 폐지되어 출원인은 사업 전략에 따라 특허 심사 시점을 유연하게 조절할 수 있게 됩니다. 또한 물리적 AI 및 합성생물학 등 첨단기술 분야의 우선심사 대상이 확대되고 후속 심사 처리 기간이 단축되어, 기업들은 자금 조달, 제품 출시 등 사업 단계에 맞춰 특허권 확보 속도를 전략적으로 관리할 수 있습니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-21T12:19:53.342Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "「개인정보 보호법」 개정안 국회 본회의 통과",
+      "url": "https://yoonyang.com/kor/insights/newsletter/15046",
+      "language": "ko",
+      "summary_ko": "「개인정보 보호법」 개정안이 국회 본회의를 통과하여, 정보주체 동의나 가명·익명처리 없이도 적법하게 수집한 원본 개인정보를 AI 기술 개발에 활용할 수 있는 상시적 법적 근거가 마련되었습니다. 이는 가명·익명정보만으로는 AI 개발이 곤란하고 공익적·사회적 필요성이 인정되며 강화된 안전조치를 갖춰 개인정보보호위원회의 심의·의결을 거친 경우에 한해 적용됩니다. AI 학습데이터 확보 전략을 운영하는 기업들은 개정법 시행 전 6개월의 준비기간 동안 특례 신청 대상 선별, 안전조치 수준 진단, 개인정보 처리방침 개정 준비에 착수해야 합니다. 특히 '공익적·사회적 필요성' 요건의 인정 범위와 보호 규정의 개별적 적용 제외 여부에 대한 개인정보위의 심의 실무를 주시하고 적극적으로 소명할 필요가 있습니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-21T12:19:53.342Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "M&A Guide 2026",
+      "url": "https://lw.com/en/admin/upload/SiteAttachments/LW-MA-Guide-US.pdf",
+      "language": "en",
+      "summary_ko": "M&A Guide 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-08-21T12:19:53.342Z"
     }
   ]
 }
