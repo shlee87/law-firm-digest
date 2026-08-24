@@ -150,6 +150,50 @@
       "summaryConfidence": "low",
       "summaryModel": "skipped",
       "summarizedAt": "2026-08-21T12:19:53.342Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "한국 스튜어드십 코드 개정 확정 발표",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=35334&sch_section=4",
+      "publishedAt": "2026-07-29T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "2027년부터 시행될 '기관투자자의 수탁자 책임에 관한 원칙(스튜어드십 코드)' 개정안이 최종 의결되었습니다. 주요 내용은 ESG 요소 반영, 적용 자산군 확대, 수탁자 책임 활동 강화, 이사 충실의무 반영 등입니다. 스튜어드십 코드 참여 기관투자자들은 자체 지침을 개정하고 주주 관여 활동을 강화해야 하며, 기업들은 주주 환원 및 기업가치 제고, 이사 충실의무 이행 등에 대한 기관투자자의 적극적인 문제 제기 및 협력적 주주활동에 대비하여 IR, 이사회 및 주주총회 운영에 면밀한 준비가 필요합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-24T12:20:42.259Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "불법스팸 규제 강화(10월 1일 시행)에 따른 과징금 부과기준 마련",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=35407&sch_section=4",
+      "publishedAt": "2026-08-09T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "2026년 10월 1일 시행되는 개정 정보통신망법은 불법스팸 전송 위반 시 관련 매출액의 1~6%에 해당하는 과징금 부과 제도를 도입하며, 방통위가 세부 시행령 및 고시안을 마련했습니다. 통신사업자뿐 아니라 문자, 이메일, 앱 푸시 등으로 광고를 전송하는 모든 일반 사업자가 규제 대상이며, 광고 위탁 시에도 광고주에게 과징금 부과 위험이 있습니다. 기업들은 사전 동의 없는 광고 전송, 수신 거부 무시 등 주요 위반행위에 대한 사전 점검과 함께, 시행 전까지 광고 발송 및 마케팅 데이터 관리 체계를 전반적으로 재정비해야 합니다. 반복 위반 시 과징금이 가중될 수 있습니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-24T12:20:42.259Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "공정위, 하도급·가맹·대리점 분야 과징금 고시 개정 시행",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=35376&sch_section=4",
+      "publishedAt": "2026-08-05T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "공정거래위원회는 2026년 8월 4일자로 하도급법, 가맹사업법, 대리점법 위반 사업자에 대한 과징금 고시 개정안을 시행합니다. 이번 개정은 부과기준율 및 부과기준금액 상향, 반복 법위반 가중 강화, 감경 사유 축소를 주요 내용으로 합니다. 이에 따라 하도급, 가맹, 대리점 분야 사업자들의 과징금 부담이 크게 가중될 것이며, 특히 과거 위반 전력이 있는 기업은 반복 위반에 따른 가중 위험이 현저히 높아집니다. 기업들은 면밀한 컴플라이언스 활동을 통해 사전 법 위반 리스크를 철저히 관리·점검하고, 내부 대응 절차를 정비하는 등 선제적 예방 활동을 강화해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-24T12:20:42.259Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "교섭의제별로 원청의 사용자성 인정 여부를 개별 판단한 최근 노동위원회 결정 소개",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=35300&sch_section=4",
+      "publishedAt": "2026-07-23T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "울산지방노동위원회는 개정 노동조합법 시행 후 원청의 사용자성 인정 여부를 하청 노동조합의 교섭요구 의제별로 개별 판단하여, 임금 등 상당수 주요 의제에 대해 사용자성을 부정하는 결정을 내렸습니다. 이는 다층적 도급구조를 가진 산업의 원청 기업들에게 영향을 미치며, 원청의 교섭의무가 무제한 확장될 수 없음을 명확히 합니다. 기업들은 하청 노동조합의 교섭 요구에 대비하여 실질적 지배력 유무 및 교섭의무 범위를 검토하고 정교한 분쟁 대응 논리를 구축해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-24T12:20:42.259Z"
     }
   ]
 }
