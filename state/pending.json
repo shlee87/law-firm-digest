@@ -1,5 +1,17 @@
 {
   "version": 1,
   "windowStart": "2026-08-24T13:54:27.603Z",
-  "items": []
+  "items": [
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 17 – 21 August 2026",
+      "url": "https://cliffordchance.com/briefings/2026/08/international-regulatory-update-17-21-august-2026.html",
+      "publishedAt": "2026-08-25T08:32:10.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 17 – 21 August 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-25T12:21:19.457Z"
+    }
+  ]
 }
