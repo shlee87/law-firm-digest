@@ -53,6 +53,17 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-08-27T21:21:42.241Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "Seventh Circuit Outlines Potential Path to Dismissal of Outsiders’ Qui Tam Actions",
+      "url": "https://skadden.com/insights/publications/2026/08/seventh-circuit-outlines-potential-path-to-dismissal",
+      "publishedAt": "2026-08-20T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "제7순회항소법원은 내부 정보 없이 추측에 의존한 외부인의 퀴탐(qui tam) 소송을 기각하며, 특정 사실적 주장이 부족할 경우 기각될 수 있음을 시사했습니다. 이는 정부에 청구를 제출하는 기업들에게 증가하는 소송 위험을 의미하며, 특히 공개 데이터를 분석하는 데이터 마이너들에 의한 퀴탐 소송이 증가하는 추세 속에서 중요합니다. 기업들은 외부인 퀴탐 소송에 직면했을 때, 통계 분석 및 회사 관행에 대한 추정이 특정 사실적 근거를 결여하고 있음을 주장하며 소송 초기 단계에서 원고의 사실적 주장의 충분성을 다툴 수 있습니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-08-28T21:33:09.729Z"
     }
   ]
 }
