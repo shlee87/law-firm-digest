@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-08-29T15:50:45.979Z",
+  "lastUpdated": "2026-08-31T18:19:03.227Z",
   "firms": {
     "cooley": {
       "urls": [
@@ -231,6 +231,7 @@
     },
     "skadden": {
       "urls": [
+        "https://skadden.com/insights/publications/2026/08/delaware-court-reaffirms-deference-to-directors",
         "https://skadden.com/insights/publications/2026/08/seventh-circuit-outlines-potential-path-to-dismissal",
         "https://skadden.com/insights/publications/2026/08/right-to-repair-a-movement-triumphant",
         "https://skadden.com/insights/publications/2026/08/remedies-revisited-early-engagement",
