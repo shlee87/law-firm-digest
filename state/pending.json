@@ -1,5 +1,49 @@
 {
   "version": 1,
   "windowStart": "2026-08-31T19:26:32.994Z",
-  "items": []
+  "items": [
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 24 – 28 August 2026",
+      "url": "https://cliffordchance.com/briefings/2026/09/international-regulatory-update-24-28-august-2026.html",
+      "publishedAt": "2026-09-01T08:49:41.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 24 – 28 August 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-01T15:38:34.704Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "FTC Proposes Enforcement Policy Statement on Personalized Pricing",
+      "url": "https://skadden.com/insights/publications/2026/08/ftc-proposes-enforcement-policy-statement-on-personalized-pricing",
+      "publishedAt": "2026-08-28T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "미국 연방거래위원회(FTC)는 개인 맞춤형 가격 책정(personalized pricing) 관행에 대한 집행 정책 성명 초안을 발표하며, FTC Act Section 5에 따라 기만적이거나 불공정한 행위를 단속할 의지를 밝혔습니다. 이는 소비자의 개인 데이터를 기반으로 개별화된 가격을 설정하는 기업들에게 영향을 미치며, 특히 명확한 공개 의무를 강조합니다. 관련 기업들은 현재의 공개 관행을 평가하고, 가격 책정 알고리즘에 사용되는 데이터 유형을 감사하며, FTC의 최종 지침과 주(state)별 입법 동향을 면밀히 주시해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-01T15:38:34.704Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "법무법인 화우, 강북사무소 개소",
+      "url": "https://yoonyang.com/kor/insights/newsletter/15061",
+      "language": "ko",
+      "summary_ko": "법무법인 화우, 강북사무소 개소",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-01T15:38:34.704Z"
+    },
+    {
+      "firmId": "barun",
+      "title": "AI 개발을 위한 개인정보 활용 특례 신설「개인정보 보호법」개정안 국회 본회의 통과",
+      "url": "https://barunlaw.com/letter/57501",
+      "publishedAt": "2026-08-31T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "AI 개발을 위한 개인정보 활용 특례 신설「개인정보 보호법」개정안 국회 본회의 통과",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-09-01T15:38:34.704Z"
+    }
+  ]
 }
