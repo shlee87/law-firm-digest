@@ -44,6 +44,48 @@
       "summaryConfidence": "low",
       "summaryModel": "skipped",
       "summarizedAt": "2026-09-01T15:38:34.704Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "UK Capital Markets Reform: Where Are We Now?",
+      "url": "https://skadden.com/insights/publications/2026/09/uk-capital-markets-reform-where-are-we-now",
+      "publishedAt": "2026-09-02T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "영국은 지난 5년간 자본시장 규제 현대화 프로그램을 통해 상장 장벽을 제거하고 2차 자금 조달을 간소화하며 M&A를 용이하게 하는 등 시장 경쟁력과 매력을 높였습니다. 특히 2026년 여름에는 AIM(대안투자시장)에 대한 20여 년 만의 가장 중요한 개혁과 영국 IPO 연구 절차를 간소화하는 새로운 규칙이 발효되었습니다. 이 외에도 새로운 상장 규정(UKLRs) 도입, PISCES 출범, 투자설명서 제도 개편 등이 이루어졌습니다. 영국 상장 또는 AIM 상장을 고려하는 기업들은 이러한 개편된 상장 규칙과 간소화된 IPO 절차가 자본시장 전략에 미칠 영향을 면밀히 검토해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-03T15:20:04.369Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "Key International Tax Items in Korea's 2026 Proposed Tax Law Amendments",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2315",
+      "publishedAt": "2026-08-30T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "2026년 세법 개정안은 해외CFC 배당간주 기준세율을 15%로 인하하고, 해외신탁 신고의무 위반 과태료를 최대 10억 원으로 상향하며, 국제거래 보고의무 위반 시 중요 누락·오류도 과태료 부과 대상에 포함합니다. 또한, 자사주 취득 시 목적과 무관하게 배당간주 과세가 적용됩니다. 이에 따라 한국 다국적 기업, 해외 신탁 보유 개인, 국제거래 납세자, 자사주 매입 기업 및 주주는 관련 규정 준수 및 세무 전략 재검토가 필요합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-03T15:20:04.369Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "남양유업 전 회장 퇴직금 443억 원 청구 전부 기각, 부당이득 12억 원 반환 인용 - 법무법인(유한) 화우, 남양유업 완승 이끌어",
+      "url": "https://yoonyang.com/kor/insights/newsletter/15067",
+      "language": "ko",
+      "summary_ko": "남양유업 전 회장의 퇴직금 청구 기각 및 부당이득 반환 인용 판결에서, 상법 제368조 제3항의 특별이해관계인 의결권 제한 위반 시 주주총회 결의 취소 및 그에 따른 보수·퇴직금의 부당이득 반환 법리가 재확인되었습니다. 이는 오너 경영인이 있는 상장회사 및 임원에게 영향을 미칩니다. 임원 보수·퇴직금 관련 주주총회 결의 시 특별이해관계인의 의결권 행사에 유의하고, 결의 취소 시 기지급 보수 환수 및 퇴직금 청구권 불인정 리스크가 있으므로 관련 규정의 적법성 및 유효성을 면밀히 점검해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-03T15:20:04.369Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "SEC Proposes Tailored Exemptions for Cryptoasset Offerings",
+      "url": "https://fintechanddigitalassets.com/2026/09/sec-proposes-tailored-exemptions-for-cryptoasset-offerings",
+      "language": "en",
+      "summary_ko": "미국 증권거래위원회(SEC)는 암호자산 발행에 대한 맞춤형 면제 규정인 'Regulation Crypto Assets'를 제안했습니다. 이 제안은 'Startup Exemption'(4년간 최대 5백만 달러)과 'Fundraising Exemption'(연간 최대 2천만 또는 7천5백만 달러)이라는 두 가지 새로운 발행 면제를 도입하며, 투자 계약에 대한 조건부 세이프 하버를 포함합니다. 암호자산 발행사들은 자본 조달을 위한 명확한 경로를 얻게 되지만, 선택하는 면제 유형에 따라 다양한 공시 및 보고 의무를 준수해야 합니다. 이는 암호자산 시장의 혁신과 자본 형성을 촉진하는 동시에, 투자 계약과 기초 암호자산 간의 구분을 명확히 하여 규제 명확성을 제공할 것으로 예상됩니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-03T15:20:04.369Z"
     }
   ]
 }
