@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-09-03T15:21:53.055Z",
+  "lastUpdated": "2026-09-04T15:17:04.599Z",
   "firms": {
     "cooley": {
       "urls": [
@@ -232,6 +232,7 @@
     },
     "skadden": {
       "urls": [
+        "https://skadden.com/insights/publications/2026/09/get-ready-reporting-faqs-and-checklist",
         "https://skadden.com/insights/publications/2026/09/uk-capital-markets-reform-where-are-we-now",
         "https://skadden.com/insights/publications/2026/08/ftc-proposes-enforcement-policy-statement-on-personalized-pricing",
         "https://skadden.com/insights/publications/2026/08/skadden-discusses-uk-regulatory-framework",
@@ -319,11 +320,12 @@
         "https://skadden.com/insights/publications/2026/04/federal-ai-policy-threatens-state-ai-laws",
         "https://skadden.com/insights/publications/2026/04/should-boards-be-wary-of-informal-settlements"
       ],
-      "lastNewAt": "2026-09-02T04:00:00.000Z",
+      "lastNewAt": "2026-09-03T04:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "lee-ko": {
       "urls": [
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2316",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2315",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2314",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2313",
@@ -377,11 +379,13 @@
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2265",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2264"
       ],
-      "lastNewAt": "2026-08-30T15:00:00.000Z",
+      "lastNewAt": "2026-08-31T15:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "yoon-yang": {
       "urls": [
+        "https://yoonyang.com/kor/insights/newsletter/15075",
+        "https://yoonyang.com/kor/insights/newsletter/15074",
         "https://yoonyang.com/kor/insights/newsletter/15067",
         "https://yoonyang.com/kor/insights/newsletter/15069",
         "https://yoonyang.com/kor/insights/newsletter/15068",
@@ -463,7 +467,7 @@
         "https://yoonyang.com/kor/insights/newsletter/14711",
         "https://yoonyang.com/kor/insights/newsletter/14709"
       ],
-      "lastNewAt": "2026-09-03T15:21:53.055Z",
+      "lastNewAt": "2026-09-04T15:17:04.599Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "barun": {
@@ -495,6 +499,8 @@
     },
     "latham": {
       "urls": [
+        "https://lw.com/en/insights/the-growth-rocketship-hercules-backs-tech-life-sciences",
+        "https://lw.com/en/insights/sec-and-cftc-further-extend-compliance-date-for-the-2024-form-pf-amendments",
         "https://fintechanddigitalassets.com/2026/09/sec-proposes-tailored-exemptions-for-cryptoasset-offerings",
         "https://lw.com/en/insights/andy-gass-delivers-tedx-talk-exploring-the-intersection-of-generative-ai-and-the-law",
         "https://latham.london/2026/08/no-privilege-for-funder-diligence-the-english-commercial-court-differentiates-between-funding-litigation-and-conducting-it",
@@ -649,11 +655,16 @@
         "https://lathamreg.com/2026/03/ftc-reverts-to-old-hsr-form-after-fifth-circuit-denial-of-ftc-stay-motion",
         "https://globalfinregblog.com/2026/03/financial-ombudsman-service-reset-key-reforms-on-the-horizon"
       ],
-      "lastNewAt": "2026-09-03T15:21:53.055Z",
+      "lastNewAt": "2026-09-04T15:17:04.599Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "kim-chang": {
       "urls": [
+        "https://kimchang.com/ko/insights/detail.kc?idx=35488&sch_section=4",
+        "https://kimchang.com/ko/insights/detail.kc?idx=35479&sch_section=4",
+        "https://kimchang.com/ko/insights/detail.kc?idx=35475&sch_section=4",
+        "https://kimchang.com/ko/insights/detail.kc?idx=35482&sch_section=4",
+        "https://kimchang.com/ko/insights/detail.kc?idx=35449&sch_section=4",
         "https://kimchang.com/ko/insights/detail.kc?idx=35334&sch_section=4",
         "https://kimchang.com/ko/insights/detail.kc?idx=35407&sch_section=4",
         "https://kimchang.com/ko/insights/detail.kc?idx=35376&sch_section=4",
@@ -695,7 +706,7 @@
         "https://kimchang.com/ko/insights/detail.kc?idx=34400&sch_section=4",
         "https://kimchang.com/ko/insights/detail.kc?idx=34401&sch_section=4"
       ],
-      "lastNewAt": "2026-07-29T15:00:00.000Z",
+      "lastNewAt": "2026-08-19T15:00:00.000Z",
       "enabledAt": "2026-04-23T12:22:12.249Z"
     },
     "bkl": {

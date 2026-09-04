@@ -86,6 +86,103 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-09-03T15:20:04.369Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "Get Ready: Reporting FAQs and Checklist as the EU’s Cyber Resilience Act Comes Into Force",
+      "url": "https://skadden.com/insights/publications/2026/09/get-ready-reporting-faqs-and-checklist",
+      "publishedAt": "2026-09-03T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "2026년 9월 11일부터 EU 사이버 복원력 법(CRA)의 첫 부분이 발효되어, 연결된 소프트웨어 및 하드웨어 제품 제조업체에 새로운 취약점 및 사고 보고 의무가 부과됩니다. 이 법은 EU에서 제공되는 \"디지털 요소를 포함하는 제품\"(PDE)의 제조업체에 적용되며, 모바일 앱, IoT 기기 및 이들의 백엔드/클라우드 서비스를 포함합니다. 기업들은 규제 대상 제품을 식별하고, 취약점 관리 및 사고 대응 계획을 업데이트하며, EU 당국(CSIRT, ENISA), 고객 및 공급업체에 대한 단계별 보고 절차를 준비해야 합니다. 특히, 24시간 이내 초기 보고 등 짧은 보고 기한을 준수하기 위한 내부 프로세스 구축 및 테스트가 중요합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-04T15:15:07.341Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "기간제 관리직 근로자의 성과부진을 이유로 한 갱신거절의 합리성을 인정할 수 있다고 본 대법원 판결",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=35488&sch_section=4",
+      "publishedAt": "2026-08-19T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "대법원은 기간제 근로자의 갱신기대권이 인정되더라도, 채용 목적과 직무의 성격상 매출 등 객관적 지표가 갱신 요건으로 명확히 설정·전달되고 성과 부진이 명백한 경우 갱신거절에 합리적 이유가 있다고 보아 원심을 파기환송했습니다. 이는 정형화된 평가 기준이 없더라도, 성과 책임이 명확한 기간제 근로계약에서 사용자가 갱신 요건을 명확히 설정하고 운용하면 갱신거절의 합리성을 인정받을 수 있음을 시사합니다. 따라서 기업은 기간제 근로자 운영 시 계약 갱신 요건과 절차를 명확히 하고, 특히 성과 관련 직무의 경우 객관적인 지표를 갱신 조건으로 설정하여 분쟁에 대비해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-04T15:15:07.341Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "상장회사 합병 등 구조개편 관련 공정가액 평가 및 공시 규제 강화를 위한 자본시장법 개정",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=35479&sch_section=4",
+      "publishedAt": "2026-08-23T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "자본시장법 개정안이 국회 본회의를 통과하여 상장회사 합병 등 구조개편 시 공정가액 평가 및 공시 규제가 강화됩니다. 이는 주가 왜곡을 차단하고 기업의 실질가치를 반영하며, 이사회 검토 및 외부평가 의무화, 계열회사 간 거래 시 특별이해관계 공시를 통해 절차적 공정성과 투명성을 높이는 것이 핵심입니다. 상장회사는 강화된 감독당국의 심사 및 소수주주 분쟁 위험 확대에 대비하여 면밀한 대응과 준비가 필요합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-04T15:15:07.341Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "AI 특례를 신설하는 개인정보 보호법 개정안 국회 본회의 통과",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=35475&sch_section=4",
+      "publishedAt": "2026-08-20T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "개인정보 보호법 개정안이 국회 본회의를 통과하여 인공지능(AI) 기술 개발 및 성능 개선을 위해 개인정보보호위원회의 심의·의결을 거쳐 기존에 적법하게 수집한 개인정보를 수집 목적 외로 이용할 수 있는 특례 조항이 신설되었습니다. 이는 인공지능 기술 및 서비스 개발을 추진하는 기업과 개인정보처리자에게 직접적인 영향을 미칩니다. 기업들은 특례 적용을 위한 익명·가명 처리의 어려움, 안전장치 마련, 공공의 이익 증진 등 요건을 충족하고 위원회의 심의·의결을 거쳐야 하며, 향후 시행령에 규정될 구체적인 안전장치 기준과 위험요인 평가 대상 등을 면밀히 검토하여 특례 활용을 모색해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-04T15:15:07.341Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "특정금융정보법 시행령 개정안 시행에 따른 시사점",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=35482&sch_section=4",
+      "publishedAt": "2026-08-19T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "금융감독당국은 2026년 8월 11일 특정금융정보법 시행령 개정안이 국무회의에서 의결되었음을 밝혔습니다. 이 개정안은 가상자산사업자의 신고제 및 가상자산 이전거래 관련 자금세탁방지의무를 강화하고, 고객확인 방법 및 대상을 명확히 합니다. 가상자산사업자 및 전자금융업자는 강화된 신고 의무, 자금세탁방지 의무 및 고객확인 절차 변경에 대비하여 관련 규정을 숙지하고 내부 시스템을 정비해야 합니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-04T15:15:07.341Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "지속가능성 공시 의무화를 위한 자본시장법 개정안 발의",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=35449&sch_section=4",
+      "publishedAt": "2026-08-09T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "한정애 의원 등 22인이 발의한 자본시장법 개정안은 ESG 공시 제도화 방안의 후속 입법으로, 2028년부터 연결자산총액 10조원 이상 코스피 상장사에 지속가능성 공시를 의무화합니다. 이 개정안은 지속가능성 정보를 사업보고서 직접 기재사항으로 규정하고 담당 이사의 책임, 면책 범위, 인증기관 규제 등을 구체화했습니다. 기업들은 공시 데이터의 근거 마련, 부서 간 협업 체계 구축, 다양한 채널의 정보 정합성 점검 및 다른 법제에 따른 책임 가능성에 유의해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-04T15:15:07.341Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "상장의무를 수단채무로 본 판례",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2316",
+      "publishedAt": "2026-08-31T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "대법원이 주주간 계약상 상장의무 위반 시 위약벌 청구를 기각한 원심을 유지했습니다. 핵심은 상장의무가 반드시 상장을 실현해야 하는 결과채무가 아니라, 상장을 위해 노력할 의무를 다하는 수단채무로 해석될 수 있다는 점입니다. 따라서 상장 실패 자체만으로는 위약벌 지급 의무가 발생하지 않으며, 대주주의 귀책사유가 입증되어야 합니다. 향후 계약 시 상장 미완료에 대한 책임을 명확히 규정할 필요가 있습니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash-lite",
+      "summarizedAt": "2026-09-04T15:15:07.341Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "“영업이익 N% 경영성과급 요구, 교섭 및 노동쟁의 대상 아니다”",
+      "url": "https://yoonyang.com/kor/insights/newsletter/15075",
+      "language": "ko",
+      "summary_ko": "고용노동부가 발표한 '경영성과급 등 노동쟁의 대상 시행지침'은 기업 이익과 연동된 경영성과급 요구 및 사업경영상 결정 자체는 노동조합법상 의무적 교섭 대상이 아니라는 판단 기준을 구체화했습니다. 다만, 경영성과급 지급 여부 및 기준이 근로조건에 해당하면 원칙적으로 교섭 대상이 될 수 있으나, 기업의 영업 자유나 제3자 권익을 본질적으로 제약하는 요구는 제외됩니다. 사업경영상 결정은 근로조건 변동 가능성만 있는 초기 단계에서는 교섭 대상이 아니지만, 구체화되어 객관적으로 예상되는 단계부터는 교섭 대상이 될 수 있습니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash-lite",
+      "summarizedAt": "2026-09-04T15:15:07.341Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "The Growth Rocketship: Hercules Backs Tech, Life Sciences",
+      "url": "https://lw.com/en/insights/the-growth-rocketship-hercules-backs-tech-life-sciences",
+      "language": "en",
+      "summary_ko": "Latham 펌은 Hercules Capital의 CEO와 함께 벤처 부채, 성장 대출, 그리고 기술 및 생명 과학 기업에 영향을 미치는 시장 동력에 대한 팟캐스트를 진행했습니다. 이 에피소드에서는 Hercules Capital의 투자 접근 방식, 현재 시장에서 벤처 부채의 역할, 그리고 AI가 기술 및 생명 과학 시장의 미래를 어떻게 형성할지에 대해 심층적으로 논의합니다. 이는 고성장 벤처 캐피탈 지원 기술 및 생명 과학 기업과 관련 투자자들에게 중요한 시사점을 제공하며, 법률 전문가들은 이러한 금융 동향과 AI의 영향을 이해하여 자문 전략을 수립할 필요가 있습니다.",
+      "summaryConfidence": "medium",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-04T15:15:07.341Z"
     }
   ]
 }
