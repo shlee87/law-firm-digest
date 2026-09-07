@@ -183,6 +183,38 @@
       "summaryConfidence": "medium",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-09-04T15:15:07.341Z"
+    },
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 31 August – 04 September 2026",
+      "url": "https://cliffordchance.com/briefings/2026/09/international-regulatory-update-31-august-04-september-2026.html",
+      "publishedAt": "2026-09-07T11:06:46.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 31 August – 04 September 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-07T16:43:46.262Z"
+    },
+    {
+      "firmId": "bkl",
+      "title": "태평양, ‘제약 특허법 중요 쟁점’ 세미나 성료",
+      "url": "https://bkl.co.kr/law/insight/informationView.do?infoNo=6575&lang=ko",
+      "publishedAt": "2026-09-06T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "법무법인 태평양은 제약 특허법 중요 쟁점 세미나를 개최하여 스키니 라벨, 의약용도발명 특허 침해, 반제품 수출에 따른 간접침해 등 주요 특허 현안을 논의했습니다. 특히 미국 연방대법원 판결을 중심으로 한 스키니 라벨 및 의약용도발명 침해 법리와 개정 특허법상 부품·중간품 수출의 간접침해 여부가 다뤄졌습니다. 제약·바이오 업계 기업 실무자, 제네릭 개발사, 반제품 수출 기업 등이 주요 영향을 받으며, 제네릭 의약품 시장 진입과 의약용도발명의 적정 보호 범위, 유도침해 법리의 국내 적용 방안, 그리고 특허법 개정 방향에 대한 실무적 이해와 대응이 중요합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-07T16:43:46.262Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "3대 메가프로젝트, 실행 단계 진입",
+      "url": "https://yoonyang.com/kor/insights/newsletter/15076",
+      "language": "ko",
+      "summary_ko": "정부의 반도체, 피지컬 AI, AI 데이터센터 3대 메가프로젝트 추진에 따라 환경·기후영향평가 소송, 전력계통 접속, 인허가 신속화, 토지수용·보상, 로봇 공공구매 계약·제재 등 다양한 법적 쟁점이 부각되고 있습니다. 이 프로젝트에 참여하는 기업 및 투자자들은 인허가 신속화가 절차 면제를 의미하지 않음을 전제로 환경, 전력, 보상, 조달 리스크를 개별 사업 단위로 면밀히 점검해야 합니다. 특히 환경영향평가 시 데이터의 실질적 수준을 유지하고, 전력계통 접속 가능 시점을 투자 판단의 선행 조건으로 삼으며, 로봇 공공구매 계약 시 실증 실패 가능성과 고의·부정행위를 명확히 구분하여 체계적인 기록 관리가 중요합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-07T16:43:46.262Z"
     }
   ]
 }
