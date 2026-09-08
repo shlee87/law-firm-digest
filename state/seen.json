@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-09-07T18:10:16.742Z",
+  "lastUpdated": "2026-09-08T15:29:56.900Z",
   "firms": {
     "cooley": {
       "urls": [
@@ -385,6 +385,7 @@
     },
     "yoon-yang": {
       "urls": [
+        "https://yoonyang.com/kor/insights/newsletter/15079",
         "https://yoonyang.com/kor/insights/newsletter/15076",
         "https://yoonyang.com/kor/insights/newsletter/15075",
         "https://yoonyang.com/kor/insights/newsletter/15074",
