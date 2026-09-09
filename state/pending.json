@@ -1,5 +1,59 @@
 {
   "version": 1,
   "windowStart": "2026-09-07T18:10:16.741Z",
-  "items": []
+  "items": [
+    {
+      "firmId": "skadden",
+      "title": "SEC Proposes Rescission of Investment Adviser Pay-to-Play Rule",
+      "url": "https://skadden.com/insights/publications/2026/09/sec-proposes-rescission-of-investment-adviser",
+      "publishedAt": "2026-09-04T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "미국 증권거래위원회(SEC)는 투자자문사의 '페이-투-플레이(Pay-to-Play)' 규정인 Rule 206(4)-5를 전면 폐지하는 안을 제안했습니다. 이 규정은 특정 정치 기부금 및 주·지방 정부 투자자 유치를 위한 배치 에이전트 사용을 제한해왔으며, 사소한 위반에도 2년간 보수 수령 금지라는 엄격한 제재를 부과해왔습니다. 이번 폐지안은 특히 주·지방 정부 투자자를 대상으로 하는 투자자문사들에게 큰 영향을 미칠 것으로 예상됩니다. 투자자문사들은 현재 진행 중인 공개 의견 수렴 기간(연방 관보 게재 후 60일)에 적극 참여하고, 규정 폐지 시 페이-투-플레이 위험을 관리하기 위한 내부 정책 및 절차를 재검토해야 할 것입니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-09T15:24:46.127Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "Union Formation and Disputes Waits for No Employer",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2321",
+      "publishedAt": "2026-09-08T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "고용노동부는 2026년 9월 3일 개정 노동조합 및 노동관계조정법(노동쟁의법)상 '노동쟁의' 범위에 대한 새로운 가이드라인을 발표했습니다. 이 가이드라인은 회사 이익에 직접 연동된 성과급 요구와 근로조건에 대한 영향이 추상적인 경영상 결정은 원칙적으로 노동쟁의 범위에 포함되지 않는다고 명확히 했습니다. 이에 따라 기업은 해당 사항에 대한 단체교섭을 거부하더라도 부당노동행위가 아니며, 노동조합의 쟁의행위는 위법으로 판단될 수 있습니다. 다만, 가이드라인의 법적 근거 및 다른 형태의 성과급 요구 가능성 등 불확실성이 남아있어 기업은 관련 동향을 지속적으로 주시해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-09T15:24:46.127Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "고용노동부, 「경영성과급 등 노동쟁의 대상 시행지침」 발표",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2317",
+      "publishedAt": "2026-09-03T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "고용노동부는 2026년 9월 3일 「경영성과급 등 노동쟁의 대상 시행지침」을 발표하여 노동조합법상 노동쟁의 대상인 '경영성과급' 및 '근로조건에 영향을 미치는 사업경영상의 결정'의 범위를 구체화했습니다. 이 지침은 기업이익과 연동되는 경영성과급 및 근로조건 변동 가능성만 있는 사업경영상의 결정을 의무적 교섭 대상에서 제외하여 기업과 노동조합 간의 단체교섭 및 쟁의행위의 준거를 제시합니다. 기업은 단체교섭 및 쟁의행위 대응 시 이를 활용할 수 있으나, 지침의 해석 여지 및 법령 위임 범위 초과 논란 등으로 현장 혼란이 지속될 가능성이 있어 지속적인 주의와 법률적 검토가 필요합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-09T15:24:46.127Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "금융위원회 「토큰증권 정책방향」의 주요 내용과 시사점",
+      "url": "https://yoonyang.com/kor/insights/newsletter/15082",
+      "language": "ko",
+      "summary_ko": "금융위원회는 「토큰증권 정책방향」을 발표하며 토큰증권을 분산원장 기반의 증권 발행·유통 형태로 정의하고, 2027년 2월부터 비상장주식, 사모사채 등을 중심으로 단계적 토큰화를 추진합니다. 이는 조각투자를 넘어 기존 증권 및 다양한 실물연계자산까지 포괄하는 디지털 자본시장 인프라 구축을 목표로 합니다. 관련 사업자는 인가·등록, 상품구조, 투자자 보호 및 시스템 요건 변화를 점검하고, 특히 즉시 시행되는 비금전신탁 수익증권 발행 모범규준을 반영하여 사업모델과 인프라를 정비해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-09T15:24:46.127Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Recent Developments for UK PLCs — September 2026",
+      "url": "https://lw.com/en/insights/recent-developments-for-uk-plcs-september-2026",
+      "language": "en",
+      "summary_ko": "영국 금융감독청(FCA)은 규제 발표를 마케팅 수단으로 활용하는 관행을 단속하고 내부자 정보 지연 공개에 대한 일관성 없는 처리 방식에 경고를 보냈다. 이에 따라 영국 상장 기업들은 규제 발표 시 마케팅성 내용을 배제하고, 내부자 정보는 사례별로 정확히 평가하며 지연 요건을 지속적으로 재검토해야 한다. 한편, 런던 증권 거래소(LSE)는 AIM 시장 활성화를 위해 M&A, 특수관계인 거래 및 기업 지배구조 관련 규칙을 포함한 주요 개혁을 시행했다. 이로써 영국 상장 기업들은 규제 준수 시스템을 강화하고 IPO 및 상장 관련 절차 변화에 유의해야 할 것이다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-09T15:24:46.127Z"
+    }
+  ]
 }

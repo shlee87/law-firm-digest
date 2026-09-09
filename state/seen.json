@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-09-08T15:29:56.900Z",
+  "lastUpdated": "2026-09-09T15:26:56.768Z",
   "firms": {
     "cooley": {
       "urls": [
@@ -233,6 +233,7 @@
     },
     "skadden": {
       "urls": [
+        "https://skadden.com/insights/publications/2026/09/sec-proposes-rescission-of-investment-adviser",
         "https://skadden.com/insights/publications/2026/09/get-ready-reporting-faqs-and-checklist",
         "https://skadden.com/insights/publications/2026/09/uk-capital-markets-reform-where-are-we-now",
         "https://skadden.com/insights/publications/2026/08/ftc-proposes-enforcement-policy-statement-on-personalized-pricing",
@@ -321,11 +322,13 @@
         "https://skadden.com/insights/publications/2026/04/federal-ai-policy-threatens-state-ai-laws",
         "https://skadden.com/insights/publications/2026/04/should-boards-be-wary-of-informal-settlements"
       ],
-      "lastNewAt": "2026-09-03T04:00:00.000Z",
+      "lastNewAt": "2026-09-04T04:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "lee-ko": {
       "urls": [
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2321",
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2317",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2316",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2315",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2314",
@@ -380,11 +383,12 @@
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2265",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2264"
       ],
-      "lastNewAt": "2026-08-31T15:00:00.000Z",
+      "lastNewAt": "2026-09-08T15:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "yoon-yang": {
       "urls": [
+        "https://yoonyang.com/kor/insights/newsletter/15082",
         "https://yoonyang.com/kor/insights/newsletter/15079",
         "https://yoonyang.com/kor/insights/newsletter/15076",
         "https://yoonyang.com/kor/insights/newsletter/15075",
@@ -470,7 +474,7 @@
         "https://yoonyang.com/kor/insights/newsletter/14711",
         "https://yoonyang.com/kor/insights/newsletter/14709"
       ],
-      "lastNewAt": "2026-09-07T16:45:43.368Z",
+      "lastNewAt": "2026-09-09T15:26:56.768Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "barun": {
@@ -502,6 +506,8 @@
     },
     "latham": {
       "urls": [
+        "https://lw.com/en/insights/recent-developments-for-uk-plcs-september-2026",
+        "https://lw.com/en/insights/healthcare-life-sciences-drug-pricing-digest-number-80",
         "https://lathamreg.com/2026/09/irs-proposal-would-tie-tax-exempt-status-to-expanded-racial-nondiscrimination-policies-in-private-schools",
         "https://lathamreg.com/2026/09/irs-proposal-would-tie-tax-exempt-status-to-expanded-racial-nondiscrimination-policies-in-private-schools",
         "https://lw.com/en/insights/the-growth-rocketship-hercules-backs-tech-life-sciences",
@@ -660,7 +666,7 @@
         "https://lathamreg.com/2026/03/ftc-reverts-to-old-hsr-form-after-fifth-circuit-denial-of-ftc-stay-motion",
         "https://globalfinregblog.com/2026/03/financial-ombudsman-service-reset-key-reforms-on-the-horizon"
       ],
-      "lastNewAt": "2026-09-04T15:17:04.599Z",
+      "lastNewAt": "2026-09-09T15:26:56.768Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "kim-chang": {
