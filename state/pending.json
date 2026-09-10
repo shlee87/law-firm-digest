@@ -54,6 +54,58 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-09-09T15:24:46.127Z"
+    },
+    {
+      "firmId": "cooley",
+      "title": "Keeping Your Equity Is Borrowing Money A Better Option",
+      "url": "https://cooleygo.com/keeping-your-equity-is-borrowing-money-a-better-option",
+      "publishedAt": "2026-09-10T05:47:40.000Z",
+      "language": "en",
+      "summary_ko": "이 글은 기업 성장을 위한 자금 조달 시 지분 희석을 줄일 수 있는 부채 조달의 전략적 활용 방안과 관련 법적 고려사항을 다룹니다. 특히 스타트업 및 성장 기업들이 운전자본, 설비 구매, 또는 성장 자본을 확보할 때 영향을 받습니다. 기업들은 경험 많은 대출 기관을 신중하게 선택하고, 이자율, 수수료, 상환 일정, 워런트를 통한 희석, 보고 의무, 그리고 자산 담보 설정 등 대출 조건을 철저히 검토해야 합니다. 변호사의 도움을 받아 대출 기관을 소개받고, 복잡한 계약 문서를 구조화하며 핵심 조항을 파악하는 것이 중요합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-10T15:19:21.426Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "역외 토큰증권에 관한 금융당국 법령해석",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2318",
+      "publishedAt": "2026-09-06T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "금융당국은 국내 MMF를 기초자산으로 하는 역외 토큰증권 발행 및 이에 수반되는 국내 금융투자상품 판매가 전자증권법 적용 대상이 아니라는 법령해석을 회신했습니다. 이는 토큰증권 발행이 국외에서 이루어지고 국내 투자자에게 재판매되지 않는다는 전제 하에, 국내 금융투자업자가 역외기관투자자에게 MMF를 판매하는 행위도 전자증권법 위반으로 보기 어렵다는 내용입니다. 이번 해석은 국내 금융상품을 기초자산으로 한 역외 토큰증권 발행의 법적 불확실성을 해소하고 해외기관투자자의 국내 금융투자상품 투자 수요를 확대할 것으로 기대됩니다. 다만, 국내 거주자 재판매 또는 국내 금융투자업자와 역외기관투자자의 실질적 동일인 여부에 따라 해석이 달라질 수 있으며, 고객확인 및 외국환거래법 등 별도 규제 준수가 필요합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-10T15:19:21.426Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Decoding the Risk Retention Sponsor Definition: A Practical Guide to Identifying the Sponsor Under the US Credit Risk Retention Rules",
+      "url": "https://lw.com/en/admin/upload/SiteAttachments/Decoding-the-Risk-Retention-Sponsor-Definition.pdf",
+      "language": "en",
+      "summary_ko": "Decoding the Risk Retention Sponsor Definition: A Practical Guide to Identifying the Sponsor Under the US Credit Risk Retention Rules",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-09-10T15:19:21.426Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "EU Empowering Consumers Directive: New Rules on Green Claims Apply From 27 September 2026",
+      "url": "https://lw.com/en/insights/eu-empowering-consumers-directive-new-rules-on-green-claims-apply-from-27-september-2026",
+      "language": "en",
+      "summary_ko": "EU의 '녹색 전환을 위한 소비자 역량 강화 지침(ECGT)'이 2026년 9월 27일부터 발효되며, 기존 불공정 상업 관행 지침(UCPD) 및 소비자 권리 지침(CRD)을 개정합니다. 이 지침은 기업-소비자(B2C) 커뮤니케이션에서 모호하거나 입증되지 않은 환경 관련 주장(그린워싱)을 금지하고, 지속가능성 라벨에 대한 엄격한 요건을 부과합니다. EU 소비자에게 제품을 판매하는 모든 기업(EU 외 기업 포함)과 녹색 대출, ESG 펀드 등 소비자 대상 금융 상품을 제공하는 금융 기관이 영향을 받습니다. 기업들은 2026년 9월 27일부터 기존 제품을 포함한 모든 B2C 환경 주장이 새로운 규정을 준수하도록 해야 하며, 각 회원국의 법률 이행 상황을 면밀히 모니터링하고 필요시 기존 재고에 대한 시정 조치를 취해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-10T15:19:21.426Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Financial Regulation: July 2026 Edition",
+      "url": "https://sites.lwcommunicate.com/38/17768/landing-pages/rsvp-form-(blank-generic).asp",
+      "language": "en",
+      "summary_ko": "Financial Regulation: July 2026 Edition",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-09-10T15:19:21.426Z"
     }
   ]
 }
