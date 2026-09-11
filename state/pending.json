@@ -106,6 +106,28 @@
       "summaryConfidence": "low",
       "summaryModel": "skipped",
       "summarizedAt": "2026-09-10T15:19:21.426Z"
+    },
+    {
+      "firmId": "bkl",
+      "title": "태평양·개인정보보호법학회, 개인정보보호법상 동의의결제도 도입 세미나 개최",
+      "url": "https://bkl.co.kr/law/insight/informationView.do?infoNo=6577&lang=ko",
+      "publishedAt": "2026-09-10T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "개인정보보호법상 동의의결제도 도입을 위한 세미나가 개최되어, 개인정보 침해에 대한 협력적 집행모델 모색 및 실효적 피해구제와 규제 불확실성 해소 방안이 논의되었습니다. 개인정보를 취급하는 기업, 정부기관 및 관련 학계 전문가들이 이 제도의 도입과 운영에 직접적인 영향을 받게 됩니다. 기업들은 개인정보 침해 발생 시 신속한 피해 회복 및 예측 가능한 법 집행을 위한 새로운 협력적 집행체계에 대비하고, 동의의결제도의 적용 범위, 이행 관리, 피해자 참여 절차 등 주요 쟁점을 주시해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-11T15:20:59.271Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "상장법인 합병 등 거래 시 공정가액 산정 기준 도입 등에 관한 개정 자본시장법 공포",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2319",
+      "publishedAt": "2026-09-07T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "개정 자본시장법이 2026년 12월 9일부터 시행되어 상장법인의 합병 등 거래 시 가액 산정 및 주식매수청구권 매수가격 결정 방식을 기준시가에서 공정가액으로 전환하고, 관련 절차 및 공시 의무를 강화합니다. 특히 계열회사 간 거래 시 외부평가기관 선정 및 이해관계 공시 의무가 신설됩니다.이는 합병, 영업 양수도 등 조직개편을 계획하는 상장법인 및 그 계열회사와 주식매수청구권을 행사하는 주주에게 직접적인 영향을 미칩니다.상장법인은 공정가액 산정 방식에 대한 하위규정 개정 내용을 지속적으로 확인하고, 거래 시점 선택 및 가치평가, 외부평가기관 선정, 특수관계인 이해관계 조사, 공시 등 제반 절차를 면밀히 검토하여 반영해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-11T15:20:59.271Z"
     }
   ]
 }
