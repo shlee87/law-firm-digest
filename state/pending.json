@@ -128,6 +128,93 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-09-11T15:20:59.271Z"
+    },
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 18 – 22 March 2024",
+      "url": "https://cliffordchance.com/briefings/2024/03/international-regulatory-update-18---22-march-2024.html",
+      "publishedAt": "2026-09-12T13:00:47.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 18 – 22 March 2024",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-12T14:29:04.187Z"
+    },
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 11 – 15 March 2024",
+      "url": "https://cliffordchance.com/briefings/2024/03/international-regulatory-update-11---15-march-2024.html",
+      "publishedAt": "2026-09-12T13:00:47.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 11 – 15 March 2024",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-12T14:29:04.187Z"
+    },
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 24 – 28 July 2023",
+      "url": "https://cliffordchance.com/briefings/2023/08/international-regulatory-update-24---28-july-2023.html",
+      "publishedAt": "2026-09-12T13:00:47.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 24 – 28 July 2023",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-12T14:29:04.187Z"
+    },
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 26 – 30 September 2022",
+      "url": "https://cliffordchance.com/briefings/2022/10/international-regulatory-update-26---30-september-2022.html",
+      "publishedAt": "2026-09-12T13:00:47.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 26 – 30 September 2022",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-12T14:29:04.187Z"
+    },
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 15 – 19 August 2022",
+      "url": "https://cliffordchance.com/briefings/2022/08/title_international-regulatory-update-15---19-august-2022.html",
+      "publishedAt": "2026-09-12T13:00:47.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 15 – 19 August 2022",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-12T14:29:04.187Z"
+    },
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 4 – 8 July 2022",
+      "url": "https://cliffordchance.com/briefings/2022/07/international-regulatory-update-4---8-july-2022.html",
+      "publishedAt": "2026-09-12T13:00:47.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 4 – 8 July 2022",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-12T14:29:04.187Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "2 ECJ Rulings Give Guidance on Sport Agent Regs",
+      "url": "https://skadden.com/insights/publications/2026/09/2-ecj-rulings-give-guidance",
+      "publishedAt": "2026-09-04T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "유럽사법재판소(ECJ)는 스포츠 협회가 에이전트의 경제 활동(등록, 라이선스, 보수, 고객 유치 등)을 규제할 수 있는지에 대한 두 가지 오랜 분쟁에 대해 판결을 내렸습니다. 이 판결은 유럽연합 기능 조약(TFEU) 제101조 및 제102조를 적용한 분석을 담고 있으며, 비경제적이고 정당한 공익 목적을 통한 규제의 정당화 가능성을 제시합니다. 스포츠 관련 활동을 규제하려는 스포츠 협회는 이번 판결의 실질적인 시사점을 고려해야 합니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-12T14:29:04.187Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "SEC Proposes to Rescind the Political Contribution Rule for Investment Advisers",
+      "url": "https://lw.com/en/insights/sec-proposes-to-rescind-the-political-contribution-rule-for-investment-advisers",
+      "language": "en",
+      "summary_ko": "2026년 9월 11일, 미국 증권거래위원회(SEC)는 투자 자문사에 대한 정치 기여 규칙(소위 'pay-to-play' 규정)을 폐지하는 제안을 발표했습니다. 이 제안은 현재 SEC 등록 투자 자문사, 면제 보고 자문사 및 외국 민간 자문사에 적용되는 엄격한 규제를 원칙 기반 체계로 전환하는 것을 목표로 합니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash-lite",
+      "summarizedAt": "2026-09-12T14:29:04.187Z"
     }
   ]
 }
