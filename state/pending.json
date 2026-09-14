@@ -215,6 +215,17 @@
       "summaryConfidence": "low",
       "summaryModel": "gemini-2.5-flash-lite",
       "summarizedAt": "2026-09-12T14:29:04.187Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "금융위원회의 토큰증권 정책방향 발표",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2322",
+      "publishedAt": "2026-09-08T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "금융위원회는 「토큰증권 정책 방향」을 발표하며 2027년 2월 시행될 개정 전자증권법에 따라 정형증권까지 토큰증권으로 발행·유통하는 인프라를 단계적으로 구축하고, 비금전신탁 수익증권 모범규준 및 분산원장 표준요건 가이드라인을 제시했습니다. 토큰증권 발행인, 증권사, 플랫폼 사업자는 상품 유형에 맞는 인가 단위를 검토하고, 조각투자 상품 설계 시 기초자산 요건 및 투자자 보호 기준을 반영해야 합니다. 특히 장외거래소는 금감원 사전 협의, 발행인 계좌관리기관은 등록 요건 충족, 증권사는 분산원장 연계 시 예탁원 심사 및 기능 테스트에 대비해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-14T17:07:06.006Z"
     }
   ]
 }
