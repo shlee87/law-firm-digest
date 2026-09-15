@@ -1,5 +1,49 @@
 {
   "version": 1,
   "windowStart": "2026-09-14T18:26:57.514Z",
-  "items": []
+  "items": [
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 7 – 11 September 2026",
+      "url": "https://cliffordchance.com/briefings/2026/09/international-regulatory-update-7-11-september-2026.html",
+      "publishedAt": "2026-09-15T10:28:00.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 7 – 11 September 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-15T15:47:05.408Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "Fund Expenses: Differentiating Approaches to Expenses for Japan PE/VC Funds",
+      "url": "https://skadden.com/insights/publications/2026/09/fund-expenses-differentiating-approaches-to-expenses",
+      "publishedAt": "2026-09-15T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "일본 경제산업성이 2025년 6월 일본 모델 유한책임조합계약(LPA)을 개정하여 거래 무산 비용, 중단 비용, 구독 라인 시설 비용 등 펀드 비용 조항을 글로벌 표준에 맞춰 확대했습니다. 이는 일본 사모펀드(PE) 및 벤처캐피탈(VC) 시장으로 유입되는 글로벌 자본 증가에 따라 일본 GP(General Partner)들이 펀드 비용 배분 정책을 글로벌 기준에 맞춰 정비해야 할 필요성을 강조합니다. 과거 미국 증권거래위원회(SEC)의 엄격한 집행 사례들이 보여주듯이, LPA에 명확히 명시되지 않은 비용 청구는 규제 위반 및 평판 손상으로 이어질 수 있으므로, 일본 GP들은 상세한 비용 공개와 철저한 내부 거버넌스 구축을 통해 법적 및 상업적 위험에 대비해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-15T15:47:05.408Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "대규모기업집단 공시의무 위반 과태료 고시 개정안",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2323",
+      "publishedAt": "2026-09-09T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "공정거래위원회는 공시대상기업집단 소속회사의 기업집단현황 및 대규모 내부거래 공시의무 위반에 대한 과태료 부과기준 개정안을 행정예고했습니다. 주요 내용은 반복위반 가중처분 강화, 감경기준 정비, 소규모 회사 과태료 상한 규정 삭제입니다. 이에 따라 공시대상기업집단 소속회사들은 공시의무 위반 시 제재 리스크가 증대되므로, 공시의무 준수체계를 점검하고 반복위반 방지를 위한 재발방지대책을 수립해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-15T15:47:05.408Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "New Requirements Accelerated for UK Consumer Subscription Contracts",
+      "url": "https://lw.com/en/insights/new-requirements-accelerated-for-uk-consumer-subscription-contracts",
+      "language": "en",
+      "summary_ko": "영국 정부가 DMCCA(Digital Markets, Competition and Consumers Act)에 의해 도입된 소비자 구독 계약에 대한 새로운 요건들의 시행 일정을 앞당겼습니다. 이는 영국 내 소비자 구독 서비스를 제공하는 기업들에게 영향을 미칠 것이며, 관련 기업들은 가속화된 규제 준수를 위해 대비해야 합니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-15T15:47:05.408Z"
+    }
+  ]
 }
