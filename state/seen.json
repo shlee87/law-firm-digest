@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-09-15T15:48:58.182Z",
+  "lastUpdated": "2026-09-16T15:40:34.124Z",
   "firms": {
     "cooley": {
       "urls": [
@@ -241,6 +241,9 @@
     },
     "skadden": {
       "urls": [
+        "https://skadden.com/insights/publications/2026/09/the-informed-board/director-interview",
+        "https://skadden.com/insights/publications/2026/09/the-informed-board/a-guide-to-coping-with-divergent-state-ai-regulations",
+        "https://skadden.com/insights/publications/2026/09/the-informed-board/activism-update",
         "https://skadden.com/insights/publications/2026/09/fund-expenses-differentiating-approaches-to-expenses",
         "https://skadden.com/insights/publications/2026/09/occ-and-fdic-finalize-standards",
         "https://skadden.com/insights/publications/2026/09/the-governments-proposals-to-overhaul-the-uk-corporate",
@@ -335,11 +338,12 @@
         "https://skadden.com/insights/publications/2026/04/federal-ai-policy-threatens-state-ai-laws",
         "https://skadden.com/insights/publications/2026/04/should-boards-be-wary-of-informal-settlements"
       ],
-      "lastNewAt": "2026-09-15T04:00:00.000Z",
+      "lastNewAt": "2026-09-01T04:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "lee-ko": {
       "urls": [
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2324",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2323",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2322",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2320",
@@ -401,7 +405,7 @@
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2265",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2264"
       ],
-      "lastNewAt": "2026-09-09T15:00:00.000Z",
+      "lastNewAt": "2026-09-10T15:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "yoon-yang": {
@@ -497,6 +501,7 @@
     },
     "barun": {
       "urls": [
+        "https://barunlaw.com/letter/57769",
         "https://barunlaw.com/letter/57501",
         "https://barunlaw.com/letter/57377",
         "https://barunlaw.com/letter/57341",
@@ -519,11 +524,16 @@
         "https://barunlaw.com/letter/53793",
         "https://barunlaw.com/letter/53473"
       ],
-      "lastNewAt": "2026-08-31T15:00:00.000Z",
+      "lastNewAt": "2026-09-13T15:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "latham": {
       "urls": [
+        "https://lw.com/en/insights/saudi-arabia-new-copyright-regulations-what-ai-companies-should-know",
+        "https://lw.com/en/insights/european-commission-adopts-guidelines-on-exclusionary-conduct-by-dominant-firms",
+        "https://lw.com/en/insights/saudi-arabia-new-copyright-regulations-what-ai-companies-should-know",
+        "https://lw.com/en/insights/ai-regulation-in-apac-diverging-approaches-across-the-region",
+        "https://lw.com/en/insights/ai-regulation-in-apac-diverging-approaches-across-the-region",
         "https://lw.com/en/insights/new-requirements-accelerated-for-uk-consumer-subscription-contracts",
         "https://globalfinregblog.com/2026/09/us-banking-regulators-finalize-rule-on-material-risks",
         "https://lw.com/en/insights/sec-proposes-to-rescind-the-political-contribution-rule-for-investment-advisers",
@@ -691,7 +701,7 @@
         "https://lathamreg.com/2026/03/ftc-reverts-to-old-hsr-form-after-fifth-circuit-denial-of-ftc-stay-motion",
         "https://globalfinregblog.com/2026/03/financial-ombudsman-service-reset-key-reforms-on-the-horizon"
       ],
-      "lastNewAt": "2026-09-15T15:48:58.182Z",
+      "lastNewAt": "2026-09-16T15:40:34.124Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "kim-chang": {
