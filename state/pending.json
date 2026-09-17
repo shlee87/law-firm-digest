@@ -107,6 +107,38 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-09-16T15:38:38.949Z"
+    },
+    {
+      "firmId": "bkl",
+      "title": "법무법인 태평양, 제39회 LAWASIA 서울 총회 통해 글로벌 법조 네트워크 강화",
+      "url": "https://bkl.co.kr/law/insight/informationView.do?infoNo=6584&lang=ko",
+      "publishedAt": "2026-09-16T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "법무법인 태평양, 제39회 LAWASIA 서울 총회 통해 글로벌 법조 네트워크 강화",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-17T15:44:46.036Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "2026. 9. 11. 「개인정보 보호법」 개정법 시행",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2326",
+      "publishedAt": "2026-09-13T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "2026년 9월 11일 시행된 개정 개인정보보호법 및 시행령은 개인정보보호책임자(CPO)의 권한 강화, 개인정보 유출 가능성 통지 의무 구체화, 개인정보보호 투자 시 과징금 감경 및 과태료 부과 기준 상향 등을 주요 내용으로 합니다. 모든 개인정보처리자는 CPO 지정·신고, 유출 가능성 통지 대응 체계를 정비하고 개인정보보호 투자를 확대해야 합니다. 이는 법규 위반을 예방하고 위반 시 과징금 감경 혜택을 확보하는 데 중요합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-17T15:44:46.036Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "개인정보 사고, ‘평소 투자’가 과징금을 가른다",
+      "url": "https://yoonyang.com/kor/insights/newsletter/15107",
+      "language": "ko",
+      "summary_ko": "개정 「개인정보 보호법」 시행으로 개인정보 침해 시 과징금 상한이 상향되었으나, '투자감경' 제도가 신설되어 평소 개인정보 보호에 투자하고 체계를 운영한 기업은 과징금의 최대 40%를 감경받을 수 있습니다. 이는 사고 후 대응뿐 아니라 사고 전 투자 및 관리체계를 입증 가능한 기록으로 남기는 것이 중요함을 시사합니다. 기업은 최근 3개 사업연도 투자 증빙 패키지 구축, 경영진 책임 이행 문서화, CPO 체계 실질화, 강화된 안전조치 및 고의·중과실 리스크 관리를 통해 과징금 리스크를 선제적으로 관리해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-17T15:44:46.036Z"
     }
   ]
 }

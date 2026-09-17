@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-09-16T15:40:34.124Z",
+  "lastUpdated": "2026-09-17T15:46:38.911Z",
   "firms": {
     "cooley": {
       "urls": [
@@ -343,6 +343,8 @@
     },
     "lee-ko": {
       "urls": [
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2326",
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2325",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2324",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2323",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2322",
@@ -405,11 +407,12 @@
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2265",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2264"
       ],
-      "lastNewAt": "2026-09-10T15:00:00.000Z",
+      "lastNewAt": "2026-09-13T15:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "yoon-yang": {
       "urls": [
+        "https://yoonyang.com/kor/insights/newsletter/15107",
         "https://yoonyang.com/kor/insights/newsletter/15082",
         "https://yoonyang.com/kor/insights/newsletter/15079",
         "https://yoonyang.com/kor/insights/newsletter/15076",
@@ -496,7 +499,7 @@
         "https://yoonyang.com/kor/insights/newsletter/14711",
         "https://yoonyang.com/kor/insights/newsletter/14709"
       ],
-      "lastNewAt": "2026-09-09T15:26:56.768Z",
+      "lastNewAt": "2026-09-17T15:46:38.911Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "barun": {
@@ -757,6 +760,7 @@
     },
     "bkl": {
       "urls": [
+        "https://bkl.co.kr/law/insight/informationView.do?infoNo=6584&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6580&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6579&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6577&lang=ko",
@@ -790,7 +794,7 @@
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6529&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6526&lang=ko"
       ],
-      "lastNewAt": "2026-09-10T15:00:00.000Z",
+      "lastNewAt": "2026-09-16T15:00:00.000Z",
       "enabledAt": "2026-04-23T12:22:12.249Z"
     }
   }
