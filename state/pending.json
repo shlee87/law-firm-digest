@@ -139,6 +139,69 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-09-17T15:44:46.036Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "US Federal Banking Agencies Propose Revised Third-Party Risk Management Guidance",
+      "url": "https://skadden.com/insights/publications/2026/09/us-federal-banking-agencies-propose-revised-third-party",
+      "publishedAt": "2026-09-17T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "미국 연방 은행 기관들이 제3자 위험 관리(TPRM)에 대한 새로운 기관 간 지침을 제안했습니다. 이는 2023년 지침을 폐지하고 대체하며, 기존의 규범적 접근 방식에서 벗어나 각 제3자 관계가 실제로 초래하는 위험의 규모와 가능성에 중점을 둔 유연한 위험 기반 접근 방식을 채택합니다. 이 제안은 미국 내 은행 및 기타 금융 기관, 특히 커뮤니티 은행과 이들의 제3자 서비스 제공업체에 영향을 미칩니다. 기관들은 현재의 벤더 위험 분류를 재평가하고, 위험 수준에 따라 실사, 계약 협상 및 지속적인 모니터링을 맞춤화할 수 있으며, 합리적인 은행의 판단이 존중될 것입니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-18T15:17:38.944Z"
+    },
+    {
+      "firmId": "bkl",
+      "title": "태평양, 아시아 리걸 어워즈 2026 ‘올해의 분쟁해결 로펌’ 수상",
+      "url": "https://bkl.co.kr/law/insight/informationView.do?infoNo=6586&lang=ko",
+      "publishedAt": "2026-09-17T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "태평양, 아시아 리걸 어워즈 2026 ‘올해의 분쟁해결 로펌’ 수상",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-09-18T15:17:38.944Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "『광장 국제통상연구원』 EU 배터리 규정 최근 동향과 대응 과제: 배터리 여권과 기업 리스크 점검 - Issue Brief, 2026",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2327",
+      "publishedAt": "2026-09-14T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "EU 배터리규정에 따라 2027년 2월부터 전기차, 경형 이동수단, 산업용 배터리에 '배터리 여권'이 의무화되며, EU 집행위가 데이터 항목 가이드라인을 발표했습니다. 이는 EU 시장에 배터리를 출시하는 제조사 및 소재 기업에 적용되며, 여권 정보 부실 기재는 시장 접근 차단은 물론, 2026년 12월 시행되는 EU 신제조물책임지침에 따라 사고 발생 시 결함 추정의 근거가 되어 막대한 제조물책임 리스크로 이어질 수 있습니다. 따라서 기업들은 배터리 여권 데이터 관리체계 정비, 공급망 내 데이터 표준화 및 검증 시스템 구축, 공급계약 재정비, 사고 대응 매뉴얼 마련을 통해 잠재적 제조물책임 분쟁에 철저히 대비해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-18T15:17:38.944Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "개인정보보호위원회, 「개인정보 유출등 대응 안내서」 공개",
+      "url": "https://yoonyang.com/kor/insights/newsletter/15114",
+      "language": "ko",
+      "summary_ko": "개인정보보호위원회는 개정 「개인정보 보호법」 제34조를 반영한 「개인정보 유출등 대응 안내서」를 공개했습니다. 핵심은 유출 확정 전에도 72시간 이내 통지 의무를 부과하는 '유출등 가능성 통지' 제도 신설 및 통지 항목 확대입니다. 개인정보처리자는 개정 기준에 맞춰 대응 매뉴얼과 보고체계를 재점검하고, 인지 시점 및 대응 경과를 객관적 자료로 소명할 수 있는 증거 기반 인지·분석 체계를 구축해야 합니다. 특히 랜섬웨어 등 복구불능 훼손도 통지·신고 대상임을 유의해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-18T15:17:38.944Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "The Growth Rocketship: Brave Capital, Defense Tech, Decisive Technologies",
+      "url": "https://lw.com/en/insights/the-growth-rocketship-brave-capital-defense-tech-decisive-technologies",
+      "language": "en",
+      "summary_ko": "The Growth Rocketship: Brave Capital, Defense Tech, Decisive Technologies",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-18T15:17:38.944Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "SEC Proposes Modernizing Transfer Agent Infrastructure, Including Framework for Tokenized Securities",
+      "url": "https://fintechanddigitalassets.com/2026/09/sec-proposes-modernizing-transfer-agent-infrastructure-including-framework-for-tokenized-securities",
+      "language": "en",
+      "summary_ko": "미국 증권거래위원회(SEC)는 증권 이전 대리인(transfer agent)의 등록 및 기록 유지 규칙 현대화를 제안했습니다. 이 제안은 분산원장기술(DLT) 및 블록체인 기반 기록 유지를 공식적으로 허용하고, 이전 대리인의 규제 준수, 위험 관리 및 보호 기준을 강화하며, 미등록 거래 처리 전 합리적인 근거를 마련해야 하는 새로운 '게이트키퍼' 의무를 도입합니다. 약 327개의 등록된 이전 대리인과 이들을 고용하는 발행사들이 직접적인 영향을 받으며, 특히 토큰화된 증권을 활용하거나 고려하는 기업들은 블록체인 기반 기록 유지의 공식적인 허용으로 새로운 기회를 얻을 수 있습니다. 이전 대리인들은 기존의 단순한 기록 관리 역할에서 벗어나 훨씬 더 엄격한 규제와 의무를 준수해야 하며, T+1 결제 주기에 맞춰 처리 시간을 단축하고, 기록 보관 기간을 6년으로 연장하며, 발행사와의 서비스 계약을 서면으로 명확히 해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-18T15:17:38.944Z"
     }
   ]
 }
