@@ -202,6 +202,16 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-09-18T15:17:38.944Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "SEC Staff Issues Risk Alert Regarding Investment Adviser Obligations Related to Annual Compliance Reviews",
+      "url": "https://lw.com/en/insights/sec-staff-issues-risk-alert-regarding-investment-adviser-obligations-annual-compliance-reviews",
+      "language": "en",
+      "summary_ko": "2026년 9월 18일, SEC 직원은 투자 자문사의 연례 컴플라이언스 검토 의무(Rule 206(4)-7)와 관련된 위험 경고(Risk Alert)를 발행했습니다. 이 경고는 투자 자문사들에게 직접적인 영향을 미치며, SEC 직원의 연례 컴플라이언스 검토에 대한 지속적인 관심과 최근 검사에서 발견된 반복적인 문제점들을 강조합니다. 따라서 투자 자문사들은 Rule 206(4)-7에 따른 연례 컴플라이언스 검토에 더욱 주의를 기울이고, SEC가 지적한 문제점들을 개선해야 할 것입니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-19T14:55:08.881Z"
     }
   ]
 }
