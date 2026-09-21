@@ -212,6 +212,83 @@
       "summaryConfidence": "low",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-09-19T14:55:08.881Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "경영성과급 등 노동쟁의 대상 시행지침의 주요 내용 및 시사점",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=35574&sch_section=4",
+      "publishedAt": "2026-09-02T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "고용노동부는 개정 노동조합법에 따라 '경영성과급 등 노동쟁의 대상 시행지침'을 발표하여, 경영성과급 및 사업경영상 결정에 대한 단체교섭 및 쟁의행위의 범위를 명확히 했습니다. 특히 기업 이익에 연동하는 방식의 성과급 요구는 의무적 교섭 대상이 아니며, 사업경영상 결정 자체도 교섭 대상이 아니지만 그로 인해 근로조건 변동이 객관적으로 예상될 경우에만 교섭 대상이 됩니다. 이 지침은 기업과 노동조합의 단체교섭 및 쟁의행위 실무에 직접적인 영향을 미치므로, 기업은 지침을 기준으로 교섭에 대응하되 특수한 사정을 고려한 논리를 마련해야 합니다. 노동조합은 쟁의 대상이 아닌 사항을 주된 목적으로 쟁의행위를 할 경우 정당성 문제가 발생할 수 있음을 유의해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-21T17:16:20.282Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "토큰증권 정책방향 발표",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=35593&sch_section=4",
+      "publishedAt": "2026-09-07T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "금융위원회는 민·관 합동 토큰증권 협의체에서 '토큰증권 정책방향'을 발표했습니다. 이는 조각투자를 넘어 주식, 채권, 펀드 등 정형증권의 토큰화까지 포괄하는 모든 증권의 토큰증권 발행 인프라 구축을 목표로 합니다. 다양한 시장 참여자에게 직접적인 영향을 미칠 것으로 예상되므로, 관련 정책 변화에 대한 이해와 대비가 필요합니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-21T17:16:20.282Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "공정위, 공시의무 반복 위반 과태료 가중 강화 및 감경기준 정비",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=35587&sch_section=4",
+      "publishedAt": "2026-09-06T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "공정거래위원회는 공시대상기업집단의 공시의무 위반에 대한 과태료 부과기준 개정안을 행정예고했습니다. 이는 반복 위반 가중 비율을 최대 50%로 상향하고 불합리한 감경기준을 정비하여 제재 실효성을 강화하는 것이 핵심입니다. 이에 따라 공시대상기업집단 소속회사는 공시의무 위반 시 과태료 부담이 크게 증가할 것이므로, 공시 이행 체계를 종합적으로 재점검하고 과거 위반 이력을 확인할 필요가 있습니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-21T17:16:20.282Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "관세청 ‘무역기반 재정·금융범죄(TBFC) 특별수사단’ 출범",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=35571&sch_section=4",
+      "publishedAt": "2026-09-06T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "관세청은 무역을 악용한 재정·금융범죄(TBFC) 단속을 위해 특별수사단을 발족하고, 자본시장 교란, 정책·무역금융 편취, 공공조달 부정납품, 정부 보조금 부정수급 등 4대 유형에 대한 통합 단속체계를 구축했습니다. 수출입 실적 및 원산지 조작을 통해 부당 이득을 취하는 상장기업, 조달계약업체, 보조금 수급업체, 정책금융 지원업체 등이 주요 단속 대상입니다. 특별수사단은 관계기관 정보 연계 분석을 통해 검증 강도를 높이며, 위반 시 관세법 외 자본시장법, 보조금법, 국가계약법 등 다수 법률에 따른 처벌 및 제재가 병과될 수 있으므로, 초기부터 통합적인 법률 전문가의 조력이 필수적입니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-21T17:16:20.282Z"
+    },
+    {
+      "firmId": "kim-chang",
+      "title": "해킹 행위 및 인력 유출 브로커 행위 처벌을 위한 부정경쟁방지법 개정",
+      "url": "https://kimchang.com/ko/insights/detail.kc?idx=35553&sch_section=4",
+      "publishedAt": "2026-08-31T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "부정경쟁방지법 개정안이 통과되어 영업비밀 부정취득 수단에 '해킹'을 명시하고, 영업비밀 침해를 소개·알선·유인하는 브로커 행위를 침해 유형으로 추가하여 처벌을 강화했습니다. 이에 영업비밀 보유 기업은 해킹 및 브로커 개입 유출에 대한 민형사상 대응 수단이 확충되었으며, 경력직 채용 기업은 채용 절차와 영업비밀 컴플라이언스 체계를 점검하여 브로커 행위로 오인될 소지를 방지해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-21T17:16:20.282Z"
+    },
+    {
+      "firmId": "bkl",
+      "title": "법무법인 태평양, ‘ALB Asia M&A Rankings 2026’ Tier 1 선정",
+      "url": "https://bkl.co.kr/law/insight/informationView.do?infoNo=6588&lang=ko",
+      "publishedAt": "2026-09-20T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "법무법인 태평양, ‘ALB Asia M&A Rankings 2026’ Tier 1 선정",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-21T17:16:20.282Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "지식재산권 관련 법률 개정안 국회 통과",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2328",
+      "publishedAt": "2026-09-15T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "국회는 「특허법」 등 산업재산권법 개정안을 의결하여 출원 및 권리 회복 요건을 '고의가 아닌 경우'로 완화하고, 「부정경쟁방지법」 개정으로 해킹 및 기술브로커를 통한 영업비밀 침해 규제를 강화했습니다. 이에 따라 개인 및 중소기업 등 권리자는 비고의적 실수로 상실한 지식재산권의 회복 가능성이 확대되며, 영업비밀 보유 기업은 해킹 및 브로커 개입 유출에 대한 민형사상 대응 수단이 강화됩니다. 기업들은 지식재산권 기한 관리 시 실수에 대한 구제 가능성을 인지하고, 영업비밀 보호를 위해 해킹 및 기술브로커 관련 강화된 법적 조치에 유의해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-21T17:16:20.282Z"
     }
   ]
 }
