@@ -1,5 +1,28 @@
 {
   "version": 1,
   "windowStart": "2026-09-21T18:33:17.779Z",
-  "items": []
+  "items": [
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 14 – 18 September 2026",
+      "url": "https://cliffordchance.com/briefings/2026/09/international-regulatory-update-14-18-september-2026.html",
+      "publishedAt": "2026-09-22T08:52:50.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 14 – 18 September 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-22T15:49:27.081Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "Convergence of Asset Management, Insurance Capital and Strategic M&A: Key Takeaways From the Skadden-PJT Partners Panel Event",
+      "url": "https://skadden.com/insights/publications/2026/09/key-takeaways-convergence-of-asset-management",
+      "publishedAt": "2026-09-21T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "보험 및 자산운용 산업의 융합이 수직 통합 모델에서 소유권, 재보험, 투자 관리 및 제3자 자본 배열을 포함하는 광범위한 생태계로 진화하고 있으며, 단일 지배 구조보다는 다양한 형태가 공존하고 있습니다. 이로 인해 보험사, 자산운용사 등 시장 참여자들은 새로운 상품, 지역 및 자본원을 모색하고 있으며, 특히 사모 신용에 대한 면밀한 조사가 중요하게 다루어졌습니다. 참여자들은 적절한 인수 심사, 자산 선택 및 보험 부채와의 매칭을 강조하며, 복잡해지는 구조 속에서 규제 당국과의 협력, 거버넌스 및 투명성 확보가 더욱 중요해지고 있습니다. 향후 은퇴 시장이 이러한 융합의 중요한 다음 단계가 될 것으로 예상됩니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-22T15:49:27.081Z"
+    }
+  ]
 }
