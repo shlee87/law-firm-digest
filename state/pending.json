@@ -23,6 +23,27 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-09-22T15:49:27.081Z"
+    },
+    {
+      "firmId": "bkl",
+      "title": "태평양, 日 자민당 의원 초청 ‘K-콘텐츠 산업’ 간담회 개최",
+      "url": "https://bkl.co.kr/law/insight/informationView.do?infoNo=6590&lang=ko",
+      "publishedAt": "2026-09-16T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "태평양, 日 자민당 의원 초청 ‘K-콘텐츠 산업’ 간담회 개최",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-09-23T15:39:01.258Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Navigating Synthetic Risk Transfer: An Overview for ABS Investors",
+      "url": "https://lw.com/en/admin/upload/SiteAttachments/Navigating-Synthetic-Risk-Transfer-An-Overview-for-ABS-Investors.pdf",
+      "language": "en",
+      "summary_ko": "Navigating Synthetic Risk Transfer: An Overview for ABS Investors",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-09-23T15:39:01.258Z"
     }
   ]
 }
