@@ -44,6 +44,39 @@
       "summaryConfidence": "low",
       "summaryModel": "skipped",
       "summarizedAt": "2026-09-23T15:39:01.258Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "Biosimilars at an Inflection Point: How Regulatory Reform, a Maturing Patent Framework and a Looming Patent Cliff Are Reshaping M&A",
+      "url": "https://skadden.com/insights/publications/2026/09/insights-september-2026/biosimilars-at-an-inflection-point",
+      "publishedAt": "2026-09-24T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "FDA의 규제 개혁(임상 시험 부담 완화 및 경로 간소화), 성숙해가는 특허 소송 환경, 그리고 2030년까지 2,000억 달러 규모의 브랜드 의약품 특허 만료가 임박한 '특허 절벽'이 바이오시밀러 시장의 M&A 활동을 촉진하고 있습니다. 이러한 변화는 고성장 바이오의약품 분야로 다각화를 모색하는 제네릭 제조업체와 소규모 R&D 중심의 바이오시밀러 개발사들에게 중요한 영향을 미치고 있습니다. 기업들은 규제, 지식재산권, 거래 전략을 통합하고, 규제 및 개발 위험을 줄이며 시장 출시 시간을 단축하기 위해 M&A를 통한 후기 단계 또는 승인된 바이오시밀러 프로그램 확보 기회를 적극적으로 고려해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-24T15:59:55.617Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "Europe’s Defense Drive Recalibrates EU and UK Competition Policy",
+      "url": "https://skadden.com/insights/publications/2026/09/insights-september-2026/europes-defense-drive-recalibrates-eu-and-uk-competition-policy",
+      "publishedAt": "2026-09-24T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "유럽연합(EU)과 영국은 지정학적 긴장 고조에 대응하여 국방 준비 태세와 주권 역량 강화를 위해 경쟁 정책을 재조정하고 있습니다. EU는 국방 준비 옴니버스 및 개정된 합병 가이드라인을 통해 국방 부문 거래 심사 시 안보 목표를 더 폭넓게 고려하며, 영국 역시 국방 투자 계획과 경쟁시장청(CMA) 지침 변경을 통해 국방 산업의 혁신과 규모 확대를 지원합니다. 이에 따라 유럽 국방 부문에 투자하거나 사업을 영위하려는 기업 인수자, 사모펀드, 전략적 투자자들은 합병 통제, 외국 보조금, 외국인 직접 투자(FDI) 및 국가 안보 심사 프레임워크 전반에 걸친 통합적인 접근 방식이 필요하며, 국내 공급 및 역량 유지와 같은 특정 조건과 강화된 심사에 대비해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-24T15:59:55.617Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "Reshaped IRS: Improved Operational Stability, but Taxpayer Service Challenges Remain",
+      "url": "https://skadden.com/insights/publications/2026/09/insights-september-2026/reshaped-irs-improved-operational-stability",
+      "publishedAt": "2026-09-24T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "2026년 미국 국세청(IRS)은 운영 안정화를 위해 조직을 중앙집중화하고, 인공지능 기반의 데이터 중심 단속을 강화하며, 신속합의제도(FTS) 등 대체 분쟁 해결(ADR) 프로그램 활용을 강조하고 있습니다. 이러한 변화로 납세자들은 더욱 정교하고 표적화된 단속에 직면할 것이며, IRS 서비스 센터의 지연은 계속될 것으로 예상됩니다. 따라서 기업들은 IRS 단속 및 행정 절차에 대응하기 위해 조기 개입, 분쟁 해결 도구의 신중한 활용, 그리고 선제적인 사례 개발이 중요합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-24T15:59:55.617Z"
     }
   ]
 }
