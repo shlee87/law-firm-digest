@@ -77,6 +77,16 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-09-24T15:59:55.617Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Saudi Arabia Introduces New Sports Law",
+      "url": "https://lw.com/en/insights/saudi-arabia-introduces-new-sports-law",
+      "language": "en",
+      "summary_ko": "사우디아라비아가 새로운 스포츠법을 도입했습니다. 이 법은 사우디 스포츠 부문에 등록, 라이선스, 거버넌스, 투자 및 분쟁 해결 요건을 도입합니다. 따라서 사우디 스포츠 산업 관련 기업 및 이해관계자들은 새로운 법적 의무와 규제 변화에 주의를 기울여야 할 것입니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-25T16:00:20.090Z"
     }
   ]
 }
