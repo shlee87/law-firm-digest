@@ -87,6 +87,27 @@
       "summaryConfidence": "low",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-09-25T16:00:20.090Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "Can AI Trading Models Commit Insider Trading?",
+      "url": "https://skadden.com/insights/publications/2026/09/can-ai-trading-models-commit-insider-trading",
+      "publishedAt": "2026-09-01T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "Can AI Trading Models Commit Insider Trading?",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-26T15:12:16.183Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Hong Kong Stock Exchange Publishes Phase 2 Consultation Paper on Competitiveness Review of Listing Framework",
+      "url": "https://lw.com/en/insights/hong-kong-stock-exchange-publishes-phase-2-consultation-paper",
+      "language": "en",
+      "summary_ko": "Hong Kong Stock Exchange Publishes Phase 2 Consultation Paper on Competitiveness Review of Listing Framework",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-26T15:12:16.183Z"
     }
   ]
 }
