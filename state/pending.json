@@ -108,6 +108,17 @@
       "summaryConfidence": "low",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-09-26T15:12:16.183Z"
+    },
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 21 – 25 September 2026",
+      "url": "https://cliffordchance.com/briefings/2026/09/international-regulatory-update-21-25-september-2026.html",
+      "publishedAt": "2026-09-28T14:47:15.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 21 – 25 September 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-09-28T18:49:44.644Z"
     }
   ]
 }
