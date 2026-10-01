@@ -66,6 +66,37 @@
       "summaryConfidence": "low",
       "summaryModel": "skipped",
       "summarizedAt": "2026-09-30T17:04:51.016Z"
+    },
+    {
+      "firmId": "bkl",
+      "title": "태평양, 문홍성 전 수원지검장 영입으로 기업형사 대응 역량 강화",
+      "url": "https://bkl.co.kr/law/insight/informationView.do?infoNo=6592&lang=ko",
+      "publishedAt": "2026-09-30T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "태평양, 문홍성 전 수원지검장 영입으로 기업형사 대응 역량 강화",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-01T17:35:25.671Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "2026년 국정감사 이슈",
+      "url": "https://yoonyang.com/kor/insights/newsletter/15143",
+      "language": "ko",
+      "summary_ko": "2026년 국정감사는 중대재해, 하청노조 교섭, 가격담합, 플랫폼 규제, 대기업집단 부당내부거래, 가맹사업 필수품목, 기술탈취, 가계부채 및 부동산PF 등 광범위한 기업 규제 및 금융 건전성 이슈를 다루며, 개별 위법 여부를 넘어 기업의 경영관리 체계와 내부통제 전반을 검증할 예정입니다. 제조업, 플랫폼·유통 기업, 대기업집단, 가맹본부, 원청 및 하청 기업, 금융기관, 건설·부동산 업계 등 전 산업 분야의 기업들이 영향을 받습니다. 기업들은 국정감사 대비를 위해 내부통제, 거래구조, 정책 수혜 성과, 탄소·통상 리스크 대응 등 통합적인 관리 체계를 구축하고, 각 이슈별로 객관적인 자료 보존 및 법률 검토를 강화해야 합니다. 특히 증인 채택 가능성에 대비하고, 위원회별 답변의 일관성을 유지하는 것이 중요합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-01T17:35:25.671Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "DOJ Revises Policy on Use of Guidance and Dismissal Authority in FCA Cases and Announces D.C. USAO Fraud Division",
+      "url": "https://lathamreg.com/2026/09/doj-revises-policy-on-use-of-guidance-and-dismissal-authority-in-fca-cases-and-announces-d-c-usao-fraud-division",
+      "language": "en",
+      "summary_ko": "미국 법무부(DOJ)는 2026년 9월, 법무부 매뉴얼을 개정하여 하위 규제 지침만을 근거로 한 집행 조치를 제한하고, 개입하지 않은 *qui tam* 소송에 대한 기각 권한을 강화했습니다. 또한, D.C. 연방검찰청은 사기 및 자산 회수 전담 부서를 신설하여 연방 정부의 민사 사기 집행 역량을 확대했습니다. 이는 정부와 거래하는 기업들에게 영향을 미치며, False Claims Act(FCA) 관련 조사 및 소송에 대한 노출이 증가할 것으로 예상됩니다. 기업들은 DOJ가 구속력 있는 법적 의무 위반에 집중하고 *qui tam* 소송 기각을 적극적으로 검토할 것이므로, 준법 프로그램과 내부 고발자 대응 프로토콜을 검토하고 강화해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-01T17:35:25.671Z"
     }
   ]
 }
