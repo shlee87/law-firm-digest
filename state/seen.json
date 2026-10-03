@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-10-02T16:56:00.925Z",
+  "lastUpdated": "2026-10-03T15:19:58.705Z",
   "firms": {
     "cooley": {
       "urls": [
@@ -246,6 +246,7 @@
     },
     "skadden": {
       "urls": [
+        "https://skadden.com/insights/publications/2026/10/alaska-airlines-wins-preemption",
         "https://skadden.com/insights/publications/2026/09/navigating-a-key-inflection-point",
         "https://skadden.com/insights/publications/2026/09/retail-industry-leaders-association-encourages-ftc",
         "https://skadden.com/insights/publications/2026/09/can-ai-trading-models-commit-insider-trading",
