@@ -1,9 +1,10 @@
 {
   "version": 1,
-  "lastUpdated": "2026-10-05T21:11:31.354Z",
+  "lastUpdated": "2026-10-06T17:33:52.780Z",
   "firms": {
     "cooley": {
       "urls": [
+        "https://cooleygo.com/cooley-maintains-top-rankings-in-global-ma-and-private-equity",
         "https://cooleygo.com/keeping-your-equity-is-borrowing-money-a-better-option",
         "https://cooleygo.com/q4-2023-vc-update-bobby-yazdani-on-the-state-of-venture-capital-investing",
         "https://cooleygo.com/new-resource-short-term-promissory-note-forms",
@@ -36,10 +37,11 @@
         "https://cooleygo.com/q2-2025-venture-financing-report-interview-with-lily-lyman",
         "https://cooleygo.com/incentive-stock-option-modifications-key-considerations-and-traps-for-the-unwary"
       ],
-      "lastNewAt": "2026-09-10T05:47:40.000Z"
+      "lastNewAt": "2026-10-06T17:14:33.000Z"
     },
     "clifford-chance": {
       "urls": [
+        "https://cliffordchance.com/briefings/2026/10/international-regulatory-update-28-september-2-october-2026.html",
         "https://cliffordchance.com/briefings/2026/09/uk-carbon-border-adjustment-mechanism--cbam----a-primer.html",
         "https://cliffordchance.com/briefings/2026/09/international-regulatory-update-21-25-september-2026.html",
         "https://cliffordchance.com/briefings/2026/09/international-regulatory-update-14-18-september-2026.html",
@@ -129,7 +131,7 @@
         "https://cliffordchance.com/briefings/2025/08/international-regulatory-update-28-july---1-august-2025.html",
         "https://cliffordchance.com/briefings/2025/08/global-quarterly-antitrust-briefing---q2-2025.html"
       ],
-      "lastNewAt": "2026-09-28T14:47:15.000Z",
+      "lastNewAt": "2026-10-06T08:40:06.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "freshfields": {
@@ -246,6 +248,8 @@
     },
     "skadden": {
       "urls": [
+        "https://skadden.com/insights/publications/2026/10/cms-finalizes-the-globe-model",
+        "https://skadden.com/insights/publications/2026/10/skadden-discusses-bank-agencies",
         "https://skadden.com/insights/publications/2026/10/alaska-airlines-wins-preemption",
         "https://skadden.com/insights/publications/2026/09/navigating-a-key-inflection-point",
         "https://skadden.com/insights/publications/2026/09/retail-industry-leaders-association-encourages-ftc",
@@ -359,6 +363,7 @@
     },
     "lee-ko": {
       "urls": [
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2331",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2330",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2329",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2328",
@@ -427,7 +432,7 @@
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2265",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2264"
       ],
-      "lastNewAt": "2026-09-21T15:00:00.000Z",
+      "lastNewAt": "2026-09-30T15:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "yoon-yang": {
@@ -816,6 +821,7 @@
     },
     "bkl": {
       "urls": [
+        "https://bkl.co.kr/law/insight/informationView.do?infoNo=6596&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6594&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6592&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6591&lang=ko",
@@ -857,7 +863,7 @@
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6529&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6526&lang=ko"
       ],
-      "lastNewAt": "2026-10-01T15:00:00.000Z",
+      "lastNewAt": "2026-10-05T15:00:00.000Z",
       "enabledAt": "2026-04-23T12:22:12.249Z"
     }
   }

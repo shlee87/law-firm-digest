@@ -1,5 +1,50 @@
 {
   "version": 1,
   "windowStart": "2026-10-05T21:11:31.352Z",
-  "items": []
+  "items": [
+    {
+      "firmId": "cooley",
+      "title": "Cooley Maintains Top Rankings In Global Ma And Private Equity",
+      "url": "https://cooleygo.com/cooley-maintains-top-rankings-in-global-ma-and-private-equity",
+      "publishedAt": "2026-10-06T17:14:33.000Z",
+      "language": "en",
+      "summary_ko": "Cooley Maintains Top Rankings In Global Ma And Private Equity",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-06T17:29:05.331Z"
+    },
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 28 September – 2 October 2026",
+      "url": "https://cliffordchance.com/briefings/2026/10/international-regulatory-update-28-september-2-october-2026.html",
+      "publishedAt": "2026-10-06T08:40:06.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 28 September – 2 October 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-06T17:29:05.331Z"
+    },
+    {
+      "firmId": "bkl",
+      "title": "태평양, 김종호 전 기술보증기금 이사장 영입으로 기업 규제·금융 자문 역량 강화",
+      "url": "https://bkl.co.kr/law/insight/informationView.do?infoNo=6596&lang=ko",
+      "publishedAt": "2026-10-05T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "법무법인 태평양이 김종호 전 기술보증기금 이사장을 고문으로 영입하며 기업 규제 및 금융 분야 자문 역량을 강화했습니다. 김 고문은 감사원, 대통령비서실, 기술보증기금 등에서의 폭넓은 공직 경험을 바탕으로 기업규제, 금융, 공공기관, 중소벤처·신산업 분야에서 자문을 제공할 예정입니다. 이는 정책 및 규제 변화에 직면한 기업들에게 실질적인 대응 방안을 제시하고, 규제대응 솔루션 및 GR(Government Relations) 분야에서 전문성을 더할 것으로 기대됩니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-06T17:29:05.331Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "반복 담합 억제를 위한 공정위 및 당정 종합대책",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2331",
+      "publishedAt": "2026-09-30T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "공정거래위원회는 반복적인 담합을 억제하고자 입찰참가자격 제한 요청 대상 확대, 자진신고 감면 요건 강화, 그리고 반복담합 사업자 등록 취소·영업정지 제도 도입 및 담합 처분 시효 연장 등을 포함하는 일련의 제도 변경을 추진하고 있습니다. 과거 담합으로 제재받거나 자진신고 이력이 있는 기업을 포함한 모든 사업자가 영향을 받으며, 특히 국민 생활 직결 4대 분야 17개 업종의 기업은 등록 취소·영업정지 위험에 직면할 수 있습니다. 기업들은 강화된 제재에 대비하여 과거 담합 이력에 따른 자진신고 감면 수준 및 입찰참가자격 제한 요청 가능성을 면밀히 검토하고 대응 전략을 수립해야 하며, 근본적으로 컴플라이언스 체계를 강화할 필요가 있습니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-06T17:29:05.331Z"
+    }
+  ]
 }
