@@ -45,6 +45,61 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-10-06T17:29:05.331Z"
+    },
+    {
+      "firmId": "clifford-chance",
+      "title": "Overview of defence-related deals in 2026",
+      "url": "https://cliffordchance.com/briefings/2026/10/overview-of-defence-related-deals-in-2026.html",
+      "publishedAt": "2026-10-07T10:47:00.000Z",
+      "language": "en",
+      "summary_ko": "전 세계 방위 산업은 지정학적 긴장 고조, 드론 및 자율 시스템의 산업화, 인공지능의 군사 역량 통합으로 인해 세대 내 가장 중요한 구조적 변화를 겪고 있습니다. 이러한 변화는 방위 산업 전반의 경쟁 환경, 규제 환경 및 M&A 활동을 재편하고 있습니다. 따라서 방위 산업 관련 기업들은 이러한 변화에 주목하고 관련 M&A 및 규제 동향을 면밀히 주시해야 할 것입니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-07T18:01:19.070Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "The Evolving Antitrust Enforcement Landscape: Key Insights and Practical Takeaways From the 2026 Georgetown and Fordham Antitrust Conferences",
+      "url": "https://skadden.com/insights/publications/2026/10/the-evolving-antitrust-enforcement-landscape",
+      "publishedAt": "2026-10-07T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "2026년 조지타운 및 포덤 국제 반독점 컨퍼런스에서 논의된 주요 내용에 따르면, 전 세계적으로 반독점 규제 집행이 후퇴하지 않고 진화하고 있습니다. 이 컨퍼런스에서는 법무부(DOJ), 연방거래위원회(FTC), 유럽연합 집행위원회 등 주요 규제 기관의 리더들이 참여하여 반독점 집행의 변화하는 양상을 강조했습니다. 특히 FTC 전략, DOJ 집행, 연방-주 간 긴장, 국경 간 합병 복잡성, AI 및 알고리즘 가격 책정, 독점화, 디지털 규제 및 노동 분야의 주요 동향이 논의되었습니다. 기업 및 법률 전문가들은 이러한 변화하는 반독점 환경에 대한 이해를 바탕으로 규제 준수 및 전략 수립에 주의를 기울여야 할 것입니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-07T18:01:19.070Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "UK Public Markets Monitor – Q3 2026",
+      "url": "https://skadden.com/insights/publications/2026/10/uk-public-markets-monitor-q3-2026",
+      "publishedAt": "2026-10-07T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "영국 금융감독청(FCA)은 규제 공시에서 모호하거나 과장된 표현을 지양하고 내부자 정보 지연 공시의 일관성 없는 관행을 개선할 것을 강조했습니다. 또한, 상장 기업에 대한 새로운 지속가능성 공시 의무(준수 또는 설명 방식)를 도입하고, 실무자본 명세서 및 투자설명서 규칙에 대한 지침을 명확히 했습니다. 인수위원회는 인수규정(Takeover Code)의 '공동 행동(acting in concert)' 및 '역인수(reverse takeover)' 정의를 포함한 여러 조항을 명확히 하고 간소화하는 개정안을 제안하여, UK 상장 기업 및 M&A 관련 당사자들에게 중요한 영향을 미칠 것으로 예상됩니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-07T18:01:19.070Z"
+    },
+    {
+      "firmId": "bkl",
+      "title": "태평양, 9년 연속 ‘글로벌 200대 로펌’ 선정",
+      "url": "https://bkl.co.kr/law/insight/informationView.do?infoNo=6598&lang=ko",
+      "publishedAt": "2026-10-06T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "태평양, 9년 연속 ‘글로벌 200대 로펌’ 선정",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-07T18:01:19.070Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "공소청 출범 이후 노동청 수사 절차가 대폭 변경되었습니다",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2333",
+      "publishedAt": "2026-10-01T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "2026년 10월 2일 공소청 출범으로 검사의 특별사법경찰관(노동감독관)에 대한 수사 지휘권이 폐지되고, 노동청이 독자적인 수사 권한을 갖게 되면서 노동 사건 수사 절차에 중대한 변화가 발생했습니다. 노동 사건에 연루될 수 있는 기업 및 관련 당사자들은 새로운 수사 체제에 대한 이해가 필수적입니다. 검사의 사전 지휘 없이 노동청의 독자적 수사가 빨라질 수 있으므로 수사 초기 단계부터 철저한 대응이 중요하며, 노동청 내부 지휘권자에 대한 변론과 제한적 범위 내에서 여전히 영향력을 행사하는 공소청에 대한 변론 전략을 정교하게 수립해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-07T18:01:19.070Z"
     }
   ]
 }
