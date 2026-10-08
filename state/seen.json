@@ -1,9 +1,13 @@
 {
   "version": 1,
-  "lastUpdated": "2026-10-07T18:02:58.645Z",
+  "lastUpdated": "2026-10-08T18:06:54.805Z",
   "firms": {
     "cooley": {
       "urls": [
+        "https://cooleygo.com/corporations-the-basics",
+        "https://cooleygo.com/llc-basics",
+        "https://cooleygo.com/choosing-a-lawyer-for-your-startup",
+        "https://cooleygo.com/s-corporations-the-basics",
         "https://cooleygo.com/cooley-maintains-top-rankings-in-global-ma-and-private-equity",
         "https://cooleygo.com/keeping-your-equity-is-borrowing-money-a-better-option",
         "https://cooleygo.com/q4-2023-vc-update-bobby-yazdani-on-the-state-of-venture-capital-investing",
@@ -37,7 +41,7 @@
         "https://cooleygo.com/q2-2025-venture-financing-report-interview-with-lily-lyman",
         "https://cooleygo.com/incentive-stock-option-modifications-key-considerations-and-traps-for-the-unwary"
       ],
-      "lastNewAt": "2026-10-06T17:14:33.000Z"
+      "lastNewAt": "2026-10-08T16:00:52.000Z"
     },
     "clifford-chance": {
       "urls": [
@@ -366,6 +370,7 @@
     },
     "lee-ko": {
       "urls": [
+        "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2334",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2333",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2332",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2331",
@@ -437,7 +442,7 @@
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2265",
         "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2264"
       ],
-      "lastNewAt": "2026-10-01T15:00:00.000Z",
+      "lastNewAt": "2026-10-02T15:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "yoon-yang": {
@@ -569,6 +574,8 @@
     },
     "latham": {
       "urls": [
+        "https://lw.com/en/insights/recent-developments-for-uk-plcs-october-2026",
+        "https://lw.com/en/insights/key-regulatory-updates-for-hong-kong-listed-companies-july-august-2026",
         "https://globalelr.com/2026/10/texas-pauses-certain-data-center-approvals-amid-grid-water-and-community-concerns",
         "https://lw.com/en/insights/fcc-proposes-uwb-rules-overhaul-that-could-broaden-use-for-drones",
         "https://lw.com/en/insights/healthcare-life-sciences-drug-pricing-digest-number-82",
@@ -765,11 +772,16 @@
         "https://lathamreg.com/2026/03/ftc-reverts-to-old-hsr-form-after-fifth-circuit-denial-of-ftc-stay-motion",
         "https://globalfinregblog.com/2026/03/financial-ombudsman-service-reset-key-reforms-on-the-horizon"
       ],
-      "lastNewAt": "2026-10-02T16:56:00.925Z",
+      "lastNewAt": "2026-10-08T18:06:54.805Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "kim-chang": {
       "urls": [
+        "https://kimchang.com/ko/insights/detail.kc?idx=35719&sch_section=4",
+        "https://kimchang.com/ko/insights/detail.kc?idx=35701&sch_section=4",
+        "https://kimchang.com/ko/insights/detail.kc?idx=35710&sch_section=4",
+        "https://kimchang.com/ko/insights/detail.kc?idx=35694&sch_section=4",
+        "https://kimchang.com/ko/insights/detail.kc?idx=35667&sch_section=4",
         "https://kimchang.com/ko/insights/detail.kc?idx=35574&sch_section=4",
         "https://kimchang.com/ko/insights/detail.kc?idx=35593&sch_section=4",
         "https://kimchang.com/ko/insights/detail.kc?idx=35587&sch_section=4",
@@ -821,11 +833,12 @@
         "https://kimchang.com/ko/insights/detail.kc?idx=34400&sch_section=4",
         "https://kimchang.com/ko/insights/detail.kc?idx=34401&sch_section=4"
       ],
-      "lastNewAt": "2026-09-02T15:00:00.000Z",
+      "lastNewAt": "2026-09-21T15:00:00.000Z",
       "enabledAt": "2026-04-23T12:22:12.249Z"
     },
     "bkl": {
       "urls": [
+        "https://bkl.co.kr/law/insight/informationView.do?infoNo=6600&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6598&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6596&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6594&lang=ko",
