@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-10-08T18:06:54.805Z",
+  "lastUpdated": "2026-10-09T17:38:23.434Z",
   "firms": {
     "cooley": {
       "urls": [
@@ -253,6 +253,8 @@
     },
     "skadden": {
       "urls": [
+        "https://skadden.com/insights/publications/2026/10/are-you-ready-for-a-hong-kong-ipo",
+        "https://skadden.com/insights/publications/2026/10/social-media-meets-financial-regulation",
         "https://skadden.com/insights/publications/2026/10/the-evolving-antitrust-enforcement-landscape",
         "https://skadden.com/insights/publications/2026/10/uk-public-markets-monitor-q3-2026",
         "https://skadden.com/insights/publications/2026/10/cms-finalizes-the-globe-model",
@@ -365,7 +367,7 @@
         "https://skadden.com/insights/publications/2026/04/federal-ai-policy-threatens-state-ai-laws",
         "https://skadden.com/insights/publications/2026/04/should-boards-be-wary-of-informal-settlements"
       ],
-      "lastNewAt": "2026-10-07T04:00:00.000Z",
+      "lastNewAt": "2026-10-01T04:00:00.000Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "lee-ko": {
@@ -574,6 +576,8 @@
     },
     "latham": {
       "urls": [
+        "https://lw.com/en/insights/the-growth-rocketship-deep-research-bold-bets-ai-inside-maverick-capital-portfolios",
+        "https://lw.com/en/insights/fcc-revamps-rules-on-consent-to-calls-and-texts-under-the-tcpa",
         "https://lw.com/en/insights/recent-developments-for-uk-plcs-october-2026",
         "https://lw.com/en/insights/key-regulatory-updates-for-hong-kong-listed-companies-july-august-2026",
         "https://globalelr.com/2026/10/texas-pauses-certain-data-center-approvals-amid-grid-water-and-community-concerns",
@@ -772,7 +776,7 @@
         "https://lathamreg.com/2026/03/ftc-reverts-to-old-hsr-form-after-fifth-circuit-denial-of-ftc-stay-motion",
         "https://globalfinregblog.com/2026/03/financial-ombudsman-service-reset-key-reforms-on-the-horizon"
       ],
-      "lastNewAt": "2026-10-08T18:06:54.805Z",
+      "lastNewAt": "2026-10-09T17:38:23.434Z",
       "enabledAt": "2026-04-22T02:00:49.321Z"
     },
     "kim-chang": {

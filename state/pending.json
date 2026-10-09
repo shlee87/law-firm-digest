@@ -230,6 +230,48 @@
       "summaryConfidence": "low",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-10-08T18:03:24.912Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "Are You Ready for a Hong Kong IPO?",
+      "url": "https://skadden.com/insights/publications/2026/10/are-you-ready-for-a-hong-kong-ipo",
+      "publishedAt": "2026-10-01T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "홍콩은 중국 본토 투자 시장에 대한 독점적 접근을 제공하는 깊고 유동적인 자본 시장을 보유하고 있어, 많은 국제 기업들이 홍콩 IPO를 고려하고 있습니다. 본 요약은 홍콩 IPO를 준비하는 기업들을 위한 주요 쟁점들을 다루며, 다른 IPO 시장의 요건과 차별화되는 특징에 중점을 둡니다. 기업들은 홍콩 상장을 위한 예시적인 타임라인을 포함하여 홍콩 IPO 준비에 필요한 핵심 사항들을 숙지해야 합니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-09T17:36:41.431Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "Social Media Meets Financial Regulation: Finfluencers Under Scrutiny in the EU and UK",
+      "url": "https://skadden.com/insights/publications/2026/10/social-media-meets-financial-regulation",
+      "publishedAt": "2026-10-07T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "EU와 영국에서 금융 인플루언서(핀플루언서)에 대한 규제 감독이 강화되고 있습니다. EU의 소매 투자 전략(RIS) 패키지는 투자 회사 및 보험사가 핀플루언서를 활용한 마케팅 시 서면 계약, 모니터링 의무, 콘텐츠 표준 등 새로운 의무를 부과하며, 핀플루언서 및 마케팅 커뮤니케이션에 대한 명확한 정의를 도입합니다. 이는 MiFID II 및 IDD를 개정하는 것으로, 2029년 중반부터 적용될 예정이며, 영국은 핀플루언서 특정 의무는 없지만 금융감독청(FCA)이 기존 규제 하에서 불법 금융 홍보에 대한 집행을 강화하고 있습니다. 이에 따라 투자 회사와 보험사는 기존 핀플루언서 계약을 검토하고, EU의 새로운 요구사항 및 영국 규제 준수를 위한 거버넌스 프레임워크를 강화해야 하며, 이는 적절한 실사, 계약적 보호 조치, 승인 및 모니터링 프로세스를 포함하여 투자 관련 커뮤니케이션이 공정하고 명확하며 오해의 소지가 없도록 보장해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-09T17:36:41.431Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "The Growth Rocketship: Deep Research, Bold Bets, and AI — Inside Maverick Capital’s US$15 Billion Portfolios",
+      "url": "https://lw.com/en/insights/the-growth-rocketship-deep-research-bold-bets-ai-inside-maverick-capital-portfolios",
+      "language": "en",
+      "summary_ko": "Latham은 팟캐스트에서 Maverick Capital의 법률 고문 겸 최고 준법 감시 책임자와 인터뷰를 진행했습니다. 이들은 150억 달러 규모의 공모 주식, 벤처 캐피탈, AI 기반 반도체 투자 플랫폼 전반에 걸쳐 법적 위험 및 규정 준수를 감독하는 방안을 논의했습니다. 이는 AI 및 인프라 거시 동향 속에서 복잡한 투자 포트폴리오를 관리하는 법률 및 준법 감시 전문가들에게 중요한 통찰력을 제공합니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-09T17:36:41.431Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "FCC Revamps Rules on Consent to Calls and Texts Under the TCPA",
+      "url": "https://lw.com/en/insights/fcc-revamps-rules-on-consent-to-calls-and-texts-under-the-tcpa",
+      "language": "en",
+      "summary_ko": "Latham은 Maverick Capital의 법무 자문위원 및 최고 컴플라이언스 책임자와의 팟캐스트에서 150억 달러 규모의 공모 주식, 벤처 캐피탈, AI 기반 반도체 투자 플랫폼 전반에 걸친 법적 위험 및 컴플라이언스 감독에 대해 논의했습니다. 이 대화는 대규모 다각화된 투자 환경, 특히 AI 기반 투자와 같은 신흥 분야에서 법적 및 규제적 위험을 효과적으로 관리하는 데 필요한 복잡성과 전략을 조명합니다. 관련 투자 회사 및 법률 전문가들은 이러한 광범위한 포트폴리오에서 컴플라이언스 및 위험 관리를 위한 실질적인 통찰력을 얻을 수 있을 것입니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-09T17:36:41.431Z"
     }
   ]
 }
