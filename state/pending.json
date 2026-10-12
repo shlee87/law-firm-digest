@@ -323,6 +323,69 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-10-10T16:27:04.196Z"
+    },
+    {
+      "firmId": "cooley",
+      "title": "Quick Refresher On Equity Refresh Grants",
+      "url": "https://cooleygo.com/quick-refresher-on-equity-refresh-grants",
+      "publishedAt": "2026-10-12T15:34:27.000Z",
+      "language": "en",
+      "summary_ko": "Equity refresh grants는 기존 직원들의 동기 부여 및 이탈 방지를 위한 추가적인 주식 보상 제도로, 초기 부여된 주식의 베스팅 완료 후에도 인재를 유지하는 강력한 수단입니다. 이는 경쟁적인 인재 시장에서 기업이 핵심 인력을 유치하고 유지하며, 고성과자를 보상하는 데 중요하게 활용됩니다. 기업은 주식 형태, 부여 주기, 규모, 베스팅 조건 등을 신중하게 설계해야 하며, 특히 미국 세법 및 증권법 등 관련 법규 준수와 투명한 커뮤니케이션을 통해 효과적인 보상 전략을 구축해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-12T20:29:14.406Z"
+    },
+    {
+      "firmId": "cooley",
+      "title": "Restricted Stock Units What You Should Know",
+      "url": "https://cooleygo.com/restricted-stock-units-what-you-should-know",
+      "publishedAt": "2026-10-12T15:04:53.000Z",
+      "language": "en",
+      "summary_ko": "제한적 주식 단위(RSU)는 스톡옵션과 달리 행사 가격 없이 특정 조건 충족 시 주식을 받을 계약상 권리로, 특히 후기 단계 비상장 기업에서 직원 보상 수단으로 고려됩니다. 미국에서는 일반적으로 시간 기반 조건과 IPO 또는 인수와 같은 유동성 이벤트라는 이중 트리거 베스팅 구조를 통해, 주식 수령 시 발생하는 세금 납부 부담을 유동성 확보 시점으로 미루는 방식으로 설계됩니다. 기업들은 스톡옵션의 비효율성이나 희석 우려 시 RSU를 고려하지만, 복잡한 미국 세금 및 원천징수 의무, 유동성 이벤트 부재 시 가치 상실 가능성, 그리고 정보 공개 의무 등 여러 잠재적 문제점을 인지하고 법률 및 세무 전문가와 상의하여 신중하게 구조화해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-12T20:29:14.406Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "EIOPA Releases Supervisory Statement for Authorising and Supervising (Re)insurance Undertakings Related to Private Equity",
+      "url": "https://skadden.com/insights/publications/2026/10/eiopa-releases-supervisory-statement",
+      "publishedAt": "2026-10-12T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "유럽보험연금감독청(EIOPA)은 사모펀드(PE) 관련 보험 및 재보험사의 인허가 및 지속적인 감독에 대한 감독 성명을 발표했습니다. 이 성명은 PE 소유 보험사의 사업 모델, 지배구조, 건전성 및 부채 구조에 대한 감독을 강화하는 지침을 담고 있으며, 특히 PE의 적극적인 경영 참여와 단기 투자 성향에 대한 우려를 표명했습니다. 이에 따라 유럽 내 PE가 소유한 보험사들은 감독 당국과의 사전 협의를 고려하고, EIOPA의 권고 사항이 현재 및 미래의 인수합병에 미칠 영향을 면밀히 평가하며, 사업 모델 및 소유 구조의 투명성을 강화해야 할 것입니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-12T20:29:14.406Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "개인정보위 조사체계 개편",
+      "url": "https://yoonyang.com/kor/insights/newsletter/15177",
+      "language": "ko",
+      "summary_ko": "개인정보보호위원회가 개인정보 유출·침해 사건 조사체계를 중요도에 따라 개편하고, 과징금 산정 시 초동 대응 및 보호 투자를 핵심 감경·가산 요소로 반영하도록 관련 규정을 개정했습니다. 개인정보를 처리하는 모든 기업 및 기관은 개편된 조사 절차와 과징금 부과 기준의 직접적인 영향을 받습니다. 기업은 평소 사고대응 매뉴얼 정비, 증적 보존 체계 구축, 보호 투자 입증 자료 관리, 그리고 조사 단계별 절차적 권리 활용을 위한 대응 전략을 미리 마련해야 하며, 특히 사고 발생 시 신속하고 적절한 초동 대응이 과징금 규모를 크게 좌우할 것입니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-12T20:29:14.406Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "신용정보법상 과징금 부과 세부기준 변경(안)",
+      "url": "https://yoonyang.com/kor/insights/newsletter/15174",
+      "language": "ko",
+      "summary_ko": "금융위원회는 신용정보법 위반 과징금 산정 시 개인신용정보 침해 특성을 반영한 별도 기준을 신설하는 「신용정보업감독규정」 개정안을 예고했습니다. 이는 과징금 부과기준율을 세분화하고, 개인신용정보 유형 및 피해 규모 등을 중대성 평가에 반영하며, 감경 한도를 확대하는 것이 핵심입니다. 금융회사는 위반 시 중대성 평가 항목 및 가중·감경 사유별 사실관계를 체계적으로 소명하고, 신용정보 보호 관리체계 작동 입증 자료를 축적하여 실질적인 감경 가능성을 높여야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-12T20:29:14.406Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "SEC Proposes Changes to Adviser Custody Rules, Including New Cryptoasset Custody Framework",
+      "url": "https://lw.com/en/insights/sec-proposes-changes-to-adviser-custody-rules",
+      "language": "en",
+      "summary_ko": "SEC Proposes Changes to Adviser Custody Rules, Including New Cryptoasset Custody Framework",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-10-12T20:29:14.406Z"
     }
   ]
 }
