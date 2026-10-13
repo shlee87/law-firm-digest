@@ -1,5 +1,27 @@
 {
   "version": 1,
   "windowStart": "2026-10-12T21:38:35.434Z",
-  "items": []
+  "items": [
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 5 – 9 October 2026",
+      "url": "https://cliffordchance.com/briefings/2026/10/international-regulatory-update-5-9-october-2026.html",
+      "publishedAt": "2026-10-13T08:29:10.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 5 – 9 October 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-13T18:34:26.317Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "역외펀드 등록 실무 개관 및 유의사항과 대응방안",
+      "url": "https://yoonyang.com/kor/insights/newsletter/15175",
+      "language": "ko",
+      "summary_ko": "역외펀드의 국내 판매를 위해서는 자본시장법상 등록 절차와 외국환거래법상 신고·보고 의무를 준수해야 합니다. 특히 외국 집합투자업자 및 증권의 적격 요건, 전문투자자 대상 요건 완화, 등록 심사 장기화 가능성, 그리고 리버스 인콰이어리 및 특정금전신탁을 통한 투자 시 등록의무 범위가 주요 법적 쟁점입니다. 국내 기관투자자 및 외국 집합투자업자는 등록 심사 기간을 충분히 고려하고, 적격 요건 및 등록의무 범위를 사전 검토하며, 자금 흐름 설계 시 외국환거래법 준수를 위해 국내 판매회사 및 외국환은행을 통한 처리를 권장합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-13T18:34:26.317Z"
+    }
+  ]
 }
