@@ -22,6 +22,37 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-10-13T18:34:26.317Z"
+    },
+    {
+      "firmId": "cooley",
+      "title": "A Key Customer Filed For Bankruptcy",
+      "url": "https://cooleygo.com/a-key-customer-filed-for-bankruptcy",
+      "publishedAt": "2026-10-15T13:15:27.000Z",
+      "language": "en",
+      "summary_ko": "주요 고객이 챕터 11 파산을 신청했을 때, 공급업체는 파산 채무자와의 거래 관계를 지속할지 여부를 결정해야 합니다. 파산 신청 후 제공된 재화 및 서비스 대금은 일반적으로 관리채권(administrative claim) 지위를 부여받아 우선적으로 변제될 수 있으나, 기존 이행계약(executory contract)의 처리 방식과 채무자의 재정 상태(DIP 파이낸싱 등)를 면밀히 검토해야 합니다. 공급업체는 파산 채무자의 월별 재무 보고서를 확인하고, 복잡한 상황에서는 파산 전문 변호사의 자문을 구하여 권리를 보호해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-15T15:50:49.849Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "법원, 공기업 채용형 인턴의 차별처우 손해배상청구 전부 기각",
+      "url": "https://yoonyang.com/kor/insights/newsletter/15180",
+      "language": "ko",
+      "summary_ko": "서울중앙지방법원은 공기업 채용형 인턴들의 차별처우 손해배상청구를 기각하며, 인턴 업무가 정규직과 본질적으로 다르다고 판단하고 소멸시효 완성도 인정했습니다. 이는 기존 채용형 인턴 차별 인정 경향과 다른 결론으로, 공공기관 및 기업은 인턴제도 목적, 업무 범위, 권한 한계를 명확히 하고 관련 자료를 체계적으로 보존하여 향후 분쟁에 대비해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-15T15:50:49.849Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Financial Regulation: October 2026 Edition",
+      "url": "https://sites.lwcommunicate.com/38/17825/landing-pages/rsvp-form-(blank-generic).asp",
+      "language": "en",
+      "summary_ko": "Financial Regulation: October 2026 Edition",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-10-15T15:50:49.849Z"
     }
   ]
 }
