@@ -63,6 +63,17 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-10-16T15:39:16.383Z"
+    },
+    {
+      "firmId": "cooley",
+      "title": "Choosing Correct Business Entity Basics",
+      "url": "https://cooleygo.com/choosing-correct-business-entity-basics",
+      "publishedAt": "2026-10-16T17:13:58.000Z",
+      "language": "en",
+      "summary_ko": "Choosing Correct Business Entity Basics",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-17T14:30:59.375Z"
     }
   ]
 }
