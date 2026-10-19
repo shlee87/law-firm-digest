@@ -74,6 +74,28 @@
       "summaryConfidence": "low",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-10-17T14:30:59.375Z"
+    },
+    {
+      "firmId": "clifford-chance",
+      "title": "Beyond the mine: infrastructure, value chains and alternative capital",
+      "url": "https://cliffordchance.com/briefings/2026/10/beyond-the-mine-infrastructure-value-chains-and-alternative-capital.html",
+      "publishedAt": "2026-10-19T09:55:53.000Z",
+      "language": "en",
+      "summary_ko": "클리포드 챈스의 2026 아시아 태평양 에너지 및 인프라 컨퍼런스에서는 핵심 광물 및 금속 수요 증가에 따른 광업 프로젝트의 구조화, 자금 조달 및 가치 사슬 전반의 수익화 방식 변화를 논의했습니다. 개발자, 투자자, 금융기관 및 광산 운영자들은 지정학적 변화와 에너지 안보 우선순위, 자본 흐름 변화 속에서 새로운 기회를 모색하고 있습니다. 특히 광산 운영자가 자본을 확보하고 투자자가 광업 생태계 전반의 기회를 식별하고 극대화하는 방안이 강조되었습니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-19T17:50:32.306Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "FTC Settles With Southern Glazer’s and Closes Gildan Investigation as Robinson-Patman Act Enforcement Returns",
+      "url": "https://skadden.com/insights/publications/2026/10/ftc-settles-with-southern-glazers",
+      "publishedAt": "2026-10-15T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "미국 연방거래위원회(FTC)가 로빈슨-패트먼 법(RPA) 집행을 재개하며 Southern Glazer's와의 합의 및 Gildan 조사를 종결했습니다. FTC는 주류 유통업체 Southern Glazer's가 독립 소매업체에 대한 가격 차별을 금지하는 동의 명령을 제출했으며, T-셔츠 제조업체 Gildan과 유통업체 S&S Holdings는 경쟁업체에 대한 가격 제한 조항을 수정했습니다. 이는 상품 판매자와 리셀러 모두에게 영향을 미치며, 대형 구매자의 차별적 가격 유도 또한 규제 대상임을 보여줍니다. 기업들은 순 가격을 감사하고, 가격 차이의 이유를 문서화하며, 모든 경쟁 리셀러에게 할인을 제공하고, 준수 프로그램을 갱신해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-19T17:50:32.306Z"
     }
   ]
 }
