@@ -1,5 +1,27 @@
 {
   "version": 1,
   "windowStart": "2026-10-19T19:09:24.649Z",
-  "items": []
+  "items": [
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 12 – 16 October 2026",
+      "url": "https://cliffordchance.com/briefings/2026/10/international-regulatory-update-12-16-october-2026.html",
+      "publishedAt": "2026-10-20T08:49:00.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 12 – 16 October 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-20T15:54:33.425Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Key Takeaways From the Inaugural Fund Finance Association Fall Forum",
+      "url": "https://lw.com/en/insights/key-takeaways-from-the-inaugural-fund-finance-association-fall-forum",
+      "language": "en",
+      "summary_ko": "2026년 펀드 금융 협회 가을 포럼에서는 펀드 금융 상품의 진화와 시장 역학에 대한 심층적인 논의가 이루어졌습니다. 스폰서와 대출 기관은 맞춤형 시설, 구조화 상품, 자산 기반 및 GP 레벨 솔루션 등 다양한 금융 솔루션을 확장하고 있으며, 특히 투자자 요구에 맞춘 정격 채권 피더와 서브라인의 활용이 증가하고 있습니다. 현재의 펀드레이징 환경에서 스폰서는 지속적인 펀드레이징 접근 방식을 채택하고 있으며, IPO 시장 둔화로 인해 지속 차량을 통한 장기 자산 보유 및 GP 약정 조달을 위한 GP 시설 활용이 중요해지고 있습니다. 펀드 금융 시장 참여자들은 이러한 상품의 다양화와 시장 변화에 대한 이해를 바탕으로 전략을 수립해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-20T15:54:33.425Z"
+    }
+  ]
 }
