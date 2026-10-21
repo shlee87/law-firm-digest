@@ -22,6 +22,28 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-10-20T15:54:33.425Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "SEC Proposes Expansion of Permitted Fund Cross Trading Under Rule 17a-7",
+      "url": "https://skadden.com/insights/publications/2026/10/sec-proposes-expansion-of-permitted-fund-cross-trading",
+      "publishedAt": "2026-10-16T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "미국 증권거래위원회(SEC)는 2026년 10월 9일, 등록 펀드 및 사업개발회사(BDC)의 교차 거래를 규율하는 1940년 투자회사법 Rule 17a-7 개정안을 제안했습니다. 이 개정안은 2020년 Rule 2a-5 채택으로 인해 사실상 금지되었던 대부분의 고정 수입 증권 교차 거래를 다시 허용하여, 관측 가능한 입력값에 기반한 증권의 교차 거래 범위를 확대하는 것을 목표로 합니다. 이는 펀드와 주주에게 이익이 되고자 하며, 투자 자문사의 최선의 이익 결정 의무, 최고준법감시인(CCO)의 분기별 검토 및 연간 백테스팅 의무, 그리고 새로운 기록 보관 및 보고 요건을 포함한 강화된 투자자 보호 조치를 수반합니다. 시장 참여자들은 연방 관보 게재 후 60일 이내에 개정안에 대한 의견을 제출할 수 있습니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-21T16:11:25.510Z"
+    },
+    {
+      "firmId": "barun",
+      "title": "법무법인(유한) 바른 뉴스레터 - 제161호 (2026.10)",
+      "url": "https://barunlaw.com/letter/58161",
+      "publishedAt": "2026-10-18T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "법무법인(유한) 바른 뉴스레터 - 제161호 (2026.10)",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-10-21T16:11:25.510Z"
     }
   ]
 }
