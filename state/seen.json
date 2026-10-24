@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-10-23T16:02:02.874Z",
+  "lastUpdated": "2026-10-24T14:59:11.652Z",
   "firms": {
     "cooley": {
       "urls": [
@@ -602,6 +602,7 @@
     },
     "latham": {
       "urls": [
+        "https://lw.com/en/insights/2026-us-infrastructure-academy",
         "https://lw.com/en/insights/group-of-house-democrats-publish-policy-blueprint-for-economic-and-climate-resilience",
         "https://lw.com/en/insights/shanghai-and-beijing-publish-updated-ftz-negative-lists-for-data-exports",
         "https://lw.com/en/admin/upload/SiteAttachments/MnA-Review-Legal-Due-Diligence-bei-Speicher-und-Erneuerbare-Energien-Projekten-Joachim-Grittmann-Pascal%20Wagenfuhr-Maxim-Glusdak.pdf",
