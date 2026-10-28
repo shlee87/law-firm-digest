@@ -12,6 +12,38 @@
       "summaryConfidence": "low",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-10-27T16:55:56.665Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "UK Employment Flash – Fire and Rehire Reforms",
+      "url": "https://skadden.com/insights/publications/2026/10/uk-employment-flash-october-2026",
+      "publishedAt": "2026-10-27T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "영국은 2027년 3월부터 시행되는 고용권리법 2025를 통해 '해고 후 재고용(fire and rehire)' 관행을 개혁합니다. 이 법은 직원이 특정 고용 조건 변경에 동의하지 않는다는 이유로 해고하는 것을 자동으로 불공정한 해고로 간주하며, 특히 급여, 근무 시간 등 핵심 계약 조건('제한적 변경')에 대한 해고는 사업의 재정적 어려움과 변경 회피 불가능성을 입증해야만 정당화될 수 있어 고용주에게 매우 높은 입증 책임을 부과합니다. 이에 따라 영국 고용주들은 고용 조건 재협상에 있어 근본적으로 다른 접근 방식을 취해야 하며, 기존 고용 계약서와 변경 조항을 검토하고, 직원 동의를 얻기 위한 인센티브 제공 등 해고 외의 방법을 모색하며, 변경 필요성에 대한 강력한 증거 자료를 유지하는 것이 중요합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-28T17:29:34.278Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "A Decade of No-Poach Antitrust Enforcement Offers Three Lessons",
+      "url": "https://skadden.com/insights/publications/2026/10/a-decade-of-no-poach-antitrust-enforcement-offers-three-lessons",
+      "publishedAt": "2026-10-26T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "미국 법무부가 10년 전 고용주 간 채용, 직원 보상, 스카우트 관련 합의를 형사 반독점 공모로 기소하겠다고 발표한 이후 세 가지 주요 교훈이 도출되었습니다. 첫째, 형사 집행의 위협은 여전히 현실적이며, 둘째, 스카우트 또는 고용 금지 합의는 종종 광범위한 협력의 합법적인 부분일 수 있습니다. 셋째, 노동 시장 담합은 전 세계 규제 당국의 표적이 되고 있습니다. 기업들은 이러한 노포치(no-poach) 합의에 대한 규제 동향과 형사 집행 가능성에 유의해야 합니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-28T17:29:34.278Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "New York’s Finalized Mandatory Greenhouse Gas Reporting Program",
+      "url": "https://lw.com/en/admin/upload/SiteAttachments/New-York-Finalized-Mandatory-Greenhouse-Gas-Reporting-Program.pdf",
+      "language": "en",
+      "summary_ko": "New York’s Finalized Mandatory Greenhouse Gas Reporting Program",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-10-28T17:29:34.278Z"
     }
   ]
 }
