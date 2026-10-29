@@ -44,6 +44,17 @@
       "summaryConfidence": "low",
       "summaryModel": "skipped",
       "summarizedAt": "2026-10-28T17:29:34.278Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "UK FCA and PRA Publish Consultation Papers on Sweeping Phase 2 SMCR Reforms",
+      "url": "https://skadden.com/insights/publications/2026/10/uk-fca-and-pra-publish-consultation-papers",
+      "publishedAt": "2026-10-29T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "영국 금융감독청(FCA)과 건전성감독청(PRA)이 선임경영진 및 인증제도(SMCR) 2단계 개혁에 대한 협의 문서를 발표했습니다. 이 개혁안은 여러 선임경영진 기능(SMF) 역할에 대한 사전 승인 대신 통지 제도를 도입하고, 인증 제도를 폐지하며, 행위 규칙 위반 보고 기준을 상향 조정하는 등 기존 규제를 대폭 완화하는 내용을 담고 있습니다. 이는 SMCR 적용 대상인 모든 금융기관, 특히 제3국 지점 및 암호화폐 기업에 영향을 미치며, 규제 당국과의 직접적인 소통 부담을 줄일 것으로 예상됩니다. 기업들은 2027년 하반기 시행 예정인 새로운 규정의 인력 및 내부 정책 변화에 대한 영향을 신중히 검토하고, 2027년 1월까지 의견을 제출해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-29T17:40:32.408Z"
     }
   ]
 }
