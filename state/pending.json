@@ -107,6 +107,17 @@
       "summaryConfidence": "low",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-10-30T17:19:23.055Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "Compete Act Reinforces Calif.'s Antitrust Leadership Role",
+      "url": "https://skadden.com/insights/publications/2026/10/compete-act-reinforces-calif-antitrust-leadership-role",
+      "publishedAt": "2026-10-29T04:00:00.000Z",
+      "language": "en",
+      "summary_ko": "Compete Act Reinforces Calif.'s Antitrust Leadership Role",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-10-31T16:23:50.588Z"
     }
   ]
 }
