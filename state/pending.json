@@ -118,6 +118,48 @@
       "summaryConfidence": "low",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-10-31T16:23:50.588Z"
+    },
+    {
+      "firmId": "logos",
+      "title": "법무법인(유)로고스 노동법센터 뉴스레터 10월호",
+      "url": "https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=3038",
+      "publishedAt": "2026-11-01T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "법무법인(유)로고스 노동법센터 뉴스레터 10월호",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-02T20:56:05.257Z"
+    },
+    {
+      "firmId": "logos",
+      "title": "법무법인(유)로고스 뉴스레터 2026년 10월호",
+      "url": "https://lawlogos.com/sub/news/newsletter_view.asp?b_idx=3037",
+      "publishedAt": "2026-11-01T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "법무법인(유)로고스 뉴스레터 2026년 10월호",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-02T20:56:05.257Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "The CMA’s New Era: A More Investor-Friendly Process, but Closer Scrutiny of Consumer-Facing Businesses",
+      "url": "https://lw.com/en/insights/the-cma-new-era-a-more-investor-friendly-process-but-closer-scrutiny-of-consumer-facing-businesses",
+      "language": "en",
+      "summary_ko": "영국 경쟁시장청(CMA)은 정부 지침에 따라 영국 소비자 및 기업에 영향을 미치는 피해와 소매 및 헬스케어 시장 등 영국 중심의 소비자 대면 사업에 대한 감시를 강화하고 있습니다. 동시에 CMA는 인수합병 심사에서 보다 투자자 친화적인 접근 방식을 취하고 있지만, PE 투자자들은 영국 소비자 대면 사업에 대한 투자를 고려할 때 더 면밀한 조사를 예상해야 합니다. 2024년 디지털 시장, 경쟁 및 소비자법(DMCCA)에 따라 강화된 소비자 보호 집행 권한으로 인해 관련 기업들은 가격 투명성 및 허위 리뷰 등에 대한 규제 준수를 강화해야 합니다. 따라서 PE 투자자들은 인수 전 철저한 인수합병 위험 평가와 소비자 보호 규정 준수 실사를 수행하고, 포트폴리오 기업들은 지속적인 규제 준수 및 교육을 통해 대비해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-02T20:56:05.257Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Lexology In-Depth: Acquisition and Leveraged Finance",
+      "url": "https://lw.com/en/admin/upload/SiteAttachments/Lexology-In-Depth_Acquisition-and-Leveraged-Finance.pdf",
+      "language": "en",
+      "summary_ko": "Lexology In-Depth: Acquisition and Leveraged Finance",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-11-02T20:56:05.257Z"
     }
   ]
 }
