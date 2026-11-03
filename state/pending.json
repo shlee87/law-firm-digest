@@ -1,5 +1,17 @@
 {
   "version": 1,
   "windowStart": "2026-11-02T22:13:09.383Z",
-  "items": []
+  "items": [
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 26 – 30 October 2026",
+      "url": "https://cliffordchance.com/briefings/2026/11/international-regulatory-update-26-30-october-2026.html",
+      "publishedAt": "2026-11-03T14:29:24.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 26 – 30 October 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-03T18:43:21.924Z"
+    }
+  ]
 }
