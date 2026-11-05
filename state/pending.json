@@ -33,6 +33,48 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-11-04T18:56:26.855Z"
+    },
+    {
+      "firmId": "yulchon",
+      "title": "[심층 분석 | 종합 리포트] 2026 미국 중간선거 이후 정책 지형 변화 - 산업별 영향과 한국 기업의 대응 전략",
+      "url": "https://yulchon.com/ko/resources/publications/periodicals-view/45765/page.do",
+      "publishedAt": "2026-11-04T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "미국 중간선거에서 민주당이 상·하원 다수당 지위를 확보함에 따라, 트럼프 2기 행정부와 의회 간 대립 심화 및 의회 조사·감독 강화가 예상됩니다. 이는 우리 기업의 대미 투자 및 사업 전략에 중요한 변수로 작용하며, 특히 기업의 대미 투자 약정, 이행 실적, 정부 지원 등이 조사 대상이 될 수 있습니다. 따라서 우리 기업은 기존 통상·규제 리스크를 넘어 정치적 논쟁에 따른 법률·평판 리스크에 대비하고, 사업 및 투자 전략과 선제적 리스크 관리 방안을 수립해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-05T19:08:03.468Z"
+    },
+    {
+      "firmId": "bkl",
+      "title": "태평양, ‘경제·데이터 분석센터’ 확대 출범",
+      "url": "https://bkl.co.kr/law/insight/informationView.do?infoNo=6612&lang=ko",
+      "publishedAt": "2026-11-04T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "태평양, ‘경제·데이터 분석센터’ 확대 출범",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-05T19:08:03.468Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Beyond the Midterms: What the 2026 Midterm Election Results Mean for Congressional Investigations",
+      "url": "https://sites.lwcommunicate.com/38/17843/landing-pages/rsvp-form-(blank-generic).asp",
+      "language": "en",
+      "summary_ko": "Beyond the Midterms: What the 2026 Midterm Election Results Mean for Congressional Investigations",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-11-05T19:08:03.468Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Certain Considerations Pertaining to Private Fund Blocker Structuring",
+      "url": "https://lw.com/en/admin/upload/SiteAttachments/Certain-Considerations-Pertaining-to-Private-Fund-Blocker-Structuring.pdf",
+      "language": "en",
+      "summary_ko": "Certain Considerations Pertaining to Private Fund Blocker Structuring",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-11-05T19:08:03.468Z"
     }
   ]
 }
