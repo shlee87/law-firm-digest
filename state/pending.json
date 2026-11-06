@@ -75,6 +75,28 @@
       "summaryConfidence": "low",
       "summaryModel": "skipped",
       "summarizedAt": "2026-11-05T19:08:03.468Z"
+    },
+    {
+      "firmId": "yulchon",
+      "title": "율촌 뉴스레터 2026년 가을호",
+      "url": "https://webzine.yulchon.com/2611",
+      "publishedAt": "2026-11-04T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "율촌 뉴스레터 2026년 가을호",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-06T18:35:28.104Z"
+    },
+    {
+      "firmId": "bkl",
+      "title": "태평양, 이동률·김치열·이종헌 변호사 영입으로 공정거래 자문 역량 강화",
+      "url": "https://bkl.co.kr/law/insight/informationView.do?infoNo=6614&lang=ko",
+      "publishedAt": "2026-11-05T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "법무법인 태평양은 이동률, 김치열, 이종헌 변호사를 영입하여 공정거래 분야의 자문 및 분쟁 대응 역량을 강화했습니다.이는 기업집단 규제, 기업결합 심사, 시장지배적 지위 남용, 불공정거래 등 복합적인 경쟁법 이슈에 직면한 기업들에게 영향을 미칩니다.태평양은 공정거래형사대응센터 등과의 협업을 통해 법률적 쟁점과 경제적 효과를 종합 분석하여 실효성 있는 대응 전략을 제공할 예정입니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-06T18:35:28.104Z"
     }
   ]
 }

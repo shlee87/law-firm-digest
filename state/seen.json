@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-11-05T19:09:19.074Z",
+  "lastUpdated": "2026-11-06T18:37:00.372Z",
   "firms": {
     "cooley": {
       "urls": [
@@ -228,6 +228,7 @@
     },
     "yulchon": {
       "urls": [
+        "https://webzine.yulchon.com/2611",
         "https://yulchon.com/ko/resources/publications/periodicals-view/45765/page.do",
         "https://yulchon.com/ko/resources/publications/periodicals-view/45731/page.do",
         "https://webzine.yulchon.com/2607",
@@ -268,6 +269,7 @@
     },
     "skadden": {
       "urls": [
+        "https://skadden.com/insights/publications/2026/11/uk-sfo-introduces-new-self-reporting-channel",
         "https://skadden.com/insights/publications/2026/11/cftc-moves-to-draw-the-line",
         "https://skadden.com/insights/publications/2026/10/and-now-exhale-uk-autumn-budget-2026",
         "https://skadden.com/insights/publications/2026/10/alibaba-wins-injunction",
@@ -622,6 +624,8 @@
     },
     "latham": {
       "urls": [
+        "https://lw.com/en/insights/saudi-arabia-implementing-regulations-and-practical-implications",
+        "https://lw.com/en/insights/recent-developments-for-directors-november-2026",
         "https://sites.lwcommunicate.com/38/17843/landing-pages/rsvp-form-(blank-generic).asp",
         "https://lw.com/en/admin/upload/SiteAttachments/Certain-Considerations-Pertaining-to-Private-Fund-Blocker-Structuring.pdf",
         "https://lw.com/en/insights/recent-developments-for-uk-plcs-november-2026",
@@ -930,6 +934,7 @@
     },
     "bkl": {
       "urls": [
+        "https://bkl.co.kr/law/insight/informationView.do?infoNo=6614&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6612&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6610&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6600&lang=ko",
@@ -976,7 +981,7 @@
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6529&lang=ko",
         "https://bkl.co.kr/law/insight/informationView.do?infoNo=6526&lang=ko"
       ],
-      "lastNewAt": "2026-11-04T15:00:00.000Z",
+      "lastNewAt": "2026-11-05T15:00:00.000Z",
       "enabledAt": "2026-04-23T12:22:12.249Z"
     }
   }
