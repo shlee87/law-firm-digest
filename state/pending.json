@@ -97,6 +97,16 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-11-06T18:35:28.104Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Preparing for Congressional Investigations Following the Midterm Elections",
+      "url": "https://lathamreg.com/2026/11/preparing-for-congressional-investigations-following-the-midterm-elections",
+      "language": "en",
+      "summary_ko": "중간선거 이후 의회 조사가 더욱 광범위하고 가속화될 것으로 예상되며, 하원 규칙 XI 조항 2(k)(6)에 따라 일반 의원들도 소환장 발부 투표를 강제할 수 있게 되어 조사 권한이 확대되고 있습니다. 민간 부문은 이러한 변화의 주요 대상이 되고 있으며, 대통령과 민간 고문 간의 행정 특권 확대를 다룬 법무부 OLC 의견은 의회의 회의론에 직면해 있습니다. 따라서 기업들은 선제적이고 협력적인 대응, 정부 관계, 커뮤니케이션 및 법률 기능의 통합, 그리고 백악관 관련 문서에 대한 특권 문제 조율을 통해 강화된 의회 조사에 대비해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-07T17:03:23.956Z"
     }
   ]
 }
