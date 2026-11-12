@@ -119,6 +119,26 @@
       "summaryConfidence": "low",
       "summaryModel": "skipped",
       "summarizedAt": "2026-11-11T18:55:38.508Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "매달 바뀌는 노동법, 시행일 놓치면 과태료·형사처벌",
+      "url": "https://yoonyang.com/kor/insights/newsletter/15266",
+      "language": "ko",
+      "summary_ko": "2026년 하반기부터 2027년 상반기까지 임금체불 처벌 상향, 위험성평가 관련 규제 강화, 남녀고용평등법 개정(성희롱 과태료 확대, 난임휴가 유급기간 확대), 근로기준법 휴게 및 연차휴가 분할 사용 등 다수의 노동관계법령이 순차적으로 시행됩니다. 기업들은 개정사항이 시행일부터 즉시 적용되므로, 시행일별로 취업규칙, 근로계약서, 내부 절차를 점검하고 정비해야 합니다. 특히 미지급 임금 조기 정산, 위험성평가 이행 증빙, 직장 내 성희롱 및 육아기 근로시간 단축 관련 규정 개정, 작업중지 대응 절차 마련 등에 유의해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-12T19:14:44.169Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "The Growth Rocketship: Proving Cloud Security and AI at AWS",
+      "url": "https://lw.com/en/insights/the-growth-rocketship-proving-cloud-security-and-ai-at-aws",
+      "language": "en",
+      "summary_ko": "AWS의 자동화된 추론 그룹은 형식 검증 및 자동화된 추론을 활용하여 클라우드 인프라 보안을 강화하고 AI 안전을 발전시키고 있습니다. 이 기술은 규제 기관과 비즈니스 리더들에게 '증명 가능한 보안'의 의미를 제시하며, 기업의 규정 준수 및 AI 배포의 윤리적 책임에 중요한 영향을 미칩니다. 법률 전문가들은 클라우드 보안 및 AI 안전의 미래를 형성하는 형식 검증의 역할과 대규모 검증 도구 배포에 따른 윤리적 고려사항에 주목해야 합니다.",
+      "summaryConfidence": "medium",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-12T19:14:44.169Z"
     }
   ]
 }
