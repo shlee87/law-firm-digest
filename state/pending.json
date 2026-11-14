@@ -161,6 +161,16 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-11-13T18:51:11.860Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "SEC Modernizes “Small Entity” Definitions for Investment Advisers and Investment Companies",
+      "url": "https://lw.com/en/insights/sec-modernizes-small-entity-definitions-for-investment-advisers-and-investment-companies",
+      "language": "en",
+      "summary_ko": "미국 증권거래위원회(SEC)가 투자 자문사 및 투자 회사에 대한 '소규모 기업' 정의를 현대화하는 개정안을 발표했습니다. 이 개정안은 SEC의 규제 목적상 '소규모 기업'의 정의를 확대하는 내용을 담고 있습니다. 다만, 투자 자문사의 SEC 등록을 위한 자산 기준은 변경되지 않았습니다. 이는 관련 투자 자문사 및 투자 회사들이 규제 적용에 있어 소규모 기업으로 분류될 수 있는 범위가 넓어졌음을 의미하므로, 변경된 정의를 면밀히 검토해야 합니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-14T17:23:24.242Z"
     }
   ]
 }
