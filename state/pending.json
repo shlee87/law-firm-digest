@@ -171,6 +171,48 @@
       "summaryConfidence": "low",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-11-14T17:23:24.242Z"
+    },
+    {
+      "firmId": "cooley",
+      "title": "Running Out Of Cash Your Duties And Options For Winding Down",
+      "url": "https://cooleygo.com/running-out-of-cash-your-duties-and-options-for-winding-down",
+      "publishedAt": "2026-11-16T14:22:57.000Z",
+      "language": "en",
+      "summary_ko": "벤처 지원 스타트업이 자금난에 직면하고 투자자들이 추가 자금 조달을 거부할 경우, 델라웨어 법인 이사 및 임원의 신탁 의무와 기업 청산 옵션에 대한 법적 고려사항이 중요해집니다. 기업이 지급 불능 상태에 이르면 이사 및 임원의 신탁 의무는 주주뿐만 아니라 채권자에게도 확대되며, 기업 가치 극대화에 중점을 두어야 합니다. 기업 청산에는 비공식적 청산, 법인 해산, 채권자 이익을 위한 양도(ABC), 파산법 챕터 7, 챕터 11, 소규모 사업체 파산법 서브챕터 V 등 다양한 법적 절차가 있습니다. 이사 및 임원은 재정적 어려움에 처한 회사의 특정 상황에 맞춰 숙련된 기업 및 파산 전문 변호사의 자문을 구하는 것이 필수적입니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-16T21:19:49.292Z"
+    },
+    {
+      "firmId": "clifford-chance",
+      "title": "SEC Grants Relief from the Treasury Securities Clearing Requirements for Certain Non-US and Inter-Affiliate Repos",
+      "url": "https://cliffordchance.com/briefings/2026/11/sec-grants-relief-from-the-treasury-securities-clearing-requirements-for-certain-non-us-and-inter-affiliate-repos.html",
+      "publishedAt": "2026-11-16T14:25:00.000Z",
+      "language": "en",
+      "summary_ko": "미국 증권거래위원회(SEC)는 2026년 10월 30일 특정 비미국 및 계열사 간 환매조건부채권(repo) 거래에 대해 미국 국채 청산 의무 면제 명령을 발표했습니다. 이 면제 조치는 적격 비미국 및 계열사 간 레포 거래가 청산되지 않은 상태로 유지될 수 있도록 하여 시장 참여자들에게 유용한 유연성을 제공합니다. 이는 의무 청산이 부과할 수 있는 법적, 운영적, 경제적 부담을 완화하는 효과가 있습니다. 시장 참여자들은 의무 청산 준수 기한(현금 거래 2026년 12월 31일, 레포 거래 2027년 6월 30일)을 계속 준비하고, 면제 조항을 운영 및 준수 프레임워크에 통합하여 거래 매핑, 상대방 자격 확인, 임계값 모니터링 및 기타 조건 준수 절차를 마련해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-16T21:19:49.292Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Sports as an Asset Class: Human Competition in the Age of AI",
+      "url": "https://lw.com/en/insights/sports-as-an-asset-class-human-competition-in-the-age-of-ai",
+      "language": "en",
+      "summary_ko": "스포츠 산업이 사모펀드(private equity)의 주요 자산 클래스로 부상하고 있으며, AI 시대에 인간 경쟁의 가치가 더욱 중요해지고 있습니다. NBA 확장, 여성 스포츠의 가치 상승, 기존 조직의 상업적 변화 등을 통해 사모펀드가 스포츠 산업을 재편하는 양상을 보입니다. 투자자들은 리그 및 상업 단체 투자, 여성 스포츠의 성장, 확장 프랜차이즈 경제학 등 라이브 스포츠 이벤트의 가치 상승 기회에 주목해야 할 것입니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-16T21:19:49.292Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "CLOs: The Leveraged Loan Market’s Most Idiosyncratic Investors",
+      "url": "https://lw.com/en/insights/clos-the-leveraged-loan-markets-most-idiosyncratic-investors",
+      "language": "en",
+      "summary_ko": "이 글은 유럽 레버리지론 시장에서 지배적인 투자자 계층인 CLO(부채담보부증권) 투자자들에 대해 다룹니다. 특히, 이들의 의사결정을 좌우하는 구조적 제약을 이해하는 것이 시장 참여자들에게 매우 중요하다고 강조합니다. 유럽 레버리지 금융 시장 참여자들은 CLO 투자자들의 특성을 파악하여 시장 전략을 수립해야 할 것입니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-16T21:19:49.292Z"
     }
   ]
 }
