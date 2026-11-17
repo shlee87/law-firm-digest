@@ -1,5 +1,28 @@
 {
   "version": 1,
   "windowStart": "2026-11-16T22:47:50.125Z",
-  "items": []
+  "items": [
+    {
+      "firmId": "clifford-chance",
+      "title": "International Regulatory Update 9 – 13 November 2026",
+      "url": "https://cliffordchance.com/briefings/2026/11/international-regulatory-update-9-13-november-2026.html",
+      "publishedAt": "2026-11-17T10:57:53.000Z",
+      "language": "en",
+      "summary_ko": "International Regulatory Update 9 – 13 November 2026",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-17T20:07:27.560Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "공정위, 독과점 사업자의 착취적 남용행위 규율 강화 입법예고",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2339",
+      "publishedAt": "2026-11-11T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "공정거래위원회는 시장지배적 지위 남용행위 규율 강화를 위한 공정거래법 시행령 개정안을 입법예고했습니다. 이는 가격 남용행위의 '결정·유지' 포함, 소비자 이익 저해행위 유형 신설, 사업활동 방해행위 유형 재정비 및 비공개 정보 부당 이용 등 새로운 유형을 추가합니다. 시장지배적 기업들은 가격 결정 및 변경의 합리적 근거를 확보하고, 비가격 요소 및 비공개 정보 활용 관련 내부 기준과 컴플라이언스 체계를 점검하여 개정안 시행에 대비해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-17T20:07:27.560Z"
+    }
+  ]
 }
