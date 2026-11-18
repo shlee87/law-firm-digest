@@ -23,6 +23,27 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-11-17T20:07:27.560Z"
+    },
+    {
+      "firmId": "barun",
+      "title": "법무법인(유한) 바른 뉴스레터 - 제162호 (2026.11)",
+      "url": "https://barunlaw.com/letter/58445",
+      "publishedAt": "2026-11-12T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "법무법인(유한) 바른 뉴스레터 - 제162호 (2026.11)",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-11-18T19:40:08.303Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "2027 Proxy Season: Strategically Preparing for the Upcoming Season",
+      "url": "https://sites.lwcommunicate.com/38/17836/landing-pages/rsvp-form-(blank-generic).asp",
+      "language": "en",
+      "summary_ko": "2027 Proxy Season: Strategically Preparing for the Upcoming Season",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-11-18T19:40:08.303Z"
     }
   ]
 }
