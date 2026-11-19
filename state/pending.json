@@ -44,6 +44,28 @@
       "summaryConfidence": "low",
       "summaryModel": "skipped",
       "summarizedAt": "2026-11-18T19:40:08.303Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "‘AI Diffusion’ 2.0: BIS Introduces New Export Controls on Advanced GPUs and Overseas Data Centers",
+      "url": "https://skadden.com/insights/publications/2026/11/ai-diffusion-2-bis-introduces-new-export-controls",
+      "publishedAt": "2026-11-18T05:00:00.000Z",
+      "language": "en",
+      "summary_ko": "미국 상무부 산업안보국(BIS)은 'AI Diffusion 2.0'의 일환으로 첨단 GPU 및 해외 데이터 센터에 대한 새로운 수출 통제 규정을 발표했습니다. 이 규정은 중국 등 제한된 국가 고객에게 서비스를 제공하는 해외 데이터 센터에 첨단 GPU를 공급할 때 새로운 라이선스 요건을 부과하며, 인도네시아, 말레이시아, 싱가포르, 태국, 브라질 등 5개국에 대한 첨단 GPU 선적 통제를 확대합니다. 이에 따라 첨단 GPU 수출업체, 재수출업체, 이전업체 및 해외 데이터 센터 운영자는 강화된 고객 실사 의무를 준수하고, 기존 운영이 90일 이내에 새로운 라이선스 요건을 충족하는지 평가해야 합니다. 기업들은 새로운 규정의 적용 범위를 면밀히 검토하고 필요한 조치를 취해야 할 것입니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-19T19:40:18.248Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "Financing the Next Wave of Aerospace and Defense Technology: New Capital, New Exit Strategies",
+      "url": "https://skadden.com/insights/publications/2026/11/financing-the-next-wave-of-aerospace-and-defense",
+      "publishedAt": "2026-11-18T05:00:00.000Z",
+      "language": "en",
+      "summary_ko": "항공우주 및 방위(A&D) 기술 분야에서 자본 집약적 혁신을 위한 자금 조달 방식이 전통적인 벤처 투자를 넘어 전략적 투자, 자산 기반 대출, 담보 대출, 정부 지원 대출 등 다양한 자본 수단을 활용하는 방향으로 변화하고 있습니다. 이는 국방 기술, 첨단 제조, 로봇 공학, 반도체 등 막대한 초기 투자가 필요한 A&D 기업들에게 특히 중요하며, 기존 방위 산업체 및 전략적 구매자들도 신기술, 전문 인력, 지적 재산권 확보를 위해 M&A 전략을 재편하고 있습니다. 따라서 A&D 기업들은 희석을 관리하고 성장을 지원하기 위해 벤처 지분 외에 다양한 자본 수단을 조합하는 것을 고려해야 하며, 자금 조달 및 출구 전략을 함께 개발하고 자본 구조와 투자자 권리를 사전에 면밀히 검토하는 것이 중요합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-19T19:40:18.248Z"
     }
   ]
 }
