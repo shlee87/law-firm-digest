@@ -66,6 +66,27 @@
       "summaryConfidence": "high",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-11-19T19:40:18.248Z"
+    },
+    {
+      "firmId": "skadden",
+      "title": "Capital, Suppliers and Data: How Three US Regimes Now Restrict Biotech Dealings With China",
+      "url": "https://skadden.com/insights/publications/2026/11/capital-suppliers-and-data",
+      "publishedAt": "2026-11-18T05:00:00.000Z",
+      "language": "en",
+      "summary_ko": "미국 정부는 바이오 기술을 국가 안보 기술로 지정하며, 중국과의 바이오 기술 거래를 제한하는 세 가지 규제(COINS, BIOSECURE, 데이터 보안 프로그램)를 도입했습니다. 이 규제들은 미국 기업의 중국 바이오 기업 투자 제한, 연방 자금 지원 사업에서의 중국 공급업체 배제, 그리고 미국인의 유전 및 건강 데이터 공유 제한을 골자로 합니다. 이에 따라 미국에서 사업을 하는 생명 과학 기업들은 투자 포트폴리오, 라이선스 계약, 공급망, 데이터 흐름 전반에 걸쳐 중국과의 연관성을 면밀히 검토하고, 규제 준수를 위한 계약 조항 추가 등 선제적인 조치를 취해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-20T19:18:45.085Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "US Commerce Department Adopts Rule Restricting Remote Access to Advanced AI Chips",
+      "url": "https://lw.com/en/insights/us-commerce-department-adopts-rule-restricting-remote-access-to-advanced-ai-chips",
+      "language": "en",
+      "summary_ko": "미국 상무부가 첨단 AI 칩에 대한 원격 접근을 제한하는 새로운 규정을 채택했습니다. 이 규정은 중국 및 특정 국가에 본사를 둔 기업에 원격으로 상당한 컴퓨팅 파워를 제공하는 전 세계 데이터 센터로 향하는 첨단 AI 칩에 대한 새로운 통제를 부과합니다. 또한 상무부가 전용 위험이 있다고 판단하는 5개국에 대해서는 라이선스를 요구하므로, 관련 기업들은 이러한 새로운 통제 및 라이선스 요건을 면밀히 검토해야 합니다.",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-20T19:18:45.085Z"
     }
   ]
 }
