@@ -87,6 +87,16 @@
       "summaryConfidence": "low",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-11-20T19:18:45.085Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "Discussion on Reforming German Takeover Law",
+      "url": "https://lw.com/en/admin/upload/SiteAttachments/Reformdiskussion-um-%C3%9Cbernahmerecht.pdf",
+      "language": "en",
+      "summary_ko": "Discussion on Reforming German Takeover Law",
+      "summaryConfidence": "low",
+      "summaryModel": "skipped",
+      "summarizedAt": "2026-11-21T18:20:25.050Z"
     }
   ]
 }
