@@ -12,6 +12,26 @@
       "summaryConfidence": "low",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-11-24T21:37:03.886Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "「디지털자산업의 혁신과 이용자 보호에 관한 법률」 제정안 입법 추진",
+      "url": "https://yoonyang.com/kor/insights/newsletter/15328",
+      "language": "ko",
+      "summary_ko": "금융위원회가 「디지털자산업의 혁신과 이용자 보호에 관한 법률」 제정안을 공개했습니다. 이는 디지털자산업의 기능별 세분화, 원화 스테이블코인 제도화, 국내 디지털자산 발행(ICO) 허용, 거래소 소유분산 규제, 해킹·전산사고 시 무과실 손해배상책임 등을 핵심으로 하는 통합 규율체계입니다.디지털자산 사업자, 스테이블코인 발행을 계획하는 금융회사 및 기술기업, ICO 발행인, 그리고 디지털자산 이용자 전반에 영향을 미칩니다.관련 업계는 사업모델에 따른 인허가 요건, 영업행위 규제, 거래소 소유분산 규제, 백서 공시 의무, 내부통제 및 보안 체계 고도화 등 강화된 컴플라이언스 부담에 대비하고, 향후 국회 심의 및 하위법령 제정 동향을 지속적으로 모니터링해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-25T20:45:05.129Z"
+    },
+    {
+      "firmId": "latham",
+      "title": "President Trump Issues Executive Order “Protecting the Executive’s Privileges and Enhancing Efficiencies in Federal Contracting”",
+      "url": "https://lw.com/en/insights/president-trump-issues-executive-order-protecting-the-executive-privileges",
+      "language": "en",
+      "summary_ko": "President Trump Issues Executive Order “Protecting the Executive’s Privileges and Enhancing Efficiencies in Federal Contracting”",
+      "summaryConfidence": "low",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-25T20:45:05.129Z"
     }
   ]
 }
