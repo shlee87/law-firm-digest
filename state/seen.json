@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-11-25T20:46:48.433Z",
+  "lastUpdated": "2026-11-26T20:38:31.460Z",
   "firms": {
     "cooley": {
       "urls": [
@@ -509,6 +509,7 @@
     },
     "yoon-yang": {
       "urls": [
+        "https://yoonyang.com/kor/insights/newsletter/15336",
         "https://yoonyang.com/kor/insights/newsletter/15328",
         "https://yoonyang.com/kor/insights/newsletter/15318",
         "https://yoonyang.com/kor/insights/newsletter/15292",
@@ -653,6 +654,7 @@
     },
     "latham": {
       "urls": [
+        "https://lw.com/en/insights/ninth-circuit-halts-sb-261-and-scope-3-reporting-scope-1-and-2-reporting-remains",
         "https://lw.com/en/insights/president-trump-issues-executive-order-protecting-the-executive-privileges",
         "https://lw.com/en/admin/upload/SiteAttachments/Reformdiskussion-um-%C3%9Cbernahmerecht.pdf",
         "https://lw.com/en/insights/private-capital-summit-2026-5-key-takeaways",
