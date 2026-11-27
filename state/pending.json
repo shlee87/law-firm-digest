@@ -32,6 +32,27 @@
       "summaryConfidence": "low",
       "summaryModel": "gemini-2.5-flash",
       "summarizedAt": "2026-11-25T20:45:05.129Z"
+    },
+    {
+      "firmId": "lee-ko",
+      "title": "인공지능 데이터센터법 시행령 제정안 입법예고",
+      "url": "https://leeko.com/leenko/news/newsLetterView.do?lang=KR&newsletterNo=2340",
+      "publishedAt": "2026-11-23T15:00:00.000Z",
+      "language": "ko",
+      "summary_ko": "과학기술정보통신부는 「인공지능 데이터센터 산업진흥에 관한 특별법」 시행령 제정안을 입법예고하여 AI 데이터센터의 인정기준, 신고절차, 인허가 일괄처리, 전력계통영향평가 면제 범위 등을 구체화했습니다. 이는 AI 데이터센터 구축 및 운영 기업과 관련 설비 수출 기업에 영향을 미칩니다. 기업들은 시설 설계, 전력 계약, 신고 일정 등 세부 기준을 사전 점검하고, 전력 확보 및 인허가 일정을 사업 계획에 반영해야 합니다. 또한 국회 계류 법안 동향을 주시하고, 입지 선정 시 주민 수용성 확보 방안을 마련하는 것이 중요합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-27T20:23:37.692Z"
+    },
+    {
+      "firmId": "yoon-yang",
+      "title": "이재명 정부의 ‘동일가치노동 동일임금’ 법제화 추진",
+      "url": "https://yoonyang.com/kor/insights/newsletter/15343",
+      "language": "ko",
+      "summary_ko": "이재명 정부는 '동일가치노동 동일임금' 원칙의 법제화를 추진하며, 근로기준법 및 기간제법 개정안을 통해 고용형태를 차별금지 사유에 추가하고 근로자의 자료요청권 및 노동위원회 시정신청 절차를 도입하려 합니다. 이는 모든 기업에 영향을 미치므로, 기업은 직무기술서, 임금격차 현황, 임금 결정 근거, 평가·보상 체계의 정합성을 점검하고 자료 요청 대응 절차를 준비하는 등 선제적으로 대응해야 합니다.",
+      "summaryConfidence": "high",
+      "summaryModel": "gemini-2.5-flash",
+      "summarizedAt": "2026-11-27T20:23:37.692Z"
     }
   ]
 }
